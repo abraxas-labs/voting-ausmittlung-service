@@ -42,6 +42,7 @@ public abstract class VoteResultBundleBaseTest : PoliticalBusinessResultBaseTest
         BundleErfassungElectionAdminClientStGallen = new VoteResultBundleService.VoteResultBundleServiceClient(CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantStGallen.Id, "my-user-99", RolesMockedData.ErfassungElectionAdmin));
         await base.InitializeAsync();
         await RunToState(CountingCircleResultState.SubmissionOngoing);
+        await RunEvents<VoteResultSubmissionStarted>();
         await ResetQuestionResults();
         EventPublisherMock.Clear();
     }
@@ -52,29 +53,29 @@ public abstract class VoteResultBundleBaseTest : PoliticalBusinessResultBaseTest
         await VoteResultBundleMockedData.Seed(RunScoped);
     }
 
-    protected async Task RunBundleToState(BallotBundleState state, Guid? bundleId = null)
+    protected async Task RunBundleToState(BallotBundleState state, Guid? bundleId = null, string userId = TestDefaults.UserId)
     {
         switch (state)
         {
             case BallotBundleState.InCorrection:
-                await RunBundleToState(BallotBundleState.ReadyForReview, bundleId);
-                await SetBundleInCorrection(bundleId);
+                await RunBundleToState(BallotBundleState.ReadyForReview, bundleId, userId);
+                await SetBundleInCorrection(bundleId, userId);
                 break;
             case BallotBundleState.ReadyForReview:
-                await CreateBallot(bundleId);
-                await SetBundleSubmissionFinished(bundleId);
+                await CreateBallot(bundleId, userId);
+                await SetBundleSubmissionFinished(bundleId, userId);
                 break;
             case BallotBundleState.Reviewed:
-                await RunBundleToState(BallotBundleState.ReadyForReview, bundleId);
-                await SetBundleReviewed(bundleId);
+                await RunBundleToState(BallotBundleState.ReadyForReview, bundleId, userId);
+                await SetBundleReviewed(bundleId, userId);
                 break;
             case BallotBundleState.Deleted:
-                await SetBundleDeleted(bundleId);
+                await SetBundleDeleted(bundleId, userId);
                 break;
         }
     }
 
-    protected async Task SetBundleSubmissionFinished(Guid? bundleId = null)
+    protected async Task SetBundleSubmissionFinished(Guid? bundleId = null, string userId = TestDefaults.UserId)
     {
         await RunOnBundle<VoteResultBundleSubmissionFinished>(
             bundleId,
@@ -89,7 +90,8 @@ public abstract class VoteResultBundleBaseTest : PoliticalBusinessResultBaseTest
                         aggregate.SubmissionFinished(ContestMockedData.StGallenEvotingUrnengang.Id);
                         break;
                 }
-            });
+            },
+            userId);
     }
 
     protected async Task<Guid> CreateBundle(int bundleNumber, string userId = TestDefaults.UserId)
@@ -109,6 +111,7 @@ public abstract class VoteResultBundleBaseTest : PoliticalBusinessResultBaseTest
                         BallotBundleSampleSizePercent = 10,
                         ReviewProcedure = VoteReviewProcedure.Physically,
                         AutomaticBallotBundleNumberGeneration = true,
+                        AutomaticBallotNumberGeneration = true,
                     },
                     ContestMockedData.StGallenEvotingUrnengang.Id);
             },
@@ -116,7 +119,7 @@ public abstract class VoteResultBundleBaseTest : PoliticalBusinessResultBaseTest
         return bundleId;
     }
 
-    protected async Task SetBundleInCorrection(Guid? bundleId = null)
+    protected async Task SetBundleInCorrection(Guid? bundleId = null, string userId = TestDefaults.UserId)
     {
         await RunOnBundle<VoteResultBundleReviewRejected>(
             bundleId,
@@ -126,41 +129,74 @@ public abstract class VoteResultBundleBaseTest : PoliticalBusinessResultBaseTest
                 {
                     aggregate.RejectReview(ContestMockedData.StGallenEvotingUrnengang.Id);
                 }
-            });
+            },
+            userId);
     }
 
-    protected async Task SetBundleReviewed(Guid? bundleId = null)
+    protected async Task SetBundleReviewed(Guid? bundleId = null, string userId = TestDefaults.UserId)
     {
-        await RunOnBundle<VoteResultBundleReviewSucceeded>(bundleId, aggregate => aggregate.SucceedReview(ContestMockedData.StGallenEvotingUrnengang.Id));
+        await RunOnBundle<VoteResultBundleReviewSucceeded>(
+            bundleId,
+            aggregate => aggregate.SucceedReview(ContestMockedData.StGallenEvotingUrnengang.Id),
+            userId);
     }
 
-    protected async Task SetBundleDeleted(Guid? bundleId = null)
+    protected async Task SetBundleDeleted(Guid? bundleId = null, string userId = TestDefaults.UserId)
     {
-        await RunOnBundle<VoteResultBundleDeleted>(bundleId, aggregate => aggregate.Delete(ContestMockedData.StGallenEvotingUrnengang.Id));
+        await RunOnBundle<VoteResultBundleDeleted>(
+            bundleId,
+            aggregate => aggregate.Delete(ContestMockedData.StGallenEvotingUrnengang.Id),
+            userId);
     }
 
-    protected async Task CreateBallot(Guid? bundleId = null)
+    protected async Task CreateBallot(Guid? bundleId = null, string userId = TestDefaults.UserId)
     {
-        await RunOnBundle<VoteResultBallotCreated>(bundleId, aggregate =>
-        {
-            if (aggregate.State != BallotBundleState.InProcess && aggregate.State != BallotBundleState.InCorrection)
+        await RunOnBundle<VoteResultBallotCreated>(
+            bundleId,
+            aggregate =>
             {
-                return;
-            }
+                if (aggregate.State != BallotBundleState.InProcess && aggregate.State != BallotBundleState.InCorrection)
+                {
+                    return;
+                }
 
-            aggregate.CreateBallot(
-                new List<VoteResultBallotQuestionAnswer>
-                {
-                    new() { QuestionNumber = 1, Answer = BallotQuestionAnswer.Yes, },
-                    new() { QuestionNumber = 2, Answer = BallotQuestionAnswer.No, },
-                },
-                new List<VoteResultBallotTieBreakQuestionAnswer>
-                {
-                    new() { QuestionNumber = 1, Answer = TieBreakQuestionAnswer.Q1, },
-                },
-                ContestMockedData.StGallenEvotingUrnengang.Id);
-            LatestBallotNumber = aggregate.CurrentBallotNumber;
-        });
+                aggregate.CreateBallot(
+                    null,
+                    new List<VoteResultBallotQuestionAnswer>
+                    {
+                        new() { QuestionNumber = 1, Answer = BallotQuestionAnswer.Yes, },
+                        new() { QuestionNumber = 2, Answer = BallotQuestionAnswer.No, },
+                    },
+                    new List<VoteResultBallotTieBreakQuestionAnswer>
+                    {
+                        new() { QuestionNumber = 1, Answer = TieBreakQuestionAnswer.Q1, },
+                    },
+                    ContestMockedData.StGallenEvotingUrnengang.Id);
+                LatestBallotNumber = aggregate.CurrentBallotNumber;
+            },
+            userId);
+    }
+
+    protected async Task UpdateBallot(int ballotNumber, Guid? bundleId = null, string userId = TestDefaults.UserId)
+    {
+        await RunOnBundle<VoteResultBallotUpdated>(
+            bundleId,
+            aggregate =>
+            {
+                aggregate.UpdateBallot(
+                    ballotNumber,
+                    new List<VoteResultBallotQuestionAnswer>
+                    {
+                        new() { QuestionNumber = 1, Answer = BallotQuestionAnswer.Yes, },
+                        new() { QuestionNumber = 2, Answer = BallotQuestionAnswer.No, },
+                    },
+                    new List<VoteResultBallotTieBreakQuestionAnswer>
+                    {
+                        new() { QuestionNumber = 1, Answer = TieBreakQuestionAnswer.Q1, },
+                    },
+                    ContestMockedData.StGallenEvotingUrnengang.Id);
+            },
+            userId);
     }
 
     protected Task<VoteResultBundle> GetBundle(Guid? id = null)

@@ -1,0 +1,117 @@
+{
+  "BallotResult": {
+    "Ballot": null,
+    "BallotId": "154ee710-88b7-419a-ae5b-74a44c9c969e",
+    "VoteResult": null,
+    "VoteResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+    "CountOfVoters": {
+      "VoterParticipation": 0.75,
+      "EVotingSubTotal": {
+        "ReceivedBallots": 0,
+        "InvalidBallots": 0,
+        "BlankBallots": 0,
+        "AccountedBallots": 0
+      },
+      "ECountingSubTotal": {
+        "ReceivedBallots": 0,
+        "InvalidBallots": 0,
+        "BlankBallots": 0,
+        "AccountedBallots": 0
+      },
+      "ConventionalSubTotal": {
+        "ReceivedBallots": 20000,
+        "InvalidBallots": 3000,
+        "BlankBallots": 2000,
+        "AccountedBallots": 12000
+      },
+      "TotalReceivedBallots": 20000,
+      "TotalAccountedBallots": 12000,
+      "TotalUnaccountedBallots": 5000,
+      "TotalInvalidBallots": 3000,
+      "TotalBlankBallots": 2000
+    },
+    "QuestionResults": [],
+    "TieBreakQuestionResults": [],
+    "CountOfBundlesNotReviewedOrDeleted": 3,
+    "AllBundlesReviewedOrDeleted": false,
+    "Bundles": [],
+    "ConventionalCountOfDetailedEnteredBallots": 0,
+    "Id": "082c7c7a-8f1d-555f-be18-54f5673412e1"
+  },
+  "BallotResultId": "082c7c7a-8f1d-555f-be18-54f5673412e1",
+  "Ballots": [],
+  "Logs": [
+    {
+      "Bundle": null,
+      "BundleId": "cc757c66-e78c-4f56-907b-6afb27d723d5",
+      "User": {
+        "SecureConnectId": "default-user-id",
+        "FirstName": "Hans",
+        "LastName": "Muster",
+        "FullName": "Hans Muster"
+      },
+      "Timestamp": "2020-01-10T13:12:10.2Z",
+      "State": 1,
+      "Id": "00000000-0000-0000-0000-000000000000"
+    },
+    {
+      "Bundle": null,
+      "BundleId": "cc757c66-e78c-4f56-907b-6afb27d723d5",
+      "User": {
+        "SecureConnectId": "default-user-id",
+        "FirstName": "",
+        "LastName": "",
+        "FullName": " "
+      },
+      "Timestamp": "2020-01-10T13:12:10.2Z",
+      "State": 3,
+      "Id": "00000000-0000-0000-0000-000000000000"
+    },
+    {
+      "Bundle": null,
+      "BundleId": "cc757c66-e78c-4f56-907b-6afb27d723d5",
+      "User": {
+        "SecureConnectId": "default-user-id",
+        "FirstName": "",
+        "LastName": "",
+        "FullName": " "
+      },
+      "Timestamp": "2020-01-10T13:12:10.2Z",
+      "State": 4,
+      "Id": "00000000-0000-0000-0000-000000000000"
+    },
+    {
+      "Bundle": null,
+      "BundleId": "cc757c66-e78c-4f56-907b-6afb27d723d5",
+      "User": {
+        "SecureConnectId": "default-user-id",
+        "FirstName": "default user firstname",
+        "LastName": "default user lastname",
+        "FullName": "default user firstname default user lastname"
+      },
+      "Timestamp": "2020-07-17T10:07:56Z",
+      "State": 3,
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "Number": 1,
+  "State": 3,
+  "CreatedBy": {
+    "SecureConnectId": "default-user-id",
+    "FirstName": "Hans",
+    "LastName": "Muster",
+    "FullName": "Hans Muster"
+  },
+  "ReviewedBy": {
+    "SecureConnectId": "default-user-id",
+    "FirstName": "",
+    "LastName": "",
+    "FullName": " "
+  },
+  "CountOfBallots": 2,
+  "CountOfModifiedBallots": null,
+  "BallotNumbersToReview": [],
+  "BallotNumbers": [],
+  "ProtocolExport": null,
+  "Id": "cc757c66-e78c-4f56-907b-6afb27d723d5"
+}

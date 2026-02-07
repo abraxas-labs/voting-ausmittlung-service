@@ -128,6 +128,10 @@ public class ProportionalElectionEndResultRevertMandateDistributionTest : Propor
                 x.MandateDistributionTriggered = true;
             });
 
+        await ModifyDbEntities<SimplePoliticalBusiness>(
+            x => x.Id == electionGuid,
+            x => x.EndResultFinalized = true);
+
         var result = await RunOnDb(x => x.ProportionalElectionEndResult.FirstAsync(r => r.ProportionalElectionId == electionGuid));
 
         await TestEventPublisher.Publish(
@@ -139,9 +143,12 @@ public class ProportionalElectionEndResultRevertMandateDistributionTest : Propor
                 EventInfo = GetMockedEventInfo(),
             });
 
+        var simplePb = await RunOnDb(x => x.SimplePoliticalBusinesses.SingleAsync(r => r.Id == electionGuid));
+
         result = await RunOnDb(x => x.ProportionalElectionEndResult.FirstAsync(vr => vr.ProportionalElectionId == electionGuid));
         result.MandateDistributionTriggered.Should().BeFalse();
         result.Finalized.Should().BeFalse();
+        simplePb.EndResultFinalized.Should().BeFalse();
 
         await AssertHasPublishedEventProcessedMessage(
             ProportionalElectionEndResultMandateDistributionReverted.Descriptor,

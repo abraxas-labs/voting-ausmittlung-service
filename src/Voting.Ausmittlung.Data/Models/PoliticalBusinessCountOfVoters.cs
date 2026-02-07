@@ -100,7 +100,7 @@ public class PoliticalBusinessCountOfVoters : IHasSubTotals<PoliticalBusinessCou
         }
 
         // round to 6 decimal places has to be in sync with frontend
-        VoterParticipation = Math.Round(TotalReceivedBallots / (decimal)totalCountOfVoters, 6);
+        VoterParticipation = Math.Round(TotalReceivedBallots / (decimal)totalCountOfVoters, 6, MidpointRounding.AwayFromZero);
     }
 
     public void ResetSubTotal(VotingDataSource dataSource, int totalCountOfVoters)

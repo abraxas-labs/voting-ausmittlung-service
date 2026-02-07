@@ -46,22 +46,38 @@ public class ProportionalElectionResultBundleReader
     public async Task<ProportionalElectionResult> GetElectionResultWithBundles(Guid electionResultId)
     {
         var electionResult = await _resultRepo.Query()
-                                 .AsSplitQuery()
-                                 .Include(x => x.CountingCircle)
-                                 .Include(x => x.ProportionalElection.Translations)
-                                 .Include(x => x.ProportionalElection.DomainOfInfluence)
-                                 .Include(x => x.ProportionalElection.Contest.Translations)
-                                 .Include(x => x.ProportionalElection.Contest.CantonDefaults)
-                                 .Include(x => x.Bundles).ThenInclude(x => x.List!.Translations)
-                                 .Include(x => x.Bundles).ThenInclude(x => x.Logs.OrderBy(y => y.Timestamp))
-                                 .FirstOrDefaultAsync(x => x.Id == electionResultId)
-                             ?? throw new EntityNotFoundException(electionResultId);
+            .AsSplitQuery()
+            .Include(x => x.CountingCircle)
+            .Include(x => x.ProportionalElection.Translations)
+            .Include(x => x.ProportionalElection.DomainOfInfluence)
+            .Include(x => x.ProportionalElection.Contest.Translations)
+            .Include(x => x.ProportionalElection.Contest.CantonDefaults)
+            .Include(x => x.Bundles).ThenInclude(x => x.List!.Translations)
+            .Include(x => x.Bundles).ThenInclude(x => x.Logs.OrderBy(y => y.Timestamp))
+            .FirstOrDefaultAsync(x => x.Id == electionResultId)
+            ?? throw new EntityNotFoundException(electionResultId);
 
         await _permissionService.EnsureCanReadCountingCircle(electionResult.CountingCircleId, electionResult.ProportionalElection.ContestId);
 
         electionResult.Bundles = electionResult.Bundles
             .OrderBy(b => b.Number)
             .ToList();
+
+        var countOfModifiedBallotsByBundleId = await _bundleRepo.Query()
+            .Where(b => b.ElectionResultId == electionResultId)
+            .Select(b => new
+            {
+                b.Id,
+                CountOfModifiedBallots = b.Ballots.Count(ballot => ballot.Logs.Count > 0),
+            })
+            .ToDictionaryAsync(x => x.Id, x => x.CountOfModifiedBallots);
+        foreach (var bundle in electionResult.Bundles)
+        {
+            if (countOfModifiedBallotsByBundleId.TryGetValue(bundle.Id, out var countOfModifiedBallots))
+            {
+                bundle.CountOfModifiedBallots = countOfModifiedBallots;
+            }
+        }
 
         await _politicalBusinessResultBundleBuilder.AddProtocolExportsToBundles(
             electionResult.Bundles,
@@ -77,24 +93,36 @@ public class ProportionalElectionResultBundleReader
     public async Task<ProportionalElectionResultBundle> GetBundle(Guid bundleId)
     {
         var bundle = await _bundleRepo.Query()
-                                 .AsSplitQuery()
-                                 .Include(x => x.ElectionResult.CountingCircle)
-                                 .Include(x => x.ElectionResult.ProportionalElection.DomainOfInfluence)
-                                 .Include(x => x.ElectionResult.ProportionalElection.Translations)
-                                 .Include(x => x.ElectionResult.ProportionalElection.Contest.Translations)
-                                 .Include(x => x.ElectionResult.ProportionalElection.Contest.CantonDefaults)
-                                 .Include(x => x.List!.Translations)
-                                 .Include(x => x.Logs.OrderBy(y => y.Timestamp))
-                                 .FirstOrDefaultAsync(x => x.Id == bundleId)
-                             ?? throw new EntityNotFoundException(bundleId);
+            .AsSplitQuery()
+            .Include(x => x.ElectionResult.CountingCircle)
+            .Include(x => x.ElectionResult.ProportionalElection.DomainOfInfluence)
+            .Include(x => x.ElectionResult.ProportionalElection.Translations)
+            .Include(x => x.ElectionResult.ProportionalElection.Contest.Translations)
+            .Include(x => x.ElectionResult.ProportionalElection.Contest.CantonDefaults)
+            .Include(x => x.List!.Translations)
+            .Include(x => x.Logs.OrderBy(y => y.Timestamp))
+            .FirstOrDefaultAsync(x => x.Id == bundleId)
+            ?? throw new EntityNotFoundException(bundleId);
 
         await _permissionService.EnsureCanReadCountingCircle(bundle.ElectionResult.CountingCircleId, bundle.ElectionResult.ProportionalElection.ContestId);
 
-        bundle.BallotNumbersToReview = await _ballotRepo.Query()
-            .Where(b => b.BundleId == bundle.Id && b.MarkedForReview)
-            .Select(b => b.Number)
-            .OrderBy(b => b)
+        var ballotInfo = await _ballotRepo.Query()
+            .Where(b => b.BundleId == bundle.Id)
+            .Select(b => new
+            {
+                b.Number,
+                b.MarkedForReview,
+                b.Index,
+                HasLogs = b.Logs.Count > 0,
+            })
+            .OrderBy(b => b.Index)
             .ToListAsync();
+        bundle.BallotNumbers = ballotInfo.ConvertAll(b => b.Number);
+        bundle.BallotNumbersToReview = ballotInfo
+            .Where(b => b.MarkedForReview)
+            .Select(b => b.Number)
+            .ToList();
+        bundle.CountOfModifiedBallots = ballotInfo.Count(b => b.HasLogs);
 
         return bundle;
     }
@@ -102,12 +130,13 @@ public class ProportionalElectionResultBundleReader
     public async Task<ProportionalElectionResultBallot> GetBallot(Guid bundleId, int ballotNumber)
     {
         var ballot = await _ballotRepo.Query()
-                         .AsSplitQuery()
-                         .Include(x => x.Bundle.ElectionResult.ProportionalElection.Translations)
-                         .Include(x => x.BallotCandidates).ThenInclude(x => x.Candidate.Translations)
-                         .Include(x => x.BallotCandidates).ThenInclude(x => x.Candidate.ProportionalElectionList.Translations)
-                         .FirstOrDefaultAsync(x => x.BundleId == bundleId && x.Number == ballotNumber)
-                     ?? throw new EntityNotFoundException(new { bundleId, ballotNumber });
+            .AsSplitQuery()
+            .Include(x => x.Bundle.ElectionResult.ProportionalElection.Translations)
+            .Include(x => x.BallotCandidates).ThenInclude(x => x.Candidate.Translations)
+            .Include(x => x.BallotCandidates).ThenInclude(x => x.Candidate.ProportionalElectionList.Translations)
+            .Include(x => x.Logs.OrderBy(y => y.Timestamp))
+            .FirstOrDefaultAsync(x => x.BundleId == bundleId && x.Number == ballotNumber)
+            ?? throw new EntityNotFoundException(new { bundleId, ballotNumber });
 
         await EnsureCanReadBallot(ballot);
 

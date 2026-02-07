@@ -14,4 +14,6 @@ public class ProportionalElectionResultBallot : PrimaryElectionResultBallot
 
     public ICollection<ProportionalElectionResultBallotCandidate> BallotCandidates { get; set; }
         = new HashSet<ProportionalElectionResultBallotCandidate>();
+
+    public List<ProportionalElectionResultBallotLog> Logs { get; set; } = new();
 }

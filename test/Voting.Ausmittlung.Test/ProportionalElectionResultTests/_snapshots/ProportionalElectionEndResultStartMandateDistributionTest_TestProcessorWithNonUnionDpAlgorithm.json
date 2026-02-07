@@ -45,6 +45,7 @@
     "CandidateCheckDigit": false,
     "BallotBundleSize": 25,
     "AutomaticBallotBundleNumberGeneration": true,
+    "AutomaticBallotNumberGeneration": false,
     "BallotNumberGeneration": 1,
     "AutomaticEmptyVoteCounting": false,
     "EnforceEmptyVoteCountingForCountingCircles": false,
@@ -374,28 +375,28 @@
         },
         {
           "Candidate": {
-            "Id": "170c718a-4433-4aa7-9583-2b79a5c3a550",
+            "Id": "7792ecfc-51ee-47e2-bc83-1eef92b6925a",
             "ListId": "d961fdd7-7910-4722-ac3e-8ae3d906741d",
             "ListNumber": "L1",
-            "Number": "numberL1.C3",
-            "PoliticalFirstName": "L1.C3pol firstName",
-            "PoliticalLastName": "L1.C3pol last name",
-            "Description": "L1.numberL1.C3 L1.C3pol last name L1.C3pol firstName",
-            "Position": 3,
+            "Number": "numberL1.C2",
+            "PoliticalFirstName": "L1.C2pol firstName",
+            "PoliticalLastName": "L1.C2pol last name",
+            "Description": "L1.numberL1.C2 L1.C2pol last name L1.C2pol firstName",
+            "Position": 2,
             "Accumulated": false,
             "AccumulatedPosition": 0,
-            "NumberIncludingList": "L1.numberL1.C3",
+            "NumberIncludingList": "L1.numberL1.C2",
             "ListDescription": "",
             "ListShortDescription": "Liste 1 de",
             "ListPosition": 1,
-            "CheckDigit": 2
+            "CheckDigit": 4
           },
           "VoteCount": 6000,
           "Rank": 2,
           "LotDecision": false,
-          "LotDecisionEnabled": true,
-          "LotDecisionRequired": true,
-          "State": 1,
+          "LotDecisionEnabled": false,
+          "LotDecisionRequired": false,
+          "State": 2,
           "EVotingSubTotal": {
             "UnmodifiedListVotesCount": 0,
             "ModifiedListVotesCount": 0,
@@ -420,28 +421,28 @@
         },
         {
           "Candidate": {
-            "Id": "7792ecfc-51ee-47e2-bc83-1eef92b6925a",
+            "Id": "170c718a-4433-4aa7-9583-2b79a5c3a550",
             "ListId": "d961fdd7-7910-4722-ac3e-8ae3d906741d",
             "ListNumber": "L1",
-            "Number": "numberL1.C2",
-            "PoliticalFirstName": "L1.C2pol firstName",
-            "PoliticalLastName": "L1.C2pol last name",
-            "Description": "L1.numberL1.C2 L1.C2pol last name L1.C2pol firstName",
-            "Position": 2,
+            "Number": "numberL1.C3",
+            "PoliticalFirstName": "L1.C3pol firstName",
+            "PoliticalLastName": "L1.C3pol last name",
+            "Description": "L1.numberL1.C3 L1.C3pol last name L1.C3pol firstName",
+            "Position": 3,
             "Accumulated": false,
             "AccumulatedPosition": 0,
-            "NumberIncludingList": "L1.numberL1.C2",
+            "NumberIncludingList": "L1.numberL1.C3",
             "ListDescription": "",
             "ListShortDescription": "Liste 1 de",
             "ListPosition": 1,
-            "CheckDigit": 4
+            "CheckDigit": 2
           },
           "VoteCount": 6000,
-          "Rank": 2,
+          "Rank": 3,
           "LotDecision": false,
-          "LotDecisionEnabled": true,
-          "LotDecisionRequired": true,
-          "State": 1,
+          "LotDecisionEnabled": false,
+          "LotDecisionRequired": false,
+          "State": 3,
           "EVotingSubTotal": {
             "UnmodifiedListVotesCount": 0,
             "ModifiedListVotesCount": 0,
@@ -467,7 +468,7 @@
       ],
       "ListUnion": null,
       "SubListUnion": null,
-      "HasOpenRequiredLotDecisions": true,
+      "LotDecisionState": 1,
       "EVotingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,
@@ -560,55 +561,9 @@
           "VoteCount": 6000,
           "Rank": 1,
           "LotDecision": false,
-          "LotDecisionEnabled": true,
-          "LotDecisionRequired": true,
-          "State": 1,
-          "EVotingSubTotal": {
-            "UnmodifiedListVotesCount": 0,
-            "ModifiedListVotesCount": 0,
-            "CountOfVotesOnOtherLists": 0,
-            "CountOfVotesFromAccumulations": 0,
-            "VoteCount": 0
-          },
-          "ECountingSubTotal": {
-            "UnmodifiedListVotesCount": 0,
-            "ModifiedListVotesCount": 0,
-            "CountOfVotesOnOtherLists": 0,
-            "CountOfVotesFromAccumulations": 0,
-            "VoteCount": 0
-          },
-          "ConventionalSubTotal": {
-            "UnmodifiedListVotesCount": 6000,
-            "ModifiedListVotesCount": 0,
-            "CountOfVotesOnOtherLists": 0,
-            "CountOfVotesFromAccumulations": 0,
-            "VoteCount": 6000
-          }
-        },
-        {
-          "Candidate": {
-            "Id": "ef343dc0-b6bd-4dd2-bdd0-cc86f1dd30b9",
-            "ListId": "e960cb37-ea85-4464-9e91-26f5d77ebbfb",
-            "ListNumber": "L2",
-            "Number": "numberL2.C3",
-            "PoliticalFirstName": "L2.C3pol firstName",
-            "PoliticalLastName": "L2.C3pol last name",
-            "Description": "L2.numberL2.C3 L2.C3pol last name L2.C3pol firstName",
-            "Position": 3,
-            "Accumulated": false,
-            "AccumulatedPosition": 0,
-            "NumberIncludingList": "L2.numberL2.C3",
-            "ListDescription": "",
-            "ListShortDescription": "Liste 2 de",
-            "ListPosition": 2,
-            "CheckDigit": 0
-          },
-          "VoteCount": 6000,
-          "Rank": 1,
-          "LotDecision": false,
-          "LotDecisionEnabled": true,
-          "LotDecisionRequired": true,
-          "State": 1,
+          "LotDecisionEnabled": false,
+          "LotDecisionRequired": false,
+          "State": 2,
           "EVotingSubTotal": {
             "UnmodifiedListVotesCount": 0,
             "ModifiedListVotesCount": 0,
@@ -650,11 +605,57 @@
             "CheckDigit": 1
           },
           "VoteCount": 6000,
-          "Rank": 1,
+          "Rank": 2,
           "LotDecision": false,
-          "LotDecisionEnabled": true,
-          "LotDecisionRequired": true,
-          "State": 1,
+          "LotDecisionEnabled": false,
+          "LotDecisionRequired": false,
+          "State": 3,
+          "EVotingSubTotal": {
+            "UnmodifiedListVotesCount": 0,
+            "ModifiedListVotesCount": 0,
+            "CountOfVotesOnOtherLists": 0,
+            "CountOfVotesFromAccumulations": 0,
+            "VoteCount": 0
+          },
+          "ECountingSubTotal": {
+            "UnmodifiedListVotesCount": 0,
+            "ModifiedListVotesCount": 0,
+            "CountOfVotesOnOtherLists": 0,
+            "CountOfVotesFromAccumulations": 0,
+            "VoteCount": 0
+          },
+          "ConventionalSubTotal": {
+            "UnmodifiedListVotesCount": 6000,
+            "ModifiedListVotesCount": 0,
+            "CountOfVotesOnOtherLists": 0,
+            "CountOfVotesFromAccumulations": 0,
+            "VoteCount": 6000
+          }
+        },
+        {
+          "Candidate": {
+            "Id": "ef343dc0-b6bd-4dd2-bdd0-cc86f1dd30b9",
+            "ListId": "e960cb37-ea85-4464-9e91-26f5d77ebbfb",
+            "ListNumber": "L2",
+            "Number": "numberL2.C3",
+            "PoliticalFirstName": "L2.C3pol firstName",
+            "PoliticalLastName": "L2.C3pol last name",
+            "Description": "L2.numberL2.C3 L2.C3pol last name L2.C3pol firstName",
+            "Position": 3,
+            "Accumulated": false,
+            "AccumulatedPosition": 0,
+            "NumberIncludingList": "L2.numberL2.C3",
+            "ListDescription": "",
+            "ListShortDescription": "Liste 2 de",
+            "ListPosition": 2,
+            "CheckDigit": 0
+          },
+          "VoteCount": 6000,
+          "Rank": 3,
+          "LotDecision": false,
+          "LotDecisionEnabled": false,
+          "LotDecisionRequired": false,
+          "State": 3,
           "EVotingSubTotal": {
             "UnmodifiedListVotesCount": 0,
             "ModifiedListVotesCount": 0,
@@ -686,7 +687,7 @@
         "ProportionalElectionRootListUnionId": ""
       },
       "SubListUnion": null,
-      "HasOpenRequiredLotDecisions": true,
+      "LotDecisionState": 1,
       "EVotingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,
@@ -825,7 +826,7 @@
           "VoteCount": 6000,
           "Rank": 2,
           "LotDecision": false,
-          "LotDecisionEnabled": true,
+          "LotDecisionEnabled": false,
           "LotDecisionRequired": false,
           "State": 3,
           "EVotingSubTotal": {
@@ -869,9 +870,9 @@
             "CheckDigit": 7
           },
           "VoteCount": 6000,
-          "Rank": 2,
+          "Rank": 3,
           "LotDecision": false,
-          "LotDecisionEnabled": true,
+          "LotDecisionEnabled": false,
           "LotDecisionRequired": false,
           "State": 3,
           "EVotingSubTotal": {
@@ -911,7 +912,7 @@
         "Position": 1,
         "ProportionalElectionRootListUnionId": "c46de46e-e319-43fb-8433-d571bc459dce"
       },
-      "HasOpenRequiredLotDecisions": false,
+      "LotDecisionState": 1,
       "EVotingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,
@@ -1004,9 +1005,9 @@
           "VoteCount": 6000,
           "Rank": 1,
           "LotDecision": false,
-          "LotDecisionEnabled": true,
-          "LotDecisionRequired": true,
-          "State": 1,
+          "LotDecisionEnabled": false,
+          "LotDecisionRequired": false,
+          "State": 2,
           "EVotingSubTotal": {
             "UnmodifiedListVotesCount": 0,
             "ModifiedListVotesCount": 0,
@@ -1048,11 +1049,11 @@
             "CheckDigit": 6
           },
           "VoteCount": 6000,
-          "Rank": 1,
+          "Rank": 2,
           "LotDecision": false,
-          "LotDecisionEnabled": true,
-          "LotDecisionRequired": true,
-          "State": 1,
+          "LotDecisionEnabled": false,
+          "LotDecisionRequired": false,
+          "State": 3,
           "EVotingSubTotal": {
             "UnmodifiedListVotesCount": 0,
             "ModifiedListVotesCount": 0,
@@ -1090,7 +1091,7 @@
         "Position": 1,
         "ProportionalElectionRootListUnionId": "c46de46e-e319-43fb-8433-d571bc459dce"
       },
-      "HasOpenRequiredLotDecisions": true,
+      "LotDecisionState": 1,
       "EVotingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,

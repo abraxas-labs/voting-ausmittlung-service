@@ -51,6 +51,7 @@
     "CandidateCheckDigit": true,
     "BallotBundleSize": 10,
     "AutomaticBallotBundleNumberGeneration": true,
+    "AutomaticBallotNumberGeneration": false,
     "BallotNumberGeneration": 1,
     "AutomaticEmptyVoteCounting": true,
     "EnforceEmptyVoteCountingForCountingCircles": true,
@@ -281,7 +282,7 @@
         "Position": 1,
         "ProportionalElectionRootListUnionId": "6a8913a3-bd03-4cb3-a0f9-317db5de8959"
       },
-      "HasOpenRequiredLotDecisions": false,
+      "LotDecisionState": 0,
       "EVotingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,
@@ -414,7 +415,7 @@
         "Position": 1,
         "ProportionalElectionRootListUnionId": "6a8913a3-bd03-4cb3-a0f9-317db5de8959"
       },
-      "HasOpenRequiredLotDecisions": false,
+      "LotDecisionState": 0,
       "EVotingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,
@@ -500,7 +501,7 @@
         "Position": 2,
         "ProportionalElectionRootListUnionId": "6a8913a3-bd03-4cb3-a0f9-317db5de8959"
       },
-      "HasOpenRequiredLotDecisions": false,
+      "LotDecisionState": 0,
       "EVotingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,

@@ -91,7 +91,13 @@ public class ProportionalElectionUnionDoubleProportionalResultSubApportionmentUp
     [Fact]
     public async Task TestProcessor()
     {
+        await ModifyDbEntities<ContestCantonDefaults>(
+            _ => true,
+            x => x.EndResultFinalizeDisabled = false,
+            splitQuery: true);
+
         var unionId = ZhMockedData.ProportionalElectionUnionGuidSubLot;
+        var electionId = ZhMockedData.ProportionalElectionGuidSubLotDietikon;
 
         var spUnionListId = Guid.Parse("304d6159-4a7d-5255-bd39-4e37d7ddaf0f");
         var fdpUnionListId = Guid.Parse("c9aa5f87-de0d-5e87-8cbd-602b267e5d33");
@@ -112,8 +118,13 @@ public class ProportionalElectionUnionDoubleProportionalResultSubApportionmentUp
             .AsSplitQuery()
             .Include(x => x.ListEndResults)
             .ThenInclude(x => x.CandidateEndResults)
-            .SingleAsync(x => x.ProportionalElectionId == ZhMockedData.ProportionalElectionGuidSubLotDietikon));
-        electionEndResult.ListEndResults.Any(x => x.HasOpenRequiredLotDecisions).Should().BeFalse();
+            .SingleAsync(x => x.ProportionalElectionId == electionId));
+        var simplePb = await RunOnDb(db => db.SimplePoliticalBusinesses
+            .SingleAsync(x => x.Id == electionId));
+
+        electionEndResult.ListEndResults.Any(x => x.LotDecisionState is ElectionLotDecisionState.OpenAndRequired).Should().BeFalse();
+        electionEndResult.Finalized.Should().BeFalse();
+        simplePb.EndResultFinalized.Should().BeFalse();
 
         var subApportionmentNumberOfMandatesCells = dpResult.Columns
             .SelectMany(co => co.Cells)
@@ -187,7 +198,13 @@ public class ProportionalElectionUnionDoubleProportionalResultSubApportionmentUp
             .Include(x => x.ListEndResults)
             .ThenInclude(x => x.CandidateEndResults)
             .SingleAsync(x => x.ProportionalElectionId == ZhMockedData.ProportionalElectionGuidSubLotDietikon));
-        electionEndResult.ListEndResults.Any(x => x.HasOpenRequiredLotDecisions).Should().BeTrue();
+
+        simplePb = await RunOnDb(db => db.SimplePoliticalBusinesses
+            .SingleAsync(x => x.Id == electionId));
+
+        electionEndResult.ListEndResults.All(x => x.LotDecisionState is ElectionLotDecisionState.None).Should().BeTrue();
+        electionEndResult.Finalized.Should().BeFalse();
+        simplePb.EndResultFinalized.Should().BeFalse();
 
         subApportionmentNumberOfMandatesCells = dpResult.Columns
             .SelectMany(co => co.Cells)
@@ -201,6 +218,91 @@ public class ProportionalElectionUnionDoubleProportionalResultSubApportionmentUp
             .ToList();
 
         subApportionmentNumberOfMandatesCells.MatchSnapshot("cells-number-of-mandates-after-lot-decision");
+
+        await AssertHasPublishedEventProcessedMessage(
+            ProportionalElectionUnionDoubleProportionalSubApportionmentLotDecisionUpdated.Descriptor,
+            AusmittlungUuidV5.BuildPoliticalBusinessUnionEndResult(dpResult.ProportionalElectionUnionId!.Value, false));
+    }
+
+    [Fact]
+    public async Task TestProcessorWithDisabledCantonSettingsEndResultFinalize()
+    {
+        var unionId = ZhMockedData.ProportionalElectionUnionGuidSubLot;
+        var electionId = ZhMockedData.ProportionalElectionGuidSubLotDietikon;
+
+        var spUnionListId = Guid.Parse("304d6159-4a7d-5255-bd39-4e37d7ddaf0f");
+        var fdpUnionListId = Guid.Parse("c9aa5f87-de0d-5e87-8cbd-602b267e5d33");
+
+        var spMeilenListId = ZhMockedData.ListsByElectionIdByDpResultOwnerId[unionId][ZhMockedData.ProportionalElectionGuidSubLotMeilen][1].Item1;
+        var spWinterthurListId = ZhMockedData.ListsByElectionIdByDpResultOwnerId[unionId][ZhMockedData.ProportionalElectionGuidSubLotWinterthur][1].Item1;
+        var fdpMeilenListId = ZhMockedData.ListsByElectionIdByDpResultOwnerId[unionId][ZhMockedData.ProportionalElectionGuidSubLotMeilen][2].Item1;
+        var fdpWinterthurListId = ZhMockedData.ListsByElectionIdByDpResultOwnerId[unionId][ZhMockedData.ProportionalElectionGuidSubLotWinterthur][2].Item1;
+
+        var electionEndResult = await RunOnDb(db => db.ProportionalElectionEndResult
+            .AsSplitQuery()
+            .SingleAsync(x => x.ProportionalElectionId == electionId));
+        var simplePb = await RunOnDb(db => db.SimplePoliticalBusinesses
+            .SingleAsync(x => x.Id == electionId));
+
+        electionEndResult.Finalized.Should().BeFalse();
+        simplePb.EndResultFinalized.Should().BeFalse();
+
+        await TestEventPublisher.Publish(
+            GetNextEventNumber(),
+            new ProportionalElectionUnionDoubleProportionalSubApportionmentLotDecisionUpdated
+            {
+                ProportionalElectionUnionId = unionId.ToString(),
+                DoubleProportionalResultId = AusmittlungUuidV5.BuildDoubleProportionalResult(unionId, null, false).ToString(),
+                Number = 2,
+                Columns =
+                {
+                    new ProportionalElectionUnionDoubleProportionalSubApportionmentLotDecisionColumnEventData()
+                    {
+                        UnionListId = spUnionListId.ToString(),
+                        Cells =
+                        {
+                            new ProportionalElectionUnionDoubleProportionalSubApportionmentLotDecisionCellEventData()
+                            {
+                                ListId = spMeilenListId.ToString(),
+                                NumberOfMandates = 4,
+                            },
+                            new ProportionalElectionUnionDoubleProportionalSubApportionmentLotDecisionCellEventData()
+                            {
+                                ListId = spWinterthurListId.ToString(),
+                                NumberOfMandates = 5,
+                            },
+                        },
+                    },
+                    new ProportionalElectionUnionDoubleProportionalSubApportionmentLotDecisionColumnEventData()
+                    {
+                        UnionListId = fdpUnionListId.ToString(),
+                        Cells =
+                        {
+                            new ProportionalElectionUnionDoubleProportionalSubApportionmentLotDecisionCellEventData()
+                            {
+                                ListId = fdpMeilenListId.ToString(),
+                                NumberOfMandates = 7,
+                            },
+                            new ProportionalElectionUnionDoubleProportionalSubApportionmentLotDecisionCellEventData()
+                            {
+                                ListId = fdpWinterthurListId.ToString(),
+                                NumberOfMandates = 6,
+                            },
+                        },
+                    },
+                },
+                EventInfo = GetMockedEventInfo(),
+            });
+
+        electionEndResult = await RunOnDb(db => db.ProportionalElectionEndResult
+            .AsSplitQuery()
+            .SingleAsync(x => x.ProportionalElectionId == electionId));
+
+        simplePb = await RunOnDb(db => db.SimplePoliticalBusinesses
+            .SingleAsync(x => x.Id == electionId));
+
+        electionEndResult.Finalized.Should().BeTrue();
+        simplePb.EndResultFinalized.Should().BeTrue();
     }
 
     protected override IEnumerable<string> AuthorizedRoles()

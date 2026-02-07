@@ -80,7 +80,7 @@ public class ProportionalElectionResultService : ServiceBase
         return _mapper.Map<ProtoModels.ProportionalElectionListResults>(listResults);
     }
 
-    [AuthorizePermission(Permissions.PoliticalBusinessResult.EnterResults)]
+    [AuthorizePermission(Permissions.PoliticalBusinessResult.DefineEntry)]
     public override async Task<Empty> DefineEntry(DefineProportionalElectionResultEntryRequest request, ServerCallContext context)
     {
         await _proportionalElectionResultWriter.DefineEntry(

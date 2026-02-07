@@ -362,11 +362,6 @@
             </namedElement>
           </resultData>
         </countingCircleResult>
-        <elected>
-          <majorityElection>
-            <isElectionResultComplete>true</isElectionResultComplete>
-          </majorityElection>
-        </elected>
       </electionResult>
     </electionGroupResult>
     <electionGroupResult>
@@ -2107,7 +2102,7 @@
         <elected>
           <majorityElection>
             <absoluteMajority>3304</absoluteMajority>
-            <isElectionResultComplete>false</isElectionResultComplete>
+            <isElectionResultComplete>true</isElectionResultComplete>
           </majorityElection>
         </elected>
       </electionResult>
@@ -2462,11 +2457,6 @@
             </namedElement>
           </resultData>
         </countingCircleResult>
-        <elected>
-          <majorityElection>
-            <isElectionResultComplete>true</isElectionResultComplete>
-          </majorityElection>
-        </elected>
       </electionResult>
       <electionResult>
         <electionIdentification>0741da26-add2-4c4c-960d-7e251b82e91b</electionIdentification>
@@ -2900,11 +2890,6 @@
             </namedElement>
           </resultData>
         </countingCircleResult>
-        <elected>
-          <majorityElection>
-            <isElectionResultComplete>false</isElectionResultComplete>
-          </majorityElection>
-        </elected>
       </electionResult>
       <electionResult>
         <electionIdentification>292a5a89-e030-44db-a204-90e00540ba84</electionIdentification>
@@ -3254,11 +3239,6 @@
             </namedElement>
           </resultData>
         </countingCircleResult>
-        <elected>
-          <majorityElection>
-            <isElectionResultComplete>false</isElectionResultComplete>
-          </majorityElection>
-        </elected>
       </electionResult>
       <electionResult>
         <electionIdentification>f4ae2b39-45b5-427a-96e4-24d645ddb080</electionIdentification>
@@ -3608,11 +3588,6 @@
             </namedElement>
           </resultData>
         </countingCircleResult>
-        <elected>
-          <majorityElection>
-            <isElectionResultComplete>false</isElectionResultComplete>
-          </majorityElection>
-        </elected>
       </electionResult>
     </electionGroupResult>
     <numberOfEntries>3</numberOfEntries>

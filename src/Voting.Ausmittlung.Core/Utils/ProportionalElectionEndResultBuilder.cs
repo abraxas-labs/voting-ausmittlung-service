@@ -73,7 +73,9 @@ public class ProportionalElectionEndResultBuilder
         var endResult = await _endResultRepo.GetByProportionalElectionIdAsTracked(electionId)
             ?? throw new EntityNotFoundException(electionId);
 
-        var simplePb = await _simplePoliticalBusinessRepo
+        if (endResult.ProportionalElection.MandateAlgorithm == ProportionalElectionMandateAlgorithm.HagenbachBischoff)
+        {
+            var simplePb = await _simplePoliticalBusinessRepo
                 .Query()
                 .AsSplitQuery()
                 .AsTracking()
@@ -81,18 +83,16 @@ public class ProportionalElectionEndResultBuilder
                 .FirstOrDefaultAsync(x => x.Id == electionId)
                 ?? throw new EntityNotFoundException(electionId);
 
-        var implicitFinalized = simplePb.Contest.CantonDefaults.EndResultFinalizeDisabled;
-        endResult.Finalized = implicitFinalized;
-        simplePb.EndResultFinalized = implicitFinalized;
-        endResult.MandateDistributionTriggered = true;
+            var implicitFinalized = simplePb.Contest.CantonDefaults.EndResultFinalizeDisabled;
+            endResult.Finalized = implicitFinalized;
+            simplePb.EndResultFinalized = implicitFinalized;
+            endResult.MandateDistributionTriggered = true;
 
-        if (endResult.ProportionalElection.MandateAlgorithm == ProportionalElectionMandateAlgorithm.HagenbachBischoff)
-        {
             ProportionalElectionHagenbachBischoffStrategy.RecalculateNumberOfMandatesForLists(endResult);
 
             foreach (var listEndResult in endResult.ListEndResults)
             {
-                _candidateEndResultBuilder.RecalculateCandidateEndResultRanks(listEndResult.CandidateEndResults, true);
+                _candidateEndResultBuilder.RecalculateCandidateEndResultRanks(listEndResult.CandidateEndResults, listEndResult.NumberOfMandates > 0 || endResult.ManualEndResultRequired);
                 _candidateEndResultBuilder.RecalculateLotDecisionState(listEndResult, endResult.ManualEndResultRequired);
             }
 
@@ -255,8 +255,8 @@ public class ProportionalElectionEndResultBuilder
             {
                 listEndResult.ForEachSubTotal(listResult, (endResultSubTotal, listResultSubTotal) => AdjustListEndResult(endResultSubTotal, listResultSubTotal, deltaFactor));
 
-                // has open lot decisions is calculated when the candidate end result states are set
-                listEndResult.HasOpenRequiredLotDecisions = false;
+                // lot decision state is calculated when the candidate end result states are set
+                listEndResult.LotDecisionState = ElectionLotDecisionState.Unspecified;
 
                 _candidateEndResultBuilder.AdjustCandidateEndResults(
                     listEndResult.CandidateEndResults,

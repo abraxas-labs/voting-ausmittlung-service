@@ -16,7 +16,7 @@ using Voting.Ausmittlung.Test.Utils;
 namespace Voting.Ausmittlung.Test.MockedData;
 
 /// <summary>
-/// Mock Data according the attachment "Proporzwahl - Ebene Bund - 5a_Verteilung der Sitze.pdf" in jira ticket VOTING-302.
+/// Mock Data according to "Proporzwahl - Ebene Bund - 5a_Verteilung der Sitze" as defined in ticket VOTING-302.
 /// </summary>
 public static class ProportionalElectionEndResultSgExampleMockedData
 {

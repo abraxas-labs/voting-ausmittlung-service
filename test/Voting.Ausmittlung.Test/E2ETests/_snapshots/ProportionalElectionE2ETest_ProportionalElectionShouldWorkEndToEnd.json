@@ -46,6 +46,7 @@
     "CandidateCheckDigit": false,
     "BallotBundleSize": 25,
     "AutomaticBallotBundleNumberGeneration": false,
+    "AutomaticBallotNumberGeneration": true,
     "BallotNumberGeneration": 1,
     "AutomaticEmptyVoteCounting": true,
     "EnforceEmptyVoteCountingForCountingCircles": false,
@@ -762,7 +763,7 @@
       ],
       "ListUnion": null,
       "SubListUnion": null,
-      "HasOpenRequiredLotDecisions": true,
+      "LotDecisionState": 2,
       "EVotingSubTotal": {
         "UnmodifiedListsCount": 1,
         "UnmodifiedListVotesCount": 12,
@@ -1389,7 +1390,7 @@
       ],
       "ListUnion": null,
       "SubListUnion": null,
-      "HasOpenRequiredLotDecisions": true,
+      "LotDecisionState": 2,
       "EVotingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,
@@ -2016,7 +2017,7 @@
       ],
       "ListUnion": null,
       "SubListUnion": null,
-      "HasOpenRequiredLotDecisions": true,
+      "LotDecisionState": 2,
       "EVotingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,
@@ -2643,7 +2644,7 @@
       ],
       "ListUnion": null,
       "SubListUnion": null,
-      "HasOpenRequiredLotDecisions": true,
+      "LotDecisionState": 2,
       "EVotingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,
@@ -3270,7 +3271,7 @@
       ],
       "ListUnion": null,
       "SubListUnion": null,
-      "HasOpenRequiredLotDecisions": true,
+      "LotDecisionState": 2,
       "EVotingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,
@@ -3897,7 +3898,7 @@
       ],
       "ListUnion": null,
       "SubListUnion": null,
-      "HasOpenRequiredLotDecisions": true,
+      "LotDecisionState": 2,
       "EVotingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,
@@ -4524,7 +4525,7 @@
       ],
       "ListUnion": null,
       "SubListUnion": null,
-      "HasOpenRequiredLotDecisions": true,
+      "LotDecisionState": 2,
       "EVotingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,
@@ -5151,7 +5152,7 @@
       ],
       "ListUnion": null,
       "SubListUnion": null,
-      "HasOpenRequiredLotDecisions": true,
+      "LotDecisionState": 2,
       "EVotingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,
@@ -5778,7 +5779,7 @@
       ],
       "ListUnion": null,
       "SubListUnion": null,
-      "HasOpenRequiredLotDecisions": true,
+      "LotDecisionState": 2,
       "EVotingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,
@@ -6175,7 +6176,7 @@
       ],
       "ListUnion": null,
       "SubListUnion": null,
-      "HasOpenRequiredLotDecisions": true,
+      "LotDecisionState": 2,
       "EVotingSubTotal": {
         "UnmodifiedListsCount": 2,
         "UnmodifiedListVotesCount": 24,
@@ -6296,7 +6297,7 @@
       ],
       "ListUnion": null,
       "SubListUnion": null,
-      "HasOpenRequiredLotDecisions": false,
+      "LotDecisionState": 1,
       "EVotingSubTotal": {
         "UnmodifiedListsCount": 3,
         "UnmodifiedListVotesCount": 6,
@@ -6555,7 +6556,7 @@
       ],
       "ListUnion": null,
       "SubListUnion": null,
-      "HasOpenRequiredLotDecisions": true,
+      "LotDecisionState": 2,
       "EVotingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,

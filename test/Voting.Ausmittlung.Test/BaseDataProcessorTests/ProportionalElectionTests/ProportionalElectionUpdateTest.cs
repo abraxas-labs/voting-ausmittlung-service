@@ -437,4 +437,45 @@ public class ProportionalElectionUpdateTest : BaseDataProcessorTest
             x => x.Sex == SexType.Female && x.VoterType == VoterType.Minor && x.DomainOfInfluenceType == DomainOfInfluenceType.Ct,
             -9);
     }
+
+    [Fact]
+    public async Task TestAdjustElectionsCountOnUnionEndResults()
+    {
+        await ZhMockedData.Seed(RunScoped);
+
+        var unionId = ZhMockedData.ProportionalElectionUnionGuidKtrat;
+        var unionEndResult = await RunOnDb(db => db.ProportionalElectionUnionEndResults
+            .SingleAsync(c => c.ProportionalElectionUnionId == unionId));
+
+        unionEndResult.TotalCountOfElections.Should().Be(3);
+        unionEndResult.CountOfDoneElections.Should().Be(3);
+
+        var ev = new ProportionalElectionUpdated
+        {
+            ProportionalElection = new ProportionalElectionEventData
+            {
+                Id = ZhMockedData.ProportionalElectionGuidKtratWinterthur.ToString(),
+                PoliticalBusinessNumber = "6000",
+                OfficialDescription = { LanguageUtil.MockAllLanguages("Updated Official Description") },
+                ShortDescription = { LanguageUtil.MockAllLanguages("Updated Short Description") },
+                DomainOfInfluenceId = DomainOfInfluenceMockedData.IdGossau,
+                ContestId = ContestMockedData.IdGossau,
+                NumberOfMandates = 6,
+                MandateAlgorithm = SharedProto.ProportionalElectionMandateAlgorithm.DoubleProportionalNDois5DoiQuorum,
+                BallotNumberGeneration = SharedProto.BallotNumberGeneration.RestartForEachBundle,
+                ReviewProcedure = SharedProto.ProportionalElectionReviewProcedure.Electronically,
+                EnforceReviewProcedureForCountingCircles = true,
+                CandidateCheckDigit = false,
+                EnforceCandidateCheckDigitForCountingCircles = true,
+            },
+        };
+
+        await TestEventPublisher.Publish(ev, ev);
+
+        unionEndResult = await RunOnDb(db => db.ProportionalElectionUnionEndResults
+            .SingleAsync(c => c.ProportionalElectionUnionId == unionId));
+
+        unionEndResult.TotalCountOfElections.Should().Be(2);
+        unionEndResult.CountOfDoneElections.Should().Be(2);
+    }
 }

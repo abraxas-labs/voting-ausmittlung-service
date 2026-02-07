@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -46,6 +47,7 @@ public class ProtocolExportService
     private readonly ILogger<ProtocolExportService> _logger;
     private readonly ExportRateLimitService _rateLimitService;
     private readonly IAuth _auth;
+    private readonly DataContext _dataContext;
 
     public ProtocolExportService(
         ExportService exportService,
@@ -59,7 +61,8 @@ public class ProtocolExportService
         IDmDocDraftCleanupQueue draftCleanupQueue,
         ILogger<ProtocolExportService> logger,
         ExportRateLimitService rateLimitService,
-        IAuth auth)
+        IAuth auth,
+        DataContext dataContext)
     {
         _exportService = exportService;
         _permissionService = permissionService;
@@ -73,6 +76,7 @@ public class ProtocolExportService
         _logger = logger;
         _rateLimitService = rateLimitService;
         _auth = auth;
+        _dataContext = dataContext;
     }
 
     public async IAsyncEnumerable<FileModel> GetProtocolExports(
@@ -134,6 +138,8 @@ public class ProtocolExportService
             await _rateLimitService.CheckAndLog(exportTemplates);
         }
 
+        // Make sure the export sees a snapshot of the data at this point in time.
+        await using var transaction = await _dataContext.Database.BeginTransactionAsync(IsolationLevel.RepeatableRead, ct);
         var contest = await _contestRepo.Query()
             .Include(x => x.DomainOfInfluence)
             .FirstOrDefaultAsync(x => x.Id == contestId, ct)
@@ -192,6 +198,7 @@ public class ProtocolExportService
             await _aggregateRepository.Save(aggregate);
         }
 
+        await transaction.CommitAsync(ct);
         return protocolExportIds;
     }
 

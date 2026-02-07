@@ -46,6 +46,7 @@
       "CandidateCheckDigit": false,
       "BallotBundleSize": 25,
       "AutomaticBallotBundleNumberGeneration": true,
+      "AutomaticBallotNumberGeneration": false,
       "BallotNumberGeneration": 1,
       "AutomaticEmptyVoteCounting": false,
       "EnforceEmptyVoteCountingForCountingCircles": false,
@@ -304,7 +305,7 @@
         ],
         "ListUnion": null,
         "SubListUnion": null,
-        "HasOpenRequiredLotDecisions": false,
+        "LotDecisionState": 0,
         "EVotingSubTotal": {
           "UnmodifiedListsCount": 0,
           "UnmodifiedListVotesCount": 0,
@@ -523,7 +524,7 @@
           "ProportionalElectionRootListUnionId": ""
         },
         "SubListUnion": null,
-        "HasOpenRequiredLotDecisions": false,
+        "LotDecisionState": 0,
         "EVotingSubTotal": {
           "UnmodifiedListsCount": 0,
           "UnmodifiedListVotesCount": 0,
@@ -748,7 +749,7 @@
           "Position": 1,
           "ProportionalElectionRootListUnionId": "c46de46e-e319-43fb-8433-d571bc459dce"
         },
-        "HasOpenRequiredLotDecisions": false,
+        "LotDecisionState": 0,
         "EVotingSubTotal": {
           "UnmodifiedListsCount": 0,
           "UnmodifiedListVotesCount": 0,
@@ -927,7 +928,7 @@
           "Position": 1,
           "ProportionalElectionRootListUnionId": "c46de46e-e319-43fb-8433-d571bc459dce"
         },
-        "HasOpenRequiredLotDecisions": false,
+        "LotDecisionState": 0,
         "EVotingSubTotal": {
           "UnmodifiedListsCount": 0,
           "UnmodifiedListVotesCount": 0,
@@ -1041,6 +1042,7 @@
       "CandidateCheckDigit": false,
       "BallotBundleSize": 25,
       "AutomaticBallotBundleNumberGeneration": true,
+      "AutomaticBallotNumberGeneration": false,
       "BallotNumberGeneration": 1,
       "AutomaticEmptyVoteCounting": false,
       "EnforceEmptyVoteCountingForCountingCircles": false,
@@ -1409,7 +1411,7 @@
         ],
         "ListUnion": null,
         "SubListUnion": null,
-        "HasOpenRequiredLotDecisions": false,
+        "LotDecisionState": 0,
         "EVotingSubTotal": {
           "UnmodifiedListsCount": 0,
           "UnmodifiedListVotesCount": 0,
@@ -1628,7 +1630,7 @@
           "ProportionalElectionRootListUnionId": ""
         },
         "SubListUnion": null,
-        "HasOpenRequiredLotDecisions": false,
+        "LotDecisionState": 0,
         "EVotingSubTotal": {
           "UnmodifiedListsCount": 0,
           "UnmodifiedListVotesCount": 0,
@@ -1853,7 +1855,7 @@
           "Position": 1,
           "ProportionalElectionRootListUnionId": "c46de46e-e319-43fb-8433-d571bc459dce"
         },
-        "HasOpenRequiredLotDecisions": false,
+        "LotDecisionState": 0,
         "EVotingSubTotal": {
           "UnmodifiedListsCount": 0,
           "UnmodifiedListVotesCount": 0,
@@ -2032,7 +2034,7 @@
           "Position": 1,
           "ProportionalElectionRootListUnionId": "c46de46e-e319-43fb-8433-d571bc459dce"
         },
-        "HasOpenRequiredLotDecisions": false,
+        "LotDecisionState": 0,
         "EVotingSubTotal": {
           "UnmodifiedListsCount": 0,
           "UnmodifiedListVotesCount": 0,
@@ -2146,6 +2148,7 @@
       "CandidateCheckDigit": false,
       "BallotBundleSize": 25,
       "AutomaticBallotBundleNumberGeneration": true,
+      "AutomaticBallotNumberGeneration": false,
       "BallotNumberGeneration": 1,
       "AutomaticEmptyVoteCounting": false,
       "EnforceEmptyVoteCountingForCountingCircles": false,
@@ -2568,7 +2571,7 @@
         ],
         "ListUnion": null,
         "SubListUnion": null,
-        "HasOpenRequiredLotDecisions": false,
+        "LotDecisionState": 3,
         "EVotingSubTotal": {
           "UnmodifiedListsCount": 0,
           "UnmodifiedListVotesCount": 0,
@@ -2787,7 +2790,7 @@
           "ProportionalElectionRootListUnionId": ""
         },
         "SubListUnion": null,
-        "HasOpenRequiredLotDecisions": true,
+        "LotDecisionState": 2,
         "EVotingSubTotal": {
           "UnmodifiedListsCount": 0,
           "UnmodifiedListVotesCount": 0,
@@ -3012,7 +3015,7 @@
           "Position": 1,
           "ProportionalElectionRootListUnionId": "c46de46e-e319-43fb-8433-d571bc459dce"
         },
-        "HasOpenRequiredLotDecisions": true,
+        "LotDecisionState": 2,
         "EVotingSubTotal": {
           "UnmodifiedListsCount": 0,
           "UnmodifiedListVotesCount": 0,
@@ -3191,7 +3194,7 @@
           "Position": 1,
           "ProportionalElectionRootListUnionId": "c46de46e-e319-43fb-8433-d571bc459dce"
         },
-        "HasOpenRequiredLotDecisions": true,
+        "LotDecisionState": 2,
         "EVotingSubTotal": {
           "UnmodifiedListsCount": 0,
           "UnmodifiedListVotesCount": 0,

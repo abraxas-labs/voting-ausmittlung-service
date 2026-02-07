@@ -10,7 +10,7 @@ using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
 
 namespace Voting.Ausmittlung.Test.ValidationTests;
 
-public class ComparisonCountOfVotersValidationTest : BaseValidationTest<ContestCountingCircleDetailsValidator, ContestCountingCircleDetails>
+public class ComparisonCountOfVotersValidationTest : BaseValidationTest<IValidator<ContestCountingCircleDetails>, ContestCountingCircleDetails>
 {
     public ComparisonCountOfVotersValidationTest()
         : base(SharedProto.Validation.ComparisonCountOfVoters)

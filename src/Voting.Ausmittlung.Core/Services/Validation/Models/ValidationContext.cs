@@ -18,6 +18,7 @@ public class ValidationContext
         PoliticalBusinessType politicalBusinessType,
         ContestCountingCircleDetails currentContestCountingCircleDetails,
         ContestCantonDefaults cantonDefaults,
+        bool testingPhaseEnded,
         ContestCountingCircleDetails? previousContestCountingCircleDetails = null)
     {
         PlausibilisationConfiguration = responsibleForPlausibilisationDomainOfInfluence.PlausibilisationConfiguration;
@@ -26,6 +27,7 @@ public class ValidationContext
         CurrentContestCountingCircleDetails = currentContestCountingCircleDetails;
         PreviousContestCountingCircleDetails = previousContestCountingCircleDetails;
         CantonDefaults = cantonDefaults;
+        TestingPhaseEnded = testingPhaseEnded;
 
         if (PlausibilisationConfiguration == null)
         {
@@ -42,6 +44,8 @@ public class ValidationContext
             .ComparisonCountOfVotersConfigurations
             .FirstOrDefault(x => x.Category == doiCc.ComparisonCountOfVotersCategory);
     }
+
+    public bool TestingPhaseEnded { get; }
 
     public PlausibilisationConfiguration? PlausibilisationConfiguration { get; }
 

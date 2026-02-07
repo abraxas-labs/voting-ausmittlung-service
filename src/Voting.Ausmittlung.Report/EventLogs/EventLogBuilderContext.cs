@@ -59,13 +59,13 @@ public class EventLogBuilderContext : IDisposable
     /// </summary>
     public Position StartPosition { get; }
 
-    // TODO: can be removed with https://jira.abraxas-tools.ch/jira/browse/VOTING-1856.
+    // TODO: can be removed with ticket VOTING-1856.
     public DateTime StartTimestampInStream { get; }
 
     /// <summary>
     /// Gets the current event created timestamp. The event at this position is not necessarily already processed.
     /// </summary>
-    // TODO: can be removed with https://jira.abraxas-tools.ch/jira/browse/VOTING-1856.
+    // TODO: can be removed with ticket VOTING-1856.
     public DateTime CurrentTimestampInStream { get; internal set; }
 
     public IReadOnlyCollection<Guid> PoliticalBusinessIdsFilter { get; }

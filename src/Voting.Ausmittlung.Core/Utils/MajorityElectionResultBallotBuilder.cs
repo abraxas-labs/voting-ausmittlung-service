@@ -9,6 +9,7 @@ using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Exceptions;
+using Voting.Ausmittlung.Core.Extensions;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Common;
@@ -61,6 +62,7 @@ public class MajorityElectionResultBallotBuilder
         var ballot = new MajorityElectionResultBallot
         {
             Number = data.BallotNumber,
+            Index = data.Index ?? data.BallotNumber,
             BundleId = bundleId,
             EmptyVoteCount = data.EmptyVoteCount,
             IndividualVoteCount = data.IndividualVoteCount,
@@ -116,6 +118,7 @@ public class MajorityElectionResultBallotBuilder
             .Include(x => x.BallotCandidates)
             .Include(x => x.SecondaryMajorityElectionBallots).ThenInclude(x => x.BallotCandidates)
             .Include(x => x.SecondaryMajorityElectionBallots).ThenInclude(x => x.SecondaryMajorityElectionResult)
+            .Include(x => x.Bundle)
             .FirstOrDefaultAsync(x => x.Number == data.BallotNumber && x.BundleId == bundleId)
             ?? throw new EntityNotFoundException(new { bundleId, data.BallotNumber });
 
@@ -124,6 +127,16 @@ public class MajorityElectionResultBallotBuilder
         ballot.InvalidVoteCount = data.InvalidVoteCount;
         ballot.CandidateVoteCountExclIndividual = ReplaceSelectedCandidates(ballot.BallotCandidates, data.SelectedCandidateIds);
         UpdateSecondaryMajorityElectionResults(ballot, data.SecondaryMajorityElectionResults);
+
+        if (ballot.Bundle.State > BallotBundleState.InProcess)
+        {
+            ballot.Logs.Add(new MajorityElectionResultBallotLog
+            {
+                User = data.EventInfo.User.ToDataUser(),
+                Timestamp = data.EventInfo.Timestamp.ToDateTime(),
+            });
+        }
+
         await _dbContext.SaveChangesAsync();
     }
 

@@ -32,6 +32,7 @@ public static class MajorityElectionResultBallotMockedData
         {
             Id = Guid.Parse(IdStGallenBallot1),
             Number = 1,
+            Index = 1,
             BallotCandidates = new List<MajorityElectionResultBallotCandidate>
             {
                     new MajorityElectionResultBallotCandidate
@@ -69,6 +70,7 @@ public static class MajorityElectionResultBallotMockedData
         {
             Id = Guid.Parse(IdStGallenBallot2),
             Number = 2,
+            Index = 2,
             IndividualVoteCount = 1,
             BundleId = Guid.Parse(MajorityElectionResultBundleMockedData.IdStGallenBundle1),
         };
@@ -78,6 +80,7 @@ public static class MajorityElectionResultBallotMockedData
         {
             Id = Guid.Parse(IdStGallenBallot3),
             Number = 3,
+            Index = 3,
             EmptyVoteCount = 1,
             BundleId = Guid.Parse(MajorityElectionResultBundleMockedData.IdStGallenBundle1),
         };
@@ -132,6 +135,7 @@ public static class MajorityElectionResultBallotMockedData
                     foreach (var ballot in ballots)
                     {
                         aggregate.CreateBallot(
+                            null,
                             ballot.EmptyVoteCount,
                             ballot.IndividualVoteCount,
                             ballot.InvalidVoteCount,

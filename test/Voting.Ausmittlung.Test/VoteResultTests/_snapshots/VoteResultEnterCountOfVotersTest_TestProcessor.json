@@ -48,6 +48,7 @@
   "EntryParams": {
     "BallotBundleSampleSizePercent": 100,
     "AutomaticBallotBundleNumberGeneration": false,
+    "AutomaticBallotNumberGeneration": true,
     "ReviewProcedure": 1
   },
   "CountingCircleId": "00000000-0000-0000-0000-000000000000",

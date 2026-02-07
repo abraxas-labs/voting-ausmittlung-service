@@ -61,7 +61,7 @@ public class VoteResultService : ServiceBase
         return _mapper.Map<ProtoModels.VoteResult>(result);
     }
 
-    [AuthorizePermission(Permissions.PoliticalBusinessResult.EnterResults)]
+    [AuthorizePermission(Permissions.PoliticalBusinessResult.DefineEntry)]
     public override async Task<Empty> DefineEntry(DefineVoteResultEntryRequest request, ServerCallContext context)
     {
         await _voteResultWriter.DefineEntry(

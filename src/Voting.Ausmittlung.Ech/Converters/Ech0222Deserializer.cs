@@ -17,6 +17,6 @@ public class Ech0222Deserializer
         _serviceProvider = serviceProvider;
     }
 
-    public VotingImport DeserializeXml(Ech0222Version version, Stream data)
-        => _serviceProvider.GetRequiredKeyedService<IEch0222Deserializer>(version).DeserializeXml(data);
+    public VotingImport DeserializeXml(Ech0222Version version, Stream data, bool importVotingCards)
+        => _serviceProvider.GetRequiredKeyedService<IEch0222Deserializer>(version).DeserializeXml(data, importVotingCards);
 }

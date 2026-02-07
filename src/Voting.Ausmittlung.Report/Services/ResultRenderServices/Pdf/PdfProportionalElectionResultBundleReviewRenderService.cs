@@ -73,7 +73,7 @@ public class PdfProportionalElectionResultBundleReviewRenderService : IRendererS
             throw new ValidationException("political business is not active");
         }
 
-        bundle.Ballots = bundle.Ballots.OrderBy(x => x.Number).ToList();
+        bundle.Ballots = bundle.Ballots.OrderBy(x => x.Index).ToList();
         foreach (var ballot in bundle.Ballots)
         {
             ballot.BallotCandidates = ballot.BallotCandidates.OrderBy(x => x.Position).ThenBy(x => x.RemovedFromList).ToList();

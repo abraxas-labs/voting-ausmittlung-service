@@ -78,7 +78,6 @@ public class ProportionalElectionEndResultFinalizeTest : ProportionalElectionEnd
         await TestEventPublisher.Publish(GetNextEventNumber(), new ContestTestingPhaseEnded { ContestId = contestId.ToString() });
         await RunEvents<ContestTestingPhaseEnded>();
 
-        // set all lot decisions as done
         await ModifyDbEntities<ProportionalElectionEndResult>(
             e => e.ProportionalElectionId == electionId,
             e =>
@@ -242,13 +241,6 @@ public class ProportionalElectionEndResultFinalizeTest : ProportionalElectionEnd
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
-        // set all lot decisions as done
-        await ModifyDbEntities<ProportionalElectionCandidateEndResult>(
-            x => x.ListEndResult.ElectionEndResult.ProportionalElectionId == Guid.Parse(ProportionalElectionEndResultMockedData.ElectionId),
-            x => x.LotDecision = true);
-        await ModifyDbEntities<ProportionalElectionListEndResult>(
-            x => x.ElectionEndResult.ProportionalElectionId == Guid.Parse(ProportionalElectionEndResultMockedData.ElectionId),
-            x => x.HasOpenRequiredLotDecisions = false);
         await new ProportionalElectionResultService.ProportionalElectionResultServiceClient(channel)
             .FinalizeEndResultAsync(NewValidRequest());
     }

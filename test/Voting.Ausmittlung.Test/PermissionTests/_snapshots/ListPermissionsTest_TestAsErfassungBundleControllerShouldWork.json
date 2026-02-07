@@ -6,6 +6,7 @@
     "PoliticalBusinessResult:read-comments",
     "PoliticalBusinessResultBundle:read",
     "PoliticalBusinessResultBundle:review",
+    "PoliticalBusinessResultBundle:review-self-modified-bundle",
     "PoliticalBusinessResultBallot:update",
     "PoliticalBusinessResultBallot:read",
     "VoteBallotResult:read",

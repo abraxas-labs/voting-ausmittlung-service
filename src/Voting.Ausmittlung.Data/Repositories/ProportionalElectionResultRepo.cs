@@ -23,6 +23,7 @@ public class ProportionalElectionResultRepo : PoliticalBusinessResultRepo<Propor
         var query = Set.AsSplitQuery()
             .Include(x => x.ProportionalElection.DomainOfInfluence)
             .Include(x => x.ProportionalElection.Translations)
+            .Include(x => x.ListResults)
             .Where(predicate);
 
         if (withCountingCircleAndContestData)

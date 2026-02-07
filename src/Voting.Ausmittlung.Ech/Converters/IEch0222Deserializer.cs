@@ -8,5 +8,5 @@ namespace Voting.Ausmittlung.Ech.Converters;
 
 public interface IEch0222Deserializer
 {
-    VotingImport DeserializeXml(Stream stream);
+    VotingImport DeserializeXml(Stream stream, bool importVotingCards);
 }

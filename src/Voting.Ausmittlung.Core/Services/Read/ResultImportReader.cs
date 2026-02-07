@@ -166,6 +166,8 @@ public class ResultImportReader
             .Include(x => x.IgnoredCountingCircles.OrderBy(cc => cc.CountingCircleId))
             .Include(x => x.ImportedCountingCircles.OrderBy(cc => cc.CountingCircle!.Name))
             .ThenInclude(x => x.CountingCircle)
+            .Include(x => x.EmptyCountingCircles.OrderBy(cc => cc.CountingCircle!.Name))
+            .ThenInclude(x => x.CountingCircle)
             .Where(x => x.ImportType == importType && x.ContestId == contestId);
 
         if (basisCountingCircleId.HasValue)

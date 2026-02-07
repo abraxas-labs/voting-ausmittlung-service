@@ -17,7 +17,8 @@ public class VoteResultModelBuilder :
     IEntityTypeConfiguration<VoteResultBundle>,
     IEntityTypeConfiguration<VoteResultBallotQuestionAnswer>,
     IEntityTypeConfiguration<VoteResultBallotTieBreakQuestionAnswer>,
-    IEntityTypeConfiguration<VoteResultBundleLog>
+    IEntityTypeConfiguration<VoteResultBundleLog>,
+    IEntityTypeConfiguration<VoteResultBallotLog>
 {
     public void Configure(EntityTypeBuilder<BallotResult> builder)
     {
@@ -203,6 +204,27 @@ public class VoteResultModelBuilder :
             .HasOne(x => x.Bundle)
             .WithMany(x => x.Logs)
             .HasForeignKey(x => x.BundleId)
+            .IsRequired();
+
+        builder
+            .OwnsOne(
+                x => x.User,
+                u =>
+                {
+                    u.Property(uu => uu.SecureConnectId).IsRequired();
+                    u.Property(uu => uu.FirstName).IsRequired();
+                    u.Property(uu => uu.LastName).IsRequired();
+                });
+        builder
+            .Navigation(x => x.User).IsRequired();
+    }
+
+    public void Configure(EntityTypeBuilder<VoteResultBallotLog> builder)
+    {
+        builder
+            .HasOne(x => x.Ballot)
+            .WithMany(x => x.Logs)
+            .HasForeignKey(x => x.BallotId)
             .IsRequired();
 
         builder

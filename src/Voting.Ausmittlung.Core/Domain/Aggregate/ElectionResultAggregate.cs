@@ -13,12 +13,7 @@ public abstract class ElectionResultAggregate : CountingCircleResultAggregate
     /// <summary>
     /// Gets a set of all BundleNumbers which are currently in use or were in use by a deleted bundle.
     /// </summary>
-    protected HashSet<int> BundleNumbers { get; } = new();
-
-    /// <summary>
-    /// Gets a set of all bundle numbers which are deleted and not reused (yet).
-    /// </summary>
-    protected HashSet<int> DeletedUnusedBundleNumbers { get; } = new();
+    protected List<int> BundleNumbers { get; } = new();
 
     protected int GetNextBundleNumber()
     {
@@ -28,6 +23,5 @@ public abstract class ElectionResultAggregate : CountingCircleResultAggregate
     protected void ResetBundleNumbers()
     {
         BundleNumbers.Clear();
-        DeletedUnusedBundleNumbers.Clear();
     }
 }

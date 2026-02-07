@@ -58,6 +58,7 @@ public class ResultExportService
     private readonly IAggregateRepository _aggregateRepository;
     private readonly Dictionary<ExportProvider, IExportProviderUploader> _uploaders;
     private readonly ExportRateLimitService _exportRateLimitService;
+    private readonly DataContext _dataContext;
 
     public ResultExportService(
         ExportService exportService,
@@ -77,7 +78,8 @@ public class ResultExportService
         ResultExportTemplateReader resultExportTemplateReader,
         IAggregateRepository aggregateRepository,
         IEnumerable<IExportProviderUploader> uploaders,
-        ExportRateLimitService exportRateLimitService)
+        ExportRateLimitService exportRateLimitService,
+        DataContext dataContext)
     {
         _exportService = exportService;
         _contestReader = contestReader;
@@ -97,6 +99,7 @@ public class ResultExportService
         _aggregateRepository = aggregateRepository;
         _uploaders = uploaders.ToDictionary(x => x.Provider);
         _exportRateLimitService = exportRateLimitService;
+        _dataContext = dataContext;
     }
 
     public async IAsyncEnumerable<FileModel> GenerateExports(
@@ -117,6 +120,8 @@ public class ResultExportService
         var aggregate = await _aggregateRepository.GetOrCreateById<ExportAggregate>(contestId);
         var requestId = Guid.NewGuid();
 
+        // Make sure the export sees a snapshot of the data at this point in time.
+        await using var transaction = await _dataContext.Database.BeginTransactionAsync(IsolationLevel.RepeatableRead, ct);
         var contest = await _contestRepo.Query()
             .Include(x => x.DomainOfInfluence)
             .FirstOrDefaultAsync(x => x.Id == contestId, ct)
@@ -139,6 +144,7 @@ public class ResultExportService
         }
 
         await _aggregateRepository.Save(aggregate, true);
+        await transaction.CommitAsync(ct);
     }
 
     public async Task TriggerExportsFromConfiguration(
@@ -183,12 +189,14 @@ public class ResultExportService
 
     public async Task<Guid> StartBundleReviewExport(Guid bundleId, PoliticalBusinessType politicalBusinessType, CancellationToken ct = default)
     {
-        await EnsureReadyForReview(bundleId, politicalBusinessType);
+        await EnsureValidBundleState(bundleId, politicalBusinessType);
 
         var (contestId, basisCountingCircleId, politicalBusinessId, templateKey) = await LoadBundleProperties(bundleId, politicalBusinessType);
 
         await EnsureExportBundleReviewPermissions(basisCountingCircleId, contestId);
 
+        // Make sure the export sees a snapshot of the data at this point in time.
+        await using var transaction = await _dataContext.Database.BeginTransactionAsync(IsolationLevel.RepeatableRead, ct);
         var contest = await _contestRepo.Query()
                           .Include(x => x.DomainOfInfluence)
                           .FirstOrDefaultAsync(x => x.Id == contestId, ct)
@@ -247,6 +255,7 @@ public class ResultExportService
             exportTemplate.PoliticalBusinessResultBundleId);
 
         await _aggregateRepository.Save(aggregate);
+        await transaction.CommitAsync(ct);
 
         return protocolExportId;
     }
@@ -500,7 +509,7 @@ public class ResultExportService
         }
     }
 
-    private async Task EnsureReadyForReview(Guid bundleId, PoliticalBusinessType politicalBusinessType)
+    private async Task EnsureValidBundleState(Guid bundleId, PoliticalBusinessType politicalBusinessType)
     {
         PoliticalBusinessResultBundleAggregate bundleAggregate = politicalBusinessType switch
         {
@@ -510,9 +519,9 @@ public class ResultExportService
             _ => throw new ArgumentException($"political business type {politicalBusinessType} is not valid"),
         };
 
-        if (bundleAggregate.State != BallotBundleState.ReadyForReview)
+        if (bundleAggregate.State < BallotBundleState.ReadyForReview)
         {
-            throw new ValidationException("bundle is not in ready for review state");
+            throw new ValidationException("bundle is still in progress");
         }
     }
 }

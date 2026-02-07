@@ -10,9 +10,11 @@ using Grpc.Core;
 using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.EventProcessors;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
+using Voting.Lib.Testing.Mocks;
 using Voting.Lib.Testing.Utils;
 using Xunit;
 
@@ -33,8 +35,37 @@ public class MajorityElectionResultGetBundleTest : BaseTest<MajorityElectionResu
         await ContestMockedData.Seed(RunScoped);
         await MajorityElectionMockedData.Seed(RunScoped);
         await MajorityElectionResultBundleMockedData.Seed(RunScoped);
+        await MajorityElectionResultBallotMockedData.Seed(RunScoped);
         await RunScoped((DomainOfInfluencePermissionBuilder permissionBuilder) =>
             permissionBuilder.RebuildPermissionTree());
+
+        await RunOnDb(async db =>
+        {
+            db.MajorityElectionResultBallotLogs.Add(new MajorityElectionResultBallotLog
+            {
+                BallotId = MajorityElectionResultBallotMockedData.StGallenBallot1.Id,
+                Timestamp = MockedClock.UtcNowDate,
+                User = new User
+                {
+                    FirstName = "first",
+                    LastName = "last",
+                    SecureConnectId = "test-id",
+                },
+            });
+            db.MajorityElectionResultBallotLogs.Add(new MajorityElectionResultBallotLog
+            {
+                BallotId = MajorityElectionResultBallotMockedData.StGallenBallot3.Id,
+                Timestamp = MockedClock.UtcNowDate,
+                User = new User
+                {
+                    FirstName = "first",
+                    LastName = "last",
+                    SecureConnectId = "test-id",
+                },
+            });
+
+            await db.SaveChangesAsync();
+        });
     }
 
     [Fact]
@@ -86,6 +117,7 @@ public class MajorityElectionResultGetBundleTest : BaseTest<MajorityElectionResu
         yield return RolesMockedData.ErfassungCreator;
         yield return RolesMockedData.ErfassungCreatorWithoutBundleControl;
         yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungRestrictedBundleController;
         yield return RolesMockedData.ErfassungElectionSupporter;
         yield return RolesMockedData.ErfassungElectionAdmin;
         yield return RolesMockedData.MonitoringElectionAdmin;

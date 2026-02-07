@@ -17,7 +17,8 @@ public class ProportionalElectionResultModelBuilder :
     IEntityTypeConfiguration<ProportionalElectionResultBallot>,
     IEntityTypeConfiguration<ProportionalElectionResultBallotCandidate>,
     IEntityTypeConfiguration<ProportionalElectionCandidateVoteSourceResult>,
-    IEntityTypeConfiguration<ProportionalElectionResultBundleLog>
+    IEntityTypeConfiguration<ProportionalElectionResultBundleLog>,
+    IEntityTypeConfiguration<ProportionalElectionResultBallotLog>
 {
     public void Configure(EntityTypeBuilder<ProportionalElectionResult> builder)
     {
@@ -228,6 +229,27 @@ public class ProportionalElectionResultModelBuilder :
             .HasOne(x => x.Bundle)
             .WithMany(x => x.Logs)
             .HasForeignKey(x => x.BundleId)
+            .IsRequired();
+
+        builder
+            .OwnsOne(
+                x => x.User,
+                u =>
+                {
+                    u.Property(uu => uu.SecureConnectId).IsRequired();
+                    u.Property(uu => uu.FirstName).IsRequired();
+                    u.Property(uu => uu.LastName).IsRequired();
+                });
+        builder
+            .Navigation(x => x.User).IsRequired();
+    }
+
+    public void Configure(EntityTypeBuilder<ProportionalElectionResultBallotLog> builder)
+    {
+        builder
+            .HasOne(x => x.Ballot)
+            .WithMany(x => x.Logs)
+            .HasForeignKey(x => x.BallotId)
             .IsRequired();
 
         builder

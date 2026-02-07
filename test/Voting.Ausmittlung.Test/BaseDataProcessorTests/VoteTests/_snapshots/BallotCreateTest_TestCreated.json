@@ -190,6 +190,7 @@
       ],
       "BallotBundleSampleSizePercent": 30,
       "AutomaticBallotBundleNumberGeneration": true,
+      "AutomaticBallotNumberGeneration": false,
       "EnforceResultEntryForCountingCircles": false,
       "ResultEntry": 2,
       "ReviewProcedure": 1,

@@ -42,13 +42,6 @@ public class MajorityElectionEndResultRevertFinalizationTest : MajorityElectionE
     [Fact]
     public async Task ShouldWork()
     {
-        // set all lot decisions as done
-        await ModifyDbEntities<MajorityElectionCandidateEndResult>(
-            x => x.MajorityElectionEndResult.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
-            x => x.LotDecisionRequired = false);
-        await ModifyDbEntities<SecondaryMajorityElectionCandidateEndResult>(
-            x => x.SecondaryMajorityElectionEndResult.PrimaryMajorityElectionEndResult.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
-            x => x.LotDecisionRequired = false);
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeMajorityElectionEndResultRequest
         {
             MajorityElectionId = MajorityElectionEndResultMockedData.ElectionId,
@@ -66,13 +59,6 @@ public class MajorityElectionEndResultRevertFinalizationTest : MajorityElectionE
     {
         await TestEventWithSignature(ContestMockedData.IdBundesurnengang, async () =>
         {
-            // set all lot decisions as done
-            await ModifyDbEntities<MajorityElectionCandidateEndResult>(
-                x => x.MajorityElectionEndResult.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
-                x => x.LotDecisionRequired = false);
-            await ModifyDbEntities<SecondaryMajorityElectionCandidateEndResult>(
-                x => x.SecondaryMajorityElectionEndResult.PrimaryMajorityElectionEndResult.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
-                x => x.LotDecisionRequired = false);
             await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeMajorityElectionEndResultRequest
             {
                 MajorityElectionId = MajorityElectionEndResultMockedData.ElectionId,
@@ -151,14 +137,6 @@ public class MajorityElectionEndResultRevertFinalizationTest : MajorityElectionE
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
-        // set all lot decisions as done
-        await ModifyDbEntities<MajorityElectionCandidateEndResult>(
-            x => x.MajorityElectionEndResult.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
-            x => x.LotDecisionRequired = false);
-        await ModifyDbEntities<SecondaryMajorityElectionCandidateEndResult>(
-            x => x.SecondaryMajorityElectionEndResult.PrimaryMajorityElectionEndResult.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
-            x => x.LotDecisionRequired = false);
-
         // Finalize it first, so it can be reverted
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeMajorityElectionEndResultRequest
         {

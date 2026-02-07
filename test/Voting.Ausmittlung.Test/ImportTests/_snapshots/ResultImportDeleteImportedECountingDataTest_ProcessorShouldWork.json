@@ -16,6 +16,7 @@
   "ImportType": 2,
   "ImportedCountingCircles": [],
   "IgnoredCountingCircles": [],
+  "EmptyCountingCircles": [],
   "MajorityElectionWriteInMappings": [],
   "SecondaryMajorityElectionWriteInMappings": [],
   "MajorityElectionWriteInBallots": [],

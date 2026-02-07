@@ -269,11 +269,7 @@ internal static class VoteInfoVoteMapping
             ResultData = hasResultData
                 ? new ResultDataType
                 {
-                    CountOfVotersInformation =
-                        new CountOfVotersInformationType
-                        {
-                            CountOfVotersTotal = (uint)ballotResult.VoteResult.TotalCountOfVoters,
-                        },
+                    CountOfVotersInformation = ballotResult.VoteResult.CountingCircle.ToVoteInfoCountOfVotersInfo(ballotResult.VoteResult.Vote.DomainOfInfluence),
                     IsFullyCounted = ballotResult.VoteResult.SubmissionDoneTimestamp.HasValue,
                     ReleasedTimestamp = ballotResult.VoteResult.SubmissionDoneTimestamp,
                     LockoutTimestamp = ballotResult.VoteResult.AuditedTentativelyTimestamp,
@@ -328,6 +324,7 @@ internal static class VoteInfoVoteMapping
     {
         // 55.6246% should be written as 55.62
         // in our data model, we have that stored as 0.556246
-        return Math.Round(percentage * 100, 2);
+        // Use AwayFromZero rounding algorithm, as that is also what we use in the frontend. Need to keep this in sync.
+        return Math.Round(percentage * 100, 2, MidpointRounding.AwayFromZero);
     }
 }

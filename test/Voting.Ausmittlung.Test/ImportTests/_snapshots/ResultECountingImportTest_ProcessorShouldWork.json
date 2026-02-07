@@ -17,6 +17,7 @@
     "ImportType": 2,
     "ImportedCountingCircles": [],
     "IgnoredCountingCircles": [],
+    "EmptyCountingCircles": [],
     "MajorityElectionWriteInMappings": [],
     "SecondaryMajorityElectionWriteInMappings": [],
     "MajorityElectionWriteInBallots": [],
@@ -104,6 +105,7 @@
         "EntryParams": {
           "BallotBundleSampleSizePercent": 50,
           "AutomaticBallotBundleNumberGeneration": true,
+          "AutomaticBallotNumberGeneration": true,
           "ReviewProcedure": 1
         },
         "CountingCircleId": "00000000-0000-0000-0000-000000000000",
@@ -130,6 +132,7 @@
           "BallotBundleSize": 0,
           "BallotBundleSampleSize": 0,
           "AutomaticBallotBundleNumberGeneration": false,
+          "AutomaticBallotNumberGeneration": false,
           "BallotNumberGeneration": 0,
           "AutomaticEmptyVoteCounting": false,
           "CandidateCheckDigit": false
@@ -526,6 +529,7 @@
     "ImportType": 2,
     "ImportedCountingCircles": [],
     "IgnoredCountingCircles": [],
+    "EmptyCountingCircles": [],
     "MajorityElectionWriteInMappings": [],
     "SecondaryMajorityElectionWriteInMappings": [],
     "MajorityElectionWriteInBallots": [],

@@ -12,7 +12,7 @@ using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
 
 namespace Voting.Ausmittlung.Test.ValidationTests;
 
-public class ComparisonVotingChannelsValidationTest : BaseValidationTest<ContestCountingCircleDetailsValidator, ContestCountingCircleDetails>
+public class ComparisonVotingChannelsValidationTest : BaseValidationTest<IValidator<ContestCountingCircleDetails>, ContestCountingCircleDetails>
 {
     public ComparisonVotingChannelsValidationTest()
         : base(SharedProto.Validation.ComparisonVotingChannels)

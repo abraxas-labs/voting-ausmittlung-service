@@ -346,6 +346,7 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
     {
         return await _resultRepo.Query()
                    .AsSplitQuery()
+                   .Include(vr => vr.ListResults)
                    .Include(vr => vr.ProportionalElection.Contest.CantonDefaults)
                    .Include(vr => vr.ProportionalElection.DomainOfInfluence)
                    .Include(vr => vr.CountingCircle.ResponsibleAuthority)

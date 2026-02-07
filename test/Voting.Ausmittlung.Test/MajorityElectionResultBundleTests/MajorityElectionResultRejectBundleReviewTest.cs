@@ -194,7 +194,7 @@ public class MajorityElectionResultRejectBundleReviewTest : MajorityElectionResu
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
-        await RunBundleToState(BallotBundleState.ReadyForReview, MajorityElectionResultBundleMockedData.StGallenBundle3.Id);
+        await RunBundleToState(BallotBundleState.ReadyForReview, MajorityElectionResultBundleMockedData.StGallenBundle3.Id, "other-user");
         await new MajorityElectionResultBundleService.MajorityElectionResultBundleServiceClient(channel)
             .RejectBundleReviewAsync(NewValidRequest());
     }
@@ -203,6 +203,7 @@ public class MajorityElectionResultRejectBundleReviewTest : MajorityElectionResu
     {
         yield return RolesMockedData.ErfassungCreator;
         yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungRestrictedBundleController;
         yield return RolesMockedData.ErfassungElectionSupporter;
         yield return RolesMockedData.ErfassungElectionAdmin;
     }

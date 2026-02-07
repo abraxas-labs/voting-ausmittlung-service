@@ -16,6 +16,32 @@
       "Deleted": false,
       "FileName": "import_uzwil_2.xml",
       "ImportedCountingCircles": [],
+      "EmptyCountingCircles": [
+        {
+          "Id": "",
+          "Name": "Gossau",
+          "Bfs": "3443",
+          "ResponsibleAuthority": {
+            "SecureConnectId": "",
+            "Name": "",
+            "Street": "",
+            "Zip": "",
+            "City": "",
+            "Phone": "",
+            "Email": ""
+          },
+          "ContactPersonDuringEvent": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          },
+          "ContactPersonSameDuringEventAsAfter": false,
+          "ContactPersonAfterEvent": null,
+          "ECounting": false
+        }
+      ],
       "IgnoredCountingCircles": [
         {
           "CountingCircleId": "13297",
@@ -49,6 +75,32 @@
           "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
           "Name": "Uzwil",
           "Bfs": "1234",
+          "ResponsibleAuthority": {
+            "SecureConnectId": "",
+            "Name": "",
+            "Street": "",
+            "Zip": "",
+            "City": "",
+            "Phone": "",
+            "Email": ""
+          },
+          "ContactPersonDuringEvent": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          },
+          "ContactPersonSameDuringEventAsAfter": false,
+          "ContactPersonAfterEvent": null,
+          "ECounting": true
+        }
+      ],
+      "EmptyCountingCircles": [
+        {
+          "Id": "",
+          "Name": "St. Gallen",
+          "Bfs": "5500",
           "ResponsibleAuthority": {
             "SecureConnectId": "",
             "Name": "",

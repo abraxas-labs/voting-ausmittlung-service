@@ -12,6 +12,7 @@
       "CandidateCheckDigit": true,
       "BallotBundleSize": 10,
       "AutomaticBallotBundleNumberGeneration": true,
+      "AutomaticBallotNumberGeneration": false,
       "BallotNumberGeneration": 1,
       "AutomaticEmptyVoteCounting": true,
       "EnforceEmptyVoteCountingForCountingCircles": true,
@@ -92,12 +93,13 @@
       "BallotBundleSize": 10,
       "BallotBundleSampleSize": 2,
       "AutomaticBallotBundleNumberGeneration": true,
+      "AutomaticBallotNumberGeneration": true,
       "BallotNumberGeneration": 2,
       "AutomaticEmptyVoteCounting": false,
       "ReviewProcedure": 1,
       "CandidateCheckDigit": true
     },
-    "State": 1,
+    "State": 2,
     "SubmissionDoneTimestamp": null,
     "TotalCountOfVoters": 15000,
     "CountOfVoters": {
@@ -202,6 +204,7 @@
         "FullName": " "
       },
       "ReviewedBy": null,
+      "BallotNumbers": [],
       "BallotNumbersToReview": [],
       "ProtocolExport": null,
       "Logs": [
@@ -218,7 +221,8 @@
           },
           "State": 1
         }
-      ]
+      ],
+      "CountOfModifiedBallots": 0
     },
     {
       "Id": "e0cf709d-f8eb-477a-b57d-ce058c3ce186",
@@ -241,6 +245,7 @@
         "FullName": "Hans Muster"
       },
       "ReviewedBy": null,
+      "BallotNumbers": [],
       "BallotNumbersToReview": [],
       "ProtocolExport": null,
       "Logs": [
@@ -257,7 +262,8 @@
           },
           "State": 1
         }
-      ]
+      ],
+      "CountOfModifiedBallots": 0
     },
     {
       "Id": "b1e326d7-2f47-43d7-8430-cf150401337c",
@@ -272,6 +278,7 @@
         "FullName": " "
       },
       "ReviewedBy": null,
+      "BallotNumbers": [],
       "BallotNumbersToReview": [],
       "ProtocolExport": null,
       "Logs": [
@@ -288,7 +295,8 @@
           },
           "State": 1
         }
-      ]
+      ],
+      "CountOfModifiedBallots": 0
     },
     {
       "Id": "e6be0892-eb02-41a7-a32b-d5b71de926f3",
@@ -303,6 +311,7 @@
         "FullName": "Hans Muster"
       },
       "ReviewedBy": null,
+      "BallotNumbers": [],
       "BallotNumbersToReview": [],
       "ProtocolExport": null,
       "Logs": [
@@ -319,7 +328,8 @@
           },
           "State": 1
         }
-      ]
+      ],
+      "CountOfModifiedBallots": 0
     },
     {
       "Id": "ce73c633-8689-4e8d-bb77-612f354b4ad6",
@@ -342,6 +352,7 @@
         "FullName": "Someone Else"
       },
       "ReviewedBy": null,
+      "BallotNumbers": [],
       "BallotNumbersToReview": [],
       "ProtocolExport": null,
       "Logs": [
@@ -358,7 +369,8 @@
           },
           "State": 1
         }
-      ]
+      ],
+      "CountOfModifiedBallots": 0
     },
     {
       "Id": "e9590e17-abae-4e41-a575-08d1f5d79db3",
@@ -373,6 +385,7 @@
         "FullName": " "
       },
       "ReviewedBy": null,
+      "BallotNumbers": [],
       "BallotNumbersToReview": [],
       "ProtocolExport": null,
       "Logs": [
@@ -389,7 +402,8 @@
           },
           "State": 1
         }
-      ]
+      ],
+      "CountOfModifiedBallots": 0
     }
   ]
 }

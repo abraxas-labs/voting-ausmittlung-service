@@ -51,7 +51,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
@@ -83,7 +103,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
@@ -113,7 +153,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -139,7 +179,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -165,7 +205,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -191,7 +231,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>3210</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>1600</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>1400</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>100</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>110</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>400</countOfVotingCardsReceivedInBallotBox>
@@ -256,7 +316,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
@@ -288,7 +368,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
@@ -318,7 +418,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -344,7 +444,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -370,7 +470,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -396,7 +496,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>3210</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>1600</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>1400</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>100</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>110</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>400</countOfVotingCardsReceivedInBallotBox>
@@ -461,7 +581,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
@@ -493,7 +633,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
@@ -523,7 +683,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -549,7 +709,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -575,7 +735,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -601,7 +761,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>3210</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>1600</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>1400</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>100</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>110</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>400</countOfVotingCardsReceivedInBallotBox>
@@ -666,7 +846,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
@@ -698,7 +898,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
@@ -728,7 +948,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -754,7 +974,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -780,7 +1000,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -806,7 +1026,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>3210</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>1600</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>1400</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>100</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>110</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>400</countOfVotingCardsReceivedInBallotBox>
@@ -867,7 +1107,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
@@ -899,7 +1159,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
@@ -929,7 +1209,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -955,7 +1235,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -981,7 +1261,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -1007,7 +1287,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>3210</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>1600</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>1400</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>100</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>110</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>400</countOfVotingCardsReceivedInBallotBox>
@@ -1068,7 +1368,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
@@ -1100,7 +1420,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
@@ -1130,7 +1470,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -1156,7 +1496,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -1182,7 +1522,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -1208,7 +1548,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>3210</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>1600</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>1400</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>100</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>110</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>400</countOfVotingCardsReceivedInBallotBox>
@@ -1269,7 +1629,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
@@ -1301,7 +1681,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
@@ -1331,7 +1731,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -1357,7 +1757,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -1383,7 +1783,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -1409,7 +1809,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>3210</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>1600</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>1400</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>100</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>110</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>400</countOfVotingCardsReceivedInBallotBox>
@@ -1470,7 +1890,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
@@ -1502,7 +1942,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
@@ -1532,7 +1992,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -1558,7 +2018,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -1584,7 +2044,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -1610,7 +2070,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>3210</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>1600</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>1400</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>100</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>110</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>400</countOfVotingCardsReceivedInBallotBox>
@@ -1671,7 +2151,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
@@ -1703,7 +2203,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
@@ -1733,7 +2253,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -1759,7 +2279,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -1785,7 +2305,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -1811,7 +2331,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>3210</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>1600</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>1400</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>100</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>110</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>400</countOfVotingCardsReceivedInBallotBox>
@@ -1872,7 +2412,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
@@ -1904,7 +2464,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
@@ -1934,7 +2514,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -1960,7 +2540,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -1986,7 +2566,7 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
@@ -2012,7 +2592,27 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>1000</countOfVotersTotal>
+            <countOfVotersTotal>3210</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>1600</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>1400</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>100</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>110</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>400</countOfVotingCardsReceivedInBallotBox>
@@ -2073,6 +2673,26 @@
         <resultData>
           <countOfVotersInformation>
             <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
@@ -2105,6 +2725,26 @@
         <resultData>
           <countOfVotersInformation>
             <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
@@ -2213,6 +2853,26 @@
         <resultData>
           <countOfVotersInformation>
             <countOfVotersTotal>3210</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>1600</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>1400</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>100</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>110</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
           </countOfVotersInformation>
           <votingCardInformation>
             <countOfVotingCardsReceivedInBallotBox>400</countOfVotingCardsReceivedInBallotBox>

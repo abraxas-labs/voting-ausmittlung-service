@@ -21,6 +21,7 @@
     "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
     "CountingCircleId": "",
     "EchMessageId": "mock-id / mock-id-0110",
+    "EmptyCountingCircleIds": [],
     "IgnoredCountingCircles": [
       {
         "CountingCircleId": "10001",

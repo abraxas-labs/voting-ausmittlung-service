@@ -159,7 +159,7 @@ public class ProportionalElectionCandidateEndResultBuilder : ElectionCandidateEn
 
     internal void RecalculateLotDecisionState(ProportionalElectionListEndResult listEndResult, bool manualEndResult = false)
     {
-        var enabledCandidateEndResults = listEndResult.CandidateEndResults.Where(x => x.LotDecisionEnabled);
+        var enabledCandidateEndResults = listEndResult.CandidateEndResults.Where(x => x.LotDecisionEnabled).ToList();
 
         var candidateEndResultMinMaxRankByVoteCount = enabledCandidateEndResults
             .GroupBy(candEndResult => candEndResult.VoteCount)
@@ -169,7 +169,13 @@ public class ProportionalElectionCandidateEndResultBuilder : ElectionCandidateEn
                 MaxRank = x.Min(candEndResult => candEndResult.Rank) + x.Count() - 1,
             });
 
-        listEndResult.HasOpenRequiredLotDecisions = false;
+        listEndResult.LotDecisionState = ElectionLotDecisionState.None;
+
+        if (enabledCandidateEndResults.Count == 0)
+        {
+            return;
+        }
+
         foreach (var candidateEndResult in enabledCandidateEndResults)
         {
             var candidateEndResultMinMaxRank = candidateEndResultMinMaxRankByVoteCount[candidateEndResult.VoteCount];
@@ -184,8 +190,46 @@ public class ProportionalElectionCandidateEndResultBuilder : ElectionCandidateEn
             candidateEndResult.LotDecisionRequired = manualEndResult
                 || (candidateEndResultMinMaxRank.MinRank <= listEndResult.NumberOfMandates
                     && candidateEndResultMinMaxRank.MaxRank > listEndResult.NumberOfMandates);
+        }
 
-            listEndResult.HasOpenRequiredLotDecisions |= candidateEndResult.LotDecisionRequired && !candidateEndResult.LotDecision;
+        // Only if the list end result has mandates, the lot decision state is not "none" (except manual end results).
+        if (listEndResult.NumberOfMandates == 0 && !manualEndResult)
+        {
+            return;
+        }
+
+        if (enabledCandidateEndResults.Any(c => c.LotDecisionRequired && !c.LotDecision))
+        {
+            listEndResult.LotDecisionState = ElectionLotDecisionState.OpenAndRequired;
+        }
+        else if (enabledCandidateEndResults.Any(c => !c.LotDecision))
+        {
+            listEndResult.LotDecisionState = ElectionLotDecisionState.OpenAndOptional;
+            return;
+        }
+        else
+        {
+            listEndResult.LotDecisionState = ElectionLotDecisionState.Done;
+        }
+    }
+
+    internal void RecalculateCandidateEndResultRanksWithDistinctRanks(
+        IEnumerable<ProportionalElectionCandidateEndResult> candidateEndResults)
+    {
+        var orderedCandidateEndResults = candidateEndResults
+            .OrderByDescending(x => x.VoteCount)
+            .ThenBy(x => x.Candidate.Number)
+            .ThenBy(x => x.Rank)
+            .ThenBy(x => x.CandidateId)
+            .ToList();
+
+        for (var pos = 1; pos <= orderedCandidateEndResults.Count; pos++)
+        {
+            var candidateEndResult = orderedCandidateEndResults[pos - 1];
+            candidateEndResult.LotDecision = false;
+            candidateEndResult.LotDecisionRequired = false;
+            candidateEndResult.LotDecisionEnabled = false;
+            candidateEndResult.Rank = pos;
         }
     }
 
@@ -218,7 +262,7 @@ public class ProportionalElectionCandidateEndResultBuilder : ElectionCandidateEn
             return;
         }
 
-        candidateEndResult.State = candidateEndResult.LotDecisionEnabled && !candidateEndResult.LotDecision
+        candidateEndResult.State = candidateEndResult.LotDecisionRequired && !candidateEndResult.LotDecision
             ? ProportionalElectionCandidateEndResultState.Pending
             : ProportionalElectionCandidateEndResultState.Elected;
     }

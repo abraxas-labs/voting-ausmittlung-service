@@ -176,7 +176,7 @@ public class VoteResultRejectBundleReviewTest : VoteResultBundleBaseTest
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
-        await RunBundleToState(BallotBundleState.ReadyForReview, VoteResultBundleMockedData.GossauBundle3.Id);
+        await RunBundleToState(BallotBundleState.ReadyForReview, VoteResultBundleMockedData.GossauBundle3.Id, "other-user");
         await new VoteResultBundleService.VoteResultBundleServiceClient(channel)
             .RejectBundleReviewAsync(NewValidRequest());
     }
@@ -185,6 +185,7 @@ public class VoteResultRejectBundleReviewTest : VoteResultBundleBaseTest
     {
         yield return RolesMockedData.ErfassungCreator;
         yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungRestrictedBundleController;
         yield return RolesMockedData.ErfassungElectionSupporter;
         yield return RolesMockedData.ErfassungElectionAdmin;
     }

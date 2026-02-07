@@ -274,73 +274,79 @@
         </countingCircleResult>
         <elected>
           <proportionalElection>
-            <isElectionResultComplete>false</isElectionResultComplete>
+            <isElectionResultComplete>true</isElectionResultComplete>
             <list>
               <listIdentification>595b7588-2af3-4686-b4d4-f97a64679103</listIdentification>
               <listIndentureNumber>01</listIndentureNumber>
+              <electedCandidate>
+                <candidateIdentification>195d8cac-37b5-5568-96c3-7b542243b670</candidateIdentification>
+                <candidateReferenceOnPosition>01.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>1de54096-7e9f-5c58-ac34-d687af4dfad6</candidateIdentification>
+                <candidateReferenceOnPosition>01.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>284eace1-18c4-5f19-9153-c543712ea05a</candidateIdentification>
+                <candidateReferenceOnPosition>01.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>3d36ff9c-510a-5a33-8c21-3fe69aac1d72</candidateIdentification>
+                <candidateReferenceOnPosition>01.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>3f1daad7-c542-5ac0-bdf9-37fcae2bb203</candidateIdentification>
+                <candidateReferenceOnPosition>01.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
               <countOfSeatsGained>5</countOfSeatsGained>
             </list>
             <list>
               <listIdentification>c90826ef-759c-4c8c-af99-de77a28214a7</listIdentification>
               <listIndentureNumber>03</listIndentureNumber>
+              <electedCandidate>
+                <candidateIdentification>14f0aa77-a7e5-5f98-8b23-018309408c67</candidateIdentification>
+                <candidateReferenceOnPosition>03.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>16e64de5-3496-5605-9493-cd75f80ad885</candidateIdentification>
+                <candidateReferenceOnPosition>03.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>1ed71065-2f66-5f00-aafe-b857079178ca</candidateIdentification>
+                <candidateReferenceOnPosition>03.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
               <countOfSeatsGained>3</countOfSeatsGained>
             </list>
             <list>
               <listIdentification>ad4ddd39-ba6d-4a31-8a36-1f6fdd6452e6</listIdentification>
               <listIndentureNumber>02</listIndentureNumber>
+              <electedCandidate>
+                <candidateIdentification>09d14ef0-60f2-5c94-adda-613e11e73a68</candidateIdentification>
+                <candidateReferenceOnPosition>02.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>0a1b3e26-5c10-5761-a596-49f887116cef</candidateIdentification>
+                <candidateReferenceOnPosition>02.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>114a069d-7433-594c-a997-39e9d5ad35ac</candidateIdentification>
+                <candidateReferenceOnPosition>02.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
               <countOfSeatsGained>3</countOfSeatsGained>
             </list>
           </proportionalElection>
         </elected>
-        <drawElection>
-          <proportionalElection>
-            <candidateDrawElectionOnList>
-              <isDrawPending>true</isDrawPending>
-              <listIdentification>595b7588-2af3-4686-b4d4-f97a64679103</listIdentification>
-              <candidateIdentification>195d8cac-37b5-5568-96c3-7b542243b670</candidateIdentification>
-              <candidateIdentification>1de54096-7e9f-5c58-ac34-d687af4dfad6</candidateIdentification>
-              <candidateIdentification>284eace1-18c4-5f19-9153-c543712ea05a</candidateIdentification>
-              <candidateIdentification>3d36ff9c-510a-5a33-8c21-3fe69aac1d72</candidateIdentification>
-              <candidateIdentification>3f1daad7-c542-5ac0-bdf9-37fcae2bb203</candidateIdentification>
-              <candidateIdentification>405251aa-6717-5afd-b681-a3a3a0109deb</candidateIdentification>
-              <candidateIdentification>777d0589-6fcf-5a2d-ad62-bf5d9feff12f</candidateIdentification>
-              <candidateIdentification>966318f1-cdf1-50e3-b303-acb1174deec9</candidateIdentification>
-              <candidateIdentification>acda3484-7857-565c-b412-cac0816bb613</candidateIdentification>
-              <candidateIdentification>dcd40586-ee32-5cd7-a27f-c239a82eaa14</candidateIdentification>
-              <candidateIdentification>f69fab39-74c9-5f0a-b8d8-c8d90be97195</candidateIdentification>
-            </candidateDrawElectionOnList>
-            <candidateDrawElectionOnList>
-              <isDrawPending>true</isDrawPending>
-              <listIdentification>ad4ddd39-ba6d-4a31-8a36-1f6fdd6452e6</listIdentification>
-              <candidateIdentification>09d14ef0-60f2-5c94-adda-613e11e73a68</candidateIdentification>
-              <candidateIdentification>0a1b3e26-5c10-5761-a596-49f887116cef</candidateIdentification>
-              <candidateIdentification>114a069d-7433-594c-a997-39e9d5ad35ac</candidateIdentification>
-              <candidateIdentification>302755fb-13c8-5f40-a2ee-951f29baaa60</candidateIdentification>
-              <candidateIdentification>502ad747-68bc-5104-83e6-583b71711eb2</candidateIdentification>
-              <candidateIdentification>541b7ba3-6f42-5efa-a744-6d30f60d8db5</candidateIdentification>
-              <candidateIdentification>7815d28a-4a88-597b-aad4-fa95dcdcaea6</candidateIdentification>
-              <candidateIdentification>841f14c0-ec6b-5205-b48b-bf9dbc3c4db6</candidateIdentification>
-              <candidateIdentification>9d520d33-dbbd-56da-b595-57e4b46292fc</candidateIdentification>
-              <candidateIdentification>ad79ed3f-1578-5413-a256-8fa1aaab6dbd</candidateIdentification>
-              <candidateIdentification>ea00281d-fa27-5bfc-8805-9459fbd5e6b5</candidateIdentification>
-            </candidateDrawElectionOnList>
-            <candidateDrawElectionOnList>
-              <isDrawPending>true</isDrawPending>
-              <listIdentification>c90826ef-759c-4c8c-af99-de77a28214a7</listIdentification>
-              <candidateIdentification>14f0aa77-a7e5-5f98-8b23-018309408c67</candidateIdentification>
-              <candidateIdentification>16e64de5-3496-5605-9493-cd75f80ad885</candidateIdentification>
-              <candidateIdentification>1ed71065-2f66-5f00-aafe-b857079178ca</candidateIdentification>
-              <candidateIdentification>621c41e6-ee56-5f06-8439-9ba037168feb</candidateIdentification>
-              <candidateIdentification>77d10158-cb7b-53d1-bbff-18e8f0b2559c</candidateIdentification>
-              <candidateIdentification>8da25932-fbea-51be-b12c-c053dcdebcf7</candidateIdentification>
-              <candidateIdentification>cc36544f-e48b-5afa-9b30-bd549d247544</candidateIdentification>
-              <candidateIdentification>ce967757-f0fa-55e1-bfe0-48ad4a87e797</candidateIdentification>
-              <candidateIdentification>d5e0230c-651a-5036-9ace-587ad2488e24</candidateIdentification>
-              <candidateIdentification>dcd5e039-02b4-5d41-b512-2932909bf315</candidateIdentification>
-              <candidateIdentification>efc56aa7-a794-596d-a3dc-d0df0c806119</candidateIdentification>
-            </candidateDrawElectionOnList>
-          </proportionalElection>
-        </drawElection>
       </electionResult>
     </electionGroupResult>
     <electionGroupResult>
@@ -699,20 +705,80 @@
         </countingCircleResult>
         <elected>
           <proportionalElection>
-            <isElectionResultComplete>false</isElectionResultComplete>
+            <isElectionResultComplete>true</isElectionResultComplete>
             <list>
               <listIdentification>7f7808f7-79b5-4b3e-a434-eb7344131ce2</listIdentification>
               <listIndentureNumber>01</listIndentureNumber>
+              <electedCandidate>
+                <candidateIdentification>2e0661b4-b160-5da8-8804-e8a74ac04485</candidateIdentification>
+                <candidateReferenceOnPosition>01.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>3d9a6119-1cfb-5b26-8ca0-efb1b67402bf</candidateIdentification>
+                <candidateReferenceOnPosition>01.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>4a6fe8ed-be25-59ad-a8ee-22fb3e35b7c8</candidateIdentification>
+                <candidateReferenceOnPosition>01.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>58705c2e-d27a-5c04-9ed9-3afe0695302c</candidateIdentification>
+                <candidateReferenceOnPosition>01.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>78fffaf9-1686-5f7a-b5f0-d6dc64de4775</candidateIdentification>
+                <candidateReferenceOnPosition>01.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
               <countOfSeatsGained>5</countOfSeatsGained>
             </list>
             <list>
               <listIdentification>e3598805-c52c-4ff4-9049-2c5647972e8c</listIdentification>
               <listIndentureNumber>03</listIndentureNumber>
+              <electedCandidate>
+                <candidateIdentification>03f65e38-08b1-5387-b932-1f057ba71734</candidateIdentification>
+                <candidateReferenceOnPosition>03.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>22f2fd1b-bf32-57df-b2a0-d28beb469728</candidateIdentification>
+                <candidateReferenceOnPosition>03.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>24d992d6-0659-5963-baa1-85f02c2394e6</candidateIdentification>
+                <candidateReferenceOnPosition>03.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>3abeb56d-aeb9-5575-a02f-eeb778a265ee</candidateIdentification>
+                <candidateReferenceOnPosition>03.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>4149ec61-62ba-5430-90c8-183ea86168d6</candidateIdentification>
+                <candidateReferenceOnPosition>03.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
               <countOfSeatsGained>5</countOfSeatsGained>
             </list>
             <list>
               <listIdentification>89dfd5be-ad83-4e1e-b575-ded6ce513305</listIdentification>
               <listIndentureNumber>02</listIndentureNumber>
+              <electedCandidate>
+                <candidateIdentification>012d9d1b-5993-561b-888a-0625c056f8e1</candidateIdentification>
+                <candidateReferenceOnPosition>02.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>02de6136-d090-583b-9240-17094c34a127</candidateIdentification>
+                <candidateReferenceOnPosition>02.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
               <countOfSeatsGained>2</countOfSeatsGained>
             </list>
             <list>
@@ -722,74 +788,6 @@
             </list>
           </proportionalElection>
         </elected>
-        <drawElection>
-          <proportionalElection>
-            <candidateDrawElectionOnList>
-              <isDrawPending>true</isDrawPending>
-              <listIdentification>2cd8651a-33d2-451c-8a70-1eaaa47deb92</listIdentification>
-              <candidateIdentification>198429b9-78ae-5a80-a53a-cef981f90ab6</candidateIdentification>
-              <candidateIdentification>2ad96b67-71c0-5193-a075-04dfd7f2aeee</candidateIdentification>
-              <candidateIdentification>2b98169a-bddf-5795-840d-225fa4c3e052</candidateIdentification>
-              <candidateIdentification>2bab6956-101b-502f-9aac-65e508e2f1a2</candidateIdentification>
-              <candidateIdentification>45672300-8a90-59c6-9e73-d79ccf057d39</candidateIdentification>
-              <candidateIdentification>477b3cc3-bfbd-5375-ada2-0ca8fad28273</candidateIdentification>
-              <candidateIdentification>63a89fb6-c203-53e7-b470-4755e565bbbd</candidateIdentification>
-              <candidateIdentification>b72b2a89-3034-5594-a721-ebc330a0aa5f</candidateIdentification>
-              <candidateIdentification>bab217a1-2352-5eb5-8b8b-11f8767491ba</candidateIdentification>
-              <candidateIdentification>ca577e3e-c829-5db0-9783-f51efd591a05</candidateIdentification>
-              <candidateIdentification>d00f2bb2-c165-5772-ab72-467a69a59876</candidateIdentification>
-              <candidateIdentification>e3f7835c-9620-58a6-bc96-5380133b904b</candidateIdentification>
-            </candidateDrawElectionOnList>
-            <candidateDrawElectionOnList>
-              <isDrawPending>true</isDrawPending>
-              <listIdentification>7f7808f7-79b5-4b3e-a434-eb7344131ce2</listIdentification>
-              <candidateIdentification>2e0661b4-b160-5da8-8804-e8a74ac04485</candidateIdentification>
-              <candidateIdentification>3d9a6119-1cfb-5b26-8ca0-efb1b67402bf</candidateIdentification>
-              <candidateIdentification>4a6fe8ed-be25-59ad-a8ee-22fb3e35b7c8</candidateIdentification>
-              <candidateIdentification>58705c2e-d27a-5c04-9ed9-3afe0695302c</candidateIdentification>
-              <candidateIdentification>78fffaf9-1686-5f7a-b5f0-d6dc64de4775</candidateIdentification>
-              <candidateIdentification>7a6893c1-dfd6-5f7e-bba7-e8366080605e</candidateIdentification>
-              <candidateIdentification>7b105df3-8979-52a3-913a-6bd0745d7f16</candidateIdentification>
-              <candidateIdentification>88a7808a-852b-560b-9689-937d122124a3</candidateIdentification>
-              <candidateIdentification>89a94762-3bb7-5a8e-9a2d-5cec05014298</candidateIdentification>
-              <candidateIdentification>9bae66a2-1df7-59d9-9db2-1e38feac5d2b</candidateIdentification>
-              <candidateIdentification>9bb862c6-86a4-5721-817d-661cf56d2808</candidateIdentification>
-              <candidateIdentification>f18bde7c-52e7-511c-8629-94ad375250ba</candidateIdentification>
-            </candidateDrawElectionOnList>
-            <candidateDrawElectionOnList>
-              <isDrawPending>true</isDrawPending>
-              <listIdentification>89dfd5be-ad83-4e1e-b575-ded6ce513305</listIdentification>
-              <candidateIdentification>012d9d1b-5993-561b-888a-0625c056f8e1</candidateIdentification>
-              <candidateIdentification>02de6136-d090-583b-9240-17094c34a127</candidateIdentification>
-              <candidateIdentification>1349a067-be6b-5ebc-a559-1cf80e14bd42</candidateIdentification>
-              <candidateIdentification>3cb5bcf5-fa71-5c97-a12c-7887ad785b1b</candidateIdentification>
-              <candidateIdentification>6ed8c663-fdea-5946-a22b-8ed1a606f409</candidateIdentification>
-              <candidateIdentification>71040ead-f4b1-5b71-acf0-1485efb4961b</candidateIdentification>
-              <candidateIdentification>872248ff-fd08-54c9-90a4-97bb5c0813c2</candidateIdentification>
-              <candidateIdentification>8afa0baa-0936-587c-810f-43ba5020237f</candidateIdentification>
-              <candidateIdentification>9b4962b9-c5ba-5af5-b98e-c209ef2cbc2d</candidateIdentification>
-              <candidateIdentification>a6dffa09-8eca-5ccf-a75b-f380c426d36b</candidateIdentification>
-              <candidateIdentification>acf3f4a7-7645-52cd-8777-f0f7b199935f</candidateIdentification>
-              <candidateIdentification>ceec930f-ad9d-58b2-aac9-3d0e7cbad29c</candidateIdentification>
-            </candidateDrawElectionOnList>
-            <candidateDrawElectionOnList>
-              <isDrawPending>true</isDrawPending>
-              <listIdentification>e3598805-c52c-4ff4-9049-2c5647972e8c</listIdentification>
-              <candidateIdentification>03f65e38-08b1-5387-b932-1f057ba71734</candidateIdentification>
-              <candidateIdentification>22f2fd1b-bf32-57df-b2a0-d28beb469728</candidateIdentification>
-              <candidateIdentification>24d992d6-0659-5963-baa1-85f02c2394e6</candidateIdentification>
-              <candidateIdentification>3abeb56d-aeb9-5575-a02f-eeb778a265ee</candidateIdentification>
-              <candidateIdentification>4149ec61-62ba-5430-90c8-183ea86168d6</candidateIdentification>
-              <candidateIdentification>4192b04f-236d-52f6-8a6a-9f8a765f63b1</candidateIdentification>
-              <candidateIdentification>5eafcf21-b422-5542-9961-ce7c6c84d61f</candidateIdentification>
-              <candidateIdentification>6560e8ce-3009-52dc-a0ee-c2092479d30a</candidateIdentification>
-              <candidateIdentification>7fbc33de-46f3-50ea-91d7-30ad443223f6</candidateIdentification>
-              <candidateIdentification>a22a1ca1-260d-536a-863d-4e4302135c31</candidateIdentification>
-              <candidateIdentification>eb3ae7df-4323-5634-9032-7c1ad1d17d4c</candidateIdentification>
-              <candidateIdentification>fc6af686-276f-5407-bc5d-1e77bb037b54</candidateIdentification>
-            </candidateDrawElectionOnList>
-          </proportionalElection>
-        </drawElection>
       </electionResult>
     </electionGroupResult>
     <electionGroupResult>
@@ -1086,79 +1084,89 @@
         </countingCircleResult>
         <elected>
           <proportionalElection>
-            <isElectionResultComplete>false</isElectionResultComplete>
+            <isElectionResultComplete>true</isElectionResultComplete>
             <list>
               <listIdentification>c9a3491c-0774-4952-a487-e3087a1bd955</listIdentification>
               <listIndentureNumber>02</listIndentureNumber>
+              <electedCandidate>
+                <candidateIdentification>0df718c3-1677-5845-8339-e94f5a9a54b2</candidateIdentification>
+                <candidateReferenceOnPosition>02.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>3249b956-3dcc-5852-8257-dbe06f06f232</candidateIdentification>
+                <candidateReferenceOnPosition>02.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>376a1df1-422f-5ede-86c4-eef070d306d3</candidateIdentification>
+                <candidateReferenceOnPosition>02.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>5bbdce2b-51c2-5f23-a313-70d3a74f948e</candidateIdentification>
+                <candidateReferenceOnPosition>02.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>6bc49f30-9470-5d09-9dfc-0e2a88abbf44</candidateIdentification>
+                <candidateReferenceOnPosition>02.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>74e6f868-2db1-5237-b55c-a0b5d365348a</candidateIdentification>
+                <candidateReferenceOnPosition>02.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
               <countOfSeatsGained>6</countOfSeatsGained>
             </list>
             <list>
               <listIdentification>64672e72-1502-4829-a05f-b96821364552</listIdentification>
               <listIndentureNumber>01</listIndentureNumber>
+              <electedCandidate>
+                <candidateIdentification>3ec1dc28-13ac-51be-bd6b-9fb69be32492</candidateIdentification>
+                <candidateReferenceOnPosition>01.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>4361f68f-e2c2-5be2-96ff-91814bd91765</candidateIdentification>
+                <candidateReferenceOnPosition>01.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>8270b11e-51d1-5f02-a30c-7bcaf93b40d9</candidateIdentification>
+                <candidateReferenceOnPosition>01.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>8bbe0b14-1edf-59e8-8f62-823e789d9e9f</candidateIdentification>
+                <candidateReferenceOnPosition>01.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
               <countOfSeatsGained>4</countOfSeatsGained>
             </list>
             <list>
               <listIdentification>f31e9c04-eea8-41b5-b560-f34f97c01c26</listIdentification>
               <listIndentureNumber>03</listIndentureNumber>
+              <electedCandidate>
+                <candidateIdentification>110dcfb1-3622-531a-ac0a-f1f95e0b275b</candidateIdentification>
+                <candidateReferenceOnPosition>03.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>125bd26b-2db2-55a7-b71a-fda27648da40</candidateIdentification>
+                <candidateReferenceOnPosition>03.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
+              <electedCandidate>
+                <candidateIdentification>28bb53d7-0586-55bb-9ee5-3e1c8e8cced5</candidateIdentification>
+                <candidateReferenceOnPosition>03.00</candidateReferenceOnPosition>
+                <isElectedByDraw>false</isElectedByDraw>
+              </electedCandidate>
               <countOfSeatsGained>3</countOfSeatsGained>
             </list>
           </proportionalElection>
         </elected>
-        <drawElection>
-          <proportionalElection>
-            <candidateDrawElectionOnList>
-              <isDrawPending>true</isDrawPending>
-              <listIdentification>64672e72-1502-4829-a05f-b96821364552</listIdentification>
-              <candidateIdentification>3ec1dc28-13ac-51be-bd6b-9fb69be32492</candidateIdentification>
-              <candidateIdentification>4361f68f-e2c2-5be2-96ff-91814bd91765</candidateIdentification>
-              <candidateIdentification>8270b11e-51d1-5f02-a30c-7bcaf93b40d9</candidateIdentification>
-              <candidateIdentification>8bbe0b14-1edf-59e8-8f62-823e789d9e9f</candidateIdentification>
-              <candidateIdentification>8ea8c796-7b8c-58b5-af3f-19d977fe9e7d</candidateIdentification>
-              <candidateIdentification>8fedef7e-ba11-5a83-b496-3732696f39e7</candidateIdentification>
-              <candidateIdentification>9a0646d7-3af0-5c98-8179-1375f9c1370b</candidateIdentification>
-              <candidateIdentification>ca102201-8c02-5d44-a077-ccb6de95d662</candidateIdentification>
-              <candidateIdentification>d3ccdace-4b14-5f81-b5e5-fb1ebbcffec1</candidateIdentification>
-              <candidateIdentification>da41eabe-0fbc-521f-9816-ea44fe03f9a9</candidateIdentification>
-              <candidateIdentification>da68b5af-7990-5716-8754-5d512756ac33</candidateIdentification>
-              <candidateIdentification>e4672630-c1ce-58c5-a3cc-b93240ae9360</candidateIdentification>
-              <candidateIdentification>fc669516-7719-5d69-ba2a-b550a930ef2f</candidateIdentification>
-            </candidateDrawElectionOnList>
-            <candidateDrawElectionOnList>
-              <isDrawPending>true</isDrawPending>
-              <listIdentification>c9a3491c-0774-4952-a487-e3087a1bd955</listIdentification>
-              <candidateIdentification>0df718c3-1677-5845-8339-e94f5a9a54b2</candidateIdentification>
-              <candidateIdentification>3249b956-3dcc-5852-8257-dbe06f06f232</candidateIdentification>
-              <candidateIdentification>376a1df1-422f-5ede-86c4-eef070d306d3</candidateIdentification>
-              <candidateIdentification>5bbdce2b-51c2-5f23-a313-70d3a74f948e</candidateIdentification>
-              <candidateIdentification>6bc49f30-9470-5d09-9dfc-0e2a88abbf44</candidateIdentification>
-              <candidateIdentification>74e6f868-2db1-5237-b55c-a0b5d365348a</candidateIdentification>
-              <candidateIdentification>8228cf0f-4314-57d8-a737-4f4a105519b3</candidateIdentification>
-              <candidateIdentification>9274ef9f-86f1-54ba-9d38-03c5b36867d5</candidateIdentification>
-              <candidateIdentification>9b3f6f11-1e3f-5ff5-9ad9-fe6df182c75b</candidateIdentification>
-              <candidateIdentification>a18cb95b-4ad5-51ce-b1da-f7fc40eaebbf</candidateIdentification>
-              <candidateIdentification>bc05bee3-803d-5c45-91df-8b657246d60f</candidateIdentification>
-              <candidateIdentification>d191ca76-ff4d-584c-8bae-b4cfecc6aed6</candidateIdentification>
-              <candidateIdentification>d5a228a1-4e09-5c6a-b9ed-42dcb778dd16</candidateIdentification>
-            </candidateDrawElectionOnList>
-            <candidateDrawElectionOnList>
-              <isDrawPending>true</isDrawPending>
-              <listIdentification>f31e9c04-eea8-41b5-b560-f34f97c01c26</listIdentification>
-              <candidateIdentification>110dcfb1-3622-531a-ac0a-f1f95e0b275b</candidateIdentification>
-              <candidateIdentification>125bd26b-2db2-55a7-b71a-fda27648da40</candidateIdentification>
-              <candidateIdentification>28bb53d7-0586-55bb-9ee5-3e1c8e8cced5</candidateIdentification>
-              <candidateIdentification>2915e338-23e5-5371-8893-1bba6fbd0514</candidateIdentification>
-              <candidateIdentification>335b71a5-c5bc-59f3-8dc6-f2b9668aa1f3</candidateIdentification>
-              <candidateIdentification>4562cf56-8885-5fea-b2e4-4444245e28d3</candidateIdentification>
-              <candidateIdentification>5330ac01-8577-5680-951b-5019f7fe7855</candidateIdentification>
-              <candidateIdentification>5fab920f-4b13-5f27-bca9-6576cf15ae58</candidateIdentification>
-              <candidateIdentification>6265322c-f0a7-5078-b4e7-9b52b0a3bc2a</candidateIdentification>
-              <candidateIdentification>6da2dbeb-8db5-5e47-8a73-dfd488b57505</candidateIdentification>
-              <candidateIdentification>bb3fcfb7-9344-56e1-9b99-1ff3c9b47007</candidateIdentification>
-              <candidateIdentification>cc708bb6-8480-5315-9f57-c91d43a4a700</candidateIdentification>
-              <candidateIdentification>ea1d55dd-fd0b-5f8e-8e8d-20b7d57f3b56</candidateIdentification>
-            </candidateDrawElectionOnList>
-          </proportionalElection>
-        </drawElection>
       </electionResult>
     </electionGroupResult>
     <electionGroupResult>

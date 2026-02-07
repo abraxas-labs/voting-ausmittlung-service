@@ -18,6 +18,6 @@ public class WabstiCPercentDecimalConverter : DefaultTypeConverter
 {
     public override string ConvertToString(object? value, IWriterRow row, MemberMapData memberMapData)
     {
-        return value == null ? string.Empty : Math.Round((decimal)value * 100, 2).ToString(CultureInfo.InvariantCulture);
+        return value == null ? string.Empty : Math.Round((decimal)value * 100, 2, MidpointRounding.AwayFromZero).ToString(CultureInfo.InvariantCulture);
     }
 }

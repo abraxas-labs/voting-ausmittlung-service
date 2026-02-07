@@ -90,7 +90,7 @@ public class VoteProcessor :
         var vote = _mapper.Map<Vote>(eventData.Vote);
         vote.DomainOfInfluenceId = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(vote.ContestId, vote.DomainOfInfluenceId);
 
-        PatchOldEventIfNecessary(vote);
+        PatchOldEventIfNecessary(vote, eventData.Vote.AutomaticBallotNumberGeneration);
 
         await _repo.Create(vote);
         await _simplePoliticalBusinessBuilder.Create(vote);
@@ -104,7 +104,7 @@ public class VoteProcessor :
         var vote = _mapper.Map<Vote>(eventData.Vote);
         vote.DomainOfInfluenceId = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(vote.ContestId, vote.DomainOfInfluenceId);
 
-        PatchOldEventIfNecessary(vote);
+        PatchOldEventIfNecessary(vote, eventData.Vote.AutomaticBallotNumberGeneration);
 
         var existingVote = await _repo.GetByKey(vote.Id)
             ?? throw new EntityNotFoundException(vote.Id);
@@ -325,7 +325,7 @@ public class VoteProcessor :
         vote.UpdateSubTypeManually(hasBallotWithVariantBallotType);
     }
 
-    private void PatchOldEventIfNecessary(Vote vote)
+    private void PatchOldEventIfNecessary(Vote vote, bool? automaticBallotNumberGeneration)
     {
         // Set default review procedure value since the old eventData (before introducing the review procedure) can contain the unspecified value.
         if (vote.ReviewProcedure == VoteReviewProcedure.Unspecified)
@@ -336,6 +336,11 @@ public class VoteProcessor :
         if (vote.Type == VoteType.Unspecified)
         {
             vote.Type = VoteType.QuestionsOnSingleBallot;
+        }
+
+        if (automaticBallotNumberGeneration == null)
+        {
+            vote.AutomaticBallotNumberGeneration = true;
         }
     }
 

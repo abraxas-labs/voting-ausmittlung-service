@@ -37,6 +37,7 @@
       "BallotBundleSize": 10,
       "BallotBundleSampleSize": 3,
       "AutomaticBallotBundleNumberGeneration": true,
+      "AutomaticBallotNumberGeneration": true,
       "BallotNumberGeneration": 2,
       "AutomaticEmptyVoteCounting": false,
       "CandidateCheckDigit": true
@@ -127,7 +128,7 @@
     "AllBundlesReviewedOrDeleted": false,
     "CountingCircleId": "00000000-0000-0000-0000-000000000000",
     "CountingCircle": null,
-    "State": 1,
+    "State": 2,
     "SubmissionDoneTimestamp": null,
     "ReadyForCorrectionTimestamp": null,
     "AuditedTentativelyTimestamp": null,
@@ -153,7 +154,9 @@
     "FullName": "default user firstname default user lastname"
   },
   "CountOfBallots": 0,
+  "CountOfModifiedBallots": null,
   "BallotNumbersToReview": [],
+  "BallotNumbers": [],
   "ProtocolExport": null,
   "Id": "6c73b736-cc42-4325-a8be-7e5233f3d54e"
 }

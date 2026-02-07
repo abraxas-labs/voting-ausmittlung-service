@@ -24,6 +24,10 @@ public abstract class PoliticalBusinessResultBundleAggregate : BaseEventSignatur
 
     public int BundleNumber { get; protected set; }
 
+    public HashSet<string> ModificationUsers { get; } = [];
+
+    public int CountOfBallots => BallotNumbers.Count;
+
     protected abstract int BallotBundleSampleSize { get; }
 
     protected void EnsureHasBallot(int ballotNumber)
@@ -42,6 +46,45 @@ public abstract class PoliticalBusinessResultBundleAggregate : BaseEventSignatur
         }
     }
 
+    protected void EnsureCanCloseBundle()
+    {
+        if (BallotNumbers.Count == 0)
+        {
+            throw new ValidationException("at least one ballot is required to close this bundle");
+        }
+    }
+
     protected IEnumerable<int> GenerateBallotNumberSamples()
         => RandomUtil.Samples(BallotNumbers, BallotBundleSampleSize).OrderBy(x => x);
+
+    protected void TrackPossibleModification(string userId)
+    {
+        if (State > BallotBundleState.InProcess)
+        {
+            ModificationUsers.Add(userId);
+        }
+    }
+
+    protected void CheckBallotNumber(int? ballotNumber, bool automaticBallotNumberGeneration)
+    {
+        if (automaticBallotNumberGeneration && ballotNumber == null)
+        {
+            return;
+        }
+
+        if (automaticBallotNumberGeneration && ballotNumber != null)
+        {
+            throw new ValidationException("Automatic ballot number generation does not expect a ballot number to be set");
+        }
+
+        if (ballotNumber == null)
+        {
+            throw new ValidationException("Manual ballot number generation needs a ballot number to be set");
+        }
+
+        if (BallotNumbers.Contains(ballotNumber.Value))
+        {
+            throw new ValidationException("The bundle already contains this ballot number");
+        }
+    }
 }

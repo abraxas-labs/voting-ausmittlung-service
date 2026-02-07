@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Abraxas.Voting.Ausmittlung.Events.V1;
 using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Services.Read;
@@ -27,10 +28,12 @@ public sealed class PermissionAccessor : IAsyncDisposable
     private IReadOnlySet<Guid> _accessibleBasisCountingCircleIds = new HashSet<Guid>();
     private IReadOnlySet<Guid> _accessibleProtocolIds = new HashSet<Guid>();
     private IReadOnlySet<Guid> _ownedPoliticalBusinessIds = new HashSet<Guid>();
+    private IReadOnlySet<Guid> _ownedPoliticalBusinessUnionIds = new HashSet<Guid>();
     private IReadOnlyDictionary<Guid, (Guid BasisCcId, Guid PbId)> _resultIdMapping = new Dictionary<Guid, (Guid, Guid)>();
     private Guid _contestId;
     private Guid? _basisCountingCircleId;
     private bool _testingPhaseEnded;
+    private bool _canReadContestImport;
 
     public PermissionAccessor(PermissionService permissionService, IAuth auth, ResultExportTemplateReader templateReader)
     {
@@ -65,6 +68,13 @@ public sealed class PermissionAccessor : IAsyncDisposable
             return true;
         }
 
+        if (msg.PoliticalBusinessUnionEndResultId.HasValue
+            && msg.PoliticalBusinessUnionId.HasValue
+            && _ownedPoliticalBusinessUnionIds.Contains(msg.PoliticalBusinessUnionId.Value))
+        {
+            return true;
+        }
+
         if (msg.BasisCountingCircleId.HasValue
             && ((_basisCountingCircleId.HasValue && msg.BasisCountingCircleId.Value != _basisCountingCircleId.Value)
                 || !_accessibleBasisCountingCircleIds.Contains(msg.BasisCountingCircleId.Value)))
@@ -83,6 +93,15 @@ public sealed class PermissionAccessor : IAsyncDisposable
             && !_accessibleProtocolIds.Contains(msg.ProtocolExportId.Value))
         {
             return false;
+        }
+
+        if (msg.ContestId.HasValue
+            && _canReadContestImport
+            && msg.ContestId == _contestId
+            && msg.EventType.Equals(typeof(ResultImportCompleted).FullName, StringComparison.InvariantCultureIgnoreCase))
+        {
+            // Special handling for result imports
+            return true;
         }
 
         // only counting circles
@@ -135,6 +154,10 @@ public sealed class PermissionAccessor : IAsyncDisposable
             ? await _permissionService.GetOwnedPoliticalBusinessIds(_contestId)
             : new HashSet<Guid>();
 
+        _ownedPoliticalBusinessUnionIds = _auth.HasPermission(Permissions.PoliticalBusinessUnionEndResult.Read)
+            ? await _permissionService.GetOwnedPoliticalBusinessUnionIds(_contestId)
+            : new HashSet<Guid>();
+
         var accessibleIds =
             !_auth.HasPermission(Permissions.PoliticalBusinessResult.Read) && !_auth.HasPermission(Permissions.PoliticalBusinessResult.ReadOverview)
             ? new HashSet<PermissionService.PoliticalBusinessResultIds>()
@@ -144,6 +167,7 @@ public sealed class PermissionAccessor : IAsyncDisposable
         _resultIdMapping = accessibleIds.ToDictionary(
             x => x.PoliticalBusinessResultId,
             x => (x.BasisCountingCircleId, x.PoliticalBusinessId));
+        _canReadContestImport = _auth.HasPermission(Permissions.Import.ImportEVoting);
         _permissionsLoaded = true;
     }
 }

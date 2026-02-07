@@ -11,6 +11,7 @@ using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
@@ -32,6 +33,13 @@ public class ProportionalElectionResultBundleCorrectionFinishedTest : Proportion
         await RunBundleToState(BallotBundleState.InCorrection);
         await ErfassungElectionAdminClient.BundleCorrectionFinishedAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBundleCorrectionFinished>().MatchSnapshot();
+
+        // Should overwrite the creator
+        await RunEvents<ProportionalElectionResultBundleCorrectionFinished>();
+        var bundle = await GetBundle();
+        bundle.CreatedBy.SecureConnectId.Should().Be("default-user-id");
+        bundle.CreatedBy.FirstName.Should().Be("default user firstname");
+        bundle.CreatedBy.LastName.Should().Be("default user lastname");
     }
 
     [Fact]
@@ -80,18 +88,6 @@ public class ProportionalElectionResultBundleCorrectionFinishedTest : Proportion
         await AssertStatus(
             async () => await BundleErfassungElectionAdminClientStGallen.BundleCorrectionFinishedAsync(NewValidRequest()),
             StatusCode.PermissionDenied);
-    }
-
-    [Fact]
-    public async Task TestShouldThrowAsErfassungCreatorOtherUserThanBundleCreator()
-    {
-        await AssertStatus(
-            async () => await ErfassungCreatorClient.BundleCorrectionFinishedAsync(new ProportionalElectionResultBundleCorrectionFinishedRequest
-            {
-                BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle3,
-            }),
-            StatusCode.PermissionDenied,
-            "only election admins or the creator of a bundle can edit it");
     }
 
     [Fact]
@@ -152,11 +148,27 @@ public class ProportionalElectionResultBundleCorrectionFinishedTest : Proportion
     [Fact]
     public async Task TestProcessor()
     {
-        var bundle2Id = Guid.Parse(ProportionalElectionResultBundleMockedData.IdGossauBundle2);
+        var bundle1Id = Guid.Parse(ProportionalElectionResultBundleMockedData.IdGossauBundle1);
         for (var i = 0; i < 5; i++)
         {
             await CreateBallot();
         }
+
+        await RunBundleToState(BallotBundleState.InCorrection);
+
+        // Add a protocol export for this bundle review. It should be deleted
+        await RunOnDb(async db =>
+        {
+            db.ProtocolExports.Add(new()
+            {
+                ContestId = ContestMockedData.GuidStGallenEvoting,
+                PoliticalBusinessId = ProportionalElectionMockedData.GossauProportionalElectionInContestStGallen.Id,
+                Started = new(2020, 1, 15, 20, 0, 0, DateTimeKind.Utc),
+                State = ProtocolExportState.Completed,
+                PoliticalBusinessResultBundleId = bundle1Id,
+            });
+            await db.SaveChangesAsync();
+        });
 
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
@@ -201,7 +213,10 @@ public class ProportionalElectionResultBundleCorrectionFinishedTest : Proportion
         await ShouldHaveCandidateResults(false);
         await ShouldHaveListResults(false);
 
-        await AssertHasPublishedEventProcessedMessage(ProportionalElectionResultBundleCorrectionFinished.Descriptor, bundle2Id);
+        await AssertHasPublishedEventProcessedMessage(ProportionalElectionResultBundleCorrectionFinished.Descriptor, bundle1Id);
+
+        var exportExists = await RunOnDb(db => db.ProtocolExports.AnyAsync(x => x.PoliticalBusinessResultBundleId == bundle1Id));
+        exportExists.Should().BeFalse();
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

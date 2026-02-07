@@ -61,22 +61,26 @@ public class ProportionalElectionResultBundleAggregate : PoliticalBusinessResult
     }
 
     public void CreateBallot(
+        int? ballotNumber,
         int emptyVoteCount,
         IReadOnlyCollection<ProportionalElectionResultBallotCandidate> candidates,
         Guid contestId)
     {
         EnsureInState(BallotBundleState.InProcess, BallotBundleState.InCorrection);
-        if (BallotNumbers.Count >= ResultEntryParams.BallotBundleSize)
+        if (CountOfBallots >= ResultEntryParams.BallotBundleSize)
         {
             throw new ValidationException("bundle size already reached");
         }
+
+        CheckBallotNumber(ballotNumber, ResultEntryParams.AutomaticBallotNumberGeneration);
 
         var ev = new ProportionalElectionResultBallotCreated
         {
             EventInfo = _eventInfoProvider.NewEventInfo(),
             BundleId = Id.ToString(),
             ElectionResultId = PoliticalBusinessResultId.ToString(),
-            BallotNumber = CurrentBallotNumber + 1,
+            BallotNumber = ballotNumber ?? (CurrentBallotNumber + 1),
+            Index = CountOfBallots,
             EmptyVoteCount = emptyVoteCount,
         };
         _mapper.Map(candidates, ev.Candidates);
@@ -126,10 +130,7 @@ public class ProportionalElectionResultBundleAggregate : PoliticalBusinessResult
     public void SubmissionFinished(Guid contestId)
     {
         EnsureInState(BallotBundleState.InProcess);
-        if (BallotNumbers.Count == 0)
-        {
-            throw new ValidationException("at least one ballot is required to close this bundle");
-        }
+        EnsureCanCloseBundle();
 
         var ev = new ProportionalElectionResultBundleSubmissionFinished
         {
@@ -144,10 +145,7 @@ public class ProportionalElectionResultBundleAggregate : PoliticalBusinessResult
     public void CorrectionFinished(Guid contestId)
     {
         EnsureInState(BallotBundleState.InCorrection);
-        if (BallotNumbers.Count == 0)
-        {
-            throw new ValidationException("at least one ballot is required to close this bundle");
-        }
+        EnsureCanCloseBundle();
 
         var ev = new ProportionalElectionResultBundleCorrectionFinished
         {
@@ -185,6 +183,19 @@ public class ProportionalElectionResultBundleAggregate : PoliticalBusinessResult
             new EventSignatureBusinessDomainData(contestId));
     }
 
+    public void ResetToSubmissionFinished(Guid contestId)
+    {
+        EnsureInState(BallotBundleState.Reviewed);
+        var ev = new ProportionalElectionResultBundleResetToSubmissionFinished
+        {
+            EventInfo = _eventInfoProvider.NewEventInfo(),
+            ElectionResultId = PoliticalBusinessResultId.ToString(),
+            BundleId = Id.ToString(),
+        };
+        ev.SampleBallotNumbers.AddRange(GenerateBallotNumberSamples());
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
+    }
+
     public void Delete(Guid contestId)
     {
         if (State == BallotBundleState.Deleted)
@@ -216,8 +227,11 @@ public class ProportionalElectionResultBundleAggregate : PoliticalBusinessResult
                 Apply(ev);
                 break;
             case ProportionalElectionResultBundleSubmissionFinished _:
-            case ProportionalElectionResultBundleCorrectionFinished _:
                 State = BallotBundleState.ReadyForReview;
+                break;
+            case ProportionalElectionResultBundleCorrectionFinished ev:
+                State = BallotBundleState.ReadyForReview;
+                CreatedBy = ev.EventInfo.User.Id;
                 break;
             case ProportionalElectionResultBundleReviewRejected _:
                 State = BallotBundleState.InCorrection;
@@ -227,6 +241,12 @@ public class ProportionalElectionResultBundleAggregate : PoliticalBusinessResult
                 break;
             case ProportionalElectionResultBundleDeleted _:
                 State = BallotBundleState.Deleted;
+                break;
+            case ProportionalElectionResultBundleResetToSubmissionFinished _:
+                State = BallotBundleState.ReadyForReview;
+                break;
+            case ProportionalElectionResultBallotUpdated ev:
+                TrackPossibleModification(ev.EventInfo.User.Id);
                 break;
         }
     }
@@ -238,6 +258,8 @@ public class ProportionalElectionResultBundleAggregate : PoliticalBusinessResult
         {
             ev.ResultEntryParams.ReviewProcedure = Abraxas.Voting.Ausmittlung.Shared.V1.ProportionalElectionReviewProcedure.Electronically;
         }
+
+        ev.ResultEntryParams.AutomaticBallotNumberGeneration ??= true;
 
         Id = GuidParser.Parse(ev.BundleId);
         PoliticalBusinessResultId = GuidParser.Parse(ev.ElectionResultId);
@@ -259,6 +281,8 @@ public class ProportionalElectionResultBundleAggregate : PoliticalBusinessResult
     private void Apply(ProportionalElectionResultBallotDeleted ev)
     {
         BallotNumbers.Remove(ev.BallotNumber);
-        CurrentBallotNumber = ev.BallotNumber - 1;
+        CurrentBallotNumber = CountOfBallots > 0
+            ? BallotNumbers[^1]
+            : ev.BallotNumber - 1;
     }
 }

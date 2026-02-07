@@ -42,29 +42,6 @@ public class MajorityElectionEndResultFinalizeTest : MajorityElectionEndResultBa
     [Fact]
     public async Task ShouldWork()
     {
-        // set all lot decisions as done
-        await ModifyDbEntities<MajorityElectionCandidateEndResult>(
-            x => x.MajorityElectionEndResult.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
-            x => x.LotDecision = true);
-        await ModifyDbEntities<SecondaryMajorityElectionCandidateEndResult>(
-            x => x.SecondaryMajorityElectionEndResult.PrimaryMajorityElectionEndResult.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
-            x => x.LotDecision = true);
-        await MonitoringElectionAdminClient.FinalizeEndResultAsync(NewValidRequest());
-        var ev = EventPublisherMock.GetSinglePublishedEvent<MajorityElectionEndResultFinalized>();
-        ev.MajorityElectionId.Should().Be(MajorityElectionEndResultMockedData.ElectionId);
-        ev.MajorityElectionEndResultId.Should().NotBeEmpty();
-    }
-
-    [Fact]
-    public async Task ShouldWorkOnlyNonRequiredLotDecisions()
-    {
-        // set all lot decisions as done
-        await ModifyDbEntities<MajorityElectionCandidateEndResult>(
-            x => x.MajorityElectionEndResult.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
-            x => x.LotDecisionRequired = false);
-        await ModifyDbEntities<SecondaryMajorityElectionCandidateEndResult>(
-            x => x.SecondaryMajorityElectionEndResult.PrimaryMajorityElectionEndResult.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
-            x => x.LotDecisionRequired = false);
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(NewValidRequest());
         var ev = EventPublisherMock.GetSinglePublishedEvent<MajorityElectionEndResultFinalized>();
         ev.MajorityElectionId.Should().Be(MajorityElectionEndResultMockedData.ElectionId);
@@ -79,14 +56,6 @@ public class MajorityElectionEndResultFinalizeTest : MajorityElectionEndResultBa
         var contestId = Guid.Parse(ContestMockedData.IdBundesurnengang);
 
         // testing phase
-        // set all lot decisions as done
-        await ModifyDbEntities<MajorityElectionCandidateEndResult>(
-            x => x.MajorityElectionEndResult.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
-            x => x.LotDecisionRequired = false);
-        await ModifyDbEntities<SecondaryMajorityElectionCandidateEndResult>(
-            x => x.SecondaryMajorityElectionEndResult.PrimaryMajorityElectionEndResult.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
-            x => x.LotDecisionRequired = false);
-
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(request);
         var evInTestingPhase = EventPublisherMock.GetSinglePublishedEvent<MajorityElectionEndResultFinalized>();
         await RunEvents<MajorityElectionEndResultFinalized>();
@@ -98,13 +67,6 @@ public class MajorityElectionEndResultFinalizeTest : MajorityElectionEndResultBa
         await TestEventPublisher.Publish(GetNextEventNumber(), new ContestTestingPhaseEnded { ContestId = contestId.ToString() });
         await RunEvents<ContestTestingPhaseEnded>();
 
-        // set all lot decisions as done
-        await ModifyDbEntities<MajorityElectionCandidateEndResult>(
-            x => x.MajorityElectionEndResult.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
-            x => x.LotDecisionRequired = false);
-        await ModifyDbEntities<SecondaryMajorityElectionCandidateEndResult>(
-            x => x.SecondaryMajorityElectionEndResult.PrimaryMajorityElectionEndResult.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
-            x => x.LotDecisionRequired = false);
         await ModifyDbEntities<MajorityElectionEndResult>(
             e => e.MajorityElectionId == electionId,
             e => e.CountOfDoneCountingCircles = e.TotalCountOfCountingCircles);
@@ -190,13 +152,6 @@ public class MajorityElectionEndResultFinalizeTest : MajorityElectionEndResultBa
     {
         await TestEventWithSignature(ContestMockedData.IdBundesurnengang, async () =>
         {
-            // set all lot decisions as done
-            await ModifyDbEntities<MajorityElectionCandidateEndResult>(
-            x => x.MajorityElectionEndResult.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
-            x => x.LotDecision = true);
-            await ModifyDbEntities<SecondaryMajorityElectionCandidateEndResult>(
-                x => x.SecondaryMajorityElectionEndResult.PrimaryMajorityElectionEndResult.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
-                x => x.LotDecision = true);
             await MonitoringElectionAdminClient.FinalizeEndResultAsync(NewValidRequest());
             return EventPublisherMock.GetSinglePublishedEventWithMetadata<MajorityElectionEndResultFinalized>();
         });

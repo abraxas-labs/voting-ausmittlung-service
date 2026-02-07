@@ -32,7 +32,7 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
 
     public VoteResultEntryParams ResultEntryParams { get; private set; } = new();
 
-    protected override int BallotBundleSampleSize => Convert.ToInt32(Math.Ceiling(ResultEntryParams.BallotBundleSampleSizePercent / 100.0 * BallotNumbers.Count));
+    protected override int BallotBundleSampleSize => Convert.ToInt32(Math.Ceiling(ResultEntryParams.BallotBundleSampleSizePercent / 100.0 * CountOfBallots));
 
     public void Create(
         Guid? bundleId,
@@ -67,11 +67,13 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
     }
 
     public void CreateBallot(
+        int? ballotNumber,
         ICollection<VoteResultBallotQuestionAnswer> questionBallotAnswers,
         ICollection<VoteResultBallotTieBreakQuestionAnswer> tieBreakQuestionBallotAnswers,
         Guid contestId)
     {
         EnsureInState(BallotBundleState.InProcess, BallotBundleState.InCorrection);
+        CheckBallotNumber(ballotNumber, ResultEntryParams.AutomaticBallotNumberGeneration);
 
         ValidateAtLeastOneAnswer(questionBallotAnswers, tieBreakQuestionBallotAnswers);
 
@@ -81,7 +83,8 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
             BundleId = Id.ToString(),
             VoteResultId = PoliticalBusinessResultId.ToString(),
             BallotResultId = BallotResultId.ToString(),
-            BallotNumber = CurrentBallotNumber + 1,
+            BallotNumber = ballotNumber ?? (CurrentBallotNumber + 1),
+            Index = CountOfBallots,
         };
         _mapper.Map(questionBallotAnswers, ev.QuestionAnswers);
         _mapper.Map(tieBreakQuestionBallotAnswers, ev.TieBreakQuestionAnswers);
@@ -135,10 +138,7 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
     public void SubmissionFinished(Guid contestId)
     {
         EnsureInState(BallotBundleState.InProcess);
-        if (BallotNumbers.Count == 0)
-        {
-            throw new ValidationException("at least one ballot is required to close this bundle");
-        }
+        EnsureCanCloseBundle();
 
         var ev = new VoteResultBundleSubmissionFinished
         {
@@ -154,10 +154,7 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
     public void CorrectionFinished(Guid contestId)
     {
         EnsureInState(BallotBundleState.InCorrection);
-        if (BallotNumbers.Count == 0)
-        {
-            throw new ValidationException("at least one ballot is required to close this bundle");
-        }
+        EnsureCanCloseBundle();
 
         var ev = new VoteResultBundleCorrectionFinished
         {
@@ -196,6 +193,20 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
             new EventSignatureBusinessDomainData(contestId));
     }
 
+    public void ResetToSubmissionFinished(Guid contestId)
+    {
+        EnsureInState(BallotBundleState.Reviewed);
+        var ev = new VoteResultBundleResetToSubmissionFinished
+        {
+            EventInfo = _eventInfoProvider.NewEventInfo(),
+            BundleId = Id.ToString(),
+            VoteResultId = PoliticalBusinessResultId.ToString(),
+            BallotResultId = BallotResultId.ToString(),
+        };
+        ev.SampleBallotNumbers.AddRange(GenerateBallotNumberSamples());
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
+    }
+
     public void Delete(Guid contestId)
     {
         if (State == BallotBundleState.Deleted)
@@ -227,8 +238,11 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
                 Apply(ev);
                 break;
             case VoteResultBundleSubmissionFinished _:
-            case VoteResultBundleCorrectionFinished _:
                 State = BallotBundleState.ReadyForReview;
+                break;
+            case VoteResultBundleCorrectionFinished ev:
+                State = BallotBundleState.ReadyForReview;
+                CreatedBy = ev.EventInfo.User.Id;
                 break;
             case VoteResultBundleReviewRejected _:
                 State = BallotBundleState.InCorrection;
@@ -238,6 +252,12 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
                 break;
             case VoteResultBundleDeleted _:
                 State = BallotBundleState.Deleted;
+                break;
+            case VoteResultBundleResetToSubmissionFinished _:
+                State = BallotBundleState.ReadyForReview;
+                break;
+            case VoteResultBallotUpdated ev:
+                TrackPossibleModification(ev.EventInfo.User.Id);
                 break;
         }
     }
@@ -249,6 +269,8 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
         {
             ev.ResultEntryParams.ReviewProcedure = Abraxas.Voting.Ausmittlung.Shared.V1.VoteReviewProcedure.Electronically;
         }
+
+        ev.ResultEntryParams.AutomaticBallotNumberGeneration ??= true;
 
         Id = GuidParser.Parse(ev.BundleId);
         PoliticalBusinessResultId = GuidParser.Parse(ev.VoteResultId);
@@ -268,7 +290,9 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
     private void Apply(VoteResultBallotDeleted ev)
     {
         BallotNumbers.Remove(ev.BallotNumber);
-        CurrentBallotNumber = ev.BallotNumber - 1;
+        CurrentBallotNumber = CountOfBallots > 0
+            ? BallotNumbers[^1]
+            : ev.BallotNumber - 1;
     }
 
     private void ValidateAtLeastOneAnswer(

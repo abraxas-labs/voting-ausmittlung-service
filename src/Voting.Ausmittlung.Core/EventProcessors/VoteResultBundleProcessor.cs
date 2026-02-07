@@ -26,13 +26,15 @@ public class VoteResultBundleProcessor :
     IEventProcessor<VoteResultBallotUpdated>,
     IEventProcessor<VoteResultBallotDeleted>,
     IEventProcessor<VoteResultBundleSubmissionFinished>,
-    IEventProcessor<VoteResultBundleCorrectionFinished>
+    IEventProcessor<VoteResultBundleCorrectionFinished>,
+    IEventProcessor<VoteResultBundleResetToSubmissionFinished>
 {
     private readonly IDbRepository<DataContext, BallotResult> _resultRepo;
     private readonly IDbRepository<DataContext, VoteResultBundle> _bundleRepo;
     private readonly IDbRepository<DataContext, VoteResultBallot> _ballotRepo;
     private readonly IDbRepository<DataContext, VoteResultBallotQuestionAnswer> _questionBallotAnswerRepo;
     private readonly IDbRepository<DataContext, VoteResultBallotTieBreakQuestionAnswer> _tieBreakQuestionBallotAnswerRepo;
+    private readonly IDbRepository<DataContext, ProtocolExport> _protocolExportRepo;
     private readonly VoteResultBallotBuilder _ballotBuilder;
     private readonly EventLogger _eventLogger;
     private readonly DataContext _dataContext;
@@ -43,6 +45,7 @@ public class VoteResultBundleProcessor :
         IDbRepository<DataContext, VoteResultBallot> ballotRepo,
         IDbRepository<DataContext, VoteResultBallotQuestionAnswer> questionBallotAnswerRepo,
         IDbRepository<DataContext, VoteResultBallotTieBreakQuestionAnswer> tieBreakQuestionBallotAnswerRepo,
+        IDbRepository<DataContext, ProtocolExport> protocolExportRepo,
         VoteResultBallotBuilder ballotBuilder,
         EventLogger eventLogger,
         DataContext dataContext)
@@ -52,6 +55,7 @@ public class VoteResultBundleProcessor :
         _ballotRepo = ballotRepo;
         _questionBallotAnswerRepo = questionBallotAnswerRepo;
         _tieBreakQuestionBallotAnswerRepo = tieBreakQuestionBallotAnswerRepo;
+        _protocolExportRepo = protocolExportRepo;
         _ballotBuilder = ballotBuilder;
         _eventLogger = eventLogger;
         _dataContext = dataContext;
@@ -167,6 +171,22 @@ public class VoteResultBundleProcessor :
         _eventLogger.LogBundleEvent(eventData, bundleId, GuidParser.ParseNullable(eventData.VoteResultId), log);
     }
 
+    public async Task Process(VoteResultBundleResetToSubmissionFinished eventData)
+    {
+        var bundleId = GuidParser.Parse(eventData.BundleId);
+        var user = eventData.EventInfo.User.ToDataUser();
+        var timestamp = eventData.EventInfo.Timestamp.ToDateTime();
+        var voteResultId = GuidParser.Parse(eventData.VoteResultId);
+
+        var bundle = await _bundleRepo.GetByKey(bundleId)
+            ?? throw new EntityNotFoundException(bundleId);
+        await UpdateCountOfBundlesNotReviewedOrDeleted(bundle.BallotResultId, 1);
+        await RemoveVotesFromResults(bundle);
+
+        var log = await ProcessBundleToReadyForReview(bundleId, eventData.SampleBallotNumbers, user, timestamp);
+        _eventLogger.LogBundleEvent(eventData, bundleId, voteResultId, log);
+    }
+
     private async Task UpdateCountOfBallots(Guid bundleId, int delta)
     {
         await _bundleRepo.Query()
@@ -180,11 +200,27 @@ public class VoteResultBundleProcessor :
         User user,
         DateTime timestamp)
     {
+        var oldState = bundle.State;
         bundle.State = newState;
         if (newState is BallotBundleState.Reviewed or BallotBundleState.InCorrection)
         {
             // Create new user since owned entity instances cannot be used by multiple owners
             bundle.ReviewedBy = new User
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                SecureConnectId = user.SecureConnectId,
+            };
+        }
+
+        if (newState == BallotBundleState.ReadyForReview && oldState == BallotBundleState.InCorrection)
+        {
+            await _protocolExportRepo.Query()
+                .Where(x => x.PoliticalBusinessResultBundleId == bundle.Id)
+                .ExecuteDeleteAsync();
+
+            // Whoever corrected the bundle should be the new creator
+            bundle.CreatedBy = new User
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,

@@ -22,10 +22,8 @@ public class TestMapper
         AddExistingConfiguration(sp, configExpr);
         configExpr.AddMaps(typeof(TestMapper));
 
-        // this should reduce memory usage
-        // https://github.com/AutoMapper/AutoMapper/issues/2001#issuecomment-286924323
-        // otherwise automapper uses huge memory
-        // maybe this could be improved with https://jira.abraxas-tools.ch/jira/browse/VOTING-1560
+        // Configure property maps to execute at runtime to reduce memory consumption.
+        // See: https://github.com/AutoMapper/AutoMapper/issues/2001#issuecomment-286924323
         configExpr.Internal().ForAllPropertyMaps(_ => true, (_, m) => m.MapAtRuntime());
         var config = new MapperConfiguration(configExpr);
         _mapper = new Mapper(config, sp.GetService);

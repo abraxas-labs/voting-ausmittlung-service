@@ -37,6 +37,7 @@ public static class Permissions
         public const string Read = Prefix + ReadSuffix;
         public const string ReadComments = Prefix + ":read-comments";
         public const string ReadOverview = Prefix + ":read-overview";
+        public const string DefineEntry = Prefix + ":define-entry";
         public const string EnterResults = Prefix + ":enter-results";
         public const string ResetResults = Prefix + ":reset-results";
         public const string StartSubmission = Prefix + ":start-submission";
@@ -54,7 +55,9 @@ public static class Permissions
         public const string UpdateAll = Prefix + UpdateAllSuffix;
         public const string Delete = Prefix + DeleteSuffix;
         public const string FinishSubmission = Prefix + ":finish-submission";
+        public const string ResetToSubmissionFinished = Prefix + ":reset-to-submission-finished";
         public const string Review = Prefix + ":review";
+        public const string ReviewSelfModifiedBundle = Prefix + ":review-self-modified-bundle";
 
         private const string Prefix = "PoliticalBusinessResultBundle";
     }

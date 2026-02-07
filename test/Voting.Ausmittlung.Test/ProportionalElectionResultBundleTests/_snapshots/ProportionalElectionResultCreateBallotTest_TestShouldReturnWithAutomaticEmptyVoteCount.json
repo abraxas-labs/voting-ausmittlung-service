@@ -18,6 +18,7 @@
   "BundleId": "",
   "ElectionResultId": "043e8415-f3e7-55e5-befb-0dee93ee3932",
   "BallotNumber": 1,
+  "Index": 0,
   "EmptyVoteCount": 1,
   "Candidates": [
     {

@@ -56,6 +56,10 @@ public class EventLogger
         where T : IMessage<T>
         => LogEvent(eventData, endResultId, endResultId, politicalBusinessId: politicalBusinessId, politicalBusinessEndResultId: endResultId);
 
+    internal void LogUnionEndResultEvent<T>(T eventData, Guid unionEndResultId, Guid politicalBusinessUnionId)
+        where T : IMessage<T>
+        => LogEvent(eventData, unionEndResultId, unionEndResultId, politicalBusinessUnionId: politicalBusinessUnionId, politicalBusinessUnionEndResultId: unionEndResultId);
+
     internal void LogProtocolEvent<T>(T eventData, ProtocolExport protocolExport, Guid? basisCountingCircleId = null)
         where T : IMessage<T>
     {
@@ -87,6 +91,8 @@ public class EventLogger
         Guid? basisCountingCircleId = null,
         Guid? protocolExportId = null,
         Guid? politicalBusinessEndResultId = null,
+        Guid? politicalBusinessUnionId = null,
+        Guid? politicalBusinessUnionEndResultId = null,
         EventProcessedMessageDetails? details = null)
         where T : IMessage<T>
     {
@@ -114,6 +120,8 @@ public class EventLogger
             BasisCountingCircleId = basisCountingCircleId,
             PoliticalBusinessId = politicalBusinessId,
             PoliticalBusinessEndResultId = politicalBusinessEndResultId,
+            PoliticalBusinessUnionId = politicalBusinessUnionId,
+            PoliticalBusinessUnionEndResultId = politicalBusinessUnionEndResultId,
         });
     }
 

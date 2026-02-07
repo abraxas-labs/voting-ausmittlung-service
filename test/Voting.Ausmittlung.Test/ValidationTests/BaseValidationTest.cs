@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
+using Microsoft.Extensions.DependencyInjection;
 using Voting.Ausmittlung.Core.Services.Validation.Models;
 using Voting.Ausmittlung.Core.Services.Validation.Validators;
 using Voting.Ausmittlung.Data.Models;
@@ -13,13 +14,14 @@ using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
 namespace Voting.Ausmittlung.Test.ValidationTests;
 
 public abstract class BaseValidationTest<TValidator, TEntity>
-    where TValidator : IValidator<TEntity>, new()
+    where TValidator : IValidator<TEntity>
 {
     private readonly TValidator _validator;
 
     protected BaseValidationTest(SharedProto.Validation validation)
     {
-        _validator = new TValidator();
+        var sp = new ServiceCollection().AddPublisherServices(new()).BuildServiceProvider();
+        _validator = sp.GetRequiredService<TValidator>();
         Validation = validation;
     }
 
@@ -36,7 +38,8 @@ public abstract class BaseValidationTest<TValidator, TEntity>
         Action<ValidationContext>? contextCustomizer = null,
         Action<DomainOfInfluence>? responsibleForPlausibilisationDoiCustomizer = null,
         Action<ContestCantonDefaults>? cantonDefaultsCustomizer = null,
-        bool hasPreviousContest = true)
+        bool hasPreviousContest = true,
+        bool testingPhaseEnded = false)
     {
         var pbDoi = new DomainOfInfluence
         {
@@ -49,7 +52,8 @@ public abstract class BaseValidationTest<TValidator, TEntity>
             contextCustomizer,
             responsibleForPlausibilisationDoiCustomizer,
             cantonDefaultsCustomizer,
-            hasPreviousContest);
+            hasPreviousContest,
+            testingPhaseEnded);
     }
 
     protected ValidationContext BuildValidationContext(
@@ -58,7 +62,8 @@ public abstract class BaseValidationTest<TValidator, TEntity>
         Action<ValidationContext>? contextCustomizer = null,
         Action<DomainOfInfluence>? responsibleForPlausibilisationDoiCustomizer = null,
         Action<ContestCantonDefaults>? cantonDefaultsCustomizer = null,
-        bool hasPreviousContest = true)
+        bool hasPreviousContest = true,
+        bool testingPhaseEnded = false)
     {
         var ccId = Guid.Parse("bf2c4c85-e05e-4242-a324-667f3d2dbcbb");
         var basisCcId = Guid.Parse("1bc5e5d0-3e45-46f6-97d9-c16372fceace");
@@ -113,6 +118,7 @@ public abstract class BaseValidationTest<TValidator, TEntity>
             {
                 Date = new DateTime(2029, 2, 12, 0, 0, 0, DateTimeKind.Utc),
                 PreviousContestId = hasPreviousContest ? Guid.Parse("e86a8cff-b3d4-415f-9850-34e5325a73c7") : (Guid?)null,
+                State = testingPhaseEnded ? ContestState.Active : ContestState.TestingPhase,
             },
             VotingCards = new List<VotingCardResultDetail>
             {
@@ -183,6 +189,7 @@ public abstract class BaseValidationTest<TValidator, TEntity>
             pbType,
             currentCcDetails,
             cantonDefaults,
+            currentCcDetails.Contest.TestingPhaseEnded,
             hasPreviousContest ? previousCcDetails : null);
 
         contextCustomizer?.Invoke(context);

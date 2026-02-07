@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System.Collections.Generic;
+using System.Linq;
 using Voting.Ausmittlung.Core.Services.Validation.Models;
 using Voting.Ausmittlung.Data.Models;
 using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
@@ -33,6 +34,7 @@ public class ProportionalElectionResultValidator : CountingCircleResultValidator
         }
 
         yield return ValidateAccountedBallotsEqualModifiedPlusUnmodifiedLists(data);
+        yield return ValidateNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRows(data);
         yield return ValidateBundlesNotInProcess(data);
     }
 
@@ -52,6 +54,30 @@ public class ProportionalElectionResultValidator : CountingCircleResultValidator
                 TotalCountOfBallots = totalCountOfBallots,
                 TotalCountOfUnmodifiedLists = totalCountOfUnmodifiedLists,
                 SumBallotsAndUnmodifiedLists = sumBallotsAndUnmodifiedLists,
+            });
+    }
+
+    private ValidationResult ValidateNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRows(ProportionalElectionResult electionResult)
+    {
+        var totalAccountedBallots = electionResult.CountOfVoters.TotalAccountedBallots;
+        var numberOfMandates = electionResult.ProportionalElection.NumberOfMandates;
+        var blankRowsCount = electionResult.ListResults.Sum(x => x.BlankRowsCount) + electionResult.TotalCountOfBlankRowsOnListsWithoutParty;
+        var candidateVoteCount = electionResult.ListResults.Sum(l => l.ListVotesCount);
+
+        var result1 = candidateVoteCount + blankRowsCount;
+        var result2 = numberOfMandates * totalAccountedBallots;
+
+        return new ValidationResult(
+            SharedProto.Validation.ProportionalElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRows,
+            result1 == result2,
+            new ValidationProportionalElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRowsData
+            {
+                BlankRowsCount = blankRowsCount,
+                CandidateVotes = candidateVoteCount,
+                NumberOfMandates = numberOfMandates,
+                TotalAccountedBallots = totalAccountedBallots,
+                SumVoteCount = result1,
+                NumberOfMandatesTimesAccountedBallots = result2,
             });
     }
 

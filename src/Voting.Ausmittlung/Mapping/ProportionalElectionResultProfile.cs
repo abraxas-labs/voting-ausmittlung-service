@@ -44,6 +44,7 @@ public class ProportionalElectionResultProfile : Profile
 
         CreateMap<DataModels.ProportionalElectionResultBallot, ProtoModels.ProportionalElectionResultBallot>()
             .ForMember(dst => dst.Candidates, opts => opts.MapFrom(c => c.BallotCandidates));
+        CreateMap<DataModels.ProportionalElectionResultBallotLog, ProtoModels.PoliticalBusinessResultBallotLog>();
 
         CreateMap<DataModels.ProportionalElectionCandidate, ProtoModels.ProportionalElectionBallotCandidate>();
         CreateMap<DataModels.ProportionalElectionResultBallotCandidate, ProtoModels.ProportionalElectionBallotCandidate>()

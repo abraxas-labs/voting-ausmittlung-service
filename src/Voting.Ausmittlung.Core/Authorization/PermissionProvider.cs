@@ -16,6 +16,7 @@ public class PermissionProvider : IPermissionProvider
         var erfassungCreator = $"{appConfig.SecureConnect.AppShortNameErfassung}::Erfasser";
         var erfassungCreatorWithoutBundleControl = $"{appConfig.SecureConnect.AppShortNameErfassung}::Erfasser ohne Bundkontrolle";
         var erfassungBundleController = $"{appConfig.SecureConnect.AppShortNameErfassung}::Bundkontrolleur";
+        var erfassungRestrictedBundleController = $"{appConfig.SecureConnect.AppShortNameErfassung}::Bundkontrolleur ohne Abschluss";
         var erfassungElectionSupporter = $"{appConfig.SecureConnect.AppShortNameErfassung}::Wahlunterstützer";
         var erfassungElectionAdmin = $"{appConfig.SecureConnect.AppShortNameErfassung}::Wahlverwalter";
 
@@ -34,11 +35,14 @@ public class PermissionProvider : IPermissionProvider
             Permissions.PoliticalBusinessResult.ReadComments,
 
             Permissions.PoliticalBusinessResultBundle.Read,
+            Permissions.PoliticalBusinessResultBundle.UpdateAll,
             Permissions.PoliticalBusinessResultBundle.Create,
             Permissions.PoliticalBusinessResultBundle.FinishSubmission,
             Permissions.PoliticalBusinessResultBundle.Review,
+            Permissions.PoliticalBusinessResultBundle.ReviewSelfModifiedBundle,
 
             Permissions.PoliticalBusinessResultBallot.Read,
+            Permissions.PoliticalBusinessResultBallot.ReadAll,
             Permissions.PoliticalBusinessResultBallot.Create,
             Permissions.PoliticalBusinessResultBallot.Update,
             Permissions.PoliticalBusinessResultBallot.Delete,
@@ -66,9 +70,11 @@ public class PermissionProvider : IPermissionProvider
 
             Permissions.PoliticalBusinessResultBundle.Read,
             Permissions.PoliticalBusinessResultBundle.Create,
+            Permissions.PoliticalBusinessResultBundle.UpdateAll,
             Permissions.PoliticalBusinessResultBundle.FinishSubmission,
 
             Permissions.PoliticalBusinessResultBallot.Read,
+            Permissions.PoliticalBusinessResultBallot.ReadAll,
             Permissions.PoliticalBusinessResultBallot.Create,
             Permissions.PoliticalBusinessResultBallot.Update,
             Permissions.PoliticalBusinessResultBallot.Delete,
@@ -86,6 +92,35 @@ public class PermissionProvider : IPermissionProvider
         };
 
         _permissionsPerRole[erfassungBundleController] = new HashSet<string>
+        {
+            Permissions.Contest.Read,
+
+            Permissions.PoliticalBusiness.ReadAccessible,
+
+            Permissions.PoliticalBusinessResult.Read,
+            Permissions.PoliticalBusinessResult.ReadComments,
+
+            Permissions.PoliticalBusinessResultBundle.Read,
+            Permissions.PoliticalBusinessResultBundle.Review,
+            Permissions.PoliticalBusinessResultBundle.ReviewSelfModifiedBundle,
+            Permissions.PoliticalBusinessResultBallot.Update, // needs update permissions to perform reviews
+
+            Permissions.PoliticalBusinessResultBallot.Read,
+
+            Permissions.VoteBallotResult.Read,
+
+            Permissions.MajorityElectionCandidate.Read,
+
+            Permissions.ProportionalElectionCandidate.Read,
+            Permissions.ProportionalElectionList.Read,
+
+            Permissions.Export.ExportData,
+
+            Permissions.EventLog.Watch,
+        };
+
+        // Almost the same as the bundle controller, but may not review modified bundles
+        _permissionsPerRole[erfassungRestrictedBundleController] = new HashSet<string>
         {
             Permissions.Contest.Read,
 
@@ -120,6 +155,7 @@ public class PermissionProvider : IPermissionProvider
 
             Permissions.PoliticalBusinessResult.Read,
             Permissions.PoliticalBusinessResult.ReadComments,
+            Permissions.PoliticalBusinessResult.DefineEntry,
             Permissions.PoliticalBusinessResult.EnterResults,
             Permissions.PoliticalBusinessResult.ResetResults,
             Permissions.PoliticalBusinessResult.StartSubmission,
@@ -131,7 +167,9 @@ public class PermissionProvider : IPermissionProvider
             Permissions.PoliticalBusinessResultBundle.UpdateAll,
             Permissions.PoliticalBusinessResultBundle.Delete,
             Permissions.PoliticalBusinessResultBundle.FinishSubmission,
+            Permissions.PoliticalBusinessResultBundle.ResetToSubmissionFinished,
             Permissions.PoliticalBusinessResultBundle.Review,
+            Permissions.PoliticalBusinessResultBundle.ReviewSelfModifiedBundle,
 
             Permissions.PoliticalBusinessResultBallot.Read,
             Permissions.PoliticalBusinessResultBallot.ReadAll,
@@ -175,7 +213,6 @@ public class PermissionProvider : IPermissionProvider
             Permissions.PoliticalBusinessResult.Read,
             Permissions.PoliticalBusinessResult.ReadComments,
             Permissions.PoliticalBusinessResult.EnterResults,
-            Permissions.PoliticalBusinessResult.ResetResults,
 
             Permissions.PoliticalBusinessResultBundle.Read,
             Permissions.PoliticalBusinessResultBundle.Create,
@@ -183,6 +220,7 @@ public class PermissionProvider : IPermissionProvider
             Permissions.PoliticalBusinessResultBundle.Delete,
             Permissions.PoliticalBusinessResultBundle.FinishSubmission,
             Permissions.PoliticalBusinessResultBundle.Review,
+            Permissions.PoliticalBusinessResultBundle.ReviewSelfModifiedBundle,
 
             Permissions.PoliticalBusinessResultBallot.Read,
             Permissions.PoliticalBusinessResultBallot.ReadAll,

@@ -12,14 +12,14 @@ using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
 
 namespace Voting.Ausmittlung.Test.ValidationTests;
 
-public class ComparisonVoterParticipationValidationTest : BaseValidationTest<PoliticalBusinessNullableCountOfVotersValidator, PoliticalBusinessNullableCountOfVoters>
+public class ComparisonVoterParticipationValidationTest : BaseValidationTest<IValidator<PoliticalBusinessNullableCountOfVoters>, PoliticalBusinessNullableCountOfVoters>
 {
     public ComparisonVoterParticipationValidationTest()
         : base(SharedProto.Validation.ComparisonVoterParticipations)
     {
     }
 
-    // Scenario from jira ticket 789
+    // Scenario from ticket VOTING-789
     private static List<VoteResult> MockVoteResults => new List<VoteResult>
     {
         BuildVoteResult(50, DomainOfInfluenceType.Ch),

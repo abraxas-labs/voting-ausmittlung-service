@@ -44,7 +44,7 @@ public class EventLogWatchTest : BaseTest<EventLogService.EventLogServiceClient>
     public void EventFilterPoliticalBusinessResultTest()
     {
         var politicalBusinessResultId = Guid.NewGuid();
-        var filter = new EventLogReader.EventFilter("364d0bf2-e689-4b38-9e75-a5e2f230d952", new HashSet<string> { ResultImportCompleted.Descriptor.FullName }, null, politicalBusinessResultId);
+        var filter = new EventLogReader.EventFilter("364d0bf2-e689-4b38-9e75-a5e2f230d952", new HashSet<string> { ResultImportCompleted.Descriptor.FullName }, null, politicalBusinessResultId, null);
 
         // matching
         filter.Filter(
@@ -74,7 +74,7 @@ public class EventLogWatchTest : BaseTest<EventLogService.EventLogServiceClient>
     public void EventFilterPoliticalBusinessTest()
     {
         var politicalBusinessId = Guid.NewGuid();
-        var filter = new EventLogReader.EventFilter("364d0bf2-e689-4b38-9e75-a5e2f230d952", new HashSet<string> { ResultImportCompleted.Descriptor.FullName }, politicalBusinessId, null);
+        var filter = new EventLogReader.EventFilter("364d0bf2-e689-4b38-9e75-a5e2f230d952", new HashSet<string> { ResultImportCompleted.Descriptor.FullName }, politicalBusinessId, null, null);
 
         // matching
         filter.Filter(
@@ -104,6 +104,45 @@ public class EventLogWatchTest : BaseTest<EventLogService.EventLogServiceClient>
                 new EventProcessedMessage(ResultImportCompleted.Descriptor.FullName, DateTime.Now)
                 {
                     PoliticalBusinessId = Guid.NewGuid(),
+                })
+            .Should()
+            .BeFalse();
+    }
+
+    [Fact]
+    public void EventFilterPoliticalBusinessUnionTest()
+    {
+        var politicalBusinessUnionId = Guid.NewGuid();
+        var filter = new EventLogReader.EventFilter("364d0bf2-e689-4b38-9e75-a5e2f230d952", new HashSet<string> { ResultImportCompleted.Descriptor.FullName }, null, null, politicalBusinessUnionId);
+
+        // matching
+        filter.Filter(
+                new EventProcessedMessage(ResultImportCompleted.Descriptor.FullName, DateTime.Now)
+                {
+                    PoliticalBusinessUnionId = politicalBusinessUnionId,
+                })
+            .Should()
+            .BeTrue();
+
+        // other event type
+        filter.Filter(
+                new EventProcessedMessage(ResultImportCompleted.Descriptor.FullName, DateTime.Now)
+                {
+                    PoliticalBusinessUnionId = politicalBusinessUnionId,
+                })
+            .Should()
+            .BeTrue();
+
+        // missing political business id
+        filter.Filter(new EventProcessedMessage(ResultImportCompleted.Descriptor.FullName, DateTime.Now))
+            .Should()
+            .BeFalse();
+
+        // mismatched political business id
+        filter.Filter(
+                new EventProcessedMessage(ResultImportCompleted.Descriptor.FullName, DateTime.Now)
+                {
+                    PoliticalBusinessUnionId = Guid.NewGuid(),
                 })
             .Should()
             .BeFalse();
@@ -151,6 +190,7 @@ public class EventLogWatchTest : BaseTest<EventLogService.EventLogServiceClient>
         yield return RolesMockedData.ErfassungCreator;
         yield return RolesMockedData.ErfassungElectionAdmin;
         yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungRestrictedBundleController;
         yield return RolesMockedData.ErfassungCreatorWithoutBundleControl;
         yield return RolesMockedData.ErfassungElectionAdmin;
         yield return RolesMockedData.ErfassungElectionSupporter;

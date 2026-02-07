@@ -1428,6 +1428,27 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.ToTable("ElectionGroups");
                 });
 
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.EmptyImportCountingCircle", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CountingCircleId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ResultImportId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountingCircleId");
+
+                    b.HasIndex("ResultImportId");
+
+                    b.ToTable("EmptyImportCountingCircle");
+                });
+
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.EventProcessingState", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1633,6 +1654,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<bool>("AutomaticBallotBundleNumberGeneration")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("AutomaticBallotNumberGeneration")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("AutomaticEmptyVoteCounting")
@@ -2203,6 +2227,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<int>("EmptyVoteCount")
                         .HasColumnType("integer");
 
+                    b.Property<int>("Index")
+                        .HasColumnType("integer");
+
                     b.Property<int>("IndividualVoteCount")
                         .HasColumnType("integer");
 
@@ -2245,6 +2272,25 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("MajorityElectionResultBallotCandidates");
+                });
+
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.MajorityElectionResultBallotLog", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BallotId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BallotId");
+
+                    b.ToTable("MajorityElectionResultBallotLogs");
                 });
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.MajorityElectionResultBundle", b =>
@@ -2493,6 +2539,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<bool>("AutomaticBallotBundleNumberGeneration")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("AutomaticBallotNumberGeneration")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("AutomaticEmptyVoteCounting")
@@ -2967,11 +3016,11 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<Guid>("ElectionEndResultId")
                         .HasColumnType("uuid");
 
-                    b.Property<bool>("HasOpenRequiredLotDecisions")
-                        .HasColumnType("boolean");
-
                     b.Property<Guid>("ListId")
                         .HasColumnType("uuid");
+
+                    b.Property<int>("LotDecisionState")
+                        .HasColumnType("integer");
 
                     b.Property<int>("NumberOfMandates")
                         .HasColumnType("integer");
@@ -3173,6 +3222,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<int>("EmptyVoteCount")
                         .HasColumnType("integer");
 
+                    b.Property<int>("Index")
+                        .HasColumnType("integer");
+
                     b.Property<bool>("MarkedForReview")
                         .HasColumnType("boolean");
 
@@ -3214,6 +3266,25 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.HasIndex("CandidateId");
 
                     b.ToTable("ProportionalElectionResultBallotCandidates");
+                });
+
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ProportionalElectionResultBallotLog", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BallotId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BallotId");
+
+                    b.ToTable("ProportionalElectionResultBallotLogs");
                 });
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ProportionalElectionResultBundle", b =>
@@ -4406,6 +4477,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<bool>("AutomaticBallotBundleNumberGeneration")
                         .HasColumnType("boolean");
 
+                    b.Property<bool>("AutomaticBallotNumberGeneration")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("BallotBundleSampleSizePercent")
                         .HasColumnType("integer");
 
@@ -4596,6 +4670,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<Guid>("BundleId")
                         .HasColumnType("uuid");
 
+                    b.Property<int>("Index")
+                        .HasColumnType("integer");
+
                     b.Property<bool>("MarkedForReview")
                         .HasColumnType("boolean");
 
@@ -4607,6 +4684,25 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.HasIndex("BundleId");
 
                     b.ToTable("VoteResultBallots");
+                });
+
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.VoteResultBallotLog", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BallotId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BallotId");
+
+                    b.ToTable("VoteResultBallotLogs");
                 });
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.VoteResultBallotQuestionAnswer", b =>
@@ -5873,6 +5969,25 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Navigation("PrimaryMajorityElection");
                 });
 
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.EmptyImportCountingCircle", b =>
+                {
+                    b.HasOne("Voting.Ausmittlung.Data.Models.CountingCircle", "CountingCircle")
+                        .WithMany()
+                        .HasForeignKey("CountingCircleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Voting.Ausmittlung.Data.Models.ResultImport", "ResultImport")
+                        .WithMany("EmptyCountingCircles")
+                        .HasForeignKey("ResultImportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CountingCircle");
+
+                    b.Navigation("ResultImport");
+                });
+
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ExportConfiguration", b =>
                 {
                     b.HasOne("Voting.Ausmittlung.Data.Models.DomainOfInfluence", "DomainOfInfluence")
@@ -6650,6 +6765,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                             b1.Property<bool>("AutomaticBallotBundleNumberGeneration")
                                 .HasColumnType("boolean");
 
+                            b1.Property<bool>("AutomaticBallotNumberGeneration")
+                                .HasColumnType("boolean");
+
                             b1.Property<bool>("AutomaticEmptyVoteCounting")
                                 .HasColumnType("boolean");
 
@@ -6723,6 +6841,45 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Navigation("Ballot");
 
                     b.Navigation("Candidate");
+                });
+
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.MajorityElectionResultBallotLog", b =>
+                {
+                    b.HasOne("Voting.Ausmittlung.Data.Models.MajorityElectionResultBallot", "Ballot")
+                        .WithMany("Logs")
+                        .HasForeignKey("BallotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("Voting.Ausmittlung.Data.Models.User", "User", b1 =>
+                        {
+                            b1.Property<Guid>("MajorityElectionResultBallotLogId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("FirstName")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("LastName")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("SecureConnectId")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.HasKey("MajorityElectionResultBallotLogId");
+
+                            b1.ToTable("MajorityElectionResultBallotLogs");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MajorityElectionResultBallotLogId");
+                        });
+
+                    b.Navigation("Ballot");
+
+                    b.Navigation("User")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.MajorityElectionResultBundle", b =>
@@ -8085,6 +8242,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                             b1.Property<bool>("AutomaticBallotBundleNumberGeneration")
                                 .HasColumnType("boolean");
 
+                            b1.Property<bool>("AutomaticBallotNumberGeneration")
+                                .HasColumnType("boolean");
+
                             b1.Property<bool>("AutomaticEmptyVoteCounting")
                                 .HasColumnType("boolean");
 
@@ -8160,6 +8320,45 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Navigation("Ballot");
 
                     b.Navigation("Candidate");
+                });
+
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ProportionalElectionResultBallotLog", b =>
+                {
+                    b.HasOne("Voting.Ausmittlung.Data.Models.ProportionalElectionResultBallot", "Ballot")
+                        .WithMany("Logs")
+                        .HasForeignKey("BallotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("Voting.Ausmittlung.Data.Models.User", "User", b1 =>
+                        {
+                            b1.Property<Guid>("ProportionalElectionResultBallotLogId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("FirstName")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("LastName")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("SecureConnectId")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.HasKey("ProportionalElectionResultBallotLogId");
+
+                            b1.ToTable("ProportionalElectionResultBallotLogs");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ProportionalElectionResultBallotLogId");
+                        });
+
+                    b.Navigation("Ballot");
+
+                    b.Navigation("User")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ProportionalElectionResultBundle", b =>
@@ -9442,6 +9641,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                             b1.Property<bool>("AutomaticBallotBundleNumberGeneration")
                                 .HasColumnType("boolean");
 
+                            b1.Property<bool>("AutomaticBallotNumberGeneration")
+                                .HasColumnType("boolean");
+
                             b1.Property<int>("BallotBundleSampleSizePercent")
                                 .HasColumnType("integer");
 
@@ -9472,6 +9674,45 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Bundle");
+                });
+
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.VoteResultBallotLog", b =>
+                {
+                    b.HasOne("Voting.Ausmittlung.Data.Models.VoteResultBallot", "Ballot")
+                        .WithMany("Logs")
+                        .HasForeignKey("BallotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("Voting.Ausmittlung.Data.Models.User", "User", b1 =>
+                        {
+                            b1.Property<Guid>("VoteResultBallotLogId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("FirstName")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("LastName")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("SecureConnectId")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.HasKey("VoteResultBallotLogId");
+
+                            b1.ToTable("VoteResultBallotLogs");
+
+                            b1.WithOwner()
+                                .HasForeignKey("VoteResultBallotLogId");
+                        });
+
+                    b.Navigation("Ballot");
+
+                    b.Navigation("User")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.VoteResultBallotQuestionAnswer", b =>
@@ -9926,6 +10167,8 @@ namespace Voting.Ausmittlung.Data.Migrations
                 {
                     b.Navigation("BallotCandidates");
 
+                    b.Navigation("Logs");
+
                     b.Navigation("SecondaryMajorityElectionBallots");
                 });
 
@@ -10086,6 +10329,8 @@ namespace Voting.Ausmittlung.Data.Migrations
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ProportionalElectionResultBallot", b =>
                 {
                     b.Navigation("BallotCandidates");
+
+                    b.Navigation("Logs");
                 });
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ProportionalElectionResultBundle", b =>
@@ -10124,6 +10369,8 @@ namespace Voting.Ausmittlung.Data.Migrations
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ResultImport", b =>
                 {
+                    b.Navigation("EmptyCountingCircles");
+
                     b.Navigation("IgnoredCountingCircles");
 
                     b.Navigation("ImportedCountingCircles");
@@ -10251,6 +10498,8 @@ namespace Voting.Ausmittlung.Data.Migrations
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.VoteResultBallot", b =>
                 {
+                    b.Navigation("Logs");
+
                     b.Navigation("QuestionAnswers");
 
                     b.Navigation("TieBreakQuestionAnswers");

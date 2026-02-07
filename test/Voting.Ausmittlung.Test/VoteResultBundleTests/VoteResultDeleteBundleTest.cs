@@ -33,7 +33,6 @@ public class VoteResultDeleteBundleTest : VoteResultBundleBaseTest
         await CreateBallot();
         await ErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleDeleted>().MatchSnapshot("deleted");
-        EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleNumberFreed>().MatchSnapshot("freed");
     }
 
     [Fact]
@@ -46,7 +45,6 @@ public class VoteResultDeleteBundleTest : VoteResultBundleBaseTest
             return new[]
             {
                     EventPublisherMock.GetSinglePublishedEventWithMetadata<VoteResultBundleDeleted>(),
-                    EventPublisherMock.GetSinglePublishedEventWithMetadata<VoteResultBundleNumberFreed>(),
             };
         });
     }
@@ -57,7 +55,6 @@ public class VoteResultDeleteBundleTest : VoteResultBundleBaseTest
         await CreateBallot(VoteResultBundleMockedData.GossauBundle3.Id);
         await ErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest(req => req.BundleId = VoteResultBundleMockedData.IdGossauBundle3));
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleDeleted>().MatchSnapshot("deleted");
-        EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleNumberFreed>().MatchSnapshot("freed");
     }
 
     [Theory]
@@ -77,7 +74,6 @@ public class VoteResultDeleteBundleTest : VoteResultBundleBaseTest
         await CreateBallot();
         await BundleErfassungElectionAdminClientStGallen.DeleteBundleAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleDeleted>().MatchSnapshot("deleted");
-        EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleNumberFreed>().MatchSnapshot("freed");
     }
 
     [Fact]

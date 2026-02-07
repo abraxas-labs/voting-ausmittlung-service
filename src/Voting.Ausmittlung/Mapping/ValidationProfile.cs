@@ -50,6 +50,10 @@ public class ValidationProfile : Profile
                     case DataModels.ValidationComparisonValidVotingCardsWithAccountedBallotsData x:
                         dst.ComparisonValidVotingCardsWithAccountedBallotsData = ctx.Mapper.Map<ProtoModels.ValidationComparisonValidVotingCardsWithAccountedBallotsData>(x);
                         break;
+
+                    case DataModels.ValidationProportionalElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRowsData x:
+                        dst.ProportionalElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRowsData = ctx.Mapper.Map<ProtoModels.ValidationProportionalElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRowsData>(x);
+                        break;
                 }
             });
         CreateMap<DataModels.ValidationPoliticalBusinessData, ProtoModels.ValidationPoliticalBusinessData>();
@@ -60,6 +64,7 @@ public class ValidationProfile : Profile
         CreateMap<DataModels.ValidationComparisonCountOfVotersData, ProtoModels.ValidationComparisonCountOfVotersData>();
         CreateMap<DataModels.ValidationComparisonVotingChannelsData, ProtoModels.ValidationComparisonVotingChannelsData>();
         CreateMap<DataModels.ValidationComparisonValidVotingCardsWithAccountedBallotsData, ProtoModels.ValidationComparisonValidVotingCardsWithAccountedBallotsData>();
+        CreateMap<DataModels.ValidationProportionalElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRowsData, ProtoModels.ValidationProportionalElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRowsData>();
 
         CreateMap<DataModels.ValidationSummary, ProtoModels.ValidationSummary>();
         CreateMap<List<DataModels.ValidationSummary>, ProtoModels.ValidationSummaries>()

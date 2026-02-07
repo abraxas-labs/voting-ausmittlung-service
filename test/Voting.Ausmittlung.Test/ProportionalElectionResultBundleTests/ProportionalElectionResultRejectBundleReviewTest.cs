@@ -229,7 +229,7 @@ public class ProportionalElectionResultRejectBundleReviewTest : ProportionalElec
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
-        await RunBundleToState(BallotBundleState.ReadyForReview, ProportionalElectionResultBundleMockedData.GossauBundle3.Id);
+        await RunBundleToState(BallotBundleState.ReadyForReview, ProportionalElectionResultBundleMockedData.GossauBundle3.Id, "other-user");
         await new ProportionalElectionResultBundleService.ProportionalElectionResultBundleServiceClient(channel)
             .RejectBundleReviewAsync(NewValidRequest());
     }
@@ -238,6 +238,7 @@ public class ProportionalElectionResultRejectBundleReviewTest : ProportionalElec
     {
         yield return RolesMockedData.ErfassungCreator;
         yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungRestrictedBundleController;
         yield return RolesMockedData.ErfassungElectionSupporter;
         yield return RolesMockedData.ErfassungElectionAdmin;
     }

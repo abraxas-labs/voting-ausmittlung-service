@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1;
 using Abraxas.Voting.Basis.Events.V1.Data;
+using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
@@ -96,5 +97,42 @@ public class CantonSettingsCreateTest : BaseDataProcessorTest
         }
 
         affectedContests.MatchSnapshot("affectedContests");
+    }
+
+    [Fact]
+    public async Task TestCantonAr()
+    {
+        var newId = Guid.Parse("2d203a3c-40ba-4b53-a57e-38909d71390c");
+
+        await TestEventPublisher.Publish(
+            new CantonSettingsCreated
+            {
+                CantonSettings = new CantonSettingsEventData
+                {
+                    Id = newId.ToString(),
+                    Canton = SharedProto.DomainOfInfluenceCanton.Ar,
+                    SecureConnectId = SecureConnectTestDefaults.MockedTenantDefault.Id,
+                    AuthorityName = "Kanton Appenzell Ausserrhoden",
+                    ProportionalElectionMandateAlgorithms =
+                    {
+                            SharedProto.ProportionalElectionMandateAlgorithm.HagenbachBischoff,
+                    },
+                    MajorityElectionAbsoluteMajorityAlgorithm = SharedProto.CantonMajorityElectionAbsoluteMajorityAlgorithm.CandidateVotesDividedByTheDoubleOfNumberOfMandates,
+                    MajorityElectionInvalidVotes = true,
+                    SwissAbroadVotingRight = SharedProto.SwissAbroadVotingRight.OnEveryCountingCircle,
+                    SwissAbroadVotingRightDomainOfInfluenceTypes =
+                    {
+                            SharedProto.DomainOfInfluenceType.Ch,
+                            SharedProto.DomainOfInfluenceType.An,
+                    },
+                    ProtocolCountingCircleSortType = SharedProto.ProtocolCountingCircleSortType.Alphabetical,
+                    ProtocolDomainOfInfluenceSortType = SharedProto.ProtocolDomainOfInfluenceSortType.Alphabetical,
+                    CountingMachineEnabled = true,
+                    EndResultFinalizeDisabled = true,
+                },
+            });
+
+        var result = await RunOnDb(db => db.CantonSettings.FirstAsync(u => u.Id == newId));
+        result.Canton.Should().Be(DomainOfInfluenceCanton.Ar);
     }
 }

@@ -43,10 +43,6 @@ public class ProportionalElectionEndResultRevertFinalizationTest : ProportionalE
     [Fact]
     public async Task ShouldWork()
     {
-        // set all lot decisions as done
-        await ModifyDbEntities<ProportionalElectionListEndResult>(
-            x => x.ElectionEndResult.ProportionalElectionId == Guid.Parse(ProportionalElectionEndResultMockedData.ElectionId),
-            x => x.HasOpenRequiredLotDecisions = false);
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeProportionalElectionEndResultRequest
         {
             ProportionalElectionId = ProportionalElectionEndResultMockedData.ElectionId,
@@ -64,10 +60,6 @@ public class ProportionalElectionEndResultRevertFinalizationTest : ProportionalE
     {
         await TestEventWithSignature(ContestMockedData.IdBundesurnengang, async () =>
         {
-            // set all lot decisions as done
-            await ModifyDbEntities<ProportionalElectionListEndResult>(
-            x => x.ElectionEndResult.ProportionalElectionId == Guid.Parse(ProportionalElectionEndResultMockedData.ElectionId),
-            x => x.HasOpenRequiredLotDecisions = false);
             await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeProportionalElectionEndResultRequest
             {
                 ProportionalElectionId = ProportionalElectionEndResultMockedData.ElectionId,
@@ -161,7 +153,7 @@ public class ProportionalElectionEndResultRevertFinalizationTest : ProportionalE
         // Finalize it first, so it can be reverted
         await ModifyDbEntities<ProportionalElectionListEndResult>(
             x => x.ElectionEndResult.ProportionalElectionId == Guid.Parse(ProportionalElectionEndResultMockedData.ElectionId),
-            x => x.HasOpenRequiredLotDecisions = false);
+            x => x.LotDecisionState = ElectionLotDecisionState.Done);
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeProportionalElectionEndResultRequest
         {
             ProportionalElectionId = ProportionalElectionEndResultMockedData.ElectionId,

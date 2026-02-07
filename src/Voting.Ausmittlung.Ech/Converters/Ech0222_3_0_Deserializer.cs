@@ -22,15 +22,15 @@ public class Ech0222_3_0_Deserializer : IEch0222Deserializer
         _echDeserializer = echDeserializer;
     }
 
-    public VotingImport DeserializeXml(Stream stream)
+    public VotingImport DeserializeXml(Stream stream, bool importVotingCards)
     {
         var schemaSet = Ech0222Schemas.LoadEch0222Schemas();
         var delivery = _echDeserializer.DeserializeXml<Delivery>(stream, schemaSet);
 
-        return EVotingImportFromDelivery(delivery);
+        return EVotingImportFromDelivery(delivery, importVotingCards);
     }
 
-    private static VotingImport EVotingImportFromDelivery(Delivery delivery)
+    private static VotingImport EVotingImportFromDelivery(Delivery delivery, bool importVotingCards)
     {
         if (delivery.RawDataDelivery?.RawData?.ContestIdentification == null)
         {
@@ -46,10 +46,15 @@ public class Ech0222_3_0_Deserializer : IEch0222Deserializer
 
         foreach (var ccData in delivery.RawDataDelivery.RawData.CountingCircleRawData)
         {
-            if (ccData.VotingCardsInformation.ReceivedValidVotingCards.Count > 0
-                || ccData.VotingCardsInformation.ReceivedInvalidVotingCards.Count > 0)
+            if (importVotingCards)
             {
-                throw new ValidationException("Voting cards in eCH 0222 v1.2 (semantic 3.0) are not supported.");
+                if (!int.TryParse(ccData.VotingCardsInformation.CountOfReceivedValidVotingCardsTotal, out var votingCards))
+                {
+                    throw new ValidationException("Voting cards are not present or not a number");
+                }
+
+                import.VotingCards ??= [];
+                import.VotingCards.Add(new VotingImportCountingCircleVotingCards(ccData.CountingCircleId, votingCards));
             }
 
             var ccVotes = ccData.VoteRawData

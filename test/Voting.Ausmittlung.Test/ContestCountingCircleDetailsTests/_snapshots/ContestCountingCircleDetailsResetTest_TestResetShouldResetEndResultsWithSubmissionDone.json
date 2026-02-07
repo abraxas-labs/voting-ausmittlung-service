@@ -182,7 +182,7 @@
         "ListId": "6fa5262f-bf27-4eb9-81d4-23bb1a49d031",
         "ElectionEndResultId": "0ef8bf81-10b1-5168-9f7d-2d0660082e03",
         "NumberOfMandates": 0,
-        "HasOpenRequiredLotDecisions": false,
+        "LotDecisionState": 0,
         "CandidateEndResults": [
           {
             "Candidate": null,
@@ -288,7 +288,7 @@
         "ListId": "05b72caf-23a9-411d-bac3-7d587666b48a",
         "ElectionEndResultId": "0ef8bf81-10b1-5168-9f7d-2d0660082e03",
         "NumberOfMandates": 0,
-        "HasOpenRequiredLotDecisions": false,
+        "LotDecisionState": 0,
         "CandidateEndResults": [],
         "EVotingSubTotal": {
           "UnmodifiedListsCount": 0,
@@ -579,7 +579,7 @@
         "ListId": "6fa5262f-bf27-4eb9-81d4-23bb1a49d031",
         "ElectionEndResultId": "0ef8bf81-10b1-5168-9f7d-2d0660082e03",
         "NumberOfMandates": 0,
-        "HasOpenRequiredLotDecisions": false,
+        "LotDecisionState": 0,
         "CandidateEndResults": [
           {
             "Candidate": null,
@@ -685,7 +685,7 @@
         "ListId": "05b72caf-23a9-411d-bac3-7d587666b48a",
         "ElectionEndResultId": "0ef8bf81-10b1-5168-9f7d-2d0660082e03",
         "NumberOfMandates": 0,
-        "HasOpenRequiredLotDecisions": false,
+        "LotDecisionState": 0,
         "CandidateEndResults": [],
         "EVotingSubTotal": {
           "UnmodifiedListsCount": 0,

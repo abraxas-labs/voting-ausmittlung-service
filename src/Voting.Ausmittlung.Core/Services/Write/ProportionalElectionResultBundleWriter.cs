@@ -15,6 +15,7 @@ using Voting.Ausmittlung.Data;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
+using Voting.Lib.Iam.Exceptions;
 using Voting.Lib.Iam.Store;
 using DataModels = Voting.Ausmittlung.Data.Models;
 
@@ -89,14 +90,14 @@ public class ProportionalElectionResultBundleWriter
         aggregate.Delete(contestId);
 
         var electionResultAggregate = await AggregateRepository.GetById<ProportionalElectionResultAggregate>(aggregate.PoliticalBusinessResultId);
-        electionResultAggregate.FreeBundleNumber(aggregate.BundleNumber, contestId);
+        electionResultAggregate.EnsureCanDeleteBundle(aggregate.BundleNumber);
 
-        await AggregateRepository.Save(electionResultAggregate);
         await AggregateRepository.Save(aggregate);
     }
 
     public async Task<int> CreateBallot(
         Guid bundleId,
+        int? ballotNumber,
         int? emptyVoteCount,
         IReadOnlyCollection<ProportionalElectionResultBallotCandidate> candidates)
     {
@@ -111,7 +112,7 @@ public class ProportionalElectionResultBundleWriter
             aggregate.ResultEntryParams.AutomaticEmptyVoteCounting,
             candidates);
 
-        aggregate.CreateBallot(emptyVoteCount.Value, candidates, contestId);
+        aggregate.CreateBallot(ballotNumber, emptyVoteCount.Value, candidates, contestId);
         await AggregateRepository.Save(aggregate);
         return aggregate.CurrentBallotNumber;
     }
@@ -164,7 +165,7 @@ public class ProportionalElectionResultBundleWriter
     public async Task RejectBundleReview(Guid bundleId)
     {
         var aggregate = await AggregateRepository.GetById<ProportionalElectionResultBundleAggregate>(bundleId);
-        var contestId = await EnsureReviewPermissionsForBundle(aggregate);
+        var contestId = await EnsureReviewPermissionsForBundle(aggregate, succeed: false);
         aggregate.RejectReview(contestId);
         await AggregateRepository.Save(aggregate);
     }
@@ -173,9 +174,24 @@ public class ProportionalElectionResultBundleWriter
     {
         await ExecuteOnAllAggregates<ProportionalElectionResultBundleAggregate>(bundleIds, async aggregate =>
         {
-            var contestId = await EnsureReviewPermissionsForBundle(aggregate);
+            var contestId = await EnsureReviewPermissionsForBundle(aggregate, succeed: true);
             aggregate.SucceedReview(contestId);
         });
+    }
+
+    public async Task ResetToSubmissionFinished(Guid bundleId)
+    {
+        var aggregate = await AggregateRepository.GetById<ProportionalElectionResultBundleAggregate>(bundleId);
+        var result = await LoadPoliticalBusinessResult(aggregate.PoliticalBusinessResultId);
+
+        if (result.State is not DataModels.CountingCircleResultState.SubmissionOngoing and not DataModels.CountingCircleResultState.ReadyForCorrection)
+        {
+            throw new ForbiddenException("Cannot reset the bundle state in while the political business result is in state: " + result.State);
+        }
+
+        var contestId = await EnsureEditPermissionsForBundle(result, aggregate);
+        aggregate.ResetToSubmissionFinished(contestId);
+        await AggregateRepository.Save(aggregate);
     }
 
     protected override async Task<DataModels.ProportionalElectionResult> LoadPoliticalBusinessResult(Guid resultId)

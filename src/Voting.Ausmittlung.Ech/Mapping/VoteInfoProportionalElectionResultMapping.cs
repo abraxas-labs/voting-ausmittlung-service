@@ -40,8 +40,8 @@ internal static class VoteInfoProportionalElectionResultMapping
 
         var drawElection = mandateDistributionTriggered ? ToDrawElection(proportionalElection) : null;
         var isComplete = mandateDistributionTriggered
-            && drawElection?.ProportionalElection.ListOrListUnionDrawElection?.All(x => !x.IsDrawPending) != false
-            && drawElection?.ProportionalElection.CandidateDrawElectionOnList?.All(x => !x.IsDrawPending) != false;
+            && drawElection?.ProportionalElection.ListOrListUnionDrawElection?.All(x => x.IsDrawPending) != true
+            && drawElection?.ProportionalElection.CandidateDrawElectionOnList?.All(x => x.IsDrawPending) != true;
 
         return new EventElectionResultDeliveryTypeElectionGroupResultElectionResult
         {
@@ -68,6 +68,7 @@ internal static class VoteInfoProportionalElectionResultMapping
                                     {
                                         CandidateIdentification = c.CandidateId.ToString(),
                                         IsElectedByDraw = c.LotDecision,
+                                        CandidateReferenceOnPosition = [c.Candidate.GenerateCandidateReference()],
                                     })
                                     .ToList(),
                             })
@@ -192,7 +193,7 @@ internal static class VoteInfoProportionalElectionResultMapping
         foreach (var listEndResult in endResult.ListEndResults)
         {
             var enabledCandidateEndResults = listEndResult.CandidateEndResults
-                .Where(x => x.LotDecisionEnabled)
+                .Where(x => x.LotDecisionRequired)
                 .ToList();
 
             var candidateEndResultsByVoteCount = enabledCandidateEndResults

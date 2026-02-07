@@ -37,7 +37,8 @@ public class EventLogService : ServiceBase
                 f.Id,
                 f.Types_.ToHashSet(),
                 GuidParser.ParseNullable(f.PoliticalBusinessId),
-                GuidParser.ParseNullable(f.PoliticalBusinessResultId)))
+                GuidParser.ParseNullable(f.PoliticalBusinessResultId),
+                GuidParser.ParseNullable(f.PoliticalBusinessUnionId)))
             .ToList();
 
         Task Listener(string filterId, EventProcessedMessage e)
@@ -51,6 +52,7 @@ public class EventLogService : ServiceBase
                 EntityId = e.EntityId?.ToString() ?? string.Empty,
                 ContestId = e.ContestId?.ToString() ?? string.Empty,
                 PoliticalBusinessId = e.PoliticalBusinessId?.ToString() ?? string.Empty,
+                PoliticalBusinessUnionId = e.PoliticalBusinessUnionId?.ToString() ?? string.Empty,
                 PoliticalBusinessBundleId = e.PoliticalBusinessResultBundleId?.ToString() ?? string.Empty,
                 Data = _mapper.Map<EventDetails>(e.Details),
             });

@@ -19,6 +19,7 @@ using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
 using Xunit;
+using ElectionLotDecisionState = Abraxas.Voting.Ausmittlung.Services.V1.Models.ElectionLotDecisionState;
 using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
 
 namespace Voting.Ausmittlung.Test.ProportionalElectionResultTests;
@@ -169,7 +170,7 @@ public class ProportionalElectionResultAuditedTentativelyTest : ProportionalElec
         endResult.ManualEndResultRequired.Should().BeFalse();
         endResult.ListEndResults.Any(l => l.NumberOfMandates != 0).Should().BeTrue();
         endResult.ListEndResults.Any(l => l.CandidateEndResults.Any(x => x.State == SharedProto.ProportionalElectionCandidateEndResultState.Elected)).Should().BeTrue();
-        endResult.ListEndResults.Any(l => l.HasOpenRequiredLotDecisions).Should().BeTrue();
+        endResult.ListEndResults.Any(l => l.LotDecisionState is ElectionLotDecisionState.OpenAndRequired).Should().BeTrue();
 
         var id = ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen;
         await AssertHasPublishedEventProcessedMessage(ProportionalElectionResultAuditedTentatively.Descriptor, id);
@@ -254,7 +255,7 @@ public class ProportionalElectionResultAuditedTentativelyTest : ProportionalElec
         endResult.ListEndResults.All(l => l.CandidateEndResults.All(x => x.Rank == 1)).Should().BeTrue();
         endResult.ListEndResults.All(l => l.CandidateEndResults.All(x => !x.LotDecisionEnabled)).Should().BeTrue();
         endResult.ListEndResults.All(l => l.CandidateEndResults.All(x => !x.LotDecisionRequired)).Should().BeTrue();
-        endResult.ListEndResults.All(l => !l.HasOpenRequiredLotDecisions).Should().BeTrue();
+        endResult.ListEndResults.All(l => l.LotDecisionState != Data.Models.ElectionLotDecisionState.OpenAndRequired).Should().BeTrue();
 
         var unionEndResult = await RunOnDb(db => db.ProportionalElectionUnionEndResults
             .Include(x => x.ProportionalElectionUnion.DoubleProportionalResult)
@@ -304,7 +305,7 @@ public class ProportionalElectionResultAuditedTentativelyTest : ProportionalElec
         endResult.MandateDistributionTriggered.Should().BeTrue();
         endResult.ListEndResults.Any(l => l.NumberOfMandates != 0).Should().BeTrue();
         endResult.ListEndResults.Any(l => l.CandidateEndResults.Any(x => x.State == SharedProto.ProportionalElectionCandidateEndResultState.Elected)).Should().BeTrue();
-        endResult.ListEndResults.Any(l => l.HasOpenRequiredLotDecisions).Should().BeTrue();
+        endResult.ListEndResults.All(l => l.LotDecisionState is ElectionLotDecisionState.None).Should().BeTrue();
 
         var dpResult = await MonitoringElectionAdminClient.GetDoubleProportionalResultAsync(new GetProportionalElectionDoubleProportionalResultRequest
         {
@@ -353,7 +354,7 @@ public class ProportionalElectionResultAuditedTentativelyTest : ProportionalElec
         endResult.ListEndResults.Any().Should().BeTrue();
         endResult.ListEndResults.All(l => l.NumberOfMandates == 0).Should().BeTrue();
         endResult.ListEndResults.All(l => l.CandidateEndResults.All(x => x.State == SharedProto.ProportionalElectionCandidateEndResultState.NotElected)).Should().BeTrue();
-        endResult.ListEndResults.Any(l => l.HasOpenRequiredLotDecisions).Should().BeTrue();
+        endResult.ListEndResults.Any(l => l.LotDecisionState is ElectionLotDecisionState.OpenAndRequired).Should().BeTrue();
     }
 
     [Fact]
@@ -398,7 +399,7 @@ public class ProportionalElectionResultAuditedTentativelyTest : ProportionalElec
         var candidateEndResults = endResult.ListEndResults.SelectMany(l => l.CandidateEndResults).ToList();
         candidateEndResults.Any().Should().BeTrue();
         candidateEndResults.All(x => x.State == SharedProto.ProportionalElectionCandidateEndResultState.Pending).Should().BeTrue();
-        endResult.ListEndResults.Any(l => l.HasOpenRequiredLotDecisions).Should().BeFalse();
+        endResult.ListEndResults.Any(l => l.LotDecisionState is ElectionLotDecisionState.OpenAndRequired).Should().BeFalse();
 
         var id = ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen;
         await AssertHasPublishedEventProcessedMessage(ProportionalElectionResultAuditedTentatively.Descriptor, id);

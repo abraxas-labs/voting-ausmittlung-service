@@ -91,7 +91,7 @@ public class EVotingResultImportWriter
     }
 
     public Task Import(ResultImportMeta importMeta)
-        => Import(_resultImportWriter.Deserialize(importMeta), importMeta);
+        => Import(_resultImportWriter.Deserialize(importMeta, true), importMeta);
 
     internal async Task Import(VotingImport importData, ResultImportMeta importMeta)
     {
@@ -107,15 +107,15 @@ public class EVotingResultImportWriter
             throw new EVotingNotActiveException(nameof(Contest), importMeta.ContestId);
         }
 
-        var ignoredCountingCircles = await ValidateAndFilterCountingCircles(contest, importData);
+        var (emptyCountingCircles, ignoredCountingCircles) = await ValidateAndFilterCountingCircles(contest, importData);
         var resultAggregatesToSave = await SetAllResultsToInSubmissionOrCorrection(contest);
-        var importAggregate = await _resultImportWriter.Import(importData, importMeta, contest, ignoredCountingCircles);
+        var importAggregate = await _resultImportWriter.Import(importData, importMeta, contest, emptyCountingCircles, ignoredCountingCircles);
         await SetSuccessorAndSave(importAggregate, contest.TestingPhaseEnded, false);
         await Task.WhenAll(resultAggregatesToSave.Select(agg => _aggregateRepository.Save(agg)));
         await _aggregateRepository.Save(importAggregate);
     }
 
-    private async Task<IReadOnlyCollection<IgnoredImportCountingCircle>> ValidateAndFilterCountingCircles(
+    private async Task<(List<Guid> Empty, List<IgnoredImportCountingCircle> Ignored)> ValidateAndFilterCountingCircles(
         Contest contest,
         VotingImport data)
     {
@@ -127,8 +127,6 @@ public class EVotingResultImportWriter
         var testCountingCirclesById = _appConfig.Publisher.TestCountingCircles
             .GetValueOrDefault(contest.DomainOfInfluence.Canton, [])
             .ToDictionary(x => x.Id);
-        var resultKeysToRemove = new List<(Guid BusinessId, string BasisCountingCircleId)>();
-        var ignoredCountingCircles = new List<IgnoredImportCountingCircle>();
 
         var relevantCountingCirclesInContest = await _contestRepo.Query()
             .Where(x => x.Id == contest.Id)
@@ -139,6 +137,12 @@ public class EVotingResultImportWriter
             {
                 x!.EVoting,
                 x.BasisCountingCircleId,
+                x.Id,
+                Results = x.SimpleResults.Select(r => new
+                {
+                    Type = r.PoliticalBusiness!.PoliticalBusinessType,
+                    PbId = r.PoliticalBusinessId,
+                }),
             })
             .ToListAsync();
 
@@ -146,6 +150,10 @@ public class EVotingResultImportWriter
             .DistinctBy(x => x.BasisCountingCircleId)
             .ToDictionary(x => x.BasisCountingCircleId);
 
+        var ignoredCountingCircles = new List<IgnoredImportCountingCircle>();
+        var emptyCountingCircles = new List<Guid>();
+        var resultKeysToRemove = new List<(Guid BusinessId, string BasisCountingCircleId)>();
+        var resultsToAdd = new List<VotingImportPoliticalBusinessResult>();
         var importedVotingCardCcIds = data.VotingCards.Select(x => x.BasisCountingCircleId).ToHashSet();
         foreach (var ccResult in data.PoliticalBusinessResults)
         {
@@ -176,17 +184,6 @@ public class EVotingResultImportWriter
                 continue;
             }
 
-            if (ccResult is VotingImportEmptyResult)
-            {
-                _logger.LogWarning("Result of counting circle ID {CountingCircleId} is empty, will be ignored", ccResult.BasisCountingCircleId);
-                ignoredCountingCircles.Add(new IgnoredImportCountingCircle
-                {
-                    CountingCircleId = ccResult.BasisCountingCircleId,
-                });
-                resultKeysToRemove.Add((ccResult.PoliticalBusinessId, ccResult.BasisCountingCircleId));
-                continue;
-            }
-
             if (!cc.EVoting)
             {
                 throw new EVotingNotActiveException(nameof(CountingCircle), basisCountingCircleId);
@@ -196,9 +193,25 @@ public class EVotingResultImportWriter
             {
                 throw new ValidationException($"Import does not contain voting cards for counting circle {ccResult.BasisCountingCircleId}");
             }
+
+            if (ccResult is VotingImportEmptyResult)
+            {
+                _logger.LogWarning("Result of counting circle ID {CountingCircleId} is empty", ccResult.BasisCountingCircleId);
+                emptyCountingCircles.Add(cc.Id);
+
+                // Remove the empty entry
+                resultKeysToRemove.Add((ccResult.PoliticalBusinessId, ccResult.BasisCountingCircleId));
+
+                // Add all other results, since this data is not available in the import
+                resultsToAdd.AddRange(cc.Results.Select(
+                    r => r.Type == PoliticalBusinessType.Vote
+                    ? (VotingImportPoliticalBusinessResult)new VotingImportVoteResult(r.PbId, ccResult.BasisCountingCircleId, [])
+                    : new VotingImportElectionResult(r.PbId, ccResult.BasisCountingCircleId, [])));
+            }
         }
 
         data.RemoveResults(resultKeysToRemove);
+        data.AddResults(resultsToAdd);
         data.VotingCards.RemoveAll(x => ignoredCountingCircles.Any(ignored => ignored.CountingCircleId == x.BasisCountingCircleId));
 
         if (data.VotingCards.Count != data.VotingCards.DistinctBy(x => x.BasisCountingCircleId).Count())
@@ -224,7 +237,7 @@ public class EVotingResultImportWriter
             .ToHashSet();
 
         var firstBasisCountingCircleIdNotImported = eVotingBasisCountingCircleIds.FirstOrDefault(ccId => !importBasisCountingCircleIds.Contains(ccId.ToString()));
-        if (firstBasisCountingCircleIdNotImported != default)
+        if (firstBasisCountingCircleIdNotImported != Guid.Empty)
         {
             throw new ValidationException("Missing counting circle in import data with id " + firstBasisCountingCircleIdNotImported);
         }
@@ -234,7 +247,7 @@ public class EVotingResultImportWriter
             throw new ValidationException("Did not provide results for all counting circles");
         }
 
-        return ignoredCountingCircles.DistinctBy(x => x.CountingCircleId).ToList();
+        return (emptyCountingCircles.Distinct().ToList(), ignoredCountingCircles.DistinctBy(x => x.CountingCircleId).ToList());
     }
 
     private async Task<List<CountingCircleResultAggregate>> SetAllResultsToInSubmissionOrCorrection(Contest contest)
@@ -257,7 +270,7 @@ public class EVotingResultImportWriter
 
     private async Task<(Guid ImportsAggregateId, ContestResultImportsAggregate ImportsAggregate)> GetContestImportsAggregate(Guid contestId, bool testingPhaseEnded, bool isDelete)
     {
-        // legacy aggreagtes used the contestId as id.
+        // legacy aggregates used the contestId as id.
         var id = contestId;
         var importsAggregate = await _aggregateRepository.TryGetById<ContestResultImportsAggregate>(id);
         if (importsAggregate != null)

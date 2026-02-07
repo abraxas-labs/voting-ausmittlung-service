@@ -138,6 +138,7 @@
     "EntryParams": {
       "BallotBundleSampleSizePercent": 100,
       "AutomaticBallotBundleNumberGeneration": false,
+      "AutomaticBallotNumberGeneration": true,
       "ReviewProcedure": 1
     },
     "CountingCircleId": "b38bd3dc-278d-5a33-bef2-b27f5e36d019",
@@ -291,6 +292,7 @@
     "EntryParams": {
       "BallotBundleSampleSizePercent": 100,
       "AutomaticBallotBundleNumberGeneration": false,
+      "AutomaticBallotNumberGeneration": true,
       "ReviewProcedure": 1
     },
     "CountingCircleId": "b38bd3dc-278d-5a33-bef2-b27f5e36d019",

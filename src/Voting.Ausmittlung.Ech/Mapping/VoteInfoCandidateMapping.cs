@@ -19,8 +19,6 @@ internal static class VoteInfoCandidateMapping
     private const int MaxCandidateReferenceLength = 10;
     private const string IncumbentText = "bisher";
 
-    private static readonly DateTime DefaultDateOfBirth = new(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-
     internal static CandidatePositionInformationType ToEchCandidatePosition(this ProportionalElectionCandidate candidate, Ech0252MappingContext ctx, bool accumulatedPosition)
     {
         var text = candidate.ToEchCandidateText(
@@ -72,7 +70,7 @@ internal static class VoteInfoCandidateMapping
             CallName = candidate.PoliticalFirstName,
             CandidateReference = candidate.Number,
             CandidateText = candidateText.CandidateTextInfo,
-            DateOfBirth = candidate.DateOfBirth ?? DefaultDateOfBirth,
+            DateOfBirth = candidate.DateOfBirth,
             Sex = candidate.Sex.ToEchSexType(),
             OccupationalTitle = occupationInfos?.Count == 0 ? null : occupationInfos,
             Title = candidate.Title,
@@ -92,7 +90,7 @@ internal static class VoteInfoCandidateMapping
         Dictionary<string, string> occupationTitleTranslations,
         Dictionary<string, string>? partyTranslations = null)
     {
-        var dateOfBirthText = DomainOfInfluenceCantonDataTransformer.EchCandidateDateOfBirthText(ctx.Canton, candidate.DateOfBirth ?? DefaultDateOfBirth);
+        var dateOfBirthText = DomainOfInfluenceCantonDataTransformer.EchCandidateDateOfBirthText(ctx.Canton, candidate.DateOfBirth);
         var localityText = string.IsNullOrEmpty(candidate.Locality) ? string.Empty : $", {candidate.Locality}";
         var candidateTextBase = $"{dateOfBirthText}{{0}}{localityText}{{1}}{{2}}";
         var textInfos = new CandidateTextInformationType();
@@ -101,14 +99,14 @@ internal static class VoteInfoCandidateMapping
             var occupationTitleText = string.Empty;
             if (occupationTitleTranslations.TryGetValue(language, out var occupationTitle))
             {
-                occupationTitleText = !string.IsNullOrEmpty(occupationTitle) ? $", {occupationTitle}" : null;
+                occupationTitleText = !string.IsNullOrEmpty(occupationTitle) ? $", {occupationTitle}" : string.Empty;
             }
 
             var partyText = string.Empty;
-            if (partyTranslations?.TryGetValue(language, out string? partyTranslatedText) != null)
+            if (partyTranslations?.TryGetValue(language, out var partyTranslatedText) != null)
             {
                 partyTranslatedText = DomainOfInfluenceCantonDataTransformer.EchCandidatePartyText(ctx.Canton, politicalBusinessType, partyTranslatedText);
-                partyText = !string.IsNullOrEmpty(partyTranslatedText) ? $", {partyTranslatedText}" : null;
+                partyText = !string.IsNullOrEmpty(partyTranslatedText) ? $", {partyTranslatedText}" : string.Empty;
             }
 
             var incumbentText = !candidate.Incumbent
@@ -118,7 +116,7 @@ internal static class VoteInfoCandidateMapping
             textInfos.CandidateTextInfo.Add(new CandidateTextInformationTypeCandidateTextInfo
             {
                 Language = language,
-                CandidateText = string.Format(candidateTextBase, occupationTitleText, partyText, incumbentText),
+                CandidateText = string.Format(candidateTextBase, occupationTitleText, partyText, incumbentText).TrimStart(',').TrimStart(' '),
             });
         }
 

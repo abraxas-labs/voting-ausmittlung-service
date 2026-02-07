@@ -12,7 +12,7 @@
       <NumberOfMandates>36</NumberOfMandates>
       <VoteCount>491372</VoteCount>
       <CantonalQuorum>14742</CantonalQuorum>
-      <VoterNumber>40420.831585081585081585081586</VoterNumber>
+      <VoterNumber>40564.498251748251748251748253</VoterNumber>
       <ElectionKey>1130</ElectionKey>
       <SuperApportionmentNumberOfMandates>36</SuperApportionmentNumberOfMandates>
       <SubApportionmentNumberOfMandates>36</SubApportionmentNumberOfMandates>
@@ -64,7 +64,7 @@
           <MandateAlgorithm>DoubleProportionalNDois5DoiOr3TotQuorum</MandateAlgorithm>
         </ProportionalElection>
         <VoteCount>215661</VoteCount>
-        <VoterNumber>17828</VoterNumber>
+        <VoterNumber>17972</VoterNumber>
         <Quorum>10784</Quorum>
         <Divisor>17700</Divisor>
         <NumberOfMandates>12</NumberOfMandates>
@@ -259,7 +259,7 @@
         <VoteCount>1724</VoteCount>
         <CantonalQuorumReached>false</CantonalQuorumReached>
         <AnyQuorumReached>false</AnyQuorumReached>
-        <VoterNumber>0</VoterNumber>
+        <VoterNumber>143.66666666666666666666666667</VoterNumber>
         <SuperApportionmentNumberOfMandatesUnrounded>0</SuperApportionmentNumberOfMandatesUnrounded>
         <SuperApportionmentNumberOfMandates>0</SuperApportionmentNumberOfMandates>
         <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
@@ -284,7 +284,7 @@
           </List>
           <ProportionalElectionQuorumReached>false</ProportionalElectionQuorumReached>
           <VoteCount>1724</VoteCount>
-          <VoterNumber>0</VoterNumber>
+          <VoterNumber>143.66666666666666666666666667</VoterNumber>
           <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
           <VoteCountPercentageInElection>0.7994027663787147421184173300</VoteCountPercentageInElection>
         </Cell>

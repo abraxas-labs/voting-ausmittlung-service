@@ -12,6 +12,7 @@
       "ComparisonCountOfVotersData": null,
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ProportionalElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRowsData": null,
       "ValidationGroup": 0,
       "GroupValue": "",
       "DataCase": 0
@@ -28,6 +29,7 @@
       "ComparisonCountOfVotersData": null,
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ProportionalElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRowsData": null,
       "ValidationGroup": 0,
       "GroupValue": "",
       "DataCase": 0
@@ -44,6 +46,7 @@
       "ComparisonCountOfVotersData": null,
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ProportionalElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRowsData": null,
       "ValidationGroup": 0,
       "GroupValue": "",
       "DataCase": 0
@@ -60,6 +63,7 @@
       "ComparisonCountOfVotersData": null,
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ProportionalElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRowsData": null,
       "ValidationGroup": 0,
       "GroupValue": "",
       "DataCase": 0
@@ -78,6 +82,7 @@
       "ComparisonCountOfVotersData": null,
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ProportionalElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRowsData": null,
       "ValidationGroup": 0,
       "GroupValue": "",
       "DataCase": 4
@@ -96,6 +101,7 @@
       "ComparisonCountOfVotersData": null,
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ProportionalElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRowsData": null,
       "ValidationGroup": 0,
       "GroupValue": "",
       "DataCase": 4
@@ -114,6 +120,7 @@
       "ComparisonCountOfVotersData": null,
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ProportionalElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRowsData": null,
       "ValidationGroup": 0,
       "GroupValue": "",
       "DataCase": 4
@@ -132,6 +139,7 @@
       "ComparisonCountOfVotersData": null,
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ProportionalElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRowsData": null,
       "ValidationGroup": 0,
       "GroupValue": "",
       "DataCase": 4
@@ -152,6 +160,7 @@
         "DeviationPercent": 28.57142857142857,
         "PoliticalBusinessType": 3
       },
+      "ProportionalElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRowsData": null,
       "ValidationGroup": 0,
       "GroupValue": "",
       "DataCase": 11
@@ -173,9 +182,34 @@
       "ComparisonCountOfVotersData": null,
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ProportionalElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRowsData": null,
       "ValidationGroup": 0,
       "GroupValue": "",
       "DataCase": 7
+    },
+    {
+      "Validation": 44,
+      "IsValid": true,
+      "IsOptional": false,
+      "PoliticalBusinessData": null,
+      "VoteAccountedBallotsEqualQnData": null,
+      "MajorityElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusEmptyInvalidVotesData": null,
+      "ProportionalElectionAccountedBallotsEqualModifiedPlusUnmodifiedListsData": null,
+      "ComparisonVoterParticipationsData": null,
+      "ComparisonCountOfVotersData": null,
+      "ComparisonVotingChannelsData": null,
+      "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ProportionalElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRowsData": {
+        "BlankRowsCount": 100,
+        "CandidateVotes": 5900,
+        "NumberOfMandates": 3,
+        "TotalAccountedBallots": 2000,
+        "SumVoteCount": 6000,
+        "NumberOfMandatesTimesAccountedBallots": 6000
+      },
+      "ValidationGroup": 0,
+      "GroupValue": "",
+      "DataCase": 12
     },
     {
       "Validation": 50,
@@ -189,6 +223,7 @@
       "ComparisonCountOfVotersData": null,
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ProportionalElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRowsData": null,
       "ValidationGroup": 0,
       "GroupValue": "",
       "DataCase": 0

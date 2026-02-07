@@ -145,9 +145,9 @@ public class Startup
             app.UseCorsFromConfig();
         }
 
+        app.UseHttpMetrics();
         app.UseMiddleware<ExceptionHandler>();
         app.UseMiddleware<LanguageMiddleware>();
-        app.UseHttpMetrics();
         app.UseAuthentication();
         app.UseAuthorization();
 

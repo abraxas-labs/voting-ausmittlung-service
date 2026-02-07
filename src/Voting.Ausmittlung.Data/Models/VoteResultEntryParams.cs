@@ -9,5 +9,7 @@ public class VoteResultEntryParams
 
     public bool AutomaticBallotBundleNumberGeneration { get; set; }
 
+    public bool AutomaticBallotNumberGeneration { get; set; }
+
     public VoteReviewProcedure ReviewProcedure { get; set; }
 }

@@ -10,7 +10,7 @@ public class PdfProportionalElectionListVoteSourceResult
     public int VoteCount { get; set; }
 
     /// <summary>
-    /// Gets or sets the VoteCount including EmptyRows.
+    /// Gets or sets the VoteCount including modified BlankRows.
     /// For all values except the current list it's the same value as the VoteCount.
     /// </summary>
     public int TotalVoteCount { get; set; }

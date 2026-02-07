@@ -90,15 +90,13 @@ public class MajorityElectionProcessor :
 
     public Task Process(MajorityElectionCreated eventData)
     {
-        var majorityElection = _mapper.Map<MajorityElection>(eventData.MajorityElection);
-        majorityElection.DomainOfInfluenceId = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(majorityElection.ContestId, majorityElection.DomainOfInfluenceId);
+        var majorityElection = MapEventData(eventData.MajorityElection);
         return CreateElection(majorityElection);
     }
 
     public async Task Process(MajorityElectionUpdated eventData)
     {
-        var majorityElection = _mapper.Map<MajorityElection>(eventData.MajorityElection);
-        majorityElection.DomainOfInfluenceId = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(majorityElection.ContestId, majorityElection.DomainOfInfluenceId);
+        var majorityElection = MapEventData(eventData.MajorityElection);
         await UpdateElection(majorityElection);
 
         // update secondary elections on the same ballot
@@ -114,6 +112,7 @@ public class MajorityElectionProcessor :
                 .SetProperty(y => y.BallotBundleSampleSize, majorityElection.BallotBundleSampleSize)
                 .SetProperty(y => y.BallotNumberGeneration, majorityElection.BallotNumberGeneration)
                 .SetProperty(y => y.AutomaticBallotBundleNumberGeneration, majorityElection.AutomaticBallotBundleNumberGeneration)
+                .SetProperty(y => y.AutomaticBallotNumberGeneration, majorityElection.AutomaticBallotNumberGeneration)
                 .SetProperty(y => y.AutomaticEmptyVoteCounting, majorityElection.AutomaticEmptyVoteCounting)
                 .SetProperty(y => y.EnforceEmptyVoteCountingForCountingCircles, majorityElection.EnforceEmptyVoteCountingForCountingCircles)
                 .SetProperty(y => y.ReviewProcedure, majorityElection.ReviewProcedure)
@@ -369,6 +368,19 @@ public class MajorityElectionProcessor :
                 .SetProperty(c => c.Incumbent, eventData.Incumbent)
                 .SetProperty(c => c.Number, eventData.Number)
                 .SetProperty(c => c.CheckDigit, eventData.CheckDigit));
+    }
+
+    private MajorityElection MapEventData(MajorityElectionEventData majorityElectionEventData)
+    {
+        var majorityElection = _mapper.Map<MajorityElection>(majorityElectionEventData);
+        majorityElection.DomainOfInfluenceId = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(majorityElection.ContestId, majorityElection.DomainOfInfluenceId);
+
+        if (majorityElectionEventData.AutomaticBallotNumberGeneration == null)
+        {
+            majorityElection.AutomaticBallotNumberGeneration = true;
+        }
+
+        return majorityElection;
     }
 
     private async Task UpdateCandidateReferences(MajorityElectionCandidate candidate)

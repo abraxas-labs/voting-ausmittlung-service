@@ -279,6 +279,12 @@ public class DataContext : DbContext
 
     public DbSet<ProportionalElectionResultBundleLog> ProportionalElectionResultBundleLogs { get; set; } = null!;
 
+    public DbSet<VoteResultBallotLog> VoteResultBallotLogs { get; set; } = null!;
+
+    public DbSet<MajorityElectionResultBallotLog> MajorityElectionResultBallotLogs { get; set; } = null!;
+
+    public DbSet<ProportionalElectionResultBallotLog> ProportionalElectionResultBallotLogs { get; set; } = null!;
+
     public DbSet<ProtocolExport> ProtocolExports { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

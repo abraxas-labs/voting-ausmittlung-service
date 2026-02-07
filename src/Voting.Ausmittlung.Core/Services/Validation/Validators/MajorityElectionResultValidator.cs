@@ -86,7 +86,12 @@ public class MajorityElectionResultValidator : CountingCircleResultValidator<Maj
             }
         }
 
-        results.Add(ValidateCandidateResults(data, context));
+        var candidateResultsValidationResult = ValidateCandidateResults(data, context);
+
+        if (candidateResultsValidationResult != null)
+        {
+            results.Add(candidateResultsValidationResult);
+        }
 
         foreach (var result in results)
         {
@@ -97,17 +102,14 @@ public class MajorityElectionResultValidator : CountingCircleResultValidator<Maj
         return results;
     }
 
-    private ValidationResult ValidateCandidateResults(MajorityElectionResult electionResult, ValidationContext context)
+    private ValidationResult? ValidateCandidateResults(MajorityElectionResult electionResult, ValidationContext context)
     {
-        // A weird edge case when no candidates have been created at all.
-        // This can happen when no official candidate exists (ex. for an unpopular mandate).
-        // Users first have to analyse the write-ins/individual candidates and then create the most mentioned candidates in VOTING Basis.
-        // Since this is a very rare edge case, we only display this validation in case it fails.
+        // An election can have temporarily no official candidates (ex: unpopular mandate).
         if (electionResult.CandidateResults.Count == 0)
         {
-            return new ValidationResult(
-                SharedProto.Validation.MajorityElectionHasCandidates,
-                false);
+            return context.TestingPhaseEnded
+                ? new ValidationResult(SharedProto.Validation.MajorityElectionHasCandidates, false)
+                : null;
         }
 
         return electionResult.CandidateResults

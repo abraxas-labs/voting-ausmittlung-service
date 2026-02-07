@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -40,6 +41,7 @@ public class Ech0252ExportService
     private readonly EchSerializer _echSerializer;
     private readonly ContestRepo _contestRepo;
     private readonly DomainOfInfluenceRepo _domainOfInfluenceRepo;
+    private readonly DataContext _dataContext;
     private readonly IClock _clock;
     private readonly IAuth _auth;
     private readonly ExportRateLimitService _rateLimitService;
@@ -54,7 +56,8 @@ public class Ech0252ExportService
         IAuth auth,
         ExportRateLimitService rateLimitService,
         IDbRepository<DataContext, CantonSettings> cantonSettingsRepo,
-        DomainOfInfluenceRepo domainOfInfluenceRepo)
+        DomainOfInfluenceRepo domainOfInfluenceRepo,
+        DataContext dataContext)
     {
         _ech0252Serializer = ech0252Serializer;
         _echSerializer = echSerializer;
@@ -64,14 +67,18 @@ public class Ech0252ExportService
         _rateLimitService = rateLimitService;
         _cantonSettingsRepo = cantonSettingsRepo;
         _domainOfInfluenceRepo = domainOfInfluenceRepo;
+        _dataContext = dataContext;
     }
 
     public async IAsyncEnumerable<FileModel> GenerateExports(
         Ech0252FilterModel filter,
         [EnumeratorCancellation] CancellationToken ct = default)
     {
-        var contestsEnumerable = await LoadContests(filter, ct);
+        // Make sure the export sees a snapshot of the data at this point in time.
+        // Since exports can run for a long time, other changes should be ignored to ensure we export consistent data.
+        await using var transaction = await _dataContext.Database.BeginTransactionAsync(IsolationLevel.RepeatableRead, ct);
         var doisByContestId = await LoadDomainOfInfluences(filter);
+        var contestsEnumerable = await LoadContests(filter, ct);
 
         await foreach (var contest in contestsEnumerable.WithCancellation(ct))
         {
@@ -109,6 +116,8 @@ public class Ech0252ExportService
                 yield return RenderToXml(contest, majorityElectionDelivery, filter.InformationOnly ? "majority-election-info-delivery" : "majority-election-result-delivery");
             }
         }
+
+        await transaction.CommitAsync(ct);
     }
 
     public Ech0252FilterModel BuildAndValidateFilter(Ech0252FilterRequest filterRequest)

@@ -12,6 +12,7 @@
       "CandidateCheckDigit": true,
       "BallotBundleSize": 10,
       "AutomaticBallotBundleNumberGeneration": true,
+      "AutomaticBallotNumberGeneration": false,
       "BallotNumberGeneration": 1,
       "AutomaticEmptyVoteCounting": true,
       "EnforceEmptyVoteCountingForCountingCircles": true,
@@ -92,6 +93,7 @@
       "BallotBundleSize": 10,
       "BallotBundleSampleSize": 2,
       "AutomaticBallotBundleNumberGeneration": true,
+      "AutomaticBallotNumberGeneration": true,
       "BallotNumberGeneration": 2,
       "AutomaticEmptyVoteCounting": false,
       "ReviewProcedure": 1,
@@ -210,6 +212,7 @@
         "FullName": "Hans Muster"
       },
       "ReviewedBy": null,
+      "BallotNumbers": [],
       "BallotNumbersToReview": [],
       "ProtocolExport": null,
       "Logs": [
@@ -226,7 +229,8 @@
           },
           "State": 1
         }
-      ]
+      ],
+      "CountOfModifiedBallots": 1
     },
     {
       "Id": "",
@@ -241,6 +245,7 @@
         "FullName": "Hans Muster"
       },
       "ReviewedBy": null,
+      "BallotNumbers": [],
       "BallotNumbersToReview": [],
       "ProtocolExport": null,
       "Logs": [
@@ -257,7 +262,8 @@
           },
           "State": 1
         }
-      ]
+      ],
+      "CountOfModifiedBallots": 0
     },
     {
       "Id": "",
@@ -280,6 +286,7 @@
         "FullName": "Someone Else"
       },
       "ReviewedBy": null,
+      "BallotNumbers": [],
       "BallotNumbersToReview": [],
       "ProtocolExport": null,
       "Logs": [
@@ -296,7 +303,8 @@
           },
           "State": 1
         }
-      ]
+      ],
+      "CountOfModifiedBallots": 0
     }
   ]
 }

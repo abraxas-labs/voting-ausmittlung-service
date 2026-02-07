@@ -69,6 +69,7 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
         Guid contestId,
         Guid? countingCircleId,
         string echMessageId,
+        IEnumerable<Guid> emptyCountingCircles,
         IEnumerable<IgnoredImportCountingCircle> ignoredImportCountingCircles)
     {
         EnsureNotStarted();
@@ -85,6 +86,7 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
                 FileName = fileName,
                 ImportId = Id.ToString(),
                 EchMessageId = echMessageId,
+                EmptyCountingCircleIds = { emptyCountingCircles.Select(x => x.ToString()) },
                 IgnoredCountingCircles = { _mapper.Map<IEnumerable<ImportIgnoredCountingCircleEventData>>(ignoredImportCountingCircles) },
             },
             new EventSignatureBusinessDomainData(contestId));

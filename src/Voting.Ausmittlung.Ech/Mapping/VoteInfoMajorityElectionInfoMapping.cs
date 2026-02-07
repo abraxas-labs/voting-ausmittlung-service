@@ -21,7 +21,7 @@ internal static class VoteInfoMajorityElectionInfoMapping
     private const string RelativeMajorityText = "relative";
 
     internal static IEnumerable<ElectionGroupInfoType> ToVoteInfoEchMajorityElectionGroups(
-        this IEnumerable<MajorityElection> elections,
+        this List<MajorityElection> elections,
         Ech0252MappingContext ctx,
         Dictionary<Guid, int> positionBySuperiorAuthorityId)
     {

@@ -19,6 +19,7 @@
   "VoteResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
   "BallotResultId": "082c7c7a-8f1d-555f-be18-54f5673412e1",
   "BallotNumber": 1,
+  "Index": 0,
   "QuestionAnswers": [
     {
       "QuestionNumber": 1,

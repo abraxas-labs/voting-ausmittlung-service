@@ -213,7 +213,7 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
     }
 
     [Fact]
-    public async Task TestShouldThrowDuplicatedManualBundleNumber()
+    public async Task TestShouldCreateDuplicatedManualBundleNumber()
     {
         await _voteResultClient.DefineEntryAsync(new DefineVoteResultEntryRequest
         {
@@ -228,14 +228,13 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
         });
 
         await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
-        await AssertStatus(
-            async () => await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10)),
-            StatusCode.InvalidArgument,
-            "bundle number is already in use");
+        var created = await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
+        created.BundleNumber.Should().Be(10);
+        created.BundleId.Should().NotBeEmpty();
     }
 
     [Fact]
-    public async Task TestShouldThrowDuplicatedManualBundleNumberAfterDelete()
+    public async Task TestShouldCreateDuplicatedManualBundleNumberAfterDelete()
     {
         await _voteResultClient.DefineEntryAsync(new DefineVoteResultEntryRequest
         {
@@ -258,37 +257,9 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
                 BallotResultId = VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult,
             });
         await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
-        await AssertStatus(
-            async () => await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10)),
-            StatusCode.InvalidArgument,
-            "bundle number is already in use");
-    }
-
-    [Fact]
-    public async Task TestShouldReturnIfDeletedBundleNumberIsReused()
-    {
-        await _voteResultClient.DefineEntryAsync(new DefineVoteResultEntryRequest
-        {
-            VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
-            ResultEntry = SharedProto.VoteResultEntry.Detailed,
-            ResultEntryParams = new DefineVoteResultEntryParamsRequest
-            {
-                BallotBundleSampleSizePercent = 100,
-                AutomaticBallotBundleNumberGeneration = false,
-                ReviewProcedure = SharedProto.VoteReviewProcedure.Electronically,
-            },
-        });
-
-        var bundleResp = await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
-        await RunEvents<VoteResultBundleCreated>();
-
-        await ErfassungElectionAdminClient.DeleteBundleAsync(
-            new DeleteVoteResultBundleRequest
-            {
-                BundleId = bundleResp.BundleId,
-                BallotResultId = VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult,
-            });
-        await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
+        var created = await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
+        created.BundleNumber.Should().Be(10);
+        created.BundleId.Should().NotBeEmpty();
     }
 
     [Fact]

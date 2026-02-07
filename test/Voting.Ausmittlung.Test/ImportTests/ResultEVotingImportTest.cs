@@ -42,6 +42,7 @@ public class ResultEVotingImportTest : BaseRestTest
 {
     private const string TestFileV1Ok = "ImportTests/ExampleFiles/ech0222_import_ok.xml";
     private const string TestFileV3Ok = "ImportTests/ExampleFiles/ech0222_v3_import_ok.xml";
+    private const string TestFileV3EmptyCountingCircle = "ImportTests/ExampleFiles/ech0222_v3_import_empty_cc.xml";
     private const string TestFileInvalid = "ImportTests/ExampleFiles/ech0222_import_invalid.xml";
     private const string TestFileOtherContestId = "ImportTests/ExampleFiles/ech0222_import_other_contest_id.xml";
     private const string TestFileEch0110Ok = "ImportTests/ExampleFiles/ech0110_import_ok.xml";
@@ -197,6 +198,209 @@ public class ResultEVotingImportTest : BaseRestTest
         EventPublisherMock.Clear();
 
         using var resp = await MonitoringElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileV3Ok), ("ech0110File", TestFileEch0110Ok));
+        resp.EnsureSuccessStatusCode();
+
+        var stateChanges = EventPublisherMock.GetPublishedEvents<ProportionalElectionResultFlaggedForCorrection>();
+        stateChanges.Select(x => x.ElectionResultId)
+            .Should()
+            .BeInAscendingOrder(
+                ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
+                ProportionalElectionResultMockedData.IdUzwilElectionResultInContestUzwil);
+        EventPublisherMock.GetPublishedEvents<MajorityElectionResultFlaggedForCorrection>()
+            .Should()
+            .HaveCount(0);
+        EventPublisherMock.GetPublishedEvents<VoteResultFlaggedForCorrection>()
+            .Should()
+            .HaveCount(0);
+
+        var started = EventPublisherMock.GetSinglePublishedEvent<ResultImportStarted>();
+        var importId = started.ImportId;
+        started.ImportId = string.Empty;
+        started.MatchSnapshot("started");
+
+        var proportionalElectionImported = EventPublisherMock.GetPublishedEvents<ProportionalElectionResultImported>().ToList();
+        proportionalElectionImported.All(x => x.ImportId == importId).Should().BeTrue();
+
+        foreach (var ev in proportionalElectionImported)
+        {
+            ev.ImportId = string.Empty;
+        }
+
+        proportionalElectionImported.MatchSnapshot("proportionalElectionImported");
+
+        var voteImported = EventPublisherMock.GetPublishedEvents<VoteResultImported>().ToList();
+        voteImported.All(x => x.ImportId == importId).Should().BeTrue();
+
+        foreach (var ev in voteImported)
+        {
+            ev.ImportId = string.Empty;
+        }
+
+        voteImported.MatchSnapshot("voteImported");
+
+        var majorityElectionImported = EventPublisherMock.GetPublishedEvents<MajorityElectionResultImported>().ToList();
+        majorityElectionImported.All(x => x.ImportId == importId).Should().BeTrue();
+
+        foreach (var ev in majorityElectionImported)
+        {
+            ev.ImportId = string.Empty;
+
+            foreach (var writeIn in ev.WriteIns)
+            {
+                writeIn.WriteInMappingId.Should().NotBeEmpty();
+                writeIn.WriteInMappingId = string.Empty;
+            }
+        }
+
+        majorityElectionImported.MatchSnapshot("majorityElectionImported");
+
+        var secondaryMajorityElectionImported = EventPublisherMock.GetPublishedEvents<SecondaryMajorityElectionResultImported>().ToList();
+        secondaryMajorityElectionImported.All(x => x.ImportId == importId).Should().BeTrue();
+
+        foreach (var ev in secondaryMajorityElectionImported)
+        {
+            ev.ImportId = string.Empty;
+
+            foreach (var writeIn in ev.WriteIns)
+            {
+                writeIn.WriteInMappingId.Should().NotBeEmpty();
+                writeIn.WriteInMappingId = string.Empty;
+            }
+        }
+
+        secondaryMajorityElectionImported.MatchSnapshot("secondaryMajorityElectionImported");
+
+        var importedVotingCard = EventPublisherMock.GetPublishedEvents<CountingCircleVotingCardsImported>().First();
+        importedVotingCard.ImportId.Should().Be(importId);
+        importedVotingCard.MatchSnapshot("votingCards", x => x.ImportId);
+
+        var completed = EventPublisherMock.GetSinglePublishedEvent<ResultImportCompleted>();
+        completed.ImportId.Should().Be(importId);
+        completed.ImportId = string.Empty;
+        completed.MatchSnapshot("completed");
+
+        var completedCountingCircles = EventPublisherMock.GetPublishedEvents<ResultImportCountingCircleCompleted>().ToList();
+        foreach (var ccCompleted in completedCountingCircles)
+        {
+            ccCompleted.ImportId.Should().Be(importId);
+            ccCompleted.ImportId = string.Empty;
+        }
+
+        completedCountingCircles.MatchSnapshot("completedCountingCircles");
+    }
+
+    [Fact]
+    public async Task TestAsMonitoringElectionAdminWithEmptyCountingCircleShouldWork()
+    {
+        // set a state to submission finished
+        await SetProportionalElectionResultState(ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen, CountingCircleResultState.SubmissionDone);
+        await SetProportionalElectionResultState(ProportionalElectionResultMockedData.IdUzwilElectionResultInContestUzwil, CountingCircleResultState.CorrectionDone);
+
+        EventPublisherMock.Clear();
+
+        using var resp = await MonitoringElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileV3EmptyCountingCircle), ("ech0110File", TestFileEch0110Ok));
+        resp.EnsureSuccessStatusCode();
+
+        var stateChanges = EventPublisherMock.GetPublishedEvents<ProportionalElectionResultFlaggedForCorrection>();
+        stateChanges.Select(x => x.ElectionResultId)
+            .Should()
+            .BeInAscendingOrder(
+                ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
+                ProportionalElectionResultMockedData.IdUzwilElectionResultInContestUzwil);
+        EventPublisherMock.GetPublishedEvents<MajorityElectionResultFlaggedForCorrection>()
+            .Should()
+            .HaveCount(0);
+        EventPublisherMock.GetPublishedEvents<VoteResultFlaggedForCorrection>()
+            .Should()
+            .HaveCount(0);
+
+        var started = EventPublisherMock.GetSinglePublishedEvent<ResultImportStarted>();
+        await RunEvents<ResultImportStarted>(false);
+        var importId = started.ImportId;
+        started.ImportId = string.Empty;
+        started.MatchSnapshot("started");
+
+        var proportionalElectionImported = EventPublisherMock.GetPublishedEvents<ProportionalElectionResultImported>().ToList();
+        proportionalElectionImported.All(x => x.ImportId == importId).Should().BeTrue();
+
+        foreach (var ev in proportionalElectionImported)
+        {
+            ev.ImportId = string.Empty;
+        }
+
+        proportionalElectionImported.MatchSnapshot("proportionalElectionImported");
+
+        var voteImported = EventPublisherMock.GetPublishedEvents<VoteResultImported>().ToList();
+        voteImported.All(x => x.ImportId == importId).Should().BeTrue();
+
+        foreach (var ev in voteImported)
+        {
+            ev.ImportId = string.Empty;
+        }
+
+        voteImported.MatchSnapshot("voteImported");
+
+        var majorityElectionImported = EventPublisherMock.GetPublishedEvents<MajorityElectionResultImported>().ToList();
+        majorityElectionImported.All(x => x.ImportId == importId).Should().BeTrue();
+
+        foreach (var ev in majorityElectionImported)
+        {
+            ev.ImportId = string.Empty;
+
+            foreach (var writeIn in ev.WriteIns)
+            {
+                writeIn.WriteInMappingId.Should().NotBeEmpty();
+                writeIn.WriteInMappingId = string.Empty;
+            }
+        }
+
+        majorityElectionImported.MatchSnapshot("majorityElectionImported");
+
+        var secondaryMajorityElectionImported = EventPublisherMock.GetPublishedEvents<SecondaryMajorityElectionResultImported>().ToList();
+        secondaryMajorityElectionImported.All(x => x.ImportId == importId).Should().BeTrue();
+
+        foreach (var ev in secondaryMajorityElectionImported)
+        {
+            ev.ImportId = string.Empty;
+
+            foreach (var writeIn in ev.WriteIns)
+            {
+                writeIn.WriteInMappingId.Should().NotBeEmpty();
+                writeIn.WriteInMappingId = string.Empty;
+            }
+        }
+
+        secondaryMajorityElectionImported.MatchSnapshot("secondaryMajorityElectionImported");
+
+        var importedVotingCard = EventPublisherMock.GetPublishedEvents<CountingCircleVotingCardsImported>().First();
+        importedVotingCard.ImportId.Should().Be(importId);
+        importedVotingCard.MatchSnapshot("votingCards", x => x.ImportId);
+
+        var completed = EventPublisherMock.GetSinglePublishedEvent<ResultImportCompleted>();
+        completed.ImportId.Should().Be(importId);
+        completed.ImportId = string.Empty;
+        completed.MatchSnapshot("completed");
+
+        var completedCountingCircles = EventPublisherMock.GetPublishedEvents<ResultImportCountingCircleCompleted>().ToList();
+        foreach (var ccCompleted in completedCountingCircles)
+        {
+            ccCompleted.ImportId.Should().Be(importId);
+            ccCompleted.ImportId = string.Empty;
+        }
+
+        completedCountingCircles.MatchSnapshot("completedCountingCircles");
+    }
+
+    [Fact]
+    public async Task TestAsMonitoringElectionAdminV3OnlyShouldWork()
+    {
+        // set a state to submission finished
+        await SetProportionalElectionResultState(ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen, CountingCircleResultState.SubmissionDone);
+        await SetProportionalElectionResultState(ProportionalElectionResultMockedData.IdUzwilElectionResultInContestUzwil, CountingCircleResultState.CorrectionDone);
+
+        EventPublisherMock.Clear();
+
+        using var resp = await MonitoringElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileV3Ok));
         resp.EnsureSuccessStatusCode();
 
         var stateChanges = EventPublisherMock.GetPublishedEvents<ProportionalElectionResultFlaggedForCorrection>();
@@ -934,6 +1138,100 @@ public class ResultEVotingImportTest : BaseRestTest
         var import = await RunOnDb(db => db.ResultImports.FirstAsync(x => x.Id == Guid.Parse(importStarted.ImportId)));
         import.Id = Guid.Empty;
         import.Completed.Should().BeFalse();
+        import.MatchSnapshot("started");
+
+        var contest = await RunOnDb(db =>
+            db.Contests.SingleAsync(c => c.Id == Guid.Parse(ContestMockedData.IdStGallenEvoting)));
+        contest.EVotingResultsImported.Should().BeFalse();
+
+        await RunEvents<ProportionalElectionResultImported>(false);
+        await RunEvents<VoteResultImported>(false);
+        await RunEvents<MajorityElectionResultImported>(false);
+        await RunEvents<SecondaryMajorityElectionResultImported>(false);
+        await RunEvents<CountingCircleVotingCardsImported>(false);
+
+        var vote = await GetVoteWithResults();
+        vote.Results.MatchSnapshot("voteResults");
+
+        var proportionalElection = await GetProportionalElectionWithResults();
+        proportionalElection.Results.MatchSnapshot("proportionalElectionResults");
+
+        var majorityElection = await GetMajorityElectionWithResults();
+        majorityElection.Results.MatchSnapshot("majorityElectionResults");
+
+        var countingCircleDetails = await GetCountingCircleDetails();
+        countingCircleDetails.MatchSnapshot("countingCircleDetails");
+
+        var importCompleted = EventPublisherMock.GetSinglePublishedEvent<ResultImportCompleted>();
+        await TestEventPublisher.Publish(GetNextEventNumber(), importCompleted);
+        await RunEvents<ResultImportCountingCircleCompleted>(false);
+
+        import = await RunOnDb(db => db.ResultImports
+            .Include(x => x.ImportedCountingCircles.OrderBy(cc => cc.CountingCircleId))
+            .FirstAsync(x => x.Id == Guid.Parse(importStarted.ImportId)));
+        var importId = import.Id;
+        import.Id = Guid.Empty;
+        import.Completed.Should().BeTrue();
+        foreach (var importedCc in import.ImportedCountingCircles)
+        {
+            importedCc.ResultImportId = Guid.Empty;
+            importedCc.Id = Guid.Empty;
+        }
+
+        import.MatchSnapshot("completed");
+
+        contest = await RunOnDb(db =>
+            db.Contests.SingleAsync(c => c.Id == Guid.Parse(ContestMockedData.IdStGallenEvoting)));
+        contest.EVotingResultsImported.Should().BeTrue();
+
+        var writeIns = await RunOnDb(db => db.MajorityElectionWriteInMappings.OrderBy(x => x.WriteInCandidateName).ToListAsync());
+        foreach (var writeIn in writeIns)
+        {
+            writeIn.Result = new MajorityElectionResult();
+            writeIn.ResultId = Guid.Empty;
+            writeIn.Id = Guid.Empty;
+            writeIn.ImportId = Guid.Empty;
+        }
+
+        writeIns.ShouldMatchChildSnapshot("writeIns");
+
+        var secondaryWriteIns = await RunOnDb(db => db.SecondaryMajorityElectionWriteInMappings.Include(x => x.Result).OrderBy(x => x.WriteInCandidateName).ToListAsync());
+        foreach (var writeIn in secondaryWriteIns)
+        {
+            writeIn.Result = new SecondaryMajorityElectionResult();
+            writeIn.ResultId = Guid.Empty;
+            writeIn.Id = Guid.Empty;
+            writeIn.ImportId = Guid.Empty;
+        }
+
+        secondaryWriteIns.ShouldMatchChildSnapshot("secondaryWriteIns");
+
+        await AssertHasPublishedEventProcessedMessage(ResultImportCountingCircleCompleted.Descriptor, importId);
+    }
+
+    [Fact]
+    public async Task ProcessorEmptyCountingCirclesShouldWork()
+    {
+        using var resp = await MonitoringElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileV3EmptyCountingCircle));
+        resp.EnsureSuccessStatusCode();
+
+        var importStarted = EventPublisherMock.GetSinglePublishedEvent<ResultImportStarted>();
+        await TestEventPublisher.Publish(GetNextEventNumber(), importStarted);
+
+        var import = await RunOnDb(db => db.ResultImports
+            .Include(x => x.EmptyCountingCircles.OrderBy(cc => cc.CountingCircle!.Name))
+            .ThenInclude(cc => cc.CountingCircle)
+            .FirstAsync(x => x.Id == Guid.Parse(importStarted.ImportId)));
+        import.Id = Guid.Empty;
+        import.Completed.Should().BeFalse();
+        foreach (var cc in import.EmptyCountingCircles)
+        {
+            cc.Id = Guid.Empty;
+            cc.CountingCircleId = Guid.Empty;
+            cc.ResultImportId = Guid.Empty;
+            cc.ResultImport = null;
+        }
+
         import.MatchSnapshot("started");
 
         var contest = await RunOnDb(db =>

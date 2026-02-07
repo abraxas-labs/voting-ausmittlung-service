@@ -126,8 +126,13 @@ public class ProportionalElectionUnionEndResultRevertFinalizationTest : Proporti
                     .ThenInclude(x => x.CandidateEndResults)
                 .SingleAsync(x => x.ProportionalElectionId == electionGuid);
 
+            var simplePb = await db.SimplePoliticalBusinesses
+                .AsTracking()
+                .SingleAsync(x => x.Id == electionGuid);
+
             endResult.Finalized = true;
-            endResult.ListEndResults.First().HasOpenRequiredLotDecisions = true;
+            endResult.ListEndResults.First().LotDecisionState = ElectionLotDecisionState.OpenAndRequired;
+            simplePb.EndResultFinalized = true;
 
             var candidateEndResult = endResult.ListEndResults.First().CandidateEndResults.First();
             candidateEndResult.Rank = 2;
@@ -155,6 +160,8 @@ public class ProportionalElectionUnionEndResultRevertFinalizationTest : Proporti
             .AsSplitQuery()
             .SingleAsync(y => y.ProportionalElectionUnionId == unionGuid));
         result.Finalized.Should().BeFalse();
+
+        await AssertHasPublishedEventProcessedMessage(ProportionalElectionUnionEndResultFinalizationReverted.Descriptor, result.Id);
 
         // test that the double proportional result get removed correctly
         var union = await RunOnDb(db => db.ProportionalElectionUnions
@@ -199,12 +206,16 @@ public class ProportionalElectionUnionEndResultRevertFinalizationTest : Proporti
                 .ThenInclude(x => x.CandidateEndResults)
             .SingleAsync(x => x.ProportionalElectionId == electionGuid));
 
+        var simplePb = await RunOnDb(db => db.SimplePoliticalBusinesses
+            .SingleAsync(x => x.Id == electionGuid));
+
         endResult.Finalized.Should().BeFalse();
         endResult.ListEndResults.Should().NotBeEmpty();
-        endResult.ListEndResults.All(x => x.NumberOfMandates == 0 && !x.HasOpenRequiredLotDecisions).Should().BeTrue();
+        endResult.ListEndResults.All(x => x.NumberOfMandates == 0 && x.LotDecisionState is not ElectionLotDecisionState.OpenAndRequired).Should().BeTrue();
         endResult.ListEndResults.SelectMany(x => x.CandidateEndResults).Should().NotBeEmpty();
         endResult.ListEndResults.SelectMany(x => x.CandidateEndResults).All(x => x.Rank == 0 && !x.LotDecisionRequired && !x.LotDecisionEnabled)
             .Should().BeTrue();
+        simplePb.EndResultFinalized.Should().BeFalse();
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

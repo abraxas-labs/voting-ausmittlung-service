@@ -45,19 +45,6 @@ public class MajorityElectionResultGetBallotTest : MajorityElectionResultBundleB
     }
 
     [Fact]
-    public async Task ShouldThrowAsErfassungCreatorOtherThanBundleCreator()
-    {
-        await CreateBallot(MajorityElectionResultBundleMockedData.StGallenBundle3.Id);
-        await AssertStatus(
-            async () => await ErfassungCreatorClient.GetBallotAsync(NewValidRequest(req =>
-            {
-                req.BallotNumber = LatestBallotNumber;
-                req.BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle3;
-            })),
-            StatusCode.PermissionDenied);
-    }
-
-    [Fact]
     public async Task ShouldReturnAsErfassungCreatorOtherThanBundleCreatorIfReview()
     {
         await RunBundleToState(BallotBundleState.ReadyForReview, MajorityElectionResultBundleMockedData.StGallenBundle3.Id);
@@ -88,6 +75,7 @@ public class MajorityElectionResultGetBallotTest : MajorityElectionResultBundleB
         yield return RolesMockedData.ErfassungCreator;
         yield return RolesMockedData.ErfassungCreatorWithoutBundleControl;
         yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungRestrictedBundleController;
         yield return RolesMockedData.ErfassungElectionSupporter;
         yield return RolesMockedData.ErfassungElectionAdmin;
         yield return RolesMockedData.MonitoringElectionAdmin;

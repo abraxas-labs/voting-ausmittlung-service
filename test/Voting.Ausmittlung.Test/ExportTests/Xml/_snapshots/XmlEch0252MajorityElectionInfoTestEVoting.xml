@@ -160,22 +160,21 @@
             <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <candidateTextInfo>
                 <language>de</language>
-                <candidateText>1960, occupation title de, locality, Test de, bisher</candidateText>
+                <candidateText>occupation title de, locality, Test de, bisher</candidateText>
               </candidateTextInfo>
               <candidateTextInfo>
                 <language>fr</language>
-                <candidateText>1960, occupation title fr, locality, Test fr, bisher</candidateText>
+                <candidateText>occupation title fr, locality, Test fr, bisher</candidateText>
               </candidateTextInfo>
               <candidateTextInfo>
                 <language>it</language>
-                <candidateText>1960, occupation title it, locality, Test it, bisher</candidateText>
+                <candidateText>occupation title it, locality, Test it, bisher</candidateText>
               </candidateTextInfo>
               <candidateTextInfo>
                 <language>rm</language>
-                <candidateText>1960, occupation title rm, locality, Test rm, bisher</candidateText>
+                <candidateText>occupation title rm, locality, Test rm, bisher</candidateText>
               </candidateTextInfo>
             </candidateText>
-            <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3</sex>
             <occupationalTitle xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <occupationalTitleInfo>

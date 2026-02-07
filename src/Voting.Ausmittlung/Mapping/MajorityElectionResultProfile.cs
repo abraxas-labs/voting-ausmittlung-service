@@ -46,6 +46,7 @@ public class MajorityElectionResultProfile : Profile
 
         CreateMap<DataModels.MajorityElectionResultBallot, ProtoModels.MajorityElectionResultBallot>()
             .ForMember(dst => dst.Candidates, opts => opts.MapFrom(src => src.BallotCandidates));
+        CreateMap<DataModels.MajorityElectionResultBallotLog, ProtoModels.PoliticalBusinessResultBallotLog>();
 
         CreateMap<DataModels.SecondaryMajorityElectionResultBallot, ProtoModels.SecondaryMajorityElectionResultBallot>()
             .ForMember(dst => dst.Candidates, opts => opts.MapFrom(src => src.BallotCandidates))

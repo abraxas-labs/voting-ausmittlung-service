@@ -187,6 +187,8 @@ public class ProportionalElectionUnionEndResultFinalizeTest : ProportionalElecti
         result.Finalized.Should().BeTrue();
         result.ProportionalElectionUnion.DoubleProportionalResult.Should().NotBeNull();
 
+        await AssertHasPublishedEventProcessedMessage(ProportionalElectionUnionEndResultFinalized.Descriptor, result.Id);
+
         var dpResult = await MonitoringElectionAdminClient.GetDoubleProportionalResultAsync(new() { ProportionalElectionUnionId = ZhMockedData.ProportionalElectionUnionIdKtrat });
         dpResult.MatchSnapshot("dpResult");
 
@@ -196,21 +198,22 @@ public class ProportionalElectionUnionEndResultFinalizeTest : ProportionalElecti
                 .ThenInclude(x => x.CandidateEndResults)
             .SingleAsync(x => x.ProportionalElectionId == electionGuid));
 
+        var simplePb = await RunOnDb(x => x.SimplePoliticalBusinesses.SingleAsync(y => y.Id == electionGuid));
+
         endResult.ListEndResults.Should().NotBeEmpty();
         endResult.Finalized.Should().BeFalse();
+        simplePb.EndResultFinalized.Should().BeFalse();
 
-        // It should have open required lot decisions, because more than 1 number of mandate got distributed
-        // and in our test scenario only one voter got a vote count of 1000 and all others have the equal vote count.
-        endResult.ListEndResults.Any(x => x.HasOpenRequiredLotDecisions && x.NumberOfMandates > 0).Should().BeTrue();
+        endResult.ListEndResults.Any(x => x.LotDecisionState is ElectionLotDecisionState.OpenAndRequired).Should().BeFalse();
 
         var candidateEndResults = endResult.ListEndResults.SelectMany(x => x.CandidateEndResults).ToList();
         candidateEndResults.Any(x => x.Rank == 1 && x.State == ProportionalElectionCandidateEndResultState.Elected)
             .Should()
             .BeTrue();
 
-        candidateEndResults.Any(x => x.Rank == 2 && x.LotDecisionEnabled && x.LotDecisionRequired && x.State == ProportionalElectionCandidateEndResultState.Pending)
+        candidateEndResults.Any(x => x.LotDecisionEnabled || x.LotDecisionRequired || x.State is ProportionalElectionCandidateEndResultState.Pending)
             .Should()
-            .BeTrue();
+            .BeFalse();
     }
 
     [Fact]
@@ -222,6 +225,9 @@ public class ProportionalElectionUnionEndResultFinalizeTest : ProportionalElecti
         result.Finalized.Should().BeFalse();
 
         var electionGuid = ZhMockedData.ProportionalElectionGuidKtratWinterthur;
+
+        var simplePb = await RunOnDb(x => x.SimplePoliticalBusinesses.SingleAsync(y => y.Id == electionGuid));
+        simplePb.EndResultFinalized.Should().BeFalse();
 
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
@@ -244,6 +250,9 @@ public class ProportionalElectionUnionEndResultFinalizeTest : ProportionalElecti
             .SingleAsync(x => x.ProportionalElectionId == electionGuid));
 
         endResult.Finalized.Should().BeTrue();
+
+        simplePb = await RunOnDb(x => x.SimplePoliticalBusinesses.SingleAsync(y => y.Id == electionGuid));
+        simplePb.EndResultFinalized.Should().BeTrue();
     }
 
     [Fact]

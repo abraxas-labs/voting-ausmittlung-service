@@ -120,6 +120,7 @@ public static class ResultImportECountingMockedData
                 uzwil1.ContestId,
                 uzwil1.CountingCircleId,
                 "mock-message-id",
+                [],
                 uzwil1.IgnoredCountingCircles);
             uzwil1Aggregate.Complete();
 
@@ -141,6 +142,7 @@ public static class ResultImportECountingMockedData
                 uzwil2.ContestId,
                 uzwil2.CountingCircleId,
                 "mock-message-id",
+                [],
                 uzwil2.IgnoredCountingCircles);
             uzwil2Aggregate.ImportVoteResult(new VoteResultImport(Guid.Parse(VoteMockedData.IdUzwilVoteInContestStGallen), CountingCircleMockedData.GuidUzwil, 10));
             uzwil2Aggregate.Complete();

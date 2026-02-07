@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
@@ -11,6 +12,7 @@ using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
@@ -49,6 +51,7 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
                 BallotBundleSize = 10,
                 BallotBundleSampleSize = 1,
                 AutomaticEmptyVoteCounting = true,
+                AutomaticBallotNumberGeneration = true,
                 BallotNumberGeneration = SharedProto.BallotNumberGeneration.ContinuousForAllBundles,
                 ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
             },
@@ -85,6 +88,7 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
                 BallotBundleSize = 1,
                 BallotBundleSampleSize = 1,
                 AutomaticBallotBundleNumberGeneration = true,
+                AutomaticBallotNumberGeneration = true,
                 BallotNumberGeneration = SharedProto.BallotNumberGeneration.RestartForEachBundle,
                 ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
             },
@@ -113,6 +117,13 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
     {
         await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBallotUpdated>().MatchSnapshot();
+
+        // This should not write any logs, since it is still in progress
+        await RunEvents<MajorityElectionResultBallotUpdated>();
+        var logsCount = await RunOnDb(db => db.MajorityElectionResultBallotLogs
+            .Where(x => x.Ballot.BundleId == MajorityElectionResultBundleMockedData.StGallenBundle1.Id)
+            .CountAsync());
+        logsCount.Should().Be(0);
     }
 
     [Fact]
@@ -125,6 +136,12 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
             req.BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle3;
         }));
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBallotUpdated>().MatchSnapshot();
+
+        await RunEvents<MajorityElectionResultBallotUpdated>();
+        var logsCount = await RunOnDb(db => db.MajorityElectionResultBallotLogs
+            .Where(x => x.Ballot.BundleId == MajorityElectionResultBundleMockedData.StGallenBundle3.Id)
+            .CountAsync());
+        logsCount.Should().Be(1);
     }
 
     [Fact]
@@ -192,22 +209,11 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
     }
 
     [Fact]
-    public async Task TestShouldThrowAsErfassungCreatorOtherUserThanBundleCreatorInProcess()
-    {
-        await AssertStatus(
-            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(req => req.BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle3)),
-            StatusCode.PermissionDenied,
-            "only election admins or the creator of a bundle can edit it");
-    }
-
-    [Fact]
-    public async Task TestShouldThrowAsErfassungCreatorBundleCreatorReadyForReview()
+    public async Task TestShouldNotThrowAsErfassungCreatorBundleCreatorReadyForReview()
     {
         await RunBundleToState(BallotBundleState.ReadyForReview);
-        await AssertStatus(
-            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest()),
-            StatusCode.PermissionDenied,
-            "the creator of a bundle can't edit it while it is under review");
+        await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBallotUpdated>().Should().NotBeNull();
     }
 
     [Fact]
@@ -436,6 +442,7 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
         yield return RolesMockedData.ErfassungCreator;
         yield return RolesMockedData.ErfassungCreatorWithoutBundleControl;
         yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungRestrictedBundleController;
         yield return RolesMockedData.ErfassungElectionSupporter;
         yield return RolesMockedData.ErfassungElectionAdmin;
     }

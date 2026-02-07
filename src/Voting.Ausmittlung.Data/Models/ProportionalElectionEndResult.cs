@@ -119,7 +119,7 @@ public class ProportionalElectionEndResult : PoliticalBusinessEndResultBase,
         foreach (var listEndResult in ListEndResults)
         {
             listEndResult.NumberOfMandates = 0;
-            listEndResult.HasOpenRequiredLotDecisions = false;
+            listEndResult.LotDecisionState = ElectionLotDecisionState.Unspecified;
 
             foreach (var candidateEndResult in listEndResult.CandidateEndResults)
             {

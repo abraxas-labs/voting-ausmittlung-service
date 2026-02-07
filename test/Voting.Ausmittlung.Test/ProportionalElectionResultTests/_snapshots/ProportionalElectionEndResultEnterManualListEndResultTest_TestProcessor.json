@@ -118,7 +118,7 @@
       "Position": 1,
       "ProportionalElectionRootListUnionId": "c46de46e-e319-43fb-8433-d571bc459dce"
     },
-    "HasOpenRequiredLotDecisions": true,
+    "LotDecisionState": 2,
     "EVotingSubTotal": {
       "UnmodifiedListsCount": 0,
       "UnmodifiedListVotesCount": 0,

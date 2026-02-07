@@ -152,7 +152,7 @@
     ],
     "ListUnion": null,
     "SubListUnion": null,
-    "HasOpenRequiredLotDecisions": false,
+    "LotDecisionState": 4,
     "EVotingSubTotal": {
       "UnmodifiedListsCount": 0,
       "UnmodifiedListVotesCount": 0,

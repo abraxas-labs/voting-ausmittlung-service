@@ -42,6 +42,11 @@ public class ProportionalElectionResultValidateEnterCountOfVotersTest : Proporti
         {
             x.ConventionalSubTotal.TotalCountOfUnmodifiedLists = 1200;
             x.ConventionalSubTotal.TotalCountOfModifiedLists = 800;
+            x.ConventionalSubTotal.TotalCountOfBlankRowsOnListsWithoutParty = 1;
+
+            var listResult = x.ListResults.First();
+            listResult.ConventionalSubTotal.UnmodifiedListVotesCount = 5900;
+            listResult.ConventionalSubTotal.UnmodifiedListBlankRowsCount = 99;
         });
 
         await ModifyDbEntities(
@@ -99,6 +104,15 @@ public class ProportionalElectionResultValidateEnterCountOfVotersTest : Proporti
         await UpdateResult(x => x.CountOfBundlesNotReviewedOrDeleted = 1);
         var result = await ErfassungElectionAdminClient.ValidateEnterCountOfVotersAsync(NewValidRequest());
         result.ValidationResults.Single(r => r.Validation == SharedProto.Validation.PoliticalBusinessBundlesNotInProcess)
+            .IsValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task ShouldReturnIsNotValidWhenNotNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRows()
+    {
+        var result = await ErfassungElectionAdminClient.ValidateEnterCountOfVotersAsync(NewValidRequest(x =>
+            x.Request.CountOfVoters.ConventionalAccountedBallots = 2001));
+        result.ValidationResults.Single(r => r.Validation == SharedProto.Validation.ProportionalElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusBlankRows)
             .IsValid.Should().BeFalse();
     }
 
@@ -290,6 +304,7 @@ public class ProportionalElectionResultValidateEnterCountOfVotersTest : Proporti
         await RunOnDb(async db =>
         {
             var result = db.ProportionalElectionResults
+                .Include(x => x.ListResults.OrderBy(lr => lr.List.OrderNumber))
                 .AsTracking()
                 .First(x => x.Id == ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen);
 

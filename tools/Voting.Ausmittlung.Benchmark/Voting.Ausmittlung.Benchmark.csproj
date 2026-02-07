@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.15.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Voting.Ausmittlung.Data\Voting.Ausmittlung.Data.csproj" />
+    <ProjectReference Include="..\..\test\Voting.Ausmittlung.Test\Voting.Ausmittlung.Test.csproj" />
+  </ItemGroup>
+
+</Project>

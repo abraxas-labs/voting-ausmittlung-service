@@ -26,4 +26,6 @@ public class MajorityElectionResultBallot : PrimaryElectionResultBallot
 
     public ICollection<SecondaryMajorityElectionResultBallot> SecondaryMajorityElectionBallots { get; set; }
         = new HashSet<SecondaryMajorityElectionResultBallot>();
+
+    public List<MajorityElectionResultBallotLog> Logs { get; set; } = new();
 }

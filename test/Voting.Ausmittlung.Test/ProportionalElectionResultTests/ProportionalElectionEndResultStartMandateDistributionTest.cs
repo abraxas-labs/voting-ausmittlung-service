@@ -21,6 +21,7 @@ using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing.Utils;
 using Xunit;
+using ElectionLotDecisionState = Abraxas.Voting.Ausmittlung.Services.V1.Models.ElectionLotDecisionState;
 using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
 
 namespace Voting.Ausmittlung.Test.ProportionalElectionResultTests;
@@ -132,7 +133,9 @@ public class ProportionalElectionEndResultStartMandateDistributionTest : Proport
     {
         var electionGuid = Guid.Parse(ProportionalElectionEndResultMockedData.ElectionId);
         var result = await RunOnDb(x => x.ProportionalElectionEndResult.FirstAsync(r => r.ProportionalElectionId == electionGuid));
+        var simplePb = await RunOnDb(x => x.SimplePoliticalBusinesses.SingleAsync(r => r.Id == electionGuid));
         result.Finalized.Should().BeFalse();
+        simplePb.EndResultFinalized.Should().BeFalse();
 
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
@@ -148,13 +151,16 @@ public class ProportionalElectionEndResultStartMandateDistributionTest : Proport
             ProportionalElectionId = electionGuid.ToString(),
         });
 
+        simplePb = await RunOnDb(x => x.SimplePoliticalBusinesses.SingleAsync(r => r.Id == electionGuid));
+
         endResult.MatchSnapshot();
         endResult.Finalized.Should().BeFalse();
         endResult.ManualEndResultRequired.Should().BeFalse();
         endResult.MandateDistributionTriggered.Should().BeTrue();
         endResult.ListEndResults.Any(l => l.NumberOfMandates != 0).Should().BeTrue();
         endResult.ListEndResults.Any(l => l.CandidateEndResults.Any(x => x.State == SharedProto.ProportionalElectionCandidateEndResultState.Elected)).Should().BeTrue();
-        endResult.ListEndResults.Any(l => l.HasOpenRequiredLotDecisions).Should().BeTrue();
+        endResult.ListEndResults.Any(l => l.LotDecisionState is ElectionLotDecisionState.OpenAndRequired).Should().BeTrue();
+        simplePb.EndResultFinalized.Should().BeFalse();
 
         await AssertHasPublishedEventProcessedMessage(
             ProportionalElectionEndResultMandateDistributionStarted.Descriptor,
@@ -172,7 +178,10 @@ public class ProportionalElectionEndResultStartMandateDistributionTest : Proport
             splitQuery: true);
 
         var result = await RunOnDb(x => x.ProportionalElectionEndResult.FirstAsync(r => r.ProportionalElectionId == electionGuid));
+        var simplePb = await RunOnDb(x => x.SimplePoliticalBusinesses.SingleAsync(r => r.Id == electionGuid));
+
         result.Finalized.Should().BeFalse();
+        simplePb.EndResultFinalized.Should().BeFalse();
 
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
@@ -188,7 +197,51 @@ public class ProportionalElectionEndResultStartMandateDistributionTest : Proport
             ProportionalElectionId = electionGuid.ToString(),
         });
 
+        simplePb = await RunOnDb(x => x.SimplePoliticalBusinesses.SingleAsync(r => r.Id == electionGuid));
+
         endResult.Finalized.Should().BeTrue();
+        simplePb.EndResultFinalized.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task TestProcessorWithNonUnionDpAlgorithmAndDisabledCantonSettingsEndResultFinalize()
+    {
+        var electionGuid = Guid.Parse(ProportionalElectionEndResultMockedData.ElectionId);
+
+        await ModifyDbEntities<ProportionalElection>(
+            x => x.Id == electionGuid,
+            x => x.MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoubleProportional1Doi0DoiQuorum);
+
+        await ModifyDbEntities<ContestCantonDefaults>(
+            _ => true,
+            x => x.EndResultFinalizeDisabled = true,
+            splitQuery: true);
+
+        var result = await RunOnDb(x => x.ProportionalElectionEndResult.FirstAsync(r => r.ProportionalElectionId == electionGuid));
+        var simplePb = await RunOnDb(x => x.SimplePoliticalBusinesses.SingleAsync(r => r.Id == electionGuid));
+
+        result.Finalized.Should().BeFalse();
+        result.MandateDistributionTriggered.Should().BeFalse();
+        simplePb.EndResultFinalized.Should().BeFalse();
+
+        await TestEventPublisher.Publish(
+            GetNextEventNumber(),
+            new ProportionalElectionEndResultMandateDistributionStarted
+            {
+                ProportionalElectionId = ProportionalElectionEndResultMockedData.ElectionId,
+                ProportionalElectionEndResultId = result.Id.ToString(),
+                EventInfo = GetMockedEventInfo(),
+            });
+
+        var endResult = await MonitoringElectionAdminClient.GetEndResultAsync(new GetProportionalElectionEndResultRequest
+        {
+            ProportionalElectionId = electionGuid.ToString(),
+        });
+
+        simplePb = await RunOnDb(x => x.SimplePoliticalBusinesses.SingleAsync(r => r.Id == electionGuid));
+
+        endResult.Finalized.Should().BeTrue();
+        simplePb.EndResultFinalized.Should().BeTrue();
     }
 
     [Fact]
@@ -201,8 +254,10 @@ public class ProportionalElectionEndResultStartMandateDistributionTest : Proport
             x => x.MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoubleProportional1Doi0DoiQuorum);
 
         var result = await RunOnDb(x => x.ProportionalElectionEndResult.FirstAsync(r => r.ProportionalElectionId == electionGuid));
+        var simplePb = await RunOnDb(x => x.SimplePoliticalBusinesses.SingleAsync(r => r.Id == electionGuid));
         result.Finalized.Should().BeFalse();
         result.MandateDistributionTriggered.Should().BeFalse();
+        simplePb.EndResultFinalized.Should().BeFalse();
 
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
@@ -218,13 +273,17 @@ public class ProportionalElectionEndResultStartMandateDistributionTest : Proport
             ProportionalElectionId = electionGuid.ToString(),
         });
 
+        simplePb = await RunOnDb(x => x.SimplePoliticalBusinesses.SingleAsync(r => r.Id == electionGuid));
+
         endResult.MatchSnapshot();
         endResult.Finalized.Should().BeFalse();
         endResult.ManualEndResultRequired.Should().BeFalse();
         endResult.MandateDistributionTriggered.Should().BeTrue();
         endResult.ListEndResults.Any(l => l.NumberOfMandates != 0).Should().BeTrue();
         endResult.ListEndResults.Any(l => l.CandidateEndResults.Any(x => x.State == SharedProto.ProportionalElectionCandidateEndResultState.Elected)).Should().BeTrue();
-        endResult.ListEndResults.Any(l => l.HasOpenRequiredLotDecisions).Should().BeTrue();
+        endResult.ListEndResults.Any(l => l.CandidateEndResults.Any(x => x.State is SharedProto.ProportionalElectionCandidateEndResultState.Pending)).Should().BeFalse();
+        endResult.ListEndResults.All(l => l.LotDecisionState is ElectionLotDecisionState.None).Should().BeTrue();
+        simplePb.EndResultFinalized.Should().BeFalse();
     }
 
     [Fact]
@@ -232,11 +291,19 @@ public class ProportionalElectionEndResultStartMandateDistributionTest : Proport
     {
         await ZhMockedData.Seed(RunScoped);
 
+        await ModifyDbEntities<ContestCantonDefaults>(
+            _ => true,
+            x => x.EndResultFinalizeDisabled = true,
+            splitQuery: true);
+
         var electionGuid = ZhMockedData.ProportionalElectionGuidSingleDoiSuperLot;
 
         var result = await RunOnDb(x => x.ProportionalElectionEndResult.FirstAsync(r => r.ProportionalElectionId == electionGuid));
+        var simplePb = await RunOnDb(x => x.SimplePoliticalBusinesses.SingleAsync(r => r.Id == electionGuid));
+
         result.Finalized.Should().BeFalse();
         result.MandateDistributionTriggered.Should().BeFalse();
+        simplePb.EndResultFinalized.Should().BeFalse();
 
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
@@ -254,12 +321,15 @@ public class ProportionalElectionEndResultStartMandateDistributionTest : Proport
             ProportionalElectionId = electionGuid.ToString(),
         });
 
+        simplePb = await RunOnDb(x => x.SimplePoliticalBusinesses.SingleAsync(r => r.Id == electionGuid));
+
         endResult.Finalized.Should().BeFalse();
         endResult.ManualEndResultRequired.Should().BeFalse();
         endResult.MandateDistributionTriggered.Should().BeTrue();
         endResult.ListEndResults.Any(l => l.NumberOfMandates != 0).Should().BeFalse();
         endResult.ListEndResults.Any(l => l.CandidateEndResults.All(x => x.State == SharedProto.ProportionalElectionCandidateEndResultState.Pending)).Should().BeTrue();
-        endResult.ListEndResults.Any(l => l.HasOpenRequiredLotDecisions).Should().BeFalse();
+        endResult.ListEndResults.Any(l => l.LotDecisionState is ElectionLotDecisionState.OpenAndRequired).Should().BeFalse();
+        simplePb.EndResultFinalized.Should().BeFalse();
     }
 
     [Fact]
@@ -318,7 +388,7 @@ public class ProportionalElectionEndResultStartMandateDistributionTest : Proport
         endResult.ListEndResults.Any().Should().BeTrue();
         endResult.ListEndResults.All(l => l.NumberOfMandates == 0).Should().BeTrue();
         endResult.ListEndResults.All(l => l.CandidateEndResults.All(x => x.State == SharedProto.ProportionalElectionCandidateEndResultState.NotElected)).Should().BeTrue();
-        endResult.ListEndResults.Any(l => l.HasOpenRequiredLotDecisions).Should().BeTrue();
+        endResult.ListEndResults.Any(l => l.LotDecisionState is ElectionLotDecisionState.OpenAndRequired).Should().BeTrue();
     }
 
     [Fact]

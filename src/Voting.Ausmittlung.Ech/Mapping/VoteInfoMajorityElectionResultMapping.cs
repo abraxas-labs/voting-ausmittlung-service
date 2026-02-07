@@ -41,17 +41,17 @@ internal static class VoteInfoMajorityElectionResultMapping
         Ech0252MappingContext ctx,
         IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
     {
-        var allCountingCircleResultsArePublished = majorityElection.Results.All(x => x.Published);
-        var drawElection = allCountingCircleResultsArePublished
+        var allCountingCirclesDone = majorityElection.EndResult!.AllCountingCirclesDone;
+        var drawElection = allCountingCirclesDone
             ? ToDrawElection(majorityElection.EndResult!, ctx)
             : null;
-        var isComplete = allCountingCircleResultsArePublished
+        var isComplete = allCountingCirclesDone
             && drawElection?.MajorityElection is not { IsDrawPending: true };
 
         return new EventElectionResultDeliveryTypeElectionGroupResultElectionResult
         {
             ElectionIdentification = majorityElection.Id.ToString(),
-            Elected = allCountingCircleResultsArePublished ? new ElectedType
+            Elected = allCountingCirclesDone ? new ElectedType
             {
                 MajorityElection = new ElectedTypeMajorityElection
                 {
@@ -84,18 +84,25 @@ internal static class VoteInfoMajorityElectionResultMapping
         Ech0252MappingContext ctx,
         IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
     {
-        var allCountingCircleResultsArePublished = secondaryMajorityElection.Results.All(x => x.PrimaryResult.Published);
+        var allCountingCirclesDone = secondaryMajorityElection.PrimaryMajorityElection.EndResult!.AllCountingCirclesDone;
+        var drawElection = allCountingCirclesDone
+            ? ToDrawElection(secondaryMajorityElection.EndResult!, ctx)
+            : null;
+        var isComplete = allCountingCirclesDone
+            && drawElection?.MajorityElection is not { IsDrawPending: true };
+
         return new EventElectionResultDeliveryTypeElectionGroupResultElectionResult
         {
             ElectionIdentification = secondaryMajorityElection.Id.ToString(),
-            Elected = allCountingCircleResultsArePublished ? new ElectedType
+            Elected = allCountingCirclesDone ? new ElectedType
             {
                 MajorityElection = new ElectedTypeMajorityElection
                 {
+                    IsElectionResultComplete = isComplete,
                     AbsoluteMajority = (uint?)secondaryMajorityElection.EndResult!.Calculation.AbsoluteMajority,
                     ElectedCandidate =
                         secondaryMajorityElection.EndResult.CandidateEndResults
-                            .Where(x => allCountingCircleResultsArePublished && x.State is MajorityElectionCandidateEndResultState.Elected or MajorityElectionCandidateEndResultState.AbsoluteMajorityAndElected)
+                            .Where(x => x.State is MajorityElectionCandidateEndResultState.Elected or MajorityElectionCandidateEndResultState.AbsoluteMajorityAndElected)
                             .OrderBy(x => x.Rank)
                             .ThenBy(x => x.CandidateId)
                             .Select(x => new ElectedTypeMajorityElectionElectedCandidate
@@ -105,14 +112,13 @@ internal static class VoteInfoMajorityElectionResultMapping
                             })
                             .ToList(),
                 },
-                ProportionalElection = null,
             }
             : null,
             CountingCircleResult = secondaryMajorityElection.Results
                 .OrderBy(r => r.PrimaryResult.CountingCircle.Name)
                 .Select(x => ToCountingCircleResult(x.SecondaryMajorityElectionId.ToString(), x, x.PrimaryResult, ToCandidateResults(x.CandidateResults, ctx), enabledResultStates))
                 .ToList(),
-            DrawElection = allCountingCircleResultsArePublished ? ToDrawElection(secondaryMajorityElection.EndResult!, ctx) : null,
+            DrawElection = drawElection,
         };
     }
 

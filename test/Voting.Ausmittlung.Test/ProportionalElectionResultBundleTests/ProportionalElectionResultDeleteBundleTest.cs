@@ -33,7 +33,6 @@ public class ProportionalElectionResultDeleteBundleTest : ProportionalElectionRe
         await CreateBallot();
         await ErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBundleDeleted>().MatchSnapshot("deleted");
-        EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBundleNumberFreed>().MatchSnapshot("freed");
     }
 
     [Fact]
@@ -45,7 +44,6 @@ public class ProportionalElectionResultDeleteBundleTest : ProportionalElectionRe
             BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle3,
         });
         EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBundleDeleted>().MatchSnapshot("deleted");
-        EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBundleNumberFreed>().MatchSnapshot("freed");
     }
 
     [Fact]
@@ -58,7 +56,6 @@ public class ProportionalElectionResultDeleteBundleTest : ProportionalElectionRe
             return new[]
             {
                     EventPublisherMock.GetSinglePublishedEventWithMetadata<ProportionalElectionResultBundleDeleted>(),
-                    EventPublisherMock.GetSinglePublishedEventWithMetadata<ProportionalElectionResultBundleNumberFreed>(),
             };
         });
     }
@@ -69,7 +66,6 @@ public class ProportionalElectionResultDeleteBundleTest : ProportionalElectionRe
         await CreateBallot();
         await BundleErfassungElectionAdminClientStGallen.DeleteBundleAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBundleDeleted>().MatchSnapshot("deleted");
-        EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBundleNumberFreed>().MatchSnapshot("freed");
     }
 
     [Fact]

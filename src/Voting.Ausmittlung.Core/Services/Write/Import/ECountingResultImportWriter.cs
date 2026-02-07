@@ -88,10 +88,10 @@ public class ECountingResultImportWriter
         }
 
         _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircle(ccDetail.CountingCircle, contest);
-        var importData = _resultImportWriter.Deserialize(importMeta);
+        var importData = _resultImportWriter.Deserialize(importMeta, false);
         ValidateCountingCircles(importMeta.BasisCountingCircleId.Value, importData.PoliticalBusinessResults);
 
-        var importAggregate = await _resultImportWriter.Import(importData, importMeta, contest, []);
+        var importAggregate = await _resultImportWriter.Import(importData, importMeta, contest, [], []);
 
         // secondary elections are part of the primary election aggregate
         // the business type is only set during Import, therefore validate after the import,

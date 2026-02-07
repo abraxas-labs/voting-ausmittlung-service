@@ -713,6 +713,7 @@ public class ProportionalElectionE2ETest : BaseTest<ProportionalElectionResultSe
                 AutomaticEmptyVoteCounting = true,
                 ReviewProcedure = Abraxas.Voting.Ausmittlung.Shared.V1.ProportionalElectionReviewProcedure.Physically,
                 AutomaticBallotBundleNumberGeneration = true,
+                AutomaticBallotNumberGeneration = true,
             },
         });
         EventPublisherMock.AllPublishedEvents.Should().HaveCount(1);

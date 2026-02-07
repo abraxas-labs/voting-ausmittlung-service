@@ -17,8 +17,7 @@ public class ExportService
 {
     private readonly ResultRenderServiceAdapter _resultRenderServiceAdapter;
 
-    public ExportService(
-        ResultRenderServiceAdapter resultRenderServiceAdapter)
+    public ExportService(ResultRenderServiceAdapter resultRenderServiceAdapter)
     {
         _resultRenderServiceAdapter = resultRenderServiceAdapter;
     }
@@ -56,13 +55,13 @@ public class ExportService
             .ToList();
     }
 
-    public Task<FileModel> GenerateResultExport(ReportRenderContext context, CancellationToken ct = default)
+    public async Task<FileModel> GenerateResultExport(ReportRenderContext context, CancellationToken ct = default)
     {
         if (context.RendererService == null)
         {
             throw new InvalidOperationException($"{nameof(context.RendererService)} must not be null when calling this method");
         }
 
-        return context.RendererService.Render(context, ct);
+        return await context.RendererService.Render(context, ct);
     }
 }

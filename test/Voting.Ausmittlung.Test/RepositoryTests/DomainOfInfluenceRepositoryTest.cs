@@ -1,6 +1,7 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Voting.Ausmittlung.Data.Repositories;
@@ -59,5 +60,12 @@ public class DomainOfInfluenceRepositoryTest : BaseIntegrationTest
         });
 
         doi.Id.Should().Be(DomainOfInfluenceMockedData.GuidBund);
+    }
+
+    [Fact]
+    public async Task GetLowestCommonAncestorWithEmptyListShouldThrow()
+    {
+        await Assert.ThrowsAsync<ArgumentException>(
+            async () => await _doiRepo.GetLowestCommonAncestorOrSelf(Array.Empty<Guid>()));
     }
 }

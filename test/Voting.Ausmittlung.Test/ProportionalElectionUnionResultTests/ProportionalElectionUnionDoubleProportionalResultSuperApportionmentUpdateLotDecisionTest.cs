@@ -91,9 +91,15 @@ public class ProportionalElectionUnionDoubleProportionalResultSuperApportionment
     [Fact]
     public async Task TestProcessor()
     {
+        await ModifyDbEntities<ContestCantonDefaults>(
+            _ => true,
+            x => x.EndResultFinalizeDisabled = false,
+            splitQuery: true);
+
         var unionId = ZhMockedData.ProportionalElectionUnionGuidSuperLot;
         var svpUnionListId = Guid.Parse("d7b3a8fc-7550-5289-a6ca-c8bff5712bf5");
         var spUnionListId = Guid.Parse("5b94e66e-162b-523c-b4eb-e2fcda8f6d23");
+        var electionId = ZhMockedData.ProportionalElectionGuidSuperLotDietikon;
 
         var dpResult = await RunScoped<DoubleProportionalResultRepo, DoubleProportionalResult>(repo => repo.GetUnionDoubleProportionalResult(unionId)!);
         dpResult.SuperApportionmentState.Should().Be(DoubleProportionalResultApportionmentState.HasOpenLotDecision);
@@ -117,8 +123,14 @@ public class ProportionalElectionUnionDoubleProportionalResultSuperApportionment
             .AsSplitQuery()
             .Include(x => x.ListEndResults)
             .ThenInclude(x => x.CandidateEndResults)
-            .SingleAsync(x => x.ProportionalElectionId == ZhMockedData.ProportionalElectionGuidSuperLotDietikon));
-        electionEndResult.ListEndResults.Any(x => x.HasOpenRequiredLotDecisions).Should().BeFalse();
+            .SingleAsync(x => x.ProportionalElectionId == electionId));
+
+        var simplePb = await RunOnDb(db => db.SimplePoliticalBusinesses
+            .SingleAsync(x => x.Id == electionId));
+
+        electionEndResult.ListEndResults.Any(x => x.LotDecisionState is ElectionLotDecisionState.OpenAndRequired).Should().BeFalse();
+        electionEndResult.Finalized.Should().BeFalse();
+        simplePb.EndResultFinalized.Should().BeFalse();
 
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
@@ -165,8 +177,66 @@ public class ProportionalElectionUnionDoubleProportionalResultSuperApportionment
             .AsSplitQuery()
             .Include(x => x.ListEndResults)
             .ThenInclude(x => x.CandidateEndResults)
-            .SingleAsync(x => x.ProportionalElectionId == ZhMockedData.ProportionalElectionGuidSuperLotDietikon));
-        electionEndResult.ListEndResults.Any(x => x.HasOpenRequiredLotDecisions).Should().BeTrue();
+            .SingleAsync(x => x.ProportionalElectionId == electionId));
+        simplePb = await RunOnDb(db => db.SimplePoliticalBusinesses
+            .SingleAsync(x => x.Id == electionId));
+        electionEndResult.ListEndResults.All(x => x.LotDecisionState is ElectionLotDecisionState.None).Should().BeTrue();
+        electionEndResult.Finalized.Should().BeFalse();
+        simplePb.EndResultFinalized.Should().BeFalse();
+
+        await AssertHasPublishedEventProcessedMessage(
+            ProportionalElectionUnionDoubleProportionalSuperApportionmentLotDecisionUpdated.Descriptor,
+            AusmittlungUuidV5.BuildPoliticalBusinessUnionEndResult(dpResult.ProportionalElectionUnionId!.Value, false));
+    }
+
+    [Fact]
+    public async Task TestProcessorWithDisabledCantonSettingsEndResultFinalize()
+    {
+        var unionId = ZhMockedData.ProportionalElectionUnionGuidSuperLot;
+        var svpUnionListId = Guid.Parse("d7b3a8fc-7550-5289-a6ca-c8bff5712bf5");
+        var spUnionListId = Guid.Parse("5b94e66e-162b-523c-b4eb-e2fcda8f6d23");
+        var electionId = ZhMockedData.ProportionalElectionGuidSuperLotDietikon;
+
+        var electionEndResult = await RunOnDb(db => db.ProportionalElectionEndResult
+            .SingleAsync(x => x.ProportionalElectionId == electionId));
+
+        var simplePb = await RunOnDb(db => db.SimplePoliticalBusinesses
+            .SingleAsync(x => x.Id == electionId));
+
+        electionEndResult.Finalized.Should().BeFalse();
+        simplePb.EndResultFinalized.Should().BeFalse();
+
+        await TestEventPublisher.Publish(
+            GetNextEventNumber(),
+            new ProportionalElectionUnionDoubleProportionalSuperApportionmentLotDecisionUpdated
+            {
+                ProportionalElectionUnionId = unionId.ToString(),
+                DoubleProportionalResultId = AusmittlungUuidV5.BuildDoubleProportionalResult(unionId, null, false).ToString(),
+                Number = 2,
+                Columns =
+                {
+                    new ProportionalElectionUnionDoubleProportionalSuperApportionmentLotDecisionColumnEventData()
+                    {
+                        UnionListId = svpUnionListId.ToString(),
+                        NumberOfMandates = 3,
+                    },
+                    new ProportionalElectionUnionDoubleProportionalSuperApportionmentLotDecisionColumnEventData()
+                    {
+                        UnionListId = spUnionListId.ToString(),
+                        NumberOfMandates = 1,
+                    },
+                },
+                EventInfo = GetMockedEventInfo(),
+            });
+
+        electionEndResult = await RunOnDb(db => db.ProportionalElectionEndResult
+            .SingleAsync(x => x.ProportionalElectionId == electionId));
+
+        simplePb = await RunOnDb(db => db.SimplePoliticalBusinesses
+            .SingleAsync(x => x.Id == electionId));
+
+        electionEndResult.Finalized.Should().BeTrue();
+        simplePb.EndResultFinalized.Should().BeTrue();
     }
 
     protected override IEnumerable<string> AuthorizedRoles()

@@ -481,14 +481,16 @@ public class ResultExportTemplateReader
         if (template.PerDomainOfInfluence)
         {
             var politicalBusinessesGroupedByDomainOfInfluence = politicalBusinesses.GroupBy(pb => pb.DomainOfInfluence.BasisDomainOfInfluenceId);
-            var hasMultipleDomainOfInfluneces = politicalBusinessesGroupedByDomainOfInfluence.Count() > 1;
+            var hasMultipleCantonalReports = HasMultipleReportsPerGroupedCanton(politicalBusinesses);
+            var hasMultipleMunicipalReports = HasMultipleReportsPerGroupedMunicipality(politicalBusinesses);
+            var hasMultipleOtherReports = HasMultipleReportsPerGroupedOther(politicalBusinesses);
             foreach (var group in politicalBusinessesGroupedByDomainOfInfluence)
             {
                 var pbs = group.ToList();
                 yield return new ResultExportTemplate(
                     template,
                     _permissionService.TenantId,
-                    description: MapPoliticalBusinessToDescription(pbs[0].DomainOfInfluence, pbs[0].BusinessType, template, hasMultipleDomainOfInfluneces),
+                    description: MapPoliticalBusinessToDescription(pbs[0].DomainOfInfluence, pbs[0].BusinessType, template, hasMultipleCantonalReports, hasMultipleMunicipalReports, hasMultipleOtherReports),
                     countingCircleId: basisCountingCircleId,
                     politicalBusinesses: pbs,
                     domainOfInfluenceId: group.Key);
@@ -502,6 +504,10 @@ public class ResultExportTemplateReader
             _permissionService.TenantId,
             countingCircleId: basisCountingCircleId,
             politicalBusinesses: politicalBusinesses.ToList());
+
+        static bool HasMultipleReportsPerGroupedCanton(IEnumerable<PoliticalBusiness> politicalBusinesses) => politicalBusinesses.Where(pb => pb.DomainOfInfluence.Type == DomainOfInfluenceType.Ct || pb.DomainOfInfluence.Type == DomainOfInfluenceType.Bz).GroupBy(pb => pb.DomainOfInfluence.BasisDomainOfInfluenceId).Count() > 1;
+        static bool HasMultipleReportsPerGroupedMunicipality(IEnumerable<PoliticalBusiness> politicalBusinesses) => politicalBusinesses.Where(pb => pb.DomainOfInfluence.Type == DomainOfInfluenceType.Mu || pb.DomainOfInfluence.Type == DomainOfInfluenceType.Sk).GroupBy(pb => pb.DomainOfInfluence.BasisDomainOfInfluenceId).Count() > 1;
+        static bool HasMultipleReportsPerGroupedOther(IEnumerable<PoliticalBusiness> politicalBusinesses) => politicalBusinesses.Where(pb => !(pb.DomainOfInfluence.Type == DomainOfInfluenceType.Mu || pb.DomainOfInfluence.Type == DomainOfInfluenceType.Sk || pb.DomainOfInfluence.Type == DomainOfInfluenceType.Ct || pb.DomainOfInfluence.Type == DomainOfInfluenceType.Bz || pb.DomainOfInfluence.Type == DomainOfInfluenceType.Ch)).GroupBy(pb => pb.DomainOfInfluence.BasisDomainOfInfluenceId).Count() > 1;
     }
 
     private PoliticalBusinessType MapEntityTypeToPoliticalBusinessType(EntityType entityType)
@@ -644,7 +650,7 @@ public class ResultExportTemplateReader
         return $"{pbTypeDescription} {doiTypeDescription}: {template.Description}";
     }
 
-    private string MapPoliticalBusinessToDescription(DomainOfInfluence doi, PoliticalBusinessType pbType, TemplateModel template, bool hasMultipleDoi)
+    private string MapPoliticalBusinessToDescription(DomainOfInfluence doi, PoliticalBusinessType pbType, TemplateModel template, bool hasMultipleCt, bool hasMultipleMu, bool hasMulitpleOther)
     {
         if (template.Format != ExportFileFormat.Pdf)
         {
@@ -662,16 +668,22 @@ public class ResultExportTemplateReader
         var doiTypeDescription = doi.Type switch
         {
             DomainOfInfluenceType.Ch => Strings.Exports_DomainOfInfluenceType_Ch,
-            DomainOfInfluenceType.Ct => Strings.Exports_DomainOfInfluenceType_Ct,
-            DomainOfInfluenceType.Bz => Strings.Exports_DomainOfInfluenceType_Ct,
-            DomainOfInfluenceType.Mu => Strings.Exports_DomainOfInfluenceType_Mu,
-            DomainOfInfluenceType.Sk => Strings.Exports_DomainOfInfluenceType_Mu,
-            _ => Strings.Exports_DomainOfInfluenceType_Other,
+            DomainOfInfluenceType.Ct => hasMultipleCt
+                ? $"{Strings.Exports_DomainOfInfluenceType_Ct} {doi.ShortName}"
+                : Strings.Exports_DomainOfInfluenceType_Ct,
+            DomainOfInfluenceType.Bz => hasMultipleCt
+                ? $"{Strings.Exports_DomainOfInfluenceType_Ct} {doi.ShortName}"
+                : Strings.Exports_DomainOfInfluenceType_Ct,
+            DomainOfInfluenceType.Mu => hasMultipleMu
+                ? $"{Strings.Exports_DomainOfInfluenceType_Mu} {doi.ShortName}"
+                : Strings.Exports_DomainOfInfluenceType_Mu,
+            DomainOfInfluenceType.Sk => hasMultipleMu
+                ? $"{Strings.Exports_DomainOfInfluenceType_Mu} {doi.ShortName}"
+                : Strings.Exports_DomainOfInfluenceType_Mu,
+            _ => hasMulitpleOther
+                ? $"{Strings.Exports_DomainOfInfluenceType_Other} {doi.ShortName}"
+                : Strings.Exports_DomainOfInfluenceType_Other,
         };
-        if (hasMultipleDoi)
-        {
-            doiTypeDescription += $" {doi.ShortName}";
-        }
 
         return $"{pbTypeDescription} {doiTypeDescription}: {template.Description}";
     }

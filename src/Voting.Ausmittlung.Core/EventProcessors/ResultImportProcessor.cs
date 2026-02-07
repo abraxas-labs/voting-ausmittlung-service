@@ -78,6 +78,11 @@ public class ResultImportProcessor :
             StartedBy = eventData.EventInfo.User.ToDataUser(),
             FileName = eventData.FileName,
             IgnoredCountingCircles = _mapper.Map<List<IgnoredImportCountingCircle>>(eventData.IgnoredCountingCircles),
+            EmptyCountingCircles = eventData.EmptyCountingCircleIds
+                .Select(x => new EmptyImportCountingCircle
+                {
+                    CountingCircleId = GuidParser.Parse(x),
+                }).ToList(),
             ImportType = (ResultImportType)eventData.ImportType,
         };
         import.FixImportType();
@@ -124,6 +129,12 @@ public class ResultImportProcessor :
         import.Completed = true;
         await _importsRepo.Update(import);
         await SetImported(import, true);
+
+        _eventLogger.LogEvent(
+            eventData,
+            importId,
+            importId,
+            contestId: import.ContestId);
     }
 
     public Task Process(ResultImportCountingCircleCompleted eventData)

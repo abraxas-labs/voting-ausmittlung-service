@@ -96,6 +96,7 @@ public class MajorityElectionResultBundleService : ServiceBase
         var secondaryElectionResultBallots = _mapper.Map<List<SecondaryMajorityElectionResultBallot>>(request.SecondaryMajorityElectionResults);
         var ballotNumber = await _majorityElectionResultBundleWriter.CreateBallot(
             GuidParser.Parse(request.BundleId),
+            request.BallotNumber,
             request.EmptyVoteCount,
             request.IndividualVoteCount,
             request.InvalidVoteCount,
@@ -163,6 +164,13 @@ public class MajorityElectionResultBundleService : ServiceBase
     public override async Task<Empty> SucceedBundleReview(SucceedMajorityElectionBundleReviewRequest request, ServerCallContext context)
     {
         await _majorityElectionResultBundleWriter.SucceedBundleReview(request.BundleIds.Select(GuidParser.Parse).ToList());
+        return ProtobufEmpty.Instance;
+    }
+
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.ResetToSubmissionFinished)]
+    public override async Task<Empty> BundleResetToSubmissionFinished(MajorityElectionResultBundleResetToSubmissionFinishedRequest request, ServerCallContext context)
+    {
+        await _majorityElectionResultBundleWriter.ResetToSubmissionFinished(GuidParser.Parse(request.BundleId));
         return ProtobufEmpty.Instance;
     }
 }

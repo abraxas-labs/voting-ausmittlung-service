@@ -48,7 +48,7 @@ public class EventLogBuilderContextBuilder
     {
         var protoContestId = contestId.ToString();
 
-        // can be simplified by reading from the contest stream with https://jira.abraxas-tools.ch/jira/browse/VOTING-1856.
+        // can be simplified by reading from the contest stream with ticket VOTING-1856.
         var createdOrTestingPhaseEndedEvents = await _eventReader
             .ReadEventsFromAll(
                 Position.Start,

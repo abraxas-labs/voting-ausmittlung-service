@@ -65,6 +65,7 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
     }
 
     public void CreateBallot(
+        int? ballotNumber,
         int emptyVoteCount,
         int individualVoteCount,
         int invalidVoteCount,
@@ -73,24 +74,27 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
         Guid contestId)
     {
         EnsureInState(BallotBundleState.InProcess, BallotBundleState.InCorrection);
-        if (BallotNumbers.Count >= ResultEntryParams.BallotBundleSize)
+        if (CountOfBallots >= ResultEntryParams.BallotBundleSize)
         {
             throw new ValidationException("bundle size already reached");
         }
+
+        CheckBallotNumber(ballotNumber, ResultEntryParams.AutomaticBallotNumberGeneration);
 
         var ev = new MajorityElectionResultBallotCreated
         {
             EventInfo = _eventInfoProvider.NewEventInfo(),
             BundleId = Id.ToString(),
             ElectionResultId = PoliticalBusinessResultId.ToString(),
-            BallotNumber = CurrentBallotNumber + 1,
+            BallotNumber = ballotNumber ?? (CurrentBallotNumber + 1),
+            Index = CountOfBallots,
             EmptyVoteCount = emptyVoteCount,
             IndividualVoteCount = individualVoteCount,
             InvalidVoteCount = invalidVoteCount,
             SelectedCandidateIds =
-                {
-                    selectedCandidateIds.Select(x => x.ToString()),
-                },
+            {
+                selectedCandidateIds.Select(x => x.ToString()),
+            },
         };
         _mapper.Map(secondaryResultBallots, ev.SecondaryMajorityElectionResults);
         RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
@@ -133,9 +137,9 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
             IndividualVoteCount = individualVoteCount,
             InvalidVoteCount = invalidVoteCount,
             SelectedCandidateIds =
-                {
-                    selectedCandidateIds.Select(x => x.ToString()),
-                },
+            {
+                selectedCandidateIds.Select(x => x.ToString()),
+            },
         };
         _mapper.Map(secondaryResultBallots, ev.SecondaryMajorityElectionResults);
         RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
@@ -163,10 +167,7 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
     public void SubmissionFinished(Guid contestId)
     {
         EnsureInState(BallotBundleState.InProcess);
-        if (BallotNumbers.Count == 0)
-        {
-            throw new ValidationException("at least one ballot is required to close this bundle");
-        }
+        EnsureCanCloseBundle();
 
         var ev = new MajorityElectionResultBundleSubmissionFinished
         {
@@ -181,10 +182,7 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
     public void CorrectionFinished(Guid contestId)
     {
         EnsureInState(BallotBundleState.InCorrection);
-        if (BallotNumbers.Count == 0)
-        {
-            throw new ValidationException("at least one ballot is required to close this bundle");
-        }
+        EnsureCanCloseBundle();
 
         var ev = new MajorityElectionResultBundleCorrectionFinished
         {
@@ -222,6 +220,19 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
             new EventSignatureBusinessDomainData(contestId));
     }
 
+    public void ResetToSubmissionFinished(Guid contestId)
+    {
+        EnsureInState(BallotBundleState.Reviewed);
+        var ev = new MajorityElectionResultBundleResetToSubmissionFinished
+        {
+            EventInfo = _eventInfoProvider.NewEventInfo(),
+            ElectionResultId = PoliticalBusinessResultId.ToString(),
+            BundleId = Id.ToString(),
+        };
+        ev.SampleBallotNumbers.AddRange(GenerateBallotNumberSamples());
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
+    }
+
     public void Delete(Guid contestId)
     {
         if (State == BallotBundleState.Deleted)
@@ -253,8 +264,11 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
                 Apply(ev);
                 break;
             case MajorityElectionResultBundleSubmissionFinished _:
-            case MajorityElectionResultBundleCorrectionFinished _:
                 State = BallotBundleState.ReadyForReview;
+                break;
+            case MajorityElectionResultBundleCorrectionFinished ev:
+                State = BallotBundleState.ReadyForReview;
+                CreatedBy = ev.EventInfo.User.Id;
                 break;
             case MajorityElectionResultBundleReviewRejected _:
                 State = BallotBundleState.InCorrection;
@@ -264,6 +278,12 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
                 break;
             case MajorityElectionResultBundleDeleted _:
                 State = BallotBundleState.Deleted;
+                break;
+            case MajorityElectionResultBundleResetToSubmissionFinished _:
+                State = BallotBundleState.ReadyForReview;
+                break;
+            case MajorityElectionResultBallotUpdated ev:
+                TrackPossibleModification(ev.EventInfo.User.Id);
                 break;
         }
     }
@@ -275,6 +295,8 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
         {
             ev.ResultEntryParams.ReviewProcedure = Abraxas.Voting.Ausmittlung.Shared.V1.MajorityElectionReviewProcedure.Electronically;
         }
+
+        ev.ResultEntryParams.AutomaticBallotNumberGeneration ??= true;
 
         Id = GuidParser.Parse(ev.BundleId);
         PoliticalBusinessResultId = GuidParser.Parse(ev.ElectionResultId);
@@ -295,6 +317,9 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
     private void Apply(MajorityElectionResultBallotDeleted ev)
     {
         BallotNumbers.Remove(ev.BallotNumber);
-        CurrentBallotNumber = ev.BallotNumber - 1;
+
+        CurrentBallotNumber = CountOfBallots > 0
+            ? BallotNumbers[^1]
+            : ev.BallotNumber - 1;
     }
 }

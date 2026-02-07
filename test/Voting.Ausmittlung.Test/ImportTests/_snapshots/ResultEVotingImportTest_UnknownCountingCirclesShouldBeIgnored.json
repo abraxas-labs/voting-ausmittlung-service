@@ -21,6 +21,7 @@
     "ContestId": "cc70fe43-8f4e-4bc6-a461-b808907bc996",
     "CountingCircleId": "",
     "EchMessageId": "my-mock-ech-message-id / mock-eCH-0110-message-id",
+    "EmptyCountingCircleIds": [],
     "IgnoredCountingCircles": [
       {
         "CountingCircleId": "10007",
@@ -70,6 +71,7 @@
         "Id": "00000000-0000-0000-0000-000000000000"
       }
     ],
+    "EmptyCountingCircles": [],
     "MajorityElectionWriteInMappings": [],
     "SecondaryMajorityElectionWriteInMappings": [],
     "MajorityElectionWriteInBallots": [],

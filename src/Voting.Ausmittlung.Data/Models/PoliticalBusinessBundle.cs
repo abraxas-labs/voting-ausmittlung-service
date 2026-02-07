@@ -19,8 +19,15 @@ public abstract class PoliticalBusinessBundle : BaseEntity
 
     public int CountOfBallots { get; set; }
 
+    // Not stored in the database. Must be retrieved/calculated manually.
+    [NotMapped]
+    public int? CountOfModifiedBallots { get; set; }
+
     [NotMapped]
     public List<int> BallotNumbersToReview { get; set; } = new();
+
+    [NotMapped]
+    public List<int> BallotNumbers { get; set; } = new();
 
     [NotMapped]
     public ProtocolExport? ProtocolExport { get; set; }

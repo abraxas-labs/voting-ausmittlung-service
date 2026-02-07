@@ -34,6 +34,14 @@ public class ResultImportListEVotingImportsTest : BaseTest<ResultImportService.R
     public async Task ShouldWork()
     {
         var imports = await MonitoringElectionAdminClient.ListEVotingImportsAsync(NewValidRequest());
+        foreach (var import in imports.Imports)
+        {
+            foreach (var emptyCc in import.EmptyCountingCircles)
+            {
+                emptyCc.Id = string.Empty;
+            }
+        }
+
         imports.ShouldMatchSnapshot();
     }
 

@@ -23,7 +23,8 @@ public class MajorityElectionResultModelBuilder :
     IEntityTypeConfiguration<MajorityElectionWriteInBallotPosition>,
     IEntityTypeConfiguration<SecondaryMajorityElectionWriteInBallot>,
     IEntityTypeConfiguration<SecondaryMajorityElectionWriteInBallotPosition>,
-    IEntityTypeConfiguration<MajorityElectionResultBundleLog>
+    IEntityTypeConfiguration<MajorityElectionResultBundleLog>,
+    IEntityTypeConfiguration<MajorityElectionResultBallotLog>
 {
     public void Configure(EntityTypeBuilder<MajorityElectionResult> builder)
     {
@@ -292,6 +293,27 @@ public class MajorityElectionResultModelBuilder :
             .HasOne(x => x.Bundle)
             .WithMany(x => x.Logs)
             .HasForeignKey(x => x.BundleId)
+            .IsRequired();
+
+        builder
+            .OwnsOne(
+                x => x.User,
+                u =>
+                {
+                    u.Property(uu => uu.SecureConnectId).IsRequired();
+                    u.Property(uu => uu.FirstName).IsRequired();
+                    u.Property(uu => uu.LastName).IsRequired();
+                });
+        builder
+            .Navigation(x => x.User).IsRequired();
+    }
+
+    public void Configure(EntityTypeBuilder<MajorityElectionResultBallotLog> builder)
+    {
+        builder
+            .HasOne(x => x.Ballot)
+            .WithMany(x => x.Logs)
+            .HasForeignKey(x => x.BallotId)
             .IsRequired();
 
         builder

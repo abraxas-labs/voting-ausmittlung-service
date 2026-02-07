@@ -36,6 +36,8 @@ public class ResultImport : BaseEntity
 
     public ICollection<IgnoredImportCountingCircle> IgnoredCountingCircles { get; set; } = new HashSet<IgnoredImportCountingCircle>();
 
+    public ICollection<EmptyImportCountingCircle> EmptyCountingCircles { get; set; } = new HashSet<EmptyImportCountingCircle>();
+
     public ICollection<MajorityElectionWriteInMapping> MajorityElectionWriteInMappings { get; set; } = new HashSet<MajorityElectionWriteInMapping>();
 
     public ICollection<SecondaryMajorityElectionWriteInMapping> SecondaryMajorityElectionWriteInMappings { get; set; } = new HashSet<SecondaryMajorityElectionWriteInMapping>();

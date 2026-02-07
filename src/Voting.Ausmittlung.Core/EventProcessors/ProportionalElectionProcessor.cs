@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1;
+using Abraxas.Voting.Basis.Events.V1.Data;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -119,15 +120,7 @@ public class ProportionalElectionProcessor :
 
     public async Task Process(ProportionalElectionCreated eventData)
     {
-        var proportionalElection = _mapper.Map<ProportionalElection>(eventData.ProportionalElection);
-        proportionalElection.DomainOfInfluenceId =
-            AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(proportionalElection.ContestId, proportionalElection.DomainOfInfluenceId);
-
-        // Set default review procedure value since the old eventData (before introducing the review procedure) can contain the unspecified value.
-        if (proportionalElection.ReviewProcedure == ProportionalElectionReviewProcedure.Unspecified)
-        {
-            proportionalElection.ReviewProcedure = ProportionalElectionReviewProcedure.Electronically;
-        }
+        var proportionalElection = MapEventData(eventData.ProportionalElection);
 
         await _repo.Create(proportionalElection);
         await _simplePoliticalBusinessBuilder.Create(proportionalElection);
@@ -139,14 +132,7 @@ public class ProportionalElectionProcessor :
 
     public async Task Process(ProportionalElectionUpdated eventData)
     {
-        var proportionalElection = _mapper.Map<ProportionalElection>(eventData.ProportionalElection);
-        proportionalElection.DomainOfInfluenceId = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(proportionalElection.ContestId, proportionalElection.DomainOfInfluenceId);
-
-        // Set default review procedure value since the old eventData (before introducing the review procedure) can contain the unspecified value.
-        if (proportionalElection.ReviewProcedure == ProportionalElectionReviewProcedure.Unspecified)
-        {
-            proportionalElection.ReviewProcedure = ProportionalElectionReviewProcedure.Electronically;
-        }
+        var proportionalElection = MapEventData(eventData.ProportionalElection);
 
         var existingModel = await _repo.GetByKey(proportionalElection.Id)
             ?? throw new EntityNotFoundException(proportionalElection.Id);
@@ -160,6 +146,12 @@ public class ProportionalElectionProcessor :
             await _resultBuilder.RebuildForElection(proportionalElection.Id, proportionalElection.DomainOfInfluenceId, false, proportionalElection.ContestId);
             await _endResultInitializer.RebuildForElection(proportionalElection.Id, false);
             await _contestCountingCircleDetailsBuilder.SyncForDomainOfInfluence(proportionalElection.Id, proportionalElection.ContestId, proportionalElection.DomainOfInfluenceId);
+        }
+
+        // The updated event could reset the "Active" field (without emitting ProportionalElectionActiveStateUpdated).
+        if (proportionalElection.Active != existingModel.Active)
+        {
+            await _unionEndResultBuilder.SyncElectionsCount(proportionalElection.Id);
         }
     }
 
@@ -192,7 +184,7 @@ public class ProportionalElectionProcessor :
 
         if (existing.Active)
         {
-            await _unionEndResultBuilder.AdjustElectionsCount(id, -1);
+            await _unionEndResultBuilder.RemoveElectionFromUnionEndResultCount(id);
         }
 
         await _repo.DeleteByKey(id);
@@ -229,7 +221,7 @@ public class ProportionalElectionProcessor :
         existingModel.Active = eventData.Active;
         await _repo.Update(existingModel);
         await _simplePoliticalBusinessBuilder.Update(existingModel, false);
-        await _unionEndResultBuilder.AdjustElectionsCount(proportionalElectionId, eventData.Active ? 1 : -1);
+        await _unionEndResultBuilder.SyncElectionsCount(proportionalElectionId);
     }
 
     public async Task Process(ProportionalElectionListCreated eventData)
@@ -573,6 +565,26 @@ public class ProportionalElectionProcessor :
 
         existingModel.MandateAlgorithm = _mapper.Map<ProportionalElectionMandateAlgorithm>(eventData.MandateAlgorithm);
         await _repo.Update(existingModel);
+    }
+
+    private ProportionalElection MapEventData(ProportionalElectionEventData proportionalElectionEventData)
+    {
+        var proportionalElection = _mapper.Map<ProportionalElection>(proportionalElectionEventData);
+        proportionalElection.DomainOfInfluenceId =
+            AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(proportionalElection.ContestId, proportionalElection.DomainOfInfluenceId);
+
+        // Set default review procedure value since the old eventData (before introducing the review procedure) can contain the unspecified value.
+        if (proportionalElection.ReviewProcedure == ProportionalElectionReviewProcedure.Unspecified)
+        {
+            proportionalElection.ReviewProcedure = ProportionalElectionReviewProcedure.Electronically;
+        }
+
+        if (proportionalElectionEventData.AutomaticBallotNumberGeneration == null)
+        {
+            proportionalElection.AutomaticBallotNumberGeneration = true;
+        }
+
+        return proportionalElection;
     }
 
     private async Task UpdateSubListUnionsByRootListUnionEntries(ProportionalElectionListUnion rootListUnion, List<ProportionalElectionListUnionEntry> rootListUnionEntries)

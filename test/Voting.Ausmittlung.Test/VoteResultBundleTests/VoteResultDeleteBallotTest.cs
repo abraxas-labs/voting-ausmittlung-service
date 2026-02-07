@@ -83,15 +83,6 @@ public class VoteResultDeleteBallotTest : VoteResultBundleBaseTest
     }
 
     [Fact]
-    public async Task TestShouldThrowAsErfassungCreatorOtherUser()
-    {
-        await AssertStatus(
-            async () => await ErfassungCreatorClient.DeleteBallotAsync(NewValidRequest(req => req.BundleId = VoteResultBundleMockedData.IdGossauBundle3)),
-            StatusCode.PermissionDenied,
-            "only election admins or the creator of a bundle can edit it");
-    }
-
-    [Fact]
     public async Task TestShouldThrowInexistentBallotNumber()
     {
         await AssertStatus(

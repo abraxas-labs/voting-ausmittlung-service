@@ -53,15 +53,14 @@ public class SecondaryMajorityElectionResultValidator : IValidator<SecondaryMajo
 
     private IEnumerable<ValidationResult> ValidateCandidateResults(SecondaryMajorityElectionResult secondaryElectionResult, ValidationContext context)
     {
-        // A weird edge case when no candidates have been created at all.
-        // This can happen when no official candidate exists (ex. for an unpopular mandate).
-        // Users first have to analyse the write-ins/individual candidates and then create the most mentioned candidates in VOTING Basis.
-        // Since this is a very rare edge case, we only display this validation in case it fails.
+        // An election can have temporarily no official candidates (ex: unpopular mandate).
         if (secondaryElectionResult.CandidateResults.Count == 0)
         {
-            yield return new ValidationResult(
-                SharedProto.Validation.MajorityElectionHasCandidates,
-                false);
+            if (context.TestingPhaseEnded)
+            {
+                yield return new ValidationResult(SharedProto.Validation.MajorityElectionHasCandidates, false);
+            }
+
             yield break;
         }
 

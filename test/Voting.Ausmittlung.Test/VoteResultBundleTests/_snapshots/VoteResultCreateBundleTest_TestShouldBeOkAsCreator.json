@@ -43,6 +43,7 @@
     "ResultEntryParams": {
       "BallotBundleSampleSizePercent": 30,
       "AutomaticBallotBundleNumberGeneration": true,
+      "AutomaticBallotNumberGeneration": false,
       "ReviewProcedure": 1
     }
   }

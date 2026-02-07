@@ -16,4 +16,12 @@ public class EntityNotFoundException : Exception
         : base($"{name} with id {id} not found")
     {
     }
+
+    public static void ThrowIfNoRowsAffected(int affectedRows, object id)
+    {
+        if (affectedRows == 0)
+        {
+            throw new EntityNotFoundException(id);
+        }
+    }
 }

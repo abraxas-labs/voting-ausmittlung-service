@@ -58,25 +58,25 @@ public class EventLogEventSignatureVerifier
         var publicKeySignatureValidationResult = await context.GetPublicKeySignatureValidationResult(eventSignatureBusinessMetadata.KeyId);
         if (publicKeySignatureValidationResult == null)
         {
-            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventId} in stream {StreamName} failed. No matching public key signature found", ev.Id, ev.StreamId);
+            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventGuid} in stream {StreamName} failed. No matching public key signature found", ev.Id, ev.StreamId);
             return EventLogEventSignatureVerification.VerificationFailed;
         }
 
         if (!publicKeySignatureValidationResult.IsValid)
         {
-            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventId} in stream {StreamName} failed. The public key signature is not valid", ev.Id, ev.StreamId);
+            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventGuid} in stream {StreamName} failed. The public key signature is not valid", ev.Id, ev.StreamId);
             return EventLogEventSignatureVerification.VerificationFailed;
         }
 
         if (publicKeySignatureValidationResult.SignatureData!.HostId != eventSignatureBusinessMetadata.HostId)
         {
-            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventId} in stream {StreamName} failed. The public key host id does not match with the metadata host id", ev.Id, ev.StreamId);
+            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventGuid} in stream {StreamName} failed. The public key host id does not match with the metadata host id", ev.Id, ev.StreamId);
             return EventLogEventSignatureVerification.VerificationFailed;
         }
 
         if (publicKeySignatureValidationResult.SignatureData.SignatureVersion != eventSignatureBusinessMetadata.SignatureVersion)
         {
-            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventId} in stream {StreamName} failed. The public key signature version does not match with the metadata signature version", ev.Id, ev.StreamId);
+            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventGuid} in stream {StreamName} failed. The public key signature version does not match with the metadata signature version", ev.Id, ev.StreamId);
             return EventLogEventSignatureVerification.VerificationFailed;
         }
 
@@ -84,7 +84,7 @@ public class EventLogEventSignatureVerifier
             || eventTimestamp > publicKeySignatureValidationResult.KeyData.ValidTo
             || (publicKeySignatureValidationResult.KeyData.DeletedAt.HasValue && eventTimestamp > publicKeySignatureValidationResult.KeyData.DeletedAt))
         {
-            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventId} in stream {StreamName} failed. The event has a key outside of its lifetime attached", ev.Id, ev.StreamId);
+            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventGuid} in stream {StreamName} failed. The event has a key outside of its lifetime attached", ev.Id, ev.StreamId);
             return EventLogEventSignatureVerification.VerificationFailed;
         }
 
@@ -102,7 +102,7 @@ public class EventLogEventSignatureVerifier
         {
             _logger.LogCritical(
                 SecurityLogging.SecurityEventId,
-                "Event signature verification for {EventId} in stream {StreamName} failed. The event content does not match the signature",
+                "Event signature verification for {EventGuid} in stream {StreamName} failed. The event content does not match the signature",
                 ev.Id,
                 ev.StreamId);
             return EventLogEventSignatureVerification.VerificationFailed;
@@ -127,25 +127,25 @@ public class EventLogEventSignatureVerifier
         var publicKeySignatureValidationResult = await context.GetPublicKeySignatureValidationResult(eventSignatureBusinessMetadata.KeyId);
         if (publicKeySignatureValidationResult == null)
         {
-            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventId} in stream {StreamName} failed. No matching public key signature found", ev.Id, ev.StreamId);
+            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventGuid} in stream {StreamName} failed. No matching public key signature found", ev.Id, ev.StreamId);
             return EventLogEventSignatureVerification.VerificationFailed;
         }
 
         if (!publicKeySignatureValidationResult.IsValid)
         {
-            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventId} in stream {StreamName} failed. The public key signature is not valid", ev.Id, ev.StreamId);
+            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventGuid} in stream {StreamName} failed. The public key signature is not valid", ev.Id, ev.StreamId);
             return EventLogEventSignatureVerification.VerificationFailed;
         }
 
         if (publicKeySignatureValidationResult.SignatureData!.HostId != eventSignatureBusinessMetadata.HostId)
         {
-            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventId} in stream {StreamName} failed. The public key host id does not match with the metadata host id", ev.Id, ev.StreamId);
+            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventGuid} in stream {StreamName} failed. The public key host id does not match with the metadata host id", ev.Id, ev.StreamId);
             return EventLogEventSignatureVerification.VerificationFailed;
         }
 
         if (publicKeySignatureValidationResult.SignatureData.SignatureVersion != eventSignatureBusinessMetadata.SignatureVersion)
         {
-            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventId} in stream {StreamName} failed. The public key signature version does not match with the metadata signature version", ev.Id, ev.StreamId);
+            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventGuid} in stream {StreamName} failed. The public key signature version does not match with the metadata signature version", ev.Id, ev.StreamId);
             return EventLogEventSignatureVerification.VerificationFailed;
         }
 
@@ -153,7 +153,7 @@ public class EventLogEventSignatureVerifier
             || eventTimestamp > publicKeySignatureValidationResult.KeyData.ValidTo
             || (publicKeySignatureValidationResult.KeyData.DeletedAt.HasValue && eventTimestamp > publicKeySignatureValidationResult.KeyData.DeletedAt))
         {
-            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventId} in stream {StreamName} failed. The event has a key outside of its lifetime attached", ev.Id, ev.StreamId);
+            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventGuid} in stream {StreamName} failed. The event has a key outside of its lifetime attached", ev.Id, ev.StreamId);
             return EventLogEventSignatureVerification.VerificationFailed;
         }
 
@@ -171,7 +171,7 @@ public class EventLogEventSignatureVerifier
         {
             _logger.LogCritical(
                 SecurityLogging.SecurityEventId,
-                "Event signature verification for {EventId} in stream {StreamName} failed. The event content does not match the signature",
+                "Event signature verification for {EventGuid} in stream {StreamName} failed. The event content does not match the signature",
                 ev.Id,
                 ev.StreamId);
             return EventLogEventSignatureVerification.VerificationFailed;

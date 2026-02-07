@@ -41,6 +41,7 @@ public abstract class ProportionalElectionResultBundleBaseTest
         BundleErfassungElectionAdminClientStGallen = new ProportionalElectionResultBundleService.ProportionalElectionResultBundleServiceClient(CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantStGallen.Id, "my-user-99", RolesMockedData.ErfassungElectionAdmin));
         await base.InitializeAsync();
         await RunToState(CountingCircleResultState.SubmissionOngoing);
+        await RunEvents<ProportionalElectionResultSubmissionStarted>();
         EventPublisherMock.Clear();
     }
 
@@ -50,29 +51,29 @@ public abstract class ProportionalElectionResultBundleBaseTest
         await ProportionalElectionResultBundleMockedData.Seed(RunScoped);
     }
 
-    protected async Task RunBundleToState(BallotBundleState state, Guid? bundleId = null)
+    protected async Task RunBundleToState(BallotBundleState state, Guid? bundleId = null, string userId = TestDefaults.UserId)
     {
         switch (state)
         {
             case BallotBundleState.InCorrection:
-                await RunBundleToState(BallotBundleState.ReadyForReview, bundleId);
-                await SetBundleInCorrection(bundleId);
+                await RunBundleToState(BallotBundleState.ReadyForReview, bundleId, userId);
+                await SetBundleInCorrection(bundleId, userId);
                 break;
             case BallotBundleState.ReadyForReview:
-                await CreateBallot(bundleId);
-                await SetBundleSubmissionFinished(bundleId);
+                await CreateBallot(bundleId, userId);
+                await SetBundleSubmissionFinished(bundleId, userId);
                 break;
             case BallotBundleState.Reviewed:
-                await RunBundleToState(BallotBundleState.ReadyForReview, bundleId);
-                await SetBundleReviewed(bundleId);
+                await RunBundleToState(BallotBundleState.ReadyForReview, bundleId, userId);
+                await SetBundleReviewed(bundleId, userId);
                 break;
             case BallotBundleState.Deleted:
-                await SetBundleDeleted(bundleId);
+                await SetBundleDeleted(bundleId, userId);
                 break;
         }
     }
 
-    protected async Task SetBundleSubmissionFinished(Guid? bundleId = null)
+    protected async Task SetBundleSubmissionFinished(Guid? bundleId = null, string userId = TestDefaults.UserId)
     {
         await RunOnBundle<ProportionalElectionResultBundleSubmissionFinished>(
             bundleId,
@@ -87,7 +88,8 @@ public abstract class ProportionalElectionResultBundleBaseTest
                         aggregate.SubmissionFinished(ContestMockedData.StGallenEvotingUrnengang.Id);
                         break;
                 }
-            });
+            },
+            userId);
     }
 
     protected async Task<Guid> CreateBundle(int bundleNumber, string userId = TestDefaults.UserId)
@@ -106,6 +108,7 @@ public abstract class ProportionalElectionResultBundleBaseTest
                     {
                         ReviewProcedure = ProportionalElectionReviewProcedure.Physically,
                         AutomaticBallotBundleNumberGeneration = true,
+                        AutomaticBallotNumberGeneration = true,
                         BallotBundleSize = 10,
                         BallotNumberGeneration = BallotNumberGeneration.RestartForEachBundle,
                         CandidateCheckDigit = false,
@@ -118,7 +121,7 @@ public abstract class ProportionalElectionResultBundleBaseTest
         return bundleId;
     }
 
-    protected async Task SetBundleInCorrection(Guid? bundleId = null)
+    protected async Task SetBundleInCorrection(Guid? bundleId = null, string userId = TestDefaults.UserId)
     {
         await RunOnBundle<ProportionalElectionResultBundleReviewRejected>(
             bundleId,
@@ -128,17 +131,24 @@ public abstract class ProportionalElectionResultBundleBaseTest
                 {
                     aggregate.RejectReview(ContestMockedData.StGallenEvotingUrnengang.Id);
                 }
-            });
+            },
+            userId);
     }
 
-    protected async Task SetBundleReviewed(Guid? bundleId = null)
+    protected async Task SetBundleReviewed(Guid? bundleId = null, string userId = TestDefaults.UserId)
     {
-        await RunOnBundle<ProportionalElectionResultBundleReviewSucceeded>(bundleId, aggregate => aggregate.SucceedReview(ContestMockedData.StGallenEvotingUrnengang.Id));
+        await RunOnBundle<ProportionalElectionResultBundleReviewSucceeded>(
+            bundleId,
+            aggregate => aggregate.SucceedReview(ContestMockedData.StGallenEvotingUrnengang.Id),
+            userId);
     }
 
-    protected async Task SetBundleDeleted(Guid? bundleId = null)
+    protected async Task SetBundleDeleted(Guid? bundleId = null, string userId = TestDefaults.UserId)
     {
-        await RunOnBundle<ProportionalElectionResultBundleDeleted>(bundleId, aggregate => aggregate.Delete(ContestMockedData.StGallenEvotingUrnengang.Id));
+        await RunOnBundle<ProportionalElectionResultBundleDeleted>(
+            bundleId,
+            aggregate => aggregate.Delete(ContestMockedData.StGallenEvotingUrnengang.Id),
+            userId);
     }
 
     protected override async Task<CountingCircleResultState> GetCurrentState()
@@ -188,34 +198,66 @@ public abstract class ProportionalElectionResultBundleBaseTest
                 false));
     }
 
-    protected async Task CreateBallot(Guid? bundleId = null)
+    protected async Task CreateBallot(Guid? bundleId = null, string userId = TestDefaults.UserId)
     {
-        await RunOnBundle<ProportionalElectionResultBallotCreated>(bundleId, aggregate =>
-        {
-            if (aggregate.State != BallotBundleState.InProcess && aggregate.State != BallotBundleState.InCorrection)
+        await RunOnBundle<ProportionalElectionResultBallotCreated>(
+            bundleId,
+            aggregate =>
             {
-                return;
-            }
-
-            aggregate.CreateBallot(
-                1,
-                new List<ProportionalElectionResultBallotCandidate>
+                if (aggregate.State != BallotBundleState.InProcess && aggregate.State != BallotBundleState.InCorrection)
                 {
-                    new()
+                    return;
+                }
+
+                aggregate.CreateBallot(
+                    null,
+                    1,
+                    new List<ProportionalElectionResultBallotCandidate>
                     {
-                        Position = 1,
-                        CandidateId = Guid.Parse(ProportionalElectionMockedData.CandidateId1GossauProportionalElectionInContestStGallen),
-                        OnList = true,
+                        new()
+                        {
+                            Position = 1,
+                            CandidateId = Guid.Parse(ProportionalElectionMockedData.CandidateId1GossauProportionalElectionInContestStGallen),
+                            OnList = true,
+                        },
+                        new()
+                        {
+                            Position = 2,
+                            CandidateId = Guid.Parse(ProportionalElectionMockedData.CandidateId3GossauProportionalElectionInContestStGallen),
+                        },
                     },
-                    new()
+                    ContestMockedData.StGallenEvotingUrnengang.Id);
+                LatestBallotNumber = aggregate.CurrentBallotNumber;
+            },
+            userId);
+    }
+
+    protected async Task UpdateBallot(int ballotNumber, Guid? bundleId = null, string userId = TestDefaults.UserId)
+    {
+        await RunOnBundle<ProportionalElectionResultBallotUpdated>(
+            bundleId,
+            aggregate =>
+            {
+                aggregate.UpdateBallot(
+                    ballotNumber,
+                    1,
+                    new List<ProportionalElectionResultBallotCandidate>
                     {
-                        Position = 2,
-                        CandidateId = Guid.Parse(ProportionalElectionMockedData.CandidateId3GossauProportionalElectionInContestStGallen),
+                        new()
+                        {
+                            Position = 1,
+                            CandidateId = Guid.Parse(ProportionalElectionMockedData.CandidateId1GossauProportionalElectionInContestStGallen),
+                            OnList = true,
+                        },
+                        new()
+                        {
+                            Position = 2,
+                            CandidateId = Guid.Parse(ProportionalElectionMockedData.CandidateId3GossauProportionalElectionInContestStGallen),
+                        },
                     },
-                },
-                ContestMockedData.StGallenEvotingUrnengang.Id);
-            LatestBallotNumber = aggregate.CurrentBallotNumber;
-        });
+                    ContestMockedData.StGallenEvotingUrnengang.Id);
+            },
+            userId);
     }
 
     protected Task<ProportionalElectionResultBundle> GetBundle(Guid? id = null)

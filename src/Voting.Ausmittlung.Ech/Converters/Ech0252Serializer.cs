@@ -146,7 +146,8 @@ public class Ech0252Serializer
             .OrderBy(x => x.PbNumber)
             .ThenBy(x => x.MajorityElection.DomainOfInfluence.Type)
             .ThenBy(x => x.MajorityElection.Id)
-            .Select(x => x.MajorityElection);
+            .Select(x => x.MajorityElection)
+            .ToList();
 
         var electionDelivery = new EventElectionInformationDeliveryType
         {
@@ -180,6 +181,7 @@ public class Ech0252Serializer
             DomainOfInfluenceCanton.Sg => 17,
             DomainOfInfluenceCanton.Tg => 20,
             DomainOfInfluenceCanton.Gr => 18,
+            DomainOfInfluenceCanton.Ar => 15,
             _ => throw new InvalidOperationException($"Canton {canton} not supported"),
         };
     }

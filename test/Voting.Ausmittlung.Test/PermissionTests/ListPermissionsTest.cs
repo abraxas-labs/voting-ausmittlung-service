@@ -41,6 +41,14 @@ public class ListPermissionsTest : BaseTest<PermissionService.PermissionServiceC
     }
 
     [Fact]
+    public async Task TestAsErfassungRestrictedBundleControllerShouldWork()
+    {
+        var client = CreateService(RolesMockedData.ErfassungRestrictedBundleController);
+        var response = await client.ListAsync(new Empty());
+        response.MatchSnapshot();
+    }
+
+    [Fact]
     public async Task TestAsErfassungElectionSupporterShouldWork()
     {
         var response = await ErfassungElectionSupporterClient.ListAsync(new Empty());
@@ -80,6 +88,7 @@ public class ListPermissionsTest : BaseTest<PermissionService.PermissionServiceC
         yield return RolesMockedData.ErfassungCreator;
         yield return RolesMockedData.ErfassungCreatorWithoutBundleControl;
         yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungRestrictedBundleController;
         yield return RolesMockedData.ErfassungElectionSupporter;
         yield return RolesMockedData.ErfassungElectionAdmin;
         yield return RolesMockedData.MonitoringElectionAdmin;

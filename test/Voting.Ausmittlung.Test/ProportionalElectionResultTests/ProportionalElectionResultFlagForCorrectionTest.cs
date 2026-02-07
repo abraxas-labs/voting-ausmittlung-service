@@ -233,7 +233,7 @@ public class ProportionalElectionResultFlagForCorrectionTest : ProportionalElect
         endResultInSameUnion.ListEndResults.All(l => l.CandidateEndResults.All(x => x.Rank == 0)).Should().BeTrue();
         endResultInSameUnion.ListEndResults.All(l => l.CandidateEndResults.All(x => !x.LotDecisionEnabled)).Should().BeTrue();
         endResultInSameUnion.ListEndResults.All(l => l.CandidateEndResults.All(x => !x.LotDecisionRequired)).Should().BeTrue();
-        endResultInSameUnion.ListEndResults.All(l => !l.HasOpenRequiredLotDecisions).Should().BeTrue();
+        endResultInSameUnion.ListEndResults.All(l => l.LotDecisionState is not ElectionLotDecisionState.OpenAndRequired).Should().BeTrue();
 
         unionEndResult = await RunOnDb(db => db.ProportionalElectionUnionEndResults
             .Include(x => x.ProportionalElectionUnion.DoubleProportionalResult)

@@ -29,6 +29,7 @@ public class PermissionService
     private readonly DomainOfInfluenceRepo _domainOfInfluenceRepo;
     private readonly SimpleCountingCircleResultRepo _simpleCountingCircleResultRepo;
     private readonly SimplePoliticalBusinessRepo _simplePoliticalBusinessRepo;
+    private readonly IDbRepository<DataContext, ProportionalElectionUnion> _proportionalElectionUnionRepo;
     private readonly IDbRepository<DataContext, DomainOfInfluencePermissionEntry> _permissionRepo;
     private readonly ILogger _logger;
     private readonly IAuth _auth;
@@ -41,6 +42,7 @@ public class PermissionService
         IAuthStore authStore,
         SimpleCountingCircleResultRepo simpleCountingCircleResultRepo,
         SimplePoliticalBusinessRepo simplePoliticalBusinessRepo,
+        IDbRepository<DataContext, ProportionalElectionUnion> proportionalElectionUnionRepo,
         IDbRepository<DataContext, CountingCircle> countingCircleRepo,
         IDbRepository<DataContext, DomainOfInfluencePermissionEntry> permissionRepo,
         IDbRepository<DataContext, Contest> contestRepo,
@@ -59,6 +61,7 @@ public class PermissionService
         _authStore = authStore;
         _simpleCountingCircleResultRepo = simpleCountingCircleResultRepo;
         _simplePoliticalBusinessRepo = simplePoliticalBusinessRepo;
+        _proportionalElectionUnionRepo = proportionalElectionUnionRepo;
     }
 
     public string UserId => _auth.User.Loginid;
@@ -150,6 +153,16 @@ public class PermissionService
         return await _simplePoliticalBusinessRepo.Query()
             .Where(pb => pb.ContestId == contestId && pb.DomainOfInfluence.SecureConnectId == tenantId)
             .Select(pb => pb.Id)
+            .ToHashSetAsync();
+    }
+
+    public async Task<IReadOnlySet<Guid>> GetOwnedPoliticalBusinessUnionIds(Guid contestId)
+    {
+        var tenantId = _auth.Tenant.Id;
+
+        return await _proportionalElectionUnionRepo.Query()
+            .Where(u => u.ContestId == contestId && u.SecureConnectId == tenantId)
+            .Select(u => u.Id)
             .ToHashSetAsync();
     }
 

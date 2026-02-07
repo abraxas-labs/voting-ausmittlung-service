@@ -109,6 +109,7 @@
       },
       "BallotBundleSampleSizePercent": 30,
       "AutomaticBallotBundleNumberGeneration": true,
+      "AutomaticBallotNumberGeneration": false,
       "ResultEntry": 2,
       "EnforceResultEntryForCountingCircles": false,
       "ReviewProcedure": 1,
@@ -247,6 +248,7 @@
     "EntryParams": {
       "BallotBundleSampleSizePercent": 100,
       "AutomaticBallotBundleNumberGeneration": false,
+      "AutomaticBallotNumberGeneration": true,
       "ReviewProcedure": 1
     },
     "CountingCircle": {

@@ -49,6 +49,7 @@ public class MajorityElectionResultCreateBallotTest : MajorityElectionResultBund
                 BallotBundleSize = 10,
                 BallotBundleSampleSize = 2,
                 AutomaticEmptyVoteCounting = true,
+                AutomaticBallotNumberGeneration = true,
                 BallotNumberGeneration = SharedProto.BallotNumberGeneration.ContinuousForAllBundles,
                 ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
             },
@@ -67,6 +68,47 @@ public class MajorityElectionResultCreateBallotTest : MajorityElectionResultBund
     }
 
     [Fact]
+    public async Task TestShouldReturnAsErfassungElectionAdminWithManualBallotNumber()
+    {
+        var client = CreateService<MajorityElectionResultService.MajorityElectionResultServiceClient>(RolesMockedData.ErfassungElectionAdmin);
+        await client.DefineEntryAsync(new DefineMajorityElectionResultEntryRequest
+        {
+            ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
+            ResultEntry = SharedProto.MajorityElectionResultEntry.Detailed,
+            ResultEntryParams = new DefineMajorityElectionResultEntryParamsRequest
+            {
+                BallotBundleSize = 10,
+                BallotBundleSampleSize = 2,
+                AutomaticEmptyVoteCounting = true,
+                AutomaticBallotNumberGeneration = false,
+                BallotNumberGeneration = SharedProto.BallotNumberGeneration.ContinuousForAllBundles,
+                ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
+            },
+        });
+        await RunEvents<MajorityElectionResultEntryDefined>();
+
+        var bundleResponse = await ErfassungCreatorClient.CreateBundleAsync(new CreateMajorityElectionResultBundleRequest
+        {
+            BundleNumber = 10,
+            ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
+        });
+        await RunEvents<MajorityElectionResultBundleCreated>();
+
+        await ErfassungElectionAdminClient.CreateBallotAsync(NewValidRequest(x =>
+        {
+            x.BundleId = bundleResponse.BundleId;
+            x.BallotNumber = 234;
+        }));
+        EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBallotCreated>().MatchSnapshot(x => x.BundleId);
+
+        await ErfassungElectionAdminClient.CreateBallotAsync(NewValidRequest(x =>
+        {
+            x.BundleId = bundleResponse.BundleId;
+            x.BallotNumber = 845;
+        }));
+    }
+
+    [Fact]
     public async Task TestShouldReturnWithAutomaticEmptyVoteCount()
     {
         var client = CreateService<MajorityElectionResultService.MajorityElectionResultServiceClient>(RolesMockedData.ErfassungElectionAdmin);
@@ -80,6 +122,7 @@ public class MajorityElectionResultCreateBallotTest : MajorityElectionResultBund
                 BallotBundleSize = 1,
                 BallotBundleSampleSize = 1,
                 AutomaticBallotBundleNumberGeneration = true,
+                AutomaticBallotNumberGeneration = true,
                 BallotNumberGeneration = SharedProto.BallotNumberGeneration.ContinuousForAllBundles,
                 ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
             },
@@ -281,7 +324,7 @@ public class MajorityElectionResultCreateBallotTest : MajorityElectionResultBund
         var ev = EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBallotCreated>();
         ev.BallotNumber = int.MaxValue;
 
-        await TestEventPublisher.Publish(ev);
+        await TestEventPublisher.Publish(GetNextEventNumber(), ev);
         await AssertStatus(
             async () => await ErfassungCreatorClient.CreateBallotAsync(NewValidRequest()),
             StatusCode.Internal,

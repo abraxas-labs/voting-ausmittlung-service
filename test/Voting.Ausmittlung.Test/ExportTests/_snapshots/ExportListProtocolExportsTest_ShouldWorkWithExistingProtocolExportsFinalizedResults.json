@@ -28,19 +28,6 @@
       "TemplateKey": "vote_overall_result"
     },
     {
-      "ExportTemplateId": "e0e5227a-2fd3-5a69-b384-297475f127a0",
-      "Description": "Abstimmung kantonal St. Gallen: Gesamtergebnisse",
-      "EntityDescription": "Abst SG de",
-      "ProtocolExportId": null,
-      "State": 0,
-      "FileName": "",
-      "Started": null,
-      "PoliticalBusinessIds": [
-        "96d8275f-f1f8-4933-a097-5c0c19f54567"
-      ],
-      "TemplateKey": "vote_overall_result"
-    },
-    {
       "ExportTemplateId": "830acad7-e3d9-59fc-8ee3-17b24fc7f16e",
       "Description": "Abstimmung kantonal: Detailergebnisse",
       "EntityDescription": "Abst SG de",
@@ -52,6 +39,19 @@
         "96d8275f-f1f8-4933-a097-5c0c19f54567"
       ],
       "TemplateKey": "vote_domain_of_influence_overall_end_result"
+    },
+    {
+      "ExportTemplateId": "e0e5227a-2fd3-5a69-b384-297475f127a0",
+      "Description": "Abstimmung kantonal: Gesamtergebnisse",
+      "EntityDescription": "Abst SG de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "96d8275f-f1f8-4933-a097-5c0c19f54567"
+      ],
+      "TemplateKey": "vote_overall_result"
     },
     {
       "ExportTemplateId": "d29a4769-893c-57c2-8492-c0ecb976bb8e",

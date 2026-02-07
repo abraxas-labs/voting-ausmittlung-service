@@ -219,6 +219,11 @@ public class MajorityElectionResultBuilder : PoliticalBusinessResultBuilder<Majo
             {
                 electionResult.EntryParams.ReviewProcedure = MajorityElectionReviewProcedure.Electronically;
             }
+
+            if (resultEntryParams.AutomaticBallotNumberGeneration == null)
+            {
+                electionResult.EntryParams.AutomaticBallotNumberGeneration = true;
+            }
         }
 
         await ResetResult(electionResult, VotingDataSource.Conventional, true, false);

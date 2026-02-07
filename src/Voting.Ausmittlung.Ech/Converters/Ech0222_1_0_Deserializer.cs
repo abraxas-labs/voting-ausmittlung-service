@@ -22,7 +22,8 @@ public class Ech0222_1_0_Deserializer : IEch0222Deserializer
         _echDeserializer = echDeserializer;
     }
 
-    public VotingImport DeserializeXml(Stream stream)
+    // This version of eCH-0222 does not support importing voting cards, so it ignores the parameter
+    public VotingImport DeserializeXml(Stream stream, bool importVotingCards)
     {
         var schemaSet = Ech0222Schemas.LoadEch0222Schemas();
         var delivery = _echDeserializer.DeserializeXml<Delivery>(stream, schemaSet);

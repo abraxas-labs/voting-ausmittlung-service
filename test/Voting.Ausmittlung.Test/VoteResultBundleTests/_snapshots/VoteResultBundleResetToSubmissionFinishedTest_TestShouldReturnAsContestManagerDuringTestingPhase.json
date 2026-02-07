@@ -1,0 +1,24 @@
+{
+  "EventInfo": {
+    "User": {
+      "Id": "my-user-99",
+      "Username": "",
+      "FirstName": "",
+      "LastName": ""
+    },
+    "Tenant": {
+      "Id": "200200200200200200",
+      "Name": "St. Gallen"
+    },
+    "Timestamp": {
+      "Seconds": 1578661930,
+      "Nanos": 200000000
+    }
+  },
+  "BundleId": "a2249597-4a74-4d27-a66b-e5159eb470a4",
+  "VoteResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+  "BallotResultId": "082c7c7a-8f1d-555f-be18-54f5673412e1",
+  "SampleBallotNumbers": [
+    1
+  ]
+}

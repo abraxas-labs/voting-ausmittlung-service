@@ -83,18 +83,6 @@ public class MajorityElectionResultBundleSubmissionFinishedTest : MajorityElecti
     }
 
     [Fact]
-    public async Task TestShouldThrowAsErfassungCreatorOtherUserThanBundleCreator()
-    {
-        await AssertStatus(
-            async () => await ErfassungCreatorClient.BundleSubmissionFinishedAsync(new MajorityElectionResultBundleSubmissionFinishedRequest
-            {
-                BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle3,
-            }),
-            StatusCode.PermissionDenied,
-            "only election admins or the creator of a bundle can edit it");
-    }
-
-    [Fact]
     public async Task TestShouldThrowContestLocked()
     {
         await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.PastLocked);

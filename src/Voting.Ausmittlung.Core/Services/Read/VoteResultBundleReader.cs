@@ -59,6 +59,22 @@ public class VoteResultBundleReader
 
         await _permissionService.EnsureCanReadCountingCircle(ballotResult.VoteResult.CountingCircleId, ballotResult.VoteResult.Vote.ContestId);
 
+        var countOfModifiedBallotsByBundleId = await _bundleRepo.Query()
+            .Where(b => b.BallotResultId == ballotResultId)
+            .Select(b => new
+            {
+                b.Id,
+                CountOfModifiedBallots = b.Ballots.Count(ballot => ballot.Logs.Count > 0),
+            })
+            .ToDictionaryAsync(x => x.Id, x => x.CountOfModifiedBallots);
+        foreach (var bundle in ballotResult.Bundles)
+        {
+            if (countOfModifiedBallotsByBundleId.TryGetValue(bundle.Id, out var countOfModifiedBallots))
+            {
+                bundle.CountOfModifiedBallots = countOfModifiedBallots;
+            }
+        }
+
         await _politicalBusinessResultBundleBuilder.AddProtocolExportsToBundles(
             ballotResult.Bundles,
             ballotResult.VoteResult.CountingCircle.BasisCountingCircleId,
@@ -88,11 +104,23 @@ public class VoteResultBundleReader
 
         await _permissionService.EnsureCanReadCountingCircle(bundle.BallotResult.VoteResult.CountingCircleId, bundle.BallotResult.VoteResult.Vote.ContestId);
 
-        bundle.BallotNumbersToReview = await _ballotRepo.Query()
-            .Where(b => b.BundleId == bundle.Id && b.MarkedForReview)
-            .Select(b => b.Number)
-            .OrderBy(b => b)
+        var ballotInfo = await _ballotRepo.Query()
+            .Where(b => b.BundleId == bundle.Id)
+            .Select(b => new
+            {
+                b.Number,
+                b.MarkedForReview,
+                b.Index,
+                HasLogs = b.Logs.Count > 0,
+            })
+            .OrderBy(b => b.Index)
             .ToListAsync();
+        bundle.BallotNumbers = ballotInfo.ConvertAll(b => b.Number);
+        bundle.BallotNumbersToReview = ballotInfo
+            .Where(b => b.MarkedForReview)
+            .Select(b => b.Number)
+            .ToList();
+        bundle.CountOfModifiedBallots = ballotInfo.Count(b => b.HasLogs);
 
         bundle.BallotResult.Ballot.OrderQuestions();
         return bundle;
@@ -101,12 +129,13 @@ public class VoteResultBundleReader
     public async Task<VoteResultBallot> GetBallot(Guid bundleId, int ballotNumber)
     {
         var ballot = await _ballotRepo.Query()
-                         .AsSplitQuery()
-                         .Include(x => x.Bundle.BallotResult.VoteResult.Vote)
-                         .Include(x => x.QuestionAnswers).ThenInclude(x => x.Question.Translations)
-                         .Include(x => x.TieBreakQuestionAnswers).ThenInclude(x => x.Question.Translations)
-                         .FirstOrDefaultAsync(x => x.BundleId == bundleId && x.Number == ballotNumber)
-                     ?? throw new EntityNotFoundException(new { bundleId, ballotNumber });
+            .AsSplitQuery()
+            .Include(x => x.Bundle.BallotResult.VoteResult.Vote)
+            .Include(x => x.QuestionAnswers).ThenInclude(x => x.Question.Translations)
+            .Include(x => x.TieBreakQuestionAnswers).ThenInclude(x => x.Question.Translations)
+            .Include(x => x.Logs.OrderBy(y => y.Timestamp))
+            .FirstOrDefaultAsync(x => x.BundleId == bundleId && x.Number == ballotNumber)
+            ?? throw new EntityNotFoundException(new { bundleId, ballotNumber });
 
         await EnsureCanReadBallot(ballot);
 

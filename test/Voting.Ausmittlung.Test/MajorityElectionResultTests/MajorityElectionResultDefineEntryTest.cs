@@ -314,7 +314,6 @@ public class MajorityElectionResultDefineEntryTest : MajorityElectionResultBaseT
 
     protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return RolesMockedData.ErfassungElectionSupporter;
         yield return RolesMockedData.ErfassungElectionAdmin;
     }
 

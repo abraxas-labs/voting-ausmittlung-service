@@ -16,6 +16,7 @@ using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Common;
+using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing.Utils;
 using Xunit;
 
@@ -79,6 +80,28 @@ public class MajorityElectionResultSucceedBundleReviewTest : MajorityElectionRes
                 BundleIds = { MajorityElectionResultBundleMockedData.IdStGallenBundle1 },
             }),
             StatusCode.PermissionDenied);
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsRestrictedBundleControllerWhenModified()
+    {
+        await CreateBallot(MajorityElectionResultBundleMockedData.StGallenBundle3.Id);
+        await SetBundleSubmissionFinished(MajorityElectionResultBundleMockedData.StGallenBundle3.Id);
+
+        const string testUserId = "restricted-user-id";
+        await UpdateBallot(
+            LatestBallotNumber,
+            MajorityElectionResultBundleMockedData.StGallenBundle3.Id,
+            testUserId);
+
+        var restrictedClient = CreateService(SecureConnectTestDefaults.MockedTenantStGallen.Id, testUserId, RolesMockedData.ErfassungRestrictedBundleController);
+        await AssertStatus(
+            async () => await restrictedClient.SucceedBundleReviewAsync(new SucceedMajorityElectionBundleReviewRequest
+            {
+                BundleIds = { MajorityElectionResultBundleMockedData.IdStGallenBundle3 },
+            }),
+            StatusCode.PermissionDenied,
+            "ReviewModifiedBundleForbiddenException");
     }
 
     [Fact]
@@ -238,6 +261,7 @@ public class MajorityElectionResultSucceedBundleReviewTest : MajorityElectionRes
     {
         yield return RolesMockedData.ErfassungCreator;
         yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungRestrictedBundleController;
         yield return RolesMockedData.ErfassungElectionSupporter;
         yield return RolesMockedData.ErfassungElectionAdmin;
     }

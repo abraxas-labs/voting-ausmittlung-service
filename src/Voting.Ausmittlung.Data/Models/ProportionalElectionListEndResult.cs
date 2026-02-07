@@ -21,7 +21,7 @@ public class ProportionalElectionListEndResult : BaseEntity,
 
     public int NumberOfMandates { get; set; }
 
-    public bool HasOpenRequiredLotDecisions { get; set; }
+    public ElectionLotDecisionState LotDecisionState { get; set; }
 
     public ICollection<ProportionalElectionCandidateEndResult> CandidateEndResults { get; set; } =
         new HashSet<ProportionalElectionCandidateEndResult>();

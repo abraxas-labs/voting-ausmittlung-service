@@ -99,6 +99,7 @@ public class VoteResultBundleService : ServiceBase
         var tieBreakQuestionAnswers = _mapper.Map<List<DomainModels.VoteResultBallotTieBreakQuestionAnswer>>(request.TieBreakQuestionAnswers);
         var ballotNumber = await _voteResultBundleWriter.CreateBallot(
             GuidParser.Parse(request.BundleId),
+            request.BallotNumber,
             questionAnswers,
             tieBreakQuestionAnswers);
         return new CreateVoteResultBallotResponse
@@ -161,6 +162,13 @@ public class VoteResultBundleService : ServiceBase
     public override async Task<Empty> SucceedBundleReview(SucceedVoteBundleReviewRequest request, ServerCallContext context)
     {
         await _voteResultBundleWriter.SucceedBundleReview(request.BundleIds.Select(GuidParser.Parse).ToList());
+        return ProtobufEmpty.Instance;
+    }
+
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.ResetToSubmissionFinished)]
+    public override async Task<Empty> BundleResetToSubmissionFinished(VoteResultBundleResetToSubmissionFinishedRequest request, ServerCallContext context)
+    {
+        await _voteResultBundleWriter.ResetToSubmissionFinished(GuidParser.Parse(request.BundleId));
         return ProtobufEmpty.Instance;
     }
 }

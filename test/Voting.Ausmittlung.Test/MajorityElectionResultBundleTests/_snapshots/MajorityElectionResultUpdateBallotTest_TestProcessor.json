@@ -140,5 +140,6 @@
       "InvalidVoteCount": 0
     }
   ],
-  "InvalidVoteCount": 0
+  "InvalidVoteCount": 0,
+  "Logs": []
 }

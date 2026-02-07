@@ -61,6 +61,8 @@ public static class ServiceCollectionExtensions
             .AddScoped<VoteResultRepo>()
             .AddScoped<VoteEndResultRepo>()
             .AddScoped<ProportionalElectionResultRepo>()
+            .AddScoped<ProportionalElectionResultBallotRepo>()
+            .AddScoped<ProportionalElectionResultBallotCandidateRepo>()
             .AddScoped<ProportionalElectionEndResultRepo>()
             .AddScoped<ProportionalElectionListRepo>()
             .AddScoped<ProportionalElectionListTranslationRepo>()

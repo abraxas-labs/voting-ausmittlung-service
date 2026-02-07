@@ -29,4 +29,9 @@ public enum DomainOfInfluenceCanton
     /// Kanton Graubünden.
     /// </summary>
     Gr,
+
+    /// <summary>
+    /// Kanton Appenzell Ausserrhoden.
+    /// </summary>
+    Ar,
 }

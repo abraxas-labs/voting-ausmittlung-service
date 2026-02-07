@@ -105,11 +105,11 @@ public class ResultImportWriter
         await _aggregateRepository.Save(aggregate);
     }
 
-    internal VotingImport Deserialize(ResultImportMeta importMeta)
+    internal VotingImport Deserialize(ResultImportMeta importMeta, bool importVotingCards)
     {
         importMeta.Validate();
 
-        var importData = _ech0222Deserializer.DeserializeXml(importMeta.ImportVersion, importMeta.Ech0222FileContent);
+        var importData = _ech0222Deserializer.DeserializeXml(importMeta.ImportVersion, importMeta.Ech0222FileContent, importVotingCards);
         if (importMeta.ContestId != importData.ContestId)
         {
             throw new ValidationException($"contestIds do not match: in import file {importData.ContestId}, in import metadata {importMeta.ContestId}");
@@ -142,6 +142,7 @@ public class ResultImportWriter
         VotingImport importData,
         ResultImportMeta importMeta,
         Contest contest,
+        IEnumerable<Guid> emptyCountingCircles,
         IEnumerable<IgnoredImportCountingCircle> ignoredCountingCircles)
     {
         var resultsByType = GroupByBusinessType(importData.PoliticalBusinessResults, contest.SimplePoliticalBusinesses);
@@ -156,6 +157,7 @@ public class ResultImportWriter
             importMeta.ContestId,
             importMeta.BasisCountingCircleId,
             importData.EchMessageId,
+            emptyCountingCircles,
             ignoredCountingCircles);
 
         if (importData.VotingCards != null)

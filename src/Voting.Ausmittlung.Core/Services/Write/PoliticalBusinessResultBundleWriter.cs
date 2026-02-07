@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
+using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Eventing.Persistence;
@@ -48,25 +49,15 @@ public abstract class PoliticalBusinessResultBundleWriter<TResult, TBundleAggreg
             return contestId;
         }
 
-        if (bundleAggregate.State == BallotBundleState.ReadyForReview)
+        if (bundleAggregate.State != BallotBundleState.ReadyForReview && _permissionService.UserId != bundleAggregate.CreatedBy)
         {
-            if (_permissionService.UserId == bundleAggregate.CreatedBy)
-            {
-                throw new ForbiddenException("the creator of a bundle can't edit it while it is under review");
-            }
-
-            return contestId;
-        }
-
-        if (_permissionService.UserId != bundleAggregate.CreatedBy)
-        {
-            throw new ForbiddenException("only election admins or the creator of a bundle can edit it.");
+            throw new ForbiddenException("only election admins or the creator of a bundle can edit it while not in review.");
         }
 
         return contestId;
     }
 
-    protected async Task<Guid> EnsureReviewPermissionsForBundle(TBundleAggregate bundle)
+    protected async Task<Guid> EnsureReviewPermissionsForBundle(TBundleAggregate bundle, bool succeed)
     {
         var result = await LoadPoliticalBusinessResult(bundle.PoliticalBusinessResultId);
         var contestId = await EnsurePoliticalBusinessPermissions(result);
@@ -77,6 +68,14 @@ public abstract class PoliticalBusinessResultBundleWriter<TResult, TBundleAggreg
         }
 
         await EnsureBundleExists(bundle.Id);
+
+        if (succeed
+            && !Auth.HasPermission(Permissions.PoliticalBusinessResultBundle.ReviewSelfModifiedBundle)
+            && bundle.ModificationUsers.Contains(_permissionService.UserId))
+        {
+            throw new ReviewModifiedBundleForbiddenException();
+        }
+
         return contestId;
     }
 

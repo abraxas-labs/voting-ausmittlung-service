@@ -38,6 +38,7 @@ public class ProportionalElectionResultProcessor :
     private readonly IDbRepository<DataContext, ProportionalElectionUnmodifiedListResult> _unmodifiedListResultRepo;
     private readonly ProportionalElectionResultBuilder _resultBuilder;
     private readonly ProportionalElectionEndResultBuilder _endResultBuilder;
+    private readonly IDbRepository<DataContext, ProportionalElectionListResult> _listResultRepo;
 
     public ProportionalElectionResultProcessor(
         EventLogger eventLogger,
@@ -48,7 +49,8 @@ public class ProportionalElectionResultProcessor :
         IDbRepository<DataContext, ProtocolExport> protocolExportRepo,
         ProportionalElectionResultBuilder resultBuilder,
         ProportionalElectionEndResultBuilder endResultBuilder,
-        AggregatedContestCountingCircleDetailsBuilder aggregatedCcDetailsBuilder)
+        AggregatedContestCountingCircleDetailsBuilder aggregatedCcDetailsBuilder,
+        IDbRepository<DataContext, ProportionalElectionListResult> listResultRepo)
         : base(electionResultRepo, simpleResultRepo, commentRepo, protocolExportRepo, aggregatedCcDetailsBuilder)
     {
         _eventLogger = eventLogger;
@@ -56,6 +58,7 @@ public class ProportionalElectionResultProcessor :
         _unmodifiedListResultRepo = unmodifiedListResultRepo;
         _resultBuilder = resultBuilder;
         _endResultBuilder = endResultBuilder;
+        _listResultRepo = listResultRepo;
     }
 
     public async Task Process(ProportionalElectionResultSubmissionStarted eventData)
@@ -106,6 +109,7 @@ public class ProportionalElectionResultProcessor :
         var unmodifiedListResultsByListId = electionResult.UnmodifiedListResults.ToDictionary(x => x.ListId);
         var listResultsByListId = electionResult.ListResults.ToDictionary(x => x.ListId);
         var unmodifiedListResultsToUpdate = new List<ProportionalElectionUnmodifiedListResult>();
+        var listResultsToUpdate = new List<ProportionalElectionListResult>();
         foreach (var enteredUnmodifiedListResult in eventData.Results)
         {
             var listId = GuidParser.Parse(enteredUnmodifiedListResult.ListId);
@@ -120,12 +124,14 @@ public class ProportionalElectionResultProcessor :
             }
 
             var voteCountDelta = enteredUnmodifiedListResult.VoteCount - unmodifiedListResult.ConventionalVoteCount;
-            await _resultBuilder.UpdateVotesFromUnmodifiedListResult(listResult, enteredUnmodifiedListResult.VoteCount, voteCountDelta);
+            _resultBuilder.UpdateVotesFromUnmodifiedListResult(listResult, enteredUnmodifiedListResult.VoteCount, voteCountDelta);
+            listResultsToUpdate.Add(listResult);
 
             unmodifiedListResult.ConventionalVoteCount = enteredUnmodifiedListResult.VoteCount;
             unmodifiedListResultsToUpdate.Add(unmodifiedListResult);
         }
 
+        await _listResultRepo.UpdateRange(listResultsToUpdate);
         await _unmodifiedListResultRepo.UpdateRange(unmodifiedListResultsToUpdate);
 
         electionResult.ConventionalSubTotal.TotalCountOfUnmodifiedLists = electionResult.UnmodifiedListResults.Sum(x => x.ConventionalVoteCount);

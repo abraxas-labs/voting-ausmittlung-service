@@ -20,6 +20,6 @@ public class WabstiCPercentageConverter : DefaultTypeConverter
     {
         return value == null
             ? string.Empty
-            : ((int)Math.Round((decimal)value * 10_000)).ToString(CultureInfo.InvariantCulture);
+            : ((int)Math.Round((decimal)value * 10_000, MidpointRounding.AwayFromZero)).ToString(CultureInfo.InvariantCulture);
     }
 }

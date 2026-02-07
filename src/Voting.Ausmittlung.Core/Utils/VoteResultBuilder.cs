@@ -113,7 +113,7 @@ public class VoteResultBuilder : PoliticalBusinessResultBuilder<VoteResult>
     internal async Task UpdateResultEntryAndResetConventionalResults(
         Guid voteResultId,
         SharedProto.VoteResultEntry resultEntry,
-        VoteResultEntryParamsEventData resultEntryParams)
+        VoteResultEntryParamsEventData? resultEntryParams)
     {
         var voteResult = await _voteResultRepo.GetVoteResultWithQuestionResultsAsTracked(voteResultId)
                          ?? throw new EntityNotFoundException(voteResultId);
@@ -132,6 +132,11 @@ public class VoteResultBuilder : PoliticalBusinessResultBuilder<VoteResult>
             if (voteResult.EntryParams.ReviewProcedure == VoteReviewProcedure.Unspecified)
             {
                 voteResult.EntryParams.ReviewProcedure = VoteReviewProcedure.Electronically;
+            }
+
+            if (resultEntryParams.AutomaticBallotNumberGeneration == null)
+            {
+                voteResult.EntryParams.AutomaticBallotNumberGeneration = true;
             }
         }
 

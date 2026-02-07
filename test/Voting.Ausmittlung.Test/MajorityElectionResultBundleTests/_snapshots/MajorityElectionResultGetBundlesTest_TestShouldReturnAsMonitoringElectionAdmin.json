@@ -13,6 +13,7 @@
       "BallotBundleSize": 25,
       "BallotBundleSampleSize": 3,
       "AutomaticBallotBundleNumberGeneration": true,
+      "AutomaticBallotNumberGeneration": false,
       "BallotNumberGeneration": 1,
       "AutomaticEmptyVoteCounting": false,
       "EnforceEmptyVoteCountingForCountingCircles": false,
@@ -92,6 +93,7 @@
       "BallotBundleSize": 10,
       "BallotBundleSampleSize": 3,
       "AutomaticBallotBundleNumberGeneration": true,
+      "AutomaticBallotNumberGeneration": true,
       "BallotNumberGeneration": 2,
       "AutomaticEmptyVoteCounting": false,
       "ReviewProcedure": 1,
@@ -198,7 +200,7 @@
       "Id": "",
       "Number": 1,
       "State": 0,
-      "CountOfBallots": 0,
+      "CountOfBallots": 3,
       "CreatedBy": {
         "SecureConnectId": "default-user-id",
         "FirstName": "Hans",
@@ -206,6 +208,7 @@
         "FullName": "Hans Muster"
       },
       "ReviewedBy": null,
+      "BallotNumbers": [],
       "BallotNumbersToReview": [],
       "ProtocolExport": null,
       "Logs": [
@@ -222,7 +225,8 @@
           },
           "State": 1
         }
-      ]
+      ],
+      "CountOfModifiedBallots": 2
     },
     {
       "Id": "",
@@ -236,6 +240,7 @@
         "FullName": "Hans Muster"
       },
       "ReviewedBy": null,
+      "BallotNumbers": [],
       "BallotNumbersToReview": [],
       "ProtocolExport": null,
       "Logs": [
@@ -252,7 +257,8 @@
           },
           "State": 1
         }
-      ]
+      ],
+      "CountOfModifiedBallots": 0
     },
     {
       "Id": "",
@@ -266,6 +272,7 @@
         "FullName": "Someone Else"
       },
       "ReviewedBy": null,
+      "BallotNumbers": [],
       "BallotNumbersToReview": [],
       "ProtocolExport": null,
       "Logs": [
@@ -282,7 +289,8 @@
           },
           "State": 1
         }
-      ]
+      ],
+      "CountOfModifiedBallots": 0
     }
   ]
 }

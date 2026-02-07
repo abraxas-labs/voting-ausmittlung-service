@@ -179,11 +179,6 @@ public class MajorityElectionResultAggregate : ElectionResultAggregate
             throw new ValidationException("Automatic Ballot Bundle Number Generation is enabled");
         }
 
-        if (BundleNumbers.Contains(bundleNumber) && !DeletedUnusedBundleNumbers.Contains(bundleNumber))
-        {
-            throw new ValidationException("bundle number is already in use");
-        }
-
         RaiseEvent(
             new MajorityElectionResultBundleNumberEntered
             {
@@ -194,22 +189,13 @@ public class MajorityElectionResultAggregate : ElectionResultAggregate
             new EventSignatureBusinessDomainData(contestId));
     }
 
-    public void FreeBundleNumber(int bundleNumber, Guid contestId)
+    public void EnsureCanDeleteBundle(int bundleNumber)
     {
         EnsureInState(CountingCircleResultState.SubmissionOngoing, CountingCircleResultState.ReadyForCorrection);
         if (!BundleNumbers.Contains(bundleNumber))
         {
             throw new ValidationException("unknown bundle number");
         }
-
-        RaiseEvent(
-            new MajorityElectionResultBundleNumberFreed
-            {
-                EventInfo = _eventInfoProvider.NewEventInfo(),
-                ElectionResultId = Id.ToString(),
-                BundleNumber = bundleNumber,
-            },
-            new EventSignatureBusinessDomainData(contestId));
     }
 
     public override void SubmissionFinished(Guid contestId)
@@ -375,10 +361,9 @@ public class MajorityElectionResultAggregate : ElectionResultAggregate
                 break;
             case MajorityElectionResultBundleNumberEntered ev:
                 BundleNumbers.Add(ev.BundleNumber);
-                DeletedUnusedBundleNumbers.Remove(ev.BundleNumber);
                 break;
-            case MajorityElectionResultBundleNumberFreed ev:
-                DeletedUnusedBundleNumbers.Add(ev.BundleNumber);
+            case MajorityElectionResultBundleNumberFreed _:
+                // No longer used, for backward compatibility
                 break;
             case MajorityElectionResultSubmissionFinished _:
                 State = CountingCircleResultState.SubmissionDone;
@@ -429,6 +414,11 @@ public class MajorityElectionResultAggregate : ElectionResultAggregate
         if (ev.ResultEntryParams?.ReviewProcedure == Abraxas.Voting.Ausmittlung.Shared.V1.MajorityElectionReviewProcedure.Unspecified)
         {
             ev.ResultEntryParams.ReviewProcedure = Abraxas.Voting.Ausmittlung.Shared.V1.MajorityElectionReviewProcedure.Electronically;
+        }
+
+        if (ev.ResultEntryParams is { AutomaticBallotNumberGeneration: null } entryParams)
+        {
+            entryParams.AutomaticBallotNumberGeneration = true;
         }
 
         ResultEntry = _mapper.Map<MajorityElectionResultEntry>(ev.ResultEntry);

@@ -250,6 +250,12 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
                 e.CountOfDoneCountingCircles = e.TotalCountOfCountingCircles;
                 e.MandateDistributionTriggered = true;
             });
+        await ModifyDbEntities<ProportionalElectionListEndResult>(
+            e => e.ListId == Guid.Parse(request.ProportionalElectionListId),
+            e =>
+            {
+                e.NumberOfMandates = 1;
+            });
         await ModifyDbEntities<ProportionalElectionCandidateEndResult>(
             e => e.ListEndResult.ElectionEndResultId == endResultTestingPhaseEndedId,
             e =>

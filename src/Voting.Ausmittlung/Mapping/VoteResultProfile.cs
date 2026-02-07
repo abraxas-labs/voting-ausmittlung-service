@@ -50,6 +50,7 @@ public class VoteResultProfile : Profile
         CreateMap<DataModels.VoteResultBallot, ProtoModels.VoteResultBallot>()
             .ForMember(dst => dst.QuestionAnswers, opts => opts.MapFrom(src => src.QuestionAnswers))
             .ForMember(dst => dst.TieBreakQuestionAnswers, opts => opts.MapFrom(src => src.TieBreakQuestionAnswers));
+        CreateMap<DataModels.VoteResultBallotLog, ProtoModels.PoliticalBusinessResultBallotLog>();
 
         CreateMap<DataModels.VoteResultBallotQuestionAnswer, ProtoModels.VoteResultBallotQuestionAnswer>();
         CreateMap<DataModels.VoteResultBallotTieBreakQuestionAnswer, ProtoModels.VoteResultBallotTieBreakQuestionAnswer>();

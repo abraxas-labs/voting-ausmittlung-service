@@ -62,11 +62,6 @@
             <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
         </countingCircleResult>
-        <elected>
-          <majorityElection>
-            <isElectionResultComplete>true</isElectionResultComplete>
-          </majorityElection>
-        </elected>
       </electionResult>
     </electionGroupResult>
     <electionGroupResult>
@@ -115,11 +110,6 @@
             <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
         </countingCircleResult>
-        <elected>
-          <majorityElection>
-            <isElectionResultComplete>true</isElectionResultComplete>
-          </majorityElection>
-        </elected>
       </electionResult>
     </electionGroupResult>
     <electionGroupResult>
@@ -133,11 +123,6 @@
             <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
         </countingCircleResult>
-        <elected>
-          <majorityElection>
-            <isElectionResultComplete>true</isElectionResultComplete>
-          </majorityElection>
-        </elected>
       </electionResult>
       <electionResult>
         <electionIdentification>5ec8cf85-229a-4dc7-a601-1bb6980fee78</electionIdentification>
@@ -148,11 +133,6 @@
             <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
         </countingCircleResult>
-        <elected>
-          <majorityElection>
-            <isElectionResultComplete>false</isElectionResultComplete>
-          </majorityElection>
-        </elected>
       </electionResult>
     </electionGroupResult>
     <electionGroupResult>
@@ -166,11 +146,6 @@
             <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
         </countingCircleResult>
-        <elected>
-          <majorityElection>
-            <isElectionResultComplete>true</isElectionResultComplete>
-          </majorityElection>
-        </elected>
       </electionResult>
     </electionGroupResult>
     <numberOfEntries>4</numberOfEntries>

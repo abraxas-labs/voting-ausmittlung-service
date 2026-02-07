@@ -250,39 +250,6 @@ public class DomainOfInfluenceRepo : DbRepository<DataContext, DomainOfInfluence
         return relevantDois;
     }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened inerpolated string parameters.")]
-    public async Task<List<DomainOfInfluence>> GetDoisWithHideLowerDoiInReportsFlag(Guid relevantParentDoiId)
-    {
-        var idColumnName = GetDelimitedColumnName(x => x.Id);
-        var parentIdColumnName = GetDelimitedColumnName(x => x.ParentId);
-        var hideLowerDoiInReportsColumnName = GetDelimitedColumnName(x => x.HideLowerDomainOfInfluencesInReports);
-
-        var doiIdsWithFlagSet = await Context.DomainOfInfluences.FromSqlRaw(
-            $@"
-                WITH RECURSIVE d AS (
-	                SELECT {DelimitedSchemaAndTableName}.*
-                    FROM {DelimitedSchemaAndTableName}
-                    WHERE {idColumnName} = {{0}}
-                    UNION
-                    SELECT x.*
-                    FROM d
-                    JOIN {DelimitedSchemaAndTableName} x ON x.{parentIdColumnName} = d.{idColumnName}
-                )
-                SELECT * FROM d
-                WHERE {hideLowerDoiInReportsColumnName} = TRUE
-                ",
-            relevantParentDoiId)
-            .Select(doi => doi.Id)
-            .ToListAsync();
-
-        // ef core does not support include on complex sql queries
-        return await Query()
-            .AsSplitQuery()
-            .Where(doi => doiIdsWithFlagSet.Contains(doi.Id))
-            .Include(doi => doi.CountingCircles)
-            .ToListAsync();
-    }
-
     internal string GetColumnName<TProp>(Expression<Func<DomainOfInfluence, TProp>> memberAccess)
         => GetDelimitedColumnName(memberAccess);
 }

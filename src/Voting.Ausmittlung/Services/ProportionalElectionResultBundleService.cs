@@ -95,6 +95,7 @@ public class ProportionalElectionResultBundleService : ServiceBase
         var candidateBallots = _mapper.Map<List<ProportionalElectionResultBallotCandidate>>(request.Candidates);
         var ballotNumber = await _proportionalElectionResultBundleWriter.CreateBallot(
             GuidParser.Parse(request.BundleId),
+            request.BallotNumber,
             request.EmptyVoteCount,
             candidateBallots);
         return new CreateProportionalElectionResultBallotResponse
@@ -156,6 +157,13 @@ public class ProportionalElectionResultBundleService : ServiceBase
     public override async Task<Empty> SucceedBundleReview(SucceedProportionalElectionBundleReviewRequest request, ServerCallContext context)
     {
         await _proportionalElectionResultBundleWriter.SucceedBundleReview(request.BundleIds.Select(GuidParser.Parse).ToList());
+        return ProtobufEmpty.Instance;
+    }
+
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.ResetToSubmissionFinished)]
+    public override async Task<Empty> BundleResetToSubmissionFinished(ProportionalElectionResultBundleResetToSubmissionFinishedRequest request, ServerCallContext context)
+    {
+        await _proportionalElectionResultBundleWriter.ResetToSubmissionFinished(GuidParser.Parse(request.BundleId));
         return ProtobufEmpty.Instance;
     }
 }

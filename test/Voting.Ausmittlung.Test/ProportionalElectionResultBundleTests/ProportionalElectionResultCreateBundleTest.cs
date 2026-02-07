@@ -264,7 +264,7 @@ public class ProportionalElectionResultCreateBundleTest : ProportionalElectionRe
     }
 
     [Fact]
-    public async Task TestShouldThrowDuplicatedManualBundleNumber()
+    public async Task TestShouldCreateDuplicatedManualBundleNumber()
     {
         await _resultClient.DefineEntryAsync(new DefineProportionalElectionResultEntryRequest
         {
@@ -281,14 +281,13 @@ public class ProportionalElectionResultCreateBundleTest : ProportionalElectionRe
         });
 
         await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
-        await AssertStatus(
-            async () => await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10)),
-            StatusCode.InvalidArgument,
-            "bundle number is already in use");
+        var created = await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
+        created.BundleNumber.Should().Be(10);
+        created.BundleId.Should().NotBeEmpty();
     }
 
     [Fact]
-    public async Task TestShouldReturnIfDeletedBundleNumberIsReused()
+    public async Task TestShouldNotThrowIfDeletedBundleNumberIsReused()
     {
         await _resultClient.DefineEntryAsync(new DefineProportionalElectionResultEntryRequest
         {
@@ -312,6 +311,9 @@ public class ProportionalElectionResultCreateBundleTest : ProportionalElectionRe
                 BundleId = bundleResp.BundleId,
             });
         await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
+        var created = await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
+        created.BundleNumber.Should().Be(10);
+        created.BundleId.Should().NotBeEmpty();
     }
 
     [Theory]

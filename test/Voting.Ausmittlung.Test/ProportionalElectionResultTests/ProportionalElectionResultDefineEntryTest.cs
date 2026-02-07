@@ -224,7 +224,6 @@ public class ProportionalElectionResultDefineEntryTest : ProportionalElectionRes
 
     protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return RolesMockedData.ErfassungElectionSupporter;
         yield return RolesMockedData.ErfassungElectionAdmin;
     }
 

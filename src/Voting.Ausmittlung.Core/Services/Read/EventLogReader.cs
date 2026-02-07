@@ -51,13 +51,15 @@ public class EventLogReader
         string Id,
         IReadOnlySet<string> EventTypes,
         Guid? PoliticalBusinessId,
-        Guid? PoliticalBusinessResultId)
+        Guid? PoliticalBusinessResultId,
+        Guid? PoliticalBusinessUnionId)
     {
         public bool Filter(EventProcessedMessage e)
         {
             return EventTypes.Contains(e.EventType)
                    && (!PoliticalBusinessId.HasValue || e.PoliticalBusinessId == PoliticalBusinessId)
-                   && (!PoliticalBusinessResultId.HasValue || e.PoliticalBusinessResultId == PoliticalBusinessResultId);
+                   && (!PoliticalBusinessResultId.HasValue || e.PoliticalBusinessResultId == PoliticalBusinessResultId)
+                   && (!PoliticalBusinessUnionId.HasValue || e.PoliticalBusinessUnionId == PoliticalBusinessUnionId);
         }
     }
 }

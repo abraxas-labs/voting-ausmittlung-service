@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Voting.Ausmittlung.Core.Auth;
@@ -34,6 +35,13 @@ public static class ResultImportEVotingMockedData
             FirstName = "Hans",
             LastName = "Meier",
             SecureConnectId = "c94eb4da-cf1a-4fb1-bad3-113fd9750579",
+        },
+        EmptyCountingCircles = new List<EmptyImportCountingCircle>
+        {
+            new EmptyImportCountingCircle
+            {
+                CountingCircleId = CountingCircleMockedData.StGallen.Id,
+            },
         },
         ImportedCountingCircles = new List<ResultImportCountingCircle>
         {
@@ -72,6 +80,13 @@ public static class ResultImportEVotingMockedData
             LastName = "Meier",
             SecureConnectId = "c94eb4da-cf1a-4fb1-bad3-113fd9750579",
         },
+        EmptyCountingCircles = new List<EmptyImportCountingCircle>
+        {
+            new EmptyImportCountingCircle
+            {
+                CountingCircleId = CountingCircleMockedData.Gossau.Id,
+            },
+        },
         IgnoredCountingCircles = new List<IgnoredImportCountingCircle>
         {
             new()
@@ -99,6 +114,13 @@ public static class ResultImportEVotingMockedData
             FirstName = "Hans",
             LastName = "Meier",
             SecureConnectId = "9f53f1aa-dd60-40b8-b028-3c7686799215",
+        },
+        EmptyCountingCircles = new List<EmptyImportCountingCircle>
+        {
+            new EmptyImportCountingCircle
+            {
+                CountingCircleId = CountingCircleMockedData.Gossau.Id,
+            },
         },
         ImportedCountingCircles = new List<ResultImportCountingCircle>
         {
@@ -141,6 +163,7 @@ public static class ResultImportEVotingMockedData
                 uzwil1.ContestId,
                 null,
                 "mock-message-id",
+                uzwil1.EmptyCountingCircles.Select(x => x.CountingCircleId).ToList(),
                 uzwil1.IgnoredCountingCircles);
             uzwil1Aggregate.Complete();
 
@@ -162,6 +185,7 @@ public static class ResultImportEVotingMockedData
                 uzwil2.ContestId,
                 null,
                 "mock-message-id",
+                uzwil2.EmptyCountingCircles.Select(x => x.CountingCircleId).ToList(),
                 uzwil2.IgnoredCountingCircles);
             uzwil2Aggregate.Complete();
 

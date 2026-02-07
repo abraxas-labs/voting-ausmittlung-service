@@ -76,13 +76,6 @@ public class DoubleProportionalAlgorithm
             }
 
             column.SuperApportionmentNumberOfMandatesFromLotDecision = lotDecisionNumberOfMandates - column.SuperApportionmentNumberOfMandatesExclLotDecision;
-            column.SubApportionmentNumberOfMandates = 0;
-
-            foreach (var cell in column.Cells)
-            {
-                cell.SubApportionmentNumberOfMandatesExclLotDecision = 0;
-                cell.SubApportionmentNumberOfMandatesFromLotDecision = 0;
-            }
         }
 
         dpResult.SuperApportionmentNumberOfMandates = dpResult.Columns.Sum(c => c.SuperApportionmentNumberOfMandates);
@@ -95,6 +88,7 @@ public class DoubleProportionalAlgorithm
             return;
         }
 
+        ResetSubApportionment(dpResult);
         CalculateSubApportionment(dpResult);
     }
 
@@ -178,26 +172,38 @@ public class DoubleProportionalAlgorithm
             return;
         }
 
-        var exactColumnVoterNumbers = new Rational[columnsWithQuorumReached.Count];
+        var exactColumnWithQuorumReachedVoterNumbers = new Rational[columnsWithQuorumReached.Count];
+        var colWithQuorumReached = 0;
 
         // Calculate "Wählerzahl" on each list, union list and the whole election union.
-        for (var col = 0; col < columnsWithQuorumReached.Count; col++)
+        foreach (var column in dpResult.Columns)
         {
-            var column = columnsWithQuorumReached[col];
             column.VoterNumber = 0;
-            exactColumnVoterNumbers[col] = Rational.Zero;
+
+            if (column.AnyRequiredQuorumReached)
+            {
+                exactColumnWithQuorumReachedVoterNumbers[colWithQuorumReached] = Rational.Zero;
+            }
 
             foreach (var cell in column.Cells)
             {
                 var exactCellVoterNumber = new Rational(cell.VoteCount, cell.Row.NumberOfMandates);
                 cell.VoterNumber = (decimal)exactCellVoterNumber;
-
                 column.VoterNumber += (decimal)exactCellVoterNumber;
-                exactColumnVoterNumbers[col] += exactCellVoterNumber;
+
+                if (column.AnyRequiredQuorumReached)
+                {
+                    exactColumnWithQuorumReachedVoterNumbers[colWithQuorumReached] += exactCellVoterNumber;
+                }
+            }
+
+            if (column.AnyRequiredQuorumReached)
+            {
+                colWithQuorumReached++;
             }
         }
 
-        dpResult.VoterNumber = columnsWithQuorumReached.Sum(x => x.VoterNumber);
+        dpResult.VoterNumber = dpResult.Columns.Sum(x => x.VoterNumber);
 
         foreach (var row in dpResult.Rows)
         {
@@ -210,7 +216,7 @@ public class DoubleProportionalAlgorithm
         try
         {
             saintLagueResult = saintLagueAlgorithm.Calculate(
-                exactColumnVoterNumbers,
+                exactColumnWithQuorumReachedVoterNumbers,
                 dpResult.NumberOfMandates);
         }
         catch (DoubleProportionalAlgorithmException ex)
@@ -677,6 +683,30 @@ public class DoubleProportionalAlgorithm
         if (!mandateAlgorithm.IsDoubleProportional())
         {
             throw new ArgumentException($"Cannot build a double proportional result with mandate algorithm {mandateAlgorithm}");
+        }
+    }
+
+    private void ResetSubApportionment(DoubleProportionalResult dpResult)
+    {
+        dpResult.SubApportionmentNumberOfMandates = 0;
+        dpResult.HasSubApportionmentRequiredLotDecision = false;
+
+        foreach (var column in dpResult.Columns)
+        {
+            column.SubApportionmentNumberOfMandates = 0;
+            column.SubApportionmentInitialNegativeTies = 0;
+
+            foreach (var cell in column.Cells)
+            {
+                cell.SubApportionmentNumberOfMandatesExclLotDecision = 0;
+                cell.SubApportionmentNumberOfMandatesFromLotDecision = 0;
+                cell.SubApportionmentLotDecisionRequired = false;
+            }
+        }
+
+        foreach (var row in dpResult.Rows)
+        {
+            row.SubApportionmentNumberOfMandates = 0;
         }
     }
 }

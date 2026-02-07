@@ -6,6 +6,7 @@
     "BallotBundleSize": 10,
     "BallotBundleSampleSize": 2,
     "AutomaticBallotBundleNumberGeneration": true,
+    "AutomaticBallotNumberGeneration": true,
     "BallotNumberGeneration": 2,
     "AutomaticEmptyVoteCounting": false,
     "CandidateCheckDigit": true

@@ -63,7 +63,7 @@ public class ProportionalElectionList : BaseEntity
     public ICollection<ProportionalElectionEndResultListLotDecisionEntry> ListLotDecisionEntries { get; set; }
         = new HashSet<ProportionalElectionEndResultListLotDecisionEntry>();
 
-    // TODO: Simplify with jira ticket 398
+    // TODO: Simplify with ticket 398
     [NotMapped]
     public ProportionalElectionListUnion? ProportionalElectionListUnion =>
         ProportionalElectionListUnionEntries

@@ -113,6 +113,7 @@
       },
       "BallotBundleSampleSizePercent": 30,
       "AutomaticBallotBundleNumberGeneration": true,
+      "AutomaticBallotNumberGeneration": false,
       "ResultEntry": 2,
       "EnforceResultEntryForCountingCircles": false,
       "ReviewProcedure": 1,
@@ -120,7 +121,7 @@
       "Type": 1
     },
     "Entry": 2,
-    "State": 1,
+    "State": 2,
     "SubmissionDoneTimestamp": null,
     "TotalCountOfVoters": 15000,
     "Results": [
@@ -162,6 +163,7 @@
     "EntryParams": {
       "BallotBundleSampleSizePercent": 100,
       "AutomaticBallotBundleNumberGeneration": false,
+      "AutomaticBallotNumberGeneration": true,
       "ReviewProcedure": 1
     },
     "CountingCircle": {
@@ -204,6 +206,7 @@
         "FullName": "Hans Muster"
       },
       "ReviewedBy": null,
+      "BallotNumbers": [],
       "BallotNumbersToReview": [],
       "ProtocolExport": null,
       "Logs": [
@@ -220,7 +223,8 @@
           },
           "State": 1
         }
-      ]
+      ],
+      "CountOfModifiedBallots": 0
     },
     {
       "Id": "27d9ee7e-de18-4c95-af40-7d6deee61197",
@@ -234,6 +238,7 @@
         "FullName": "Hans Muster"
       },
       "ReviewedBy": null,
+      "BallotNumbers": [],
       "BallotNumbersToReview": [],
       "ProtocolExport": null,
       "Logs": [
@@ -250,7 +255,8 @@
           },
           "State": 1
         }
-      ]
+      ],
+      "CountOfModifiedBallots": 0
     },
     {
       "Id": "a2249597-4a74-4d27-a66b-e5159eb470a4",
@@ -264,6 +270,7 @@
         "FullName": "Someone Else"
       },
       "ReviewedBy": null,
+      "BallotNumbers": [],
       "BallotNumbersToReview": [],
       "ProtocolExport": null,
       "Logs": [
@@ -280,7 +287,8 @@
           },
           "State": 1
         }
-      ]
+      ],
+      "CountOfModifiedBallots": 0
     },
     {
       "Id": "13351714-0973-41be-992d-d2b32605db5d",
@@ -294,6 +302,7 @@
         "FullName": " "
       },
       "ReviewedBy": null,
+      "BallotNumbers": [],
       "BallotNumbersToReview": [],
       "ProtocolExport": null,
       "Logs": [
@@ -310,7 +319,8 @@
           },
           "State": 1
         }
-      ]
+      ],
+      "CountOfModifiedBallots": 0
     },
     {
       "Id": "cdaea8af-9455-46cb-8437-1c29eea8db43",
@@ -324,6 +334,7 @@
         "FullName": " "
       },
       "ReviewedBy": null,
+      "BallotNumbers": [],
       "BallotNumbersToReview": [],
       "ProtocolExport": null,
       "Logs": [
@@ -340,7 +351,8 @@
           },
           "State": 1
         }
-      ]
+      ],
+      "CountOfModifiedBallots": 0
     }
   ]
 }

@@ -28,6 +28,7 @@ public static class VoteResultBallotMockedData
         {
             Id = Guid.Parse(IdGossauBallot1),
             Number = 1,
+            Index = 1,
             QuestionAnswers = new List<VoteResultBallotQuestionAnswer>
             {
                     new VoteResultBallotQuestionAnswer
@@ -57,6 +58,7 @@ public static class VoteResultBallotMockedData
         {
             Id = Guid.Parse(IdGossauBallot2),
             Number = 2,
+            Index = 2,
             QuestionAnswers = new List<VoteResultBallotQuestionAnswer>
             {
                     new VoteResultBallotQuestionAnswer
@@ -86,6 +88,7 @@ public static class VoteResultBallotMockedData
         {
             Id = Guid.Parse(IdGossauBallot10),
             Number = 1,
+            Index = 1,
             QuestionAnswers = new List<VoteResultBallotQuestionAnswer>
             {
                     new VoteResultBallotQuestionAnswer
@@ -115,6 +118,7 @@ public static class VoteResultBallotMockedData
         {
             Id = Guid.Parse(IdGossauBallot30),
             Number = 1,
+            Index = 1,
             QuestionAnswers = new List<VoteResultBallotQuestionAnswer>
             {
                     new VoteResultBallotQuestionAnswer
@@ -190,7 +194,7 @@ public static class VoteResultBallotMockedData
                         Answer = x.Answer,
                     })
                     .ToList();
-                bundleAggregate.CreateBallot(questionAnswers, tieBreakQuestionAnswers, ballot.Bundle.BallotResult.VoteResult.Vote.ContestId);
+                bundleAggregate.CreateBallot(null, questionAnswers, tieBreakQuestionAnswers, ballot.Bundle.BallotResult.VoteResult.Vote.ContestId);
                 await aggregateRepository.Save(bundleAggregate);
             }
         });

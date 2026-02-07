@@ -50,6 +50,7 @@ public class ProportionalElectionResultCreateBallotTest : ProportionalElectionRe
                 BallotBundleSize = 10,
                 BallotBundleSampleSize = 1,
                 AutomaticEmptyVoteCounting = true,
+                AutomaticBallotNumberGeneration = true,
                 BallotNumberGeneration = SharedProto.BallotNumberGeneration.ContinuousForAllBundles,
                 ReviewProcedure = SharedProto.ProportionalElectionReviewProcedure.Electronically,
             },
@@ -69,6 +70,40 @@ public class ProportionalElectionResultCreateBallotTest : ProportionalElectionRe
     }
 
     [Fact]
+    public async Task TestShouldReturnAsErfassungElectionAdminWithManualBallotNumber()
+    {
+        await _resultClient.DefineEntryAsync(new DefineProportionalElectionResultEntryRequest
+        {
+            ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
+            ResultEntryParams = new DefineProportionalElectionResultEntryParamsRequest
+            {
+                BallotBundleSize = 10,
+                BallotBundleSampleSize = 1,
+                AutomaticEmptyVoteCounting = true,
+                AutomaticBallotNumberGeneration = false,
+                BallotNumberGeneration = SharedProto.BallotNumberGeneration.ContinuousForAllBundles,
+                ReviewProcedure = SharedProto.ProportionalElectionReviewProcedure.Electronically,
+            },
+        });
+        await RunEvents<ProportionalElectionResultEntryDefined>();
+
+        var bundleResponse = await ErfassungCreatorClient.CreateBundleAsync(new CreateProportionalElectionResultBundleRequest
+        {
+            BundleNumber = 10,
+            ListId = ProportionalElectionMockedData.ListId1GossauProportionalElectionInContestStGallen,
+            ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
+        });
+        await RunEvents<ProportionalElectionResultBundleCreated>();
+
+        await ErfassungElectionAdminClient.CreateBallotAsync(NewValidRequest(x =>
+        {
+            x.BundleId = bundleResponse.BundleId;
+            x.BallotNumber = 235;
+        }));
+        EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBallotCreated>().MatchSnapshot(x => x.BundleId);
+    }
+
+    [Fact]
     public async Task TestShouldReturnWithAutomaticEmptyVoteCount()
     {
         await _resultClient.DefineEntryAsync(new DefineProportionalElectionResultEntryRequest
@@ -80,6 +115,7 @@ public class ProportionalElectionResultCreateBallotTest : ProportionalElectionRe
                 BallotBundleSampleSize = 2,
                 AutomaticEmptyVoteCounting = true,
                 AutomaticBallotBundleNumberGeneration = true,
+                AutomaticBallotNumberGeneration = true,
                 BallotNumberGeneration = SharedProto.BallotNumberGeneration.ContinuousForAllBundles,
                 ReviewProcedure = SharedProto.ProportionalElectionReviewProcedure.Electronically,
             },
@@ -312,7 +348,7 @@ public class ProportionalElectionResultCreateBallotTest : ProportionalElectionRe
         var ev = EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBallotCreated>();
         ev.BallotNumber = int.MaxValue;
 
-        await TestEventPublisher.Publish(ev);
+        await TestEventPublisher.Publish(GetNextEventNumber(), ev);
         await AssertStatus(
             async () => await ErfassungCreatorClient.CreateBallotAsync(NewValidRequest()),
             StatusCode.Internal,

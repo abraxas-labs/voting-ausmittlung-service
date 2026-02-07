@@ -68,7 +68,7 @@ public class MajorityElectionResultService : ServiceBase
         return _mapper.Map<ProtoModels.MajorityElectionBallotGroupResults>(result);
     }
 
-    [AuthorizePermission(Permissions.PoliticalBusinessResult.EnterResults)]
+    [AuthorizePermission(Permissions.PoliticalBusinessResult.DefineEntry)]
     public override async Task<Empty> DefineEntry(DefineMajorityElectionResultEntryRequest request, ServerCallContext context)
     {
         await _majorityElectionResultWriter.DefineEntry(

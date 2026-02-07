@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
@@ -28,11 +27,13 @@ public class ProportionalElectionResultBundleProcessor :
     IEventProcessor<ProportionalElectionResultBallotUpdated>,
     IEventProcessor<ProportionalElectionResultBallotDeleted>,
     IEventProcessor<ProportionalElectionResultBundleSubmissionFinished>,
-    IEventProcessor<ProportionalElectionResultBundleCorrectionFinished>
+    IEventProcessor<ProportionalElectionResultBundleCorrectionFinished>,
+    IEventProcessor<ProportionalElectionResultBundleResetToSubmissionFinished>
 {
     private readonly IDbRepository<DataContext, ProportionalElectionResultBundle> _bundleRepo;
     private readonly IDbRepository<DataContext, ProportionalElectionResultBallot> _ballotRepo;
     private readonly IDbRepository<DataContext, ProportionalElectionResult> _resultRepo;
+    private readonly IDbRepository<DataContext, ProtocolExport> _protocolExportRepo;
     private readonly ProportionalElectionResultBallotBuilder _ballotBuilder;
     private readonly ProportionalElectionResultBuilder _resultBuilder;
     private readonly EventLogger _eventLogger;
@@ -42,6 +43,7 @@ public class ProportionalElectionResultBundleProcessor :
         IDbRepository<DataContext, ProportionalElectionResultBundle> bundleRepo,
         IDbRepository<DataContext, ProportionalElectionResultBallot> ballotRepo,
         IDbRepository<DataContext, ProportionalElectionResult> resultRepo,
+        IDbRepository<DataContext, ProtocolExport> protocolExportRepo,
         ProportionalElectionResultBallotBuilder ballotBuilder,
         ProportionalElectionResultBuilder resultBuilder,
         EventLogger eventLogger,
@@ -50,6 +52,7 @@ public class ProportionalElectionResultBundleProcessor :
         _bundleRepo = bundleRepo;
         _ballotRepo = ballotRepo;
         _resultRepo = resultRepo;
+        _protocolExportRepo = protocolExportRepo;
         _ballotBuilder = ballotBuilder;
         _resultBuilder = resultBuilder;
         _eventLogger = eventLogger;
@@ -80,12 +83,13 @@ public class ProportionalElectionResultBundleProcessor :
     public async Task Process(ProportionalElectionResultBallotCreated eventData)
     {
         var bundleId = GuidParser.Parse(eventData.BundleId);
+        var bundleExists = await UpdateCountOfBallots(bundleId, 1);
 
         // A bundle may not exist in the read model, if someone triggered a "ProportionalElectionResultEntryDefined"
         // event (which deletes all bundles in the read model, but the aggregates still exist),
         // between a bundle create and a ballot create event.
         // Thats why we just log and skip the processing of this event, if the bundle does not exist.
-        if (!await _ballotBuilder.CreateBallot(bundleId, eventData.BallotNumber, eventData.EmptyVoteCount, eventData.Candidates))
+        if (!bundleExists)
         {
             _logger.LogWarning(
                 "Could not process {EventName} with ballot number {BallotNumber} because the bundle {BundleId} does not exist. Skip processing",
@@ -95,18 +99,14 @@ public class ProportionalElectionResultBundleProcessor :
             return;
         }
 
-        await UpdateCountOfBallots(bundleId, 1);
+        await _ballotBuilder.CreateBallot(bundleId, eventData);
         _eventLogger.LogBundleEvent(eventData, bundleId, politicalBusinessResultId: GuidParser.ParseNullable(eventData.ElectionResultId));
     }
 
     public async Task Process(ProportionalElectionResultBallotUpdated eventData)
     {
         var bundleId = GuidParser.Parse(eventData.BundleId);
-        await _ballotBuilder.UpdateBallot(
-            bundleId,
-            eventData.BallotNumber,
-            eventData.EmptyVoteCount,
-            eventData.Candidates);
+        await _ballotBuilder.UpdateBallot(bundleId, eventData);
         _eventLogger.LogBundleEvent(eventData, bundleId, politicalBusinessResultId: GuidParser.ParseNullable(eventData.ElectionResultId));
     }
 
@@ -185,6 +185,22 @@ public class ProportionalElectionResultBundleProcessor :
         _eventLogger.LogBundleEvent(eventData, bundleId, politicalBusinessResultId: GuidParser.ParseNullable(eventData.ElectionResultId), log);
     }
 
+    public async Task Process(ProportionalElectionResultBundleResetToSubmissionFinished eventData)
+    {
+        var bundleId = GuidParser.Parse(eventData.BundleId);
+        var user = eventData.EventInfo.User.ToDataUser();
+        var timestamp = eventData.EventInfo.Timestamp.ToDateTime();
+        var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
+
+        var bundle = await _bundleRepo.GetByKey(bundleId)
+            ?? throw new EntityNotFoundException(bundleId);
+        await UpdateCountOfBundlesNotReviewedOrDeleted(electionResultId, 1);
+        await RemoveVotesFromResults(bundle);
+
+        var log = await ProcessBundleToReadyForReview(bundleId, eventData.SampleBallotNumbers, user, timestamp);
+        _eventLogger.LogBundleEvent(eventData, bundleId, electionResultId, log);
+    }
+
     private async Task AddVotesToResults(ProportionalElectionResultBundle bundle)
     {
         await _resultBuilder.AddVotesFromBundle(bundle);
@@ -197,11 +213,12 @@ public class ProportionalElectionResultBundleProcessor :
         await UpdateTotalCountOfBallots(bundle, -1);
     }
 
-    private async Task UpdateCountOfBallots(Guid bundleId, int delta)
+    private async Task<bool> UpdateCountOfBallots(Guid bundleId, int delta)
     {
-        await _bundleRepo.Query()
+        var affected = await _bundleRepo.Query()
             .Where(x => x.Id == bundleId)
             .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.CountOfBallots, x => x.CountOfBallots + delta));
+        return affected == 1;
     }
 
     private async Task<ProportionalElectionResultBundleLog> UpdateBundleState(
@@ -210,11 +227,27 @@ public class ProportionalElectionResultBundleProcessor :
         User user,
         DateTime timestamp)
     {
+        var oldState = bundle.State;
         bundle.State = newState;
         if (newState is BallotBundleState.Reviewed or BallotBundleState.InCorrection)
         {
             // Create new user since owned entity instances cannot be used by multiple owners
             bundle.ReviewedBy = new User
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                SecureConnectId = user.SecureConnectId,
+            };
+        }
+
+        if (newState == BallotBundleState.ReadyForReview && oldState == BallotBundleState.InCorrection)
+        {
+            await _protocolExportRepo.Query()
+                .Where(x => x.PoliticalBusinessResultBundleId == bundle.Id)
+                .ExecuteDeleteAsync();
+
+            // Whoever corrected the bundle should be the new creator
+            bundle.CreatedBy = new User
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
@@ -231,55 +264,43 @@ public class ProportionalElectionResultBundleProcessor :
 
     private async Task UpdateCountOfBundlesNotReviewedOrDeleted(Guid electionResultId, int delta)
     {
-        var result = await _resultRepo.GetByKey(electionResultId)
-                     ?? throw new EntityNotFoundException(electionResultId);
-        result.CountOfBundlesNotReviewedOrDeleted += delta;
-        if (result.CountOfBundlesNotReviewedOrDeleted < 0)
-        {
-            throw new ValidationException("Count of bundles not reviewed or deleted cannot be negative");
-        }
+        var affected = await _resultRepo.Query()
+            .Where(x => x.Id == electionResultId && x.CountOfBundlesNotReviewedOrDeleted + delta >= 0)
+            .ExecuteUpdateAsync(setters => setters.SetProperty(
+                x => x.CountOfBundlesNotReviewedOrDeleted,
+                x => x.CountOfBundlesNotReviewedOrDeleted + delta));
 
-        await _resultRepo.Update(result);
+        EntityNotFoundException.ThrowIfNoRowsAffected(affected, electionResultId);
     }
 
     private async Task UpdateTotalCountOfBallots(ProportionalElectionResultBundle bundle, int factor)
     {
-        var result = await _resultRepo.GetByKey(bundle.ElectionResultId)
-                     ?? throw new EntityNotFoundException(bundle.ElectionResultId);
-        if (bundle.ListId.HasValue)
-        {
-            result.ConventionalSubTotal.TotalCountOfModifiedLists += bundle.CountOfBallots * factor;
-        }
-        else
-        {
-            result.ConventionalSubTotal.TotalCountOfListsWithoutParty += bundle.CountOfBallots * factor;
-        }
+        var delta = bundle.CountOfBallots * factor;
+        var query = _resultRepo.Query()
+            .Where(x => x.Id == bundle.ElectionResultId);
 
-        await _resultRepo.Update(result);
+        var affected = bundle.ListId.HasValue
+            ? await query.ExecuteUpdateAsync(setter => setter.SetProperty(
+                x => x.ConventionalSubTotal.TotalCountOfModifiedLists,
+                x => x.ConventionalSubTotal.TotalCountOfModifiedLists + delta))
+            : await query.ExecuteUpdateAsync(setter => setter.SetProperty(
+                x => x.ConventionalSubTotal.TotalCountOfListsWithoutParty,
+                x => x.ConventionalSubTotal.TotalCountOfListsWithoutParty + delta));
+
+        EntityNotFoundException.ThrowIfNoRowsAffected(affected, bundle.ElectionResultId);
     }
 
     private async Task<ProportionalElectionResultBundleLog> ProcessBundleToReadyForReview(Guid bundleId, IList<int> sampleBallotNumbers, User user, DateTime timestamp)
     {
         var bundle = await _bundleRepo.GetByKey(bundleId)
-                     ?? throw new EntityNotFoundException(bundleId);
+            ?? throw new EntityNotFoundException(bundleId);
         var log = await UpdateBundleState(bundle, BallotBundleState.ReadyForReview, user, timestamp);
 
-        if (sampleBallotNumbers.Count == 0)
-        {
-            return log;
-        }
-
-        var ballots = await _ballotRepo.Query()
-            .Where(b =>
-                b.BundleId == bundleId
-                && (sampleBallotNumbers.Contains(b.Number) || b.MarkedForReview))
-            .ToListAsync();
-        foreach (var ballot in ballots)
-        {
-            ballot.MarkedForReview = sampleBallotNumbers.Contains(ballot.Number);
-        }
-
-        await _ballotRepo.UpdateRange(ballots);
+        await _ballotRepo.Query()
+            .Where(b => b.BundleId == bundleId)
+            .ExecuteUpdateAsync(setters => setters.SetProperty(
+                x => x.MarkedForReview,
+                x => sampleBallotNumbers.Contains(x.Number)));
         return log;
     }
 }

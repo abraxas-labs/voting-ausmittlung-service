@@ -34,7 +34,7 @@ public static class PdfProportionalElectionListResultVoteSourceBuilder
             {
                 if (result.List != null && voteSource.List?.Id == result.List.Id)
                 {
-                    voteSource.TotalVoteCount = result.BlankRowsCount + voteSource.VoteCount;
+                    voteSource.TotalVoteCount = result.ModifiedListBlankRowsCount + voteSource.VoteCount;
                 }
                 else
                 {
@@ -65,7 +65,7 @@ public static class PdfProportionalElectionListResultVoteSourceBuilder
             {
                 if (result.List != null && voteSource.List?.Id == result.List.Id)
                 {
-                    voteSource.TotalVoteCount = result.BlankRowsCount + voteSource.VoteCount;
+                    voteSource.TotalVoteCount = result.ModifiedListBlankRowsCount + voteSource.VoteCount;
                 }
                 else
                 {

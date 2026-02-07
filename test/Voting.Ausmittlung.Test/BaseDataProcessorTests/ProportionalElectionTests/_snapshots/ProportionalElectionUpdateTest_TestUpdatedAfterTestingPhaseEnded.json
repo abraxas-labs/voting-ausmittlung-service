@@ -4,6 +4,7 @@
   "BallotBundleSize": 50,
   "BallotBundleSampleSize": 1,
   "AutomaticBallotBundleNumberGeneration": true,
+  "AutomaticBallotNumberGeneration": false,
   "BallotNumberGeneration": 2,
   "AutomaticEmptyVoteCounting": false,
   "EnforceEmptyVoteCountingForCountingCircles": true,

@@ -20,6 +20,8 @@ public class ResultImportProfile : Profile
         CreateMap<IEnumerable<DataModels.ResultImport>, ProtoModels.ResultImports>()
             .ForMember(dst => dst.Imports, opts => opts.MapFrom(x => x));
         CreateMap<DataModels.IgnoredImportCountingCircle, ProtoModels.ResultImportIgnoredCountingCircle>();
+        CreateMap<DataModels.EmptyImportCountingCircle, ProtoModels.CountingCircle>()
+            .IncludeMembers(opts => opts.CountingCircle);
         CreateMap<DataModels.ResultImportCountingCircle, ProtoModels.CountingCircle>()
             .IncludeMembers(x => x.CountingCircle)
             .ForMember(dst => dst.Id, opts => opts.MapFrom(x => x.CountingCircle!.BasisCountingCircleId));

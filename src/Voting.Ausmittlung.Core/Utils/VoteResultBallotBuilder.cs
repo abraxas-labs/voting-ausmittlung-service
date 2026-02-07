@@ -11,6 +11,7 @@ using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Exceptions;
+using Voting.Ausmittlung.Core.Extensions;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Database.Repositories;
@@ -50,6 +51,7 @@ public class VoteResultBallotBuilder
         var ballot = new VoteResultBallot
         {
             Number = data.BallotNumber,
+            Index = data.Index ?? data.BallotNumber,
             BundleId = bundleId,
         };
 
@@ -63,18 +65,28 @@ public class VoteResultBallotBuilder
         VoteResultBallotUpdated data)
     {
         var ballot = await _ballotRepo
-                         .Query()
-                         .AsTracking()
-                         .AsSplitQuery()
-                         .Include(x => x.QuestionAnswers)
-                         .Include(x => x.TieBreakQuestionAnswers)
-                         .Include(x => x.Bundle).ThenInclude(x => x.BallotResult).ThenInclude(x => x.Ballot).ThenInclude(x => x.BallotQuestions)
-                         .Include(x => x.Bundle).ThenInclude(x => x.BallotResult).ThenInclude(x => x.Ballot).ThenInclude(x => x.TieBreakQuestions)
-                         .FirstOrDefaultAsync(x => x.Number == data.BallotNumber && x.BundleId == bundleId)
-                     ?? throw new EntityNotFoundException(new { bundleId, data.BallotNumber });
+            .Query()
+            .AsTracking()
+            .AsSplitQuery()
+            .Include(x => x.QuestionAnswers)
+            .Include(x => x.TieBreakQuestionAnswers)
+            .Include(x => x.Bundle).ThenInclude(x => x.BallotResult).ThenInclude(x => x.Ballot).ThenInclude(x => x.BallotQuestions)
+            .Include(x => x.Bundle).ThenInclude(x => x.BallotResult).ThenInclude(x => x.Ballot).ThenInclude(x => x.TieBreakQuestions)
+            .FirstOrDefaultAsync(x => x.Number == data.BallotNumber && x.BundleId == bundleId)
+            ?? throw new EntityNotFoundException(new { bundleId, data.BallotNumber });
 
         ReplaceBallotQuestionAnswers(ballot, data.QuestionAnswers, ballot.Bundle.BallotResult.Ballot.BallotQuestions);
         ReplaceBallotTieBreakQuestionAnswers(ballot, data.TieBreakQuestionAnswers, ballot.Bundle.BallotResult.Ballot.TieBreakQuestions);
+
+        if (ballot.Bundle.State > BallotBundleState.InProcess)
+        {
+            ballot.Logs.Add(new VoteResultBallotLog
+            {
+                User = data.EventInfo.User.ToDataUser(),
+                Timestamp = data.EventInfo.Timestamp.ToDateTime(),
+            });
+        }
+
         await _dbContext.SaveChangesAsync();
     }
 

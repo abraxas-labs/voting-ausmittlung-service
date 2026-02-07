@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
@@ -11,6 +12,7 @@ using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
@@ -37,6 +39,19 @@ public class VoteResultUpdateBallotTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestShouldReturnAsErfassungElectionAdminWithRestartedBallotNumber()
     {
+        var voteResultClient = CreateService<VoteResultService.VoteResultServiceClient>(RolesMockedData.ErfassungElectionAdmin);
+        await voteResultClient.DefineEntryAsync(new DefineVoteResultEntryRequest
+        {
+            VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
+            ResultEntry = SharedProto.VoteResultEntry.Detailed,
+            ResultEntryParams = new DefineVoteResultEntryParamsRequest
+            {
+                AutomaticBallotNumberGeneration = true,
+                ReviewProcedure = SharedProto.VoteReviewProcedure.Electronically,
+                BallotBundleSampleSizePercent = 10,
+            },
+        });
+
         var bundleResponse = await ErfassungElectionAdminClient.CreateBundleAsync(new CreateVoteResultBundleRequest
         {
             BundleNumber = 10,
@@ -59,6 +74,13 @@ public class VoteResultUpdateBallotTest : VoteResultBundleBaseTest
     {
         await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBallotUpdated>().MatchSnapshot();
+
+        // This should not write any logs, since it is still in progress
+        await RunEvents<VoteResultBallotUpdated>();
+        var logsCount = await RunOnDb(db => db.VoteResultBallotLogs
+            .Where(x => x.Ballot.BundleId == VoteResultBundleMockedData.GossauBundle1.Id)
+            .CountAsync());
+        logsCount.Should().Be(0);
     }
 
     [Fact]
@@ -77,6 +99,12 @@ public class VoteResultUpdateBallotTest : VoteResultBundleBaseTest
         await RunBundleToState(BallotBundleState.ReadyForReview, VoteResultBundleMockedData.GossauBundle3.Id);
         await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(req => req.BundleId = VoteResultBundleMockedData.IdGossauBundle3));
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBallotUpdated>().MatchSnapshot();
+
+        await RunEvents<VoteResultBallotUpdated>();
+        var logsCount = await RunOnDb(db => db.VoteResultBallotLogs
+            .Where(x => x.Ballot.BundleId == VoteResultBundleMockedData.GossauBundle3.Id)
+            .CountAsync());
+        logsCount.Should().Be(1);
     }
 
     [Fact]
@@ -96,22 +124,11 @@ public class VoteResultUpdateBallotTest : VoteResultBundleBaseTest
     }
 
     [Fact]
-    public async Task TestShouldThrowAsErfassungCreatorOtherUserThanBundleCreatorInProcess()
-    {
-        await AssertStatus(
-            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(req => req.BundleId = VoteResultBundleMockedData.IdGossauBundle3)),
-            StatusCode.PermissionDenied,
-            "only election admins or the creator of a bundle can edit it");
-    }
-
-    [Fact]
-    public async Task TestShouldThrowAsErfassungCreatorBundleCreatorReadyForReview()
+    public async Task TestShouldNotThrowAsErfassungCreatorBundleCreatorReadyForReview()
     {
         await RunBundleToState(BallotBundleState.ReadyForReview);
-        await AssertStatus(
-            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest()),
-            StatusCode.PermissionDenied,
-            "the creator of a bundle can't edit it while it is under review");
+        await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<VoteResultBallotUpdated>().Should().NotBeNull();
     }
 
     [Fact]
@@ -286,6 +303,7 @@ public class VoteResultUpdateBallotTest : VoteResultBundleBaseTest
         yield return RolesMockedData.ErfassungCreator;
         yield return RolesMockedData.ErfassungCreatorWithoutBundleControl;
         yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungRestrictedBundleController;
         yield return RolesMockedData.ErfassungElectionSupporter;
         yield return RolesMockedData.ErfassungElectionAdmin;
     }

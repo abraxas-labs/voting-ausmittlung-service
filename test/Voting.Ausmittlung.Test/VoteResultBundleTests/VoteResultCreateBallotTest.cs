@@ -37,6 +37,18 @@ public class VoteResultCreateBallotTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestShouldReturnAsErfassungElectionAdminWithRestartedBallotNumber()
     {
+        var voteResultClient = CreateService<VoteResultService.VoteResultServiceClient>(RolesMockedData.ErfassungElectionAdmin);
+        await voteResultClient.DefineEntryAsync(new DefineVoteResultEntryRequest
+        {
+            VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
+            ResultEntry = SharedProto.VoteResultEntry.Detailed,
+            ResultEntryParams = new DefineVoteResultEntryParamsRequest
+            {
+                AutomaticBallotNumberGeneration = true,
+                ReviewProcedure = SharedProto.VoteReviewProcedure.Electronically,
+                BallotBundleSampleSizePercent = 10,
+            },
+        });
         var bundleResponse = await ErfassungElectionAdminClient.CreateBundleAsync(new CreateVoteResultBundleRequest
         {
             BundleNumber = 10,
@@ -46,6 +58,25 @@ public class VoteResultCreateBallotTest : VoteResultBundleBaseTest
         await RunEvents<VoteResultBundleCreated>();
 
         await ErfassungElectionAdminClient.CreateBallotAsync(NewValidRequest(x => x.BundleId = bundleResponse.BundleId));
+        EventPublisherMock.GetSinglePublishedEvent<VoteResultBallotCreated>().MatchSnapshot(x => x.BundleId);
+    }
+
+    [Fact]
+    public async Task TestShouldReturnAsErfassungElectionAdminWithManualBallotNumber()
+    {
+        var bundleResponse = await ErfassungElectionAdminClient.CreateBundleAsync(new CreateVoteResultBundleRequest
+        {
+            BundleNumber = 10,
+            VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
+            BallotResultId = VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult,
+        });
+        await RunEvents<VoteResultBundleCreated>();
+
+        await ErfassungElectionAdminClient.CreateBallotAsync(NewValidRequest(x =>
+        {
+            x.BundleId = bundleResponse.BundleId;
+            x.BallotNumber = 56234;
+        }));
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBallotCreated>().MatchSnapshot(x => x.BundleId);
     }
 
@@ -192,7 +223,7 @@ public class VoteResultCreateBallotTest : VoteResultBundleBaseTest
         var ev = EventPublisherMock.GetSinglePublishedEvent<VoteResultBallotCreated>();
         ev.BallotNumber = int.MaxValue;
 
-        await TestEventPublisher.Publish(ev);
+        await TestEventPublisher.Publish(GetNextEventNumber(), ev);
         await AssertStatus(
             async () => await ErfassungCreatorClient.CreateBallotAsync(NewValidRequest()),
             StatusCode.Internal,

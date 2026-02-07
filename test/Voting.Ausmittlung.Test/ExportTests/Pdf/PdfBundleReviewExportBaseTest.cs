@@ -80,6 +80,7 @@ public abstract class PdfBundleReviewExportBaseTest : BaseTest<ExportService.Exp
     {
         yield return RolesMockedData.ErfassungCreator;
         yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungRestrictedBundleController;
         yield return RolesMockedData.ErfassungElectionSupporter;
         yield return RolesMockedData.ErfassungElectionAdmin;
     }

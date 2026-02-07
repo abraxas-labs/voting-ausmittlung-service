@@ -48,6 +48,8 @@ public class Vote : PoliticalBusiness, IHasResults, IPoliticalBusinessHasTransla
 
     public bool AutomaticBallotBundleNumberGeneration { get; set; }
 
+    public bool AutomaticBallotNumberGeneration { get; set; }
+
     public bool EnforceResultEntryForCountingCircles { get; set; }
 
     public VoteResultEntry ResultEntry { get; set; }

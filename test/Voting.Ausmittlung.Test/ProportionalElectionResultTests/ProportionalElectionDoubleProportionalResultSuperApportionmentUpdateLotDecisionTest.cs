@@ -78,6 +78,11 @@ public class ProportionalElectionDoubleProportionalResultSuperApportionmentUpdat
     [Fact]
     public async Task TestProcessor()
     {
+        await ModifyDbEntities<ContestCantonDefaults>(
+            _ => true,
+            x => x.EndResultFinalizeDisabled = false,
+            splitQuery: true);
+
         var electionId = ZhMockedData.ProportionalElectionGuidSingleDoiSuperLot;
         var svpListId = Guid.Parse("3b083853-cd08-4b46-b81b-da849a979bfc");
         var spListId = Guid.Parse("868cd951-5faf-4799-81ad-1ebd65874e52");
@@ -105,7 +110,12 @@ public class ProportionalElectionDoubleProportionalResultSuperApportionmentUpdat
             .Include(x => x.ListEndResults)
             .ThenInclude(x => x.CandidateEndResults)
             .SingleAsync(x => x.ProportionalElectionId == electionId));
-        endResult.ListEndResults.Any(x => x.HasOpenRequiredLotDecisions).Should().BeFalse();
+
+        var simplePb = await RunOnDb(x => x.SimplePoliticalBusinesses.SingleAsync(r => r.Id == electionId));
+
+        endResult.ListEndResults.Any(x => x.LotDecisionState is ElectionLotDecisionState.OpenAndRequired).Should().BeFalse();
+        endResult.Finalized.Should().BeFalse();
+        simplePb.EndResultFinalized.Should().BeFalse();
 
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
@@ -153,7 +163,61 @@ public class ProportionalElectionDoubleProportionalResultSuperApportionmentUpdat
             .Include(x => x.ListEndResults)
             .ThenInclude(x => x.CandidateEndResults)
             .SingleAsync(x => x.ProportionalElectionId == electionId));
-        endResult.ListEndResults.Any(x => x.HasOpenRequiredLotDecisions).Should().BeTrue();
+
+        simplePb = await RunOnDb(x => x.SimplePoliticalBusinesses.SingleAsync(r => r.Id == electionId));
+
+        endResult.ListEndResults.All(x => x.LotDecisionState is ElectionLotDecisionState.None).Should().BeTrue();
+        endResult.Finalized.Should().BeFalse();
+        simplePb.EndResultFinalized.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task TestProcessorWithDisabledCantonSettingsEndResultFinalize()
+    {
+        var electionId = ZhMockedData.ProportionalElectionGuidSingleDoiSuperLot;
+        var svpListId = Guid.Parse("3b083853-cd08-4b46-b81b-da849a979bfc");
+        var spListId = Guid.Parse("868cd951-5faf-4799-81ad-1ebd65874e52");
+
+        var endResult = await RunOnDb(db => db.ProportionalElectionEndResult
+            .AsSplitQuery()
+            .SingleAsync(x => x.ProportionalElectionId == electionId));
+
+        var simplePb = await RunOnDb(x => x.SimplePoliticalBusinesses.SingleAsync(r => r.Id == electionId));
+
+        endResult.Finalized.Should().BeFalse();
+        simplePb.EndResultFinalized.Should().BeFalse();
+
+        await TestEventPublisher.Publish(
+            GetNextEventNumber(),
+            new ProportionalElectionDoubleProportionalSuperApportionmentLotDecisionUpdated
+            {
+                ProportionalElectionId = electionId.ToString(),
+                DoubleProportionalResultId = AusmittlungUuidV5.BuildDoubleProportionalResult(null, electionId, false).ToString(),
+                Number = 2,
+                Columns =
+                {
+                    new ProportionalElectionDoubleProportionalSuperApportionmentLotDecisionColumnEventData()
+                    {
+                        ListId = svpListId.ToString(),
+                        NumberOfMandates = 0,
+                    },
+                    new ProportionalElectionDoubleProportionalSuperApportionmentLotDecisionColumnEventData()
+                    {
+                        ListId = spListId.ToString(),
+                        NumberOfMandates = 1,
+                    },
+                },
+                EventInfo = GetMockedEventInfo(),
+            });
+
+        endResult = await RunOnDb(db => db.ProportionalElectionEndResult
+            .AsSplitQuery()
+            .SingleAsync(x => x.ProportionalElectionId == electionId));
+
+        simplePb = await RunOnDb(x => x.SimplePoliticalBusinesses.SingleAsync(r => r.Id == electionId));
+
+        endResult.Finalized.Should().BeTrue();
+        simplePb.EndResultFinalized.Should().BeTrue();
     }
 
     protected override IEnumerable<string> AuthorizedRoles()

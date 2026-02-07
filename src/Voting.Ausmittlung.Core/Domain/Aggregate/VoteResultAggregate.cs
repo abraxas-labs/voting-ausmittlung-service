@@ -40,9 +40,7 @@ public class VoteResultAggregate : CountingCircleResultAggregate
 
     public VoteResultEntryParams ResultEntryParams { get; private set; } = new();
 
-    public Dictionary<Guid, HashSet<int>> BundleNumbersByBallotResultId { get; } = new();
-
-    public Dictionary<Guid, HashSet<int>> DeletedUnusedBundleNumbersByBallotResultId { get; } = new();
+    public Dictionary<Guid, List<int>> BundleNumbersByBallotResultId { get; } = new();
 
     public override string AggregateName => "voting-voteResult";
 
@@ -332,17 +330,6 @@ public class VoteResultAggregate : CountingCircleResultAggregate
             throw new ValidationException("Automatic Ballot Bundle Number Generation is enabled");
         }
 
-        BundleNumbersByBallotResultId.TryGetValue(ballotResultId, out var bundleNumbers);
-        DeletedUnusedBundleNumbersByBallotResultId.TryGetValue(ballotResultId, out var deletedUnusedBundleNumbers);
-
-        // check if the bundle number is in use
-        // this is the case uf the bundle numbers exist for this result and contain this bundle number
-        // but it is not deleted
-        if (bundleNumbers?.Contains(bundleNumber) == true && deletedUnusedBundleNumbers?.Contains(bundleNumber) != true)
-        {
-            throw new ValidationException("bundle number is already in use");
-        }
-
         RaiseEvent(
             new VoteResultBundleNumberEntered
             {
@@ -353,7 +340,7 @@ public class VoteResultAggregate : CountingCircleResultAggregate
             new EventSignatureBusinessDomainData(contestId));
     }
 
-    public void FreeBundleNumber(int bundleNumber, Guid ballotResultId, Guid contestId)
+    public void EnsureCanDeleteBundle(int bundleNumber, Guid ballotResultId)
     {
         EnsureInState(CountingCircleResultState.SubmissionOngoing, CountingCircleResultState.ReadyForCorrection);
         BundleNumbersByBallotResultId.TryGetValue(ballotResultId, out var bundleNumbers);
@@ -364,15 +351,6 @@ public class VoteResultAggregate : CountingCircleResultAggregate
         {
             throw new ValidationException("unknown bundle number");
         }
-
-        RaiseEvent(
-            new VoteResultBundleNumberFreed
-            {
-                EventInfo = _eventInfoProvider.NewEventInfo(),
-                BallotResultId = ballotResultId.ToString(),
-                BundleNumber = bundleNumber,
-            },
-            new EventSignatureBusinessDomainData(contestId));
     }
 
     protected override void Apply(IMessage eventData)
@@ -390,8 +368,8 @@ public class VoteResultAggregate : CountingCircleResultAggregate
             case VoteResultBundleNumberEntered ev:
                 Apply(ev);
                 break;
-            case VoteResultBundleNumberFreed ev:
-                Apply(ev);
+            case VoteResultBundleNumberFreed _:
+                // No longer used, for backward compatibility
                 break;
             case VoteResultSubmissionFinished _:
                 State = CountingCircleResultState.SubmissionDone;
@@ -444,6 +422,11 @@ public class VoteResultAggregate : CountingCircleResultAggregate
             ev.ResultEntryParams.ReviewProcedure = Abraxas.Voting.Ausmittlung.Shared.V1.VoteReviewProcedure.Electronically;
         }
 
+        if (ev.ResultEntryParams is { AutomaticBallotNumberGeneration: null } entryParams)
+        {
+            entryParams.AutomaticBallotNumberGeneration = true;
+        }
+
         ResultEntry = _mapper.Map<VoteResultEntry>(ev.ResultEntry);
         ResultEntryParams = _mapper.Map<VoteResultEntryParams>(ev.ResultEntryParams) ?? new VoteResultEntryParams();
         ResetBundleNumbers();
@@ -456,17 +439,6 @@ public class VoteResultAggregate : CountingCircleResultAggregate
         bundleNumbers ??= new();
         bundleNumbers.Add(ev.BundleNumber);
         BundleNumbersByBallotResultId[ballotResultId] = bundleNumbers;
-        DeletedUnusedBundleNumbersByBallotResultId.GetValueOrDefault(ballotResultId)?.Remove(ev.BundleNumber);
-    }
-
-    private void Apply(VoteResultBundleNumberFreed ev)
-    {
-        var ballotResultId = Guid.Parse(ev.BallotResultId);
-
-        DeletedUnusedBundleNumbersByBallotResultId.TryGetValue(ballotResultId, out var deletedUnusedBundleNumbers);
-        deletedUnusedBundleNumbers ??= new HashSet<int>();
-        deletedUnusedBundleNumbers.Add(ev.BundleNumber);
-        DeletedUnusedBundleNumbersByBallotResultId[ballotResultId] = deletedUnusedBundleNumbers;
     }
 
     private void ValidateResults(IEnumerable<VoteBallotResults> results)
@@ -505,6 +477,5 @@ public class VoteResultAggregate : CountingCircleResultAggregate
     private void ResetBundleNumbers()
     {
         BundleNumbersByBallotResultId.Clear();
-        DeletedUnusedBundleNumbersByBallotResultId.Clear();
     }
 }

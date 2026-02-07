@@ -27,11 +27,13 @@ public class MajorityElectionResultBundleProcessor
         IEventProcessor<MajorityElectionResultBallotUpdated>,
         IEventProcessor<MajorityElectionResultBallotDeleted>,
         IEventProcessor<MajorityElectionResultBundleSubmissionFinished>,
-        IEventProcessor<MajorityElectionResultBundleCorrectionFinished>
+        IEventProcessor<MajorityElectionResultBundleCorrectionFinished>,
+        IEventProcessor<MajorityElectionResultBundleResetToSubmissionFinished>
 {
     private readonly IDbRepository<DataContext, MajorityElectionResult> _resultRepo;
     private readonly IDbRepository<DataContext, MajorityElectionResultBundle> _bundleRepo;
     private readonly IDbRepository<DataContext, MajorityElectionResultBallot> _ballotRepo;
+    private readonly IDbRepository<DataContext, ProtocolExport> _protocolExportRepo;
     private readonly MajorityElectionResultBallotBuilder _ballotBuilder;
     private readonly MajorityElectionCandidateResultBuilder _candidateResultBuilder;
     private readonly MajorityElectionResultBuilder _resultBuilder;
@@ -42,6 +44,7 @@ public class MajorityElectionResultBundleProcessor
         IDbRepository<DataContext, MajorityElectionResult> resultRepo,
         IDbRepository<DataContext, MajorityElectionResultBundle> bundleRepo,
         IDbRepository<DataContext, MajorityElectionResultBallot> ballotRepo,
+        IDbRepository<DataContext, ProtocolExport> protocolExportRepo,
         MajorityElectionResultBallotBuilder ballotBuilder,
         MajorityElectionCandidateResultBuilder candidateResultBuilder,
         MajorityElectionResultBuilder resultBuilder,
@@ -51,6 +54,7 @@ public class MajorityElectionResultBundleProcessor
         _resultRepo = resultRepo;
         _bundleRepo = bundleRepo;
         _ballotRepo = ballotRepo;
+        _protocolExportRepo = protocolExportRepo;
         _ballotBuilder = ballotBuilder;
         _candidateResultBuilder = candidateResultBuilder;
         _resultBuilder = resultBuilder;
@@ -182,6 +186,22 @@ public class MajorityElectionResultBundleProcessor
         _eventLogger.LogBundleEvent(eventData, bundleId, GuidParser.ParseNullable(eventData.ElectionResultId), log);
     }
 
+    public async Task Process(MajorityElectionResultBundleResetToSubmissionFinished eventData)
+    {
+        var bundleId = GuidParser.Parse(eventData.BundleId);
+        var user = eventData.EventInfo.User.ToDataUser();
+        var timestamp = eventData.EventInfo.Timestamp.ToDateTime();
+        var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
+
+        var bundle = await _bundleRepo.GetByKey(bundleId)
+            ?? throw new EntityNotFoundException(bundleId);
+        await UpdateCountOfBundlesNotReviewedOrDeleted(electionResultId, 1);
+        await RemoveVotesFromResults(bundle);
+
+        var log = await ProcessBundleToReadyForReview(bundleId, eventData.SampleBallotNumbers, user, timestamp);
+        _eventLogger.LogBundleEvent(eventData, bundleId, electionResultId, log);
+    }
+
     private async Task UpdateCountOfBallots(Guid bundleId, int delta)
     {
         await _bundleRepo.Query()
@@ -195,11 +215,27 @@ public class MajorityElectionResultBundleProcessor
         User user,
         DateTime timestamp)
     {
+        var oldState = bundle.State;
         bundle.State = newState;
         if (newState is BallotBundleState.Reviewed or BallotBundleState.InCorrection)
         {
             // Create new user since owned entity instances cannot be used by multiple owners
             bundle.ReviewedBy = new User
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                SecureConnectId = user.SecureConnectId,
+            };
+        }
+
+        if (newState == BallotBundleState.ReadyForReview && oldState == BallotBundleState.InCorrection)
+        {
+            await _protocolExportRepo.Query()
+                .Where(x => x.PoliticalBusinessResultBundleId == bundle.Id)
+                .ExecuteDeleteAsync();
+
+            // Whoever corrected the bundle should be the new creator
+            bundle.CreatedBy = new User
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,

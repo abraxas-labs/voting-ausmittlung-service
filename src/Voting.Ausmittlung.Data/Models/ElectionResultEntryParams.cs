@@ -11,6 +11,8 @@ public abstract class ElectionResultEntryParams
 
     public bool AutomaticBallotBundleNumberGeneration { get; set; }
 
+    public bool AutomaticBallotNumberGeneration { get; set; }
+
     public BallotNumberGeneration BallotNumberGeneration { get; set; }
 
     public bool AutomaticEmptyVoteCounting { get; set; }

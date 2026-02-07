@@ -4,6 +4,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
+using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Ech.Models;
 
@@ -43,9 +44,9 @@ public class ResultImportMeta
 
     internal string Ech0222FileName { get; }
 
-    internal Stream? Ech0110FileContent { get; }
+    internal Stream? Ech0110FileContent { get; private set; }
 
-    internal string? Ech0110FileName { get; }
+    internal string? Ech0110FileName { get; private set; }
 
     internal string GetUnifiedFileName()
     {
@@ -59,9 +60,15 @@ public class ResultImportMeta
         switch (ImportType)
         {
             case ResultImportType.EVoting:
-                if (Ech0110FileName == null || Ech0110FileContent == null)
+                if (ImportVersion == Ech0222Version.V3)
                 {
-                    throw new ValidationException("eCH 0110 file and file name are required for eVoting imports.");
+                    // eCH-0110 infos should be ignored
+                    Ech0110FileName = null;
+                    Ech0110FileContent = null;
+                }
+                else if (Ech0110FileName == null || Ech0110FileContent == null)
+                {
+                    throw new Ech0110RequiredException();
                 }
 
                 if (BasisCountingCircleId.HasValue)

@@ -94,7 +94,7 @@ public class ProportionalElectionMandateAlgorithmUpdateTest : BaseDataProcessorT
                 .FirstAsync(x => x.ListId == Guid.Parse(ProportionalElectionEndResultMockedData.ListId1));
 
             listEndResult.NumberOfMandates = 1;
-            listEndResult.HasOpenRequiredLotDecisions = true;
+            listEndResult.LotDecisionState = DataModels.ElectionLotDecisionState.OpenAndRequired;
 
             var candidateEndResult = await db.ProportionalElectionCandidateEndResult
                 .AsTracking()
@@ -149,7 +149,7 @@ public class ProportionalElectionMandateAlgorithmUpdateTest : BaseDataProcessorT
                 .FirstAsync(x => x.ListId == Guid.Parse(ProportionalElectionEndResultMockedData.ListId1));
 
             listEndResult.NumberOfMandates = 1;
-            listEndResult.HasOpenRequiredLotDecisions = true;
+            listEndResult.LotDecisionState = DataModels.ElectionLotDecisionState.OpenAndRequired;
 
             var candidateEndResult = await db.ProportionalElectionCandidateEndResult
                 .AsTracking()
@@ -173,7 +173,7 @@ public class ProportionalElectionMandateAlgorithmUpdateTest : BaseDataProcessorT
         foreach (var listEndResult in endResult.ListEndResults)
         {
             listEndResult.NumberOfMandates.Should().Be(0);
-            listEndResult.HasOpenRequiredLotDecisions.Should().BeFalse();
+            listEndResult.LotDecisionState.Should().Be(DataModels.ElectionLotDecisionState.Unspecified);
 
             foreach (var candidateEndResult in listEndResult.CandidateEndResults)
             {

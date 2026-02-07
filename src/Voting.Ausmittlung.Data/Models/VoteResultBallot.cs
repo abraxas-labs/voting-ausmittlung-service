@@ -20,4 +20,12 @@ public class VoteResultBallot : BaseEntity
     public int Number { get; set; }
 
     public bool MarkedForReview { get; set; }
+
+    /// <summary>
+    /// Gets or sets the usually zero-based index. Older data may contain non-zero based numbers in here.
+    /// Should only be used for ordering the ballot inside a bundle.
+    /// </summary>
+    public int Index { get; set; }
+
+    public List<VoteResultBallotLog> Logs { get; set; } = new();
 }

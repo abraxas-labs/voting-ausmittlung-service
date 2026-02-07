@@ -31,7 +31,7 @@ public class ProportionalElectionHagenbachBischoffStrategyTest
     private const string SubListUnionId2 = "cb042882-81d9-42b9-a135-2722fefb3e67";
 
     /// <summary>
-    /// Test with the sample datas according the attachment Slides_Mediengespraech_NR_SR_2019.pptx in jira ticket 201.
+    /// Test with the sample datas as defined in ticket VOTING-201.
     /// </summary>
     [Fact]
     public void TestSlidesMediengespraechSg2019()
@@ -137,7 +137,7 @@ public class ProportionalElectionHagenbachBischoffStrategyTest
     }
 
     /// <summary>
-    /// test according the attachment "Proporzwahl - Ebene Bund - 5a_Verteilung der Sitze.pdf" in jira ticket VOTING-302.
+    /// test according the attachment "Proporzwahl - Ebene Bund - 5a_Verteilung der Sitze" as defined in ticket VOTING-302.
     /// </summary>
     [Fact]
     public void TestVoting302ReportExampleData()

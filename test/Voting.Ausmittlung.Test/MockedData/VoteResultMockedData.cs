@@ -71,6 +71,7 @@ public static class VoteResultMockedData
             EntryParams = new VoteResultEntryParams
             {
                 AutomaticBallotBundleNumberGeneration = true,
+                AutomaticBallotNumberGeneration = true,
                 BallotBundleSampleSizePercent = 15,
                 ReviewProcedure = VoteReviewProcedure.Electronically,
             },
@@ -281,6 +282,7 @@ public static class VoteResultMockedData
             EntryParams = new VoteResultEntryParams
             {
                 AutomaticBallotBundleNumberGeneration = false,
+                AutomaticBallotNumberGeneration = true,
                 BallotBundleSampleSizePercent = 100,
                 ReviewProcedure = VoteReviewProcedure.Electronically,
             },
@@ -354,6 +356,7 @@ public static class VoteResultMockedData
             EntryParams = new VoteResultEntryParams
             {
                 AutomaticBallotBundleNumberGeneration = true,
+                AutomaticBallotNumberGeneration = true,
                 BallotBundleSampleSizePercent = 50,
                 ReviewProcedure = VoteReviewProcedure.Electronically,
             },

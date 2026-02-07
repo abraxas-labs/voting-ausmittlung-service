@@ -12,7 +12,7 @@ using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
 
 namespace Voting.Ausmittlung.Test.ValidationTests;
 
-public class ComparisonValidVotingCardsAndAccountedBallotsValidationTest : BaseValidationTest<PoliticalBusinessNullableCountOfVotersValidator, PoliticalBusinessNullableCountOfVoters>
+public class ComparisonValidVotingCardsAndAccountedBallotsValidationTest : BaseValidationTest<IValidator<PoliticalBusinessNullableCountOfVoters>, PoliticalBusinessNullableCountOfVoters>
 {
     public ComparisonValidVotingCardsAndAccountedBallotsValidationTest()
         : base(SharedProto.Validation.ComparisonValidVotingCardsWithAccountedBallots)

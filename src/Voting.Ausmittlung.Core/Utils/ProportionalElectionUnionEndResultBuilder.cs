@@ -39,7 +39,31 @@ public class ProportionalElectionUnionEndResultBuilder
         await _unionEndResultRepo.UpdateRange(endResults);
     }
 
-    public async Task AdjustElectionsCount(Guid electionId, int delta)
+    public async Task SyncElectionsCount(Guid electionId)
+    {
+        var endResults = await _unionEndResultRepo
+            .Query()
+            .Include(x => x.ProportionalElectionUnion.ProportionalElectionUnionEntries)
+            .ThenInclude(x => x.ProportionalElection.EndResult)
+            .Where(x => x.ProportionalElectionUnion.ProportionalElectionUnionEntries
+                .Any(e => e.ProportionalElectionId == electionId))
+            .ToListAsync();
+
+        foreach (var endResult in endResults)
+        {
+            endResult.TotalCountOfElections = endResult.ProportionalElectionUnion.ProportionalElectionUnionEntries
+                .Count(x => x.ProportionalElection.Active);
+
+            endResult.CountOfDoneElections = endResult.ProportionalElectionUnion.ProportionalElectionUnionEntries
+                .Count(x => x.ProportionalElection.Active && x.ProportionalElection.EndResult?.AllCountingCirclesDone == true);
+
+            endResult.ProportionalElectionUnion = null!;
+        }
+
+        await _unionEndResultRepo.UpdateRange(endResults);
+    }
+
+    public async Task RemoveElectionFromUnionEndResultCount(Guid electionId)
     {
         var endResults = await GetEndResults(electionId);
         var allCountingCirclesDone = (await _electionEndResultRepo
@@ -49,11 +73,11 @@ public class ProportionalElectionUnionEndResultBuilder
 
         foreach (var endResult in endResults)
         {
-            endResult.TotalCountOfElections += delta;
+            endResult.TotalCountOfElections--;
 
             if (allCountingCirclesDone)
             {
-                endResult.CountOfDoneElections += delta;
+                endResult.CountOfDoneElections--;
             }
         }
 

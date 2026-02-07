@@ -17,9 +17,13 @@ public record EventProcessedMessage(
 {
     public Guid? PoliticalBusinessId { get; set; }
 
+    public Guid? PoliticalBusinessUnionId { get; set; }
+
     public Guid? BasisCountingCircleId { get; set; }
 
     public Guid? PoliticalBusinessResultId { get; set; }
 
     public Guid? PoliticalBusinessEndResultId { get; set; }
+
+    public Guid? PoliticalBusinessUnionEndResultId { get; set; }
 }

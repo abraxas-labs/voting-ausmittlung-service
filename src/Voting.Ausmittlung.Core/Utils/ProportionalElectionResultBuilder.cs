@@ -171,14 +171,14 @@ public class ProportionalElectionResultBuilder : PoliticalBusinessResultBuilder<
         ProportionalElectionResultEntryParamsEventData resultEntryParams)
     {
         var electionResult = await _resultRepo
-                                 .Query()
-                                 .AsTracking()
-                                 .AsSplitQuery()
-                                 .Include(x => x.UnmodifiedListResults)
-                                 .Include(x => x.ListResults).ThenInclude(x => x.CandidateResults).ThenInclude(x => x.VoteSources)
-                                 .Include(x => x.Bundles)
-                                 .FirstOrDefaultAsync(x => x.Id == resultId)
-                             ?? throw new EntityNotFoundException(resultId);
+            .Query()
+            .AsTracking()
+            .AsSplitQuery()
+            .Include(x => x.UnmodifiedListResults)
+            .Include(x => x.ListResults).ThenInclude(x => x.CandidateResults).ThenInclude(x => x.VoteSources)
+            .Include(x => x.Bundles)
+            .FirstOrDefaultAsync(x => x.Id == resultId)
+            ?? throw new EntityNotFoundException(resultId);
 
         _mapper.Map(resultEntryParams, electionResult.EntryParams);
 
@@ -188,11 +188,16 @@ public class ProportionalElectionResultBuilder : PoliticalBusinessResultBuilder<
             electionResult.EntryParams.ReviewProcedure = ProportionalElectionReviewProcedure.Electronically;
         }
 
+        if (resultEntryParams.AutomaticBallotNumberGeneration == null)
+        {
+            electionResult.EntryParams.AutomaticBallotNumberGeneration = true;
+        }
+
         await ResetResult(electionResult, VotingDataSource.Conventional, true, false);
         await _dataContext.SaveChangesAsync();
     }
 
-    internal async Task UpdateVotesFromUnmodifiedListResult(ProportionalElectionListResult listResult, int voteCount, int voteCountDeltaToPrevious)
+    internal void UpdateVotesFromUnmodifiedListResult(ProportionalElectionListResult listResult, int voteCount, int voteCountDeltaToPrevious)
     {
         foreach (var candidateResult in listResult.CandidateResults)
         {
@@ -210,8 +215,6 @@ public class ProportionalElectionResultBuilder : PoliticalBusinessResultBuilder<
         listResult.ConventionalSubTotal.UnmodifiedListsCount = voteCount;
         listResult.ConventionalSubTotal.UnmodifiedListBlankRowsCount = listResult.List.BlankRowCount * voteCount;
         listResult.ConventionalSubTotal.UnmodifiedListVotesCount = listResult.CandidateResults.Sum(c => c.ConventionalSubTotal.UnmodifiedListVotesCount);
-
-        await _listResultRepo.Update(listResult);
     }
 
     internal async Task AddVotesFromBundle(ProportionalElectionResultBundle resultBundle)
@@ -273,27 +276,27 @@ public class ProportionalElectionResultBuilder : PoliticalBusinessResultBuilder<
         var blankRowCounts = await _resultBallotRepo.Query()
             .Where(r => r.BundleId == resultBundle.Id)
             .SumAsync(r => (int?)r.EmptyVoteCount) ?? 0;
+        var blankRowsDelta = blankRowCounts * deltaFactor;
 
         if (resultBundle.ListId == null)
         {
-            var result = await _resultRepo.GetByKey(resultBundle.ElectionResultId)
-                ?? throw new EntityNotFoundException(resultBundle.ElectionResultId);
+            var affectedRows = await _resultRepo.Query()
+                .Where(x => x.Id == resultBundle.ElectionResultId)
+                .ExecuteUpdateAsync(setters => setters.SetProperty(
+                    x => x.ConventionalSubTotal.TotalCountOfBlankRowsOnListsWithoutParty,
+                    x => x.ConventionalSubTotal.TotalCountOfBlankRowsOnListsWithoutParty + blankRowsDelta));
 
-            // TotalCountOfListsWithoutParty is calculated in UpdateTotalCountOfBallots
-            result.ConventionalSubTotal.TotalCountOfBlankRowsOnListsWithoutParty += blankRowCounts * deltaFactor;
-
-            await _resultRepo.Update(result);
+            EntityNotFoundException.ThrowIfNoRowsAffected(affectedRows, resultBundle.ElectionResultId);
             return;
         }
 
-        var listResult = await _listResultRepo.Query()
-            .FirstOrDefaultAsync(l => l.ListId == resultBundle.ListId && l.ResultId == resultBundle.ElectionResultId)
-            ?? throw new EntityNotFoundException(resultBundle.Id);
-
         // ModifiedListVotesCount are calculated in AdjustCandidateResultForBundle
-        listResult.ConventionalSubTotal.ModifiedListsCount += resultBundle.CountOfBallots * deltaFactor;
-        listResult.ConventionalSubTotal.ModifiedListBlankRowsCount += blankRowCounts * deltaFactor;
-
-        await _listResultRepo.Update(listResult);
+        var modifiedListsDelta = resultBundle.CountOfBallots * deltaFactor;
+        var affected = await _listResultRepo.Query()
+            .Where(l => l.ListId == resultBundle.ListId && l.ResultId == resultBundle.ElectionResultId)
+            .ExecuteUpdateAsync(setters => setters
+                .SetProperty(x => x.ConventionalSubTotal.ModifiedListsCount, x => x.ConventionalSubTotal.ModifiedListsCount + modifiedListsDelta)
+                .SetProperty(x => x.ConventionalSubTotal.ModifiedListBlankRowsCount, x => x.ConventionalSubTotal.ModifiedListBlankRowsCount + blankRowsDelta));
+        EntityNotFoundException.ThrowIfNoRowsAffected(affected, resultBundle.Id);
     }
 }

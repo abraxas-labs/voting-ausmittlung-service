@@ -27,6 +27,7 @@ public static class ProportionalElectionResultBallotMockedData
         {
             Id = Guid.Parse(IdUzwilBallot1),
             Number = 1,
+            Index = 1,
             EmptyVoteCount = 2,
             BallotCandidates = new List<ProportionalElectionResultBallotCandidate>
             {
@@ -54,6 +55,7 @@ public static class ProportionalElectionResultBallotMockedData
         {
             Id = Guid.Parse(IdUzwilBallot2),
             Number = 2,
+            Index = 3,
             EmptyVoteCount = 4,
             BallotCandidates = new List<ProportionalElectionResultBallotCandidate>
             {
@@ -71,6 +73,7 @@ public static class ProportionalElectionResultBallotMockedData
         {
             Id = Guid.Parse(IdUzwilBallotBundle2),
             Number = 1,
+            Index = 1,
             BallotCandidates = new List<ProportionalElectionResultBallotCandidate>
             {
                     new ProportionalElectionResultBallotCandidate
@@ -168,6 +171,7 @@ public static class ProportionalElectionResultBallotMockedData
                     foreach (var ballot in ballots)
                     {
                         aggregate.CreateBallot(
+                            null,
                             ballot.EmptyVoteCount,
                             ballot.BallotCandidates.Select(x => mapper.Map<Core.Domain.ProportionalElectionResultBallotCandidate>(x)).ToList().AsReadOnly(),
                             contestId);

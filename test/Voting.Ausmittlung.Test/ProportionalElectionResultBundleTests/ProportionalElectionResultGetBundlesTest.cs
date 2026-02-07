@@ -10,9 +10,11 @@ using Grpc.Core;
 using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.EventProcessors;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
+using Voting.Lib.Testing.Mocks;
 using Voting.Lib.Testing.Utils;
 using Xunit;
 using ProtoModels = Abraxas.Voting.Ausmittlung.Services.V1.Models;
@@ -36,6 +38,40 @@ public class ProportionalElectionResultGetBundlesTest : BaseTest<ProportionalEle
         await ProportionalElectionResultBundleMockedData.Seed(RunScoped);
         await RunScoped((DomainOfInfluencePermissionBuilder permissionBuilder) =>
             permissionBuilder.RebuildPermissionTree());
+
+        await RunOnDb(async db =>
+        {
+            db.ProportionalElectionResultBallots.Add(new ProportionalElectionResultBallot
+            {
+                BundleId = ProportionalElectionResultBundleMockedData.GossauBundle1List1.Id,
+                Number = 1,
+                Logs =
+                {
+                    new ProportionalElectionResultBallotLog
+                    {
+                        Timestamp = MockedClock.UtcNowDate,
+                        User = new User
+                        {
+                            FirstName = "first",
+                            LastName = "last",
+                            SecureConnectId = "test-id",
+                        },
+                    },
+                    new ProportionalElectionResultBallotLog
+                    {
+                        Timestamp = MockedClock.UtcNowDate,
+                        User = new User
+                        {
+                            FirstName = "first2",
+                            LastName = "last2",
+                            SecureConnectId = "test-id2",
+                        },
+                    },
+                },
+            });
+
+            await db.SaveChangesAsync();
+        });
     }
 
     [Fact]
@@ -90,6 +126,7 @@ public class ProportionalElectionResultGetBundlesTest : BaseTest<ProportionalEle
         yield return RolesMockedData.ErfassungCreator;
         yield return RolesMockedData.ErfassungCreatorWithoutBundleControl;
         yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungRestrictedBundleController;
         yield return RolesMockedData.ErfassungElectionSupporter;
         yield return RolesMockedData.ErfassungElectionAdmin;
         yield return RolesMockedData.MonitoringElectionAdmin;

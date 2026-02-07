@@ -54,17 +54,8 @@ public class DoubleProportionalResultBuilder
         await ResetForUnion(unionId);
 
         var union = await LoadUnionAsTracking(unionId);
-
-        var electionIds = union.ProportionalElectionUnionEntries
-            .Select(e => e.ProportionalElectionId)
-            .ToList();
-
-        var simplePbById = await _simplePoliticalBusinessRepo
-            .Query()
-            .AsSplitQuery()
-            .AsTracking()
-            .Where(x => electionIds.Contains(x.Id))
-            .ToDictionaryAsync(x => x.Id, x => x);
+        var simplePbById = await LoadSimplePoliticalBusinessesAsTracking(union);
+        var implicitFinalize = union.Contest.CantonDefaults.EndResultFinalizeDisabled;
 
         _dpAlgorithm.BuildResultForUnion(union);
         var dpResult = union.DoubleProportionalResult!;
@@ -77,11 +68,12 @@ public class DoubleProportionalResultBuilder
             var electionDpResult = dpResult.Rows.FirstOrDefault(x => x.ProportionalElectionId == electionEndResult.ProportionalElectionId)
                 ?? throw new InvalidOperationException("Dp result does not exist to a proportional election end result");
 
-            UpdateUnionElectionEndResult(electionEndResult, electionDpResult, dpResult.AllNumberOfMandatesDistributed);
-
-            var implicitFinalize = union.Contest.CantonDefaults.EndResultFinalizeDisabled;
-            electionEndResult.Finalized = implicitFinalize;
-            simplePbById[electionEndResult.ProportionalElectionId].EndResultFinalized = implicitFinalize;
+            UpdateUnionElectionEndResult(
+                electionEndResult,
+                simplePbById[electionEndResult.ProportionalElectionId],
+                electionDpResult,
+                dpResult.AllNumberOfMandatesDistributed,
+                implicitFinalize);
         }
 
         await _dataContext.SaveChangesAsync();
@@ -92,6 +84,7 @@ public class DoubleProportionalResultBuilder
         await ResetForElection(electionId);
 
         var election = await LoadElectionAsTracking(electionId);
+        var simplePb = await LoadSimplePoliticalBusinessAsTracking(electionId);
 
         _dpAlgorithm.BuildResultForElection(election);
         var dpResult = election.DoubleProportionalResult!;
@@ -99,7 +92,7 @@ public class DoubleProportionalResultBuilder
         // explicit create necessary, otherwise it will output an error because ef tries to save the child first, while the parent (fk) isnt created yet.
         await _dpResultRepo.Create(dpResult);
 
-        UpdateElectionEndResult(election.EndResult!, dpResult);
+        UpdateElectionEndResult(election.EndResult!, simplePb, dpResult, election.Contest.CantonDefaults.EndResultFinalizeDisabled);
         await _dataContext.SaveChangesAsync();
     }
 
@@ -111,12 +104,15 @@ public class DoubleProportionalResultBuilder
         _dpAlgorithm.SetSuperApportionmentLotDecision(dpResult, lotDecision);
 
         var union = await LoadUnionAsTracking(unionId);
+        var simplePbById = await LoadSimplePoliticalBusinessesAsTracking(union);
+        var implicitFinalize = union.Contest.CantonDefaults.EndResultFinalizeDisabled;
+
         foreach (var electionEndResult in union.ProportionalElectionUnionEntries.Select(e => e.ProportionalElection.EndResult!))
         {
             var electionDpResult = dpResult.Rows.FirstOrDefault(x => x.ProportionalElectionId == electionEndResult.ProportionalElectionId)
                 ?? throw new InvalidOperationException("Dp result does not exist to a proportional election end result");
 
-            UpdateUnionElectionEndResult(electionEndResult, electionDpResult, dpResult.AllNumberOfMandatesDistributed);
+            UpdateUnionElectionEndResult(electionEndResult, simplePbById[electionEndResult.ProportionalElectionId], electionDpResult, dpResult.AllNumberOfMandatesDistributed, implicitFinalize);
         }
 
         await _dataContext.SaveChangesAsync();
@@ -136,7 +132,8 @@ public class DoubleProportionalResultBuilder
         _dpAlgorithm.SetSuperApportionmentLotDecision(dpResult, lotDecision);
 
         var election = await LoadElectionAsTracking(electionId);
-        UpdateElectionEndResult(election.EndResult!, dpResult);
+        var simplePb = await LoadSimplePoliticalBusinessAsTracking(electionId);
+        UpdateElectionEndResult(election.EndResult!, simplePb, dpResult, election.Contest.CantonDefaults.EndResultFinalizeDisabled);
 
         await _dataContext.SaveChangesAsync();
     }
@@ -149,12 +146,15 @@ public class DoubleProportionalResultBuilder
         _dpAlgorithm.SetSubApportionmentLotDecision(dpResult, lotDecision);
 
         var union = await LoadUnionAsTracking(unionId);
+        var simplePbById = await LoadSimplePoliticalBusinessesAsTracking(union);
+        var implicitFinalize = union.Contest.CantonDefaults.EndResultFinalizeDisabled;
+
         foreach (var electionEndResult in union.ProportionalElectionUnionEntries.Select(e => e.ProportionalElection.EndResult!))
         {
             var electionDpResult = dpResult.Rows.FirstOrDefault(x => x.ProportionalElectionId == electionEndResult.ProportionalElectionId)
                 ?? throw new InvalidOperationException("Dp result does not exist to a proportional election end result");
 
-            UpdateUnionElectionEndResult(electionEndResult, electionDpResult, dpResult.AllNumberOfMandatesDistributed);
+            UpdateUnionElectionEndResult(electionEndResult, simplePbById[electionEndResult.ProportionalElectionId], electionDpResult, dpResult.AllNumberOfMandatesDistributed, implicitFinalize);
         }
 
         await _dataContext.SaveChangesAsync();
@@ -261,15 +261,23 @@ public class DoubleProportionalResultBuilder
         await _dataContext.SaveChangesAsync();
     }
 
-    private void UpdateUnionElectionEndResult(ProportionalElectionEndResult electionEndResult, DoubleProportionalResultRow electionDpResultRow, bool allNumberOfMandatesDistributed)
+    private void UpdateUnionElectionEndResult(
+        ProportionalElectionEndResult electionEndResult,
+        SimplePoliticalBusiness simplePb,
+        DoubleProportionalResultRow electionDpResultRow,
+        bool allNumberOfMandatesDistributed,
+        bool implicitFinalize)
     {
         if (!allNumberOfMandatesDistributed)
         {
             electionEndResult.Reset();
+            simplePb.EndResultFinalized = false;
             return;
         }
 
         electionEndResult.MandateDistributionTriggered = true;
+        electionEndResult.Finalized = implicitFinalize;
+        simplePb.EndResultFinalized = implicitFinalize;
 
         foreach (var listEndResult in electionEndResult.ListEndResults)
         {
@@ -278,23 +286,26 @@ public class DoubleProportionalResultBuilder
 
             listEndResult.NumberOfMandates = dpResultCell.SubApportionmentNumberOfMandates;
 
-            _candidateEndResultBuilder.RecalculateCandidateEndResultRanks(listEndResult.CandidateEndResults, true);
+            _candidateEndResultBuilder.RecalculateCandidateEndResultRanksWithDistinctRanks(listEndResult.CandidateEndResults);
             _candidateEndResultBuilder.RecalculateLotDecisionState(listEndResult);
         }
 
         _candidateEndResultBuilder.RecalculateCandidateEndResultStates(electionEndResult);
     }
 
-    private void UpdateElectionEndResult(ProportionalElectionEndResult electionEndResult, DoubleProportionalResult dpResult)
+    private void UpdateElectionEndResult(ProportionalElectionEndResult electionEndResult, SimplePoliticalBusiness simplePb, DoubleProportionalResult dpResult, bool implicitFinalized)
     {
         if (!dpResult.AllNumberOfMandatesDistributed)
         {
             electionEndResult.Reset();
             electionEndResult.MandateDistributionTriggered = dpResult.SuperApportionmentState == DoubleProportionalResultApportionmentState.HasOpenLotDecision;
+            simplePb.EndResultFinalized = false;
             return;
         }
 
         electionEndResult.MandateDistributionTriggered = true;
+        electionEndResult.Finalized = implicitFinalized;
+        simplePb.EndResultFinalized = implicitFinalized;
 
         foreach (var listEndResult in electionEndResult.ListEndResults)
         {
@@ -303,7 +314,7 @@ public class DoubleProportionalResultBuilder
 
             listEndResult.NumberOfMandates = dpResultColumn.SuperApportionmentNumberOfMandates;
 
-            _candidateEndResultBuilder.RecalculateCandidateEndResultRanks(listEndResult.CandidateEndResults, true);
+            _candidateEndResultBuilder.RecalculateCandidateEndResultRanksWithDistinctRanks(listEndResult.CandidateEndResults);
             _candidateEndResultBuilder.RecalculateLotDecisionState(listEndResult);
         }
 
@@ -323,6 +334,7 @@ public class DoubleProportionalResultBuilder
              .Include(x => x.ProportionalElectionUnionEntries)
                 .ThenInclude(x => x.ProportionalElection.EndResult!.ListEndResults)
                     .ThenInclude(x => x.CandidateEndResults)
+                        .ThenInclude(x => x.Candidate)
             .Include(x => x.ProportionalElectionUnionLists)
                 .ThenInclude(x => x.ProportionalElectionUnionListEntries)
                     .ThenInclude(x => x.ProportionalElectionList.EndResult)
@@ -343,7 +355,30 @@ public class DoubleProportionalResultBuilder
             .ThenInclude(x => x.List)
             .Include(x => x.EndResult!.ListEndResults)
             .ThenInclude(x => x.CandidateEndResults)
+            .ThenInclude(x => x.Candidate)
             .FirstOrDefaultAsync(x => x.Id == electionId)
             ?? throw new EntityNotFoundException(nameof(ProportionalElection), electionId);
+    }
+
+    private async Task<SimplePoliticalBusiness> LoadSimplePoliticalBusinessAsTracking(Guid electionId)
+    {
+        return await _simplePoliticalBusinessRepo.Query()
+            .AsTracking()
+            .FirstOrDefaultAsync(x => x.Id == electionId)
+            ?? throw new EntityNotFoundException(nameof(SimplePoliticalBusiness), electionId);
+    }
+
+    private async Task<Dictionary<Guid, SimplePoliticalBusiness>> LoadSimplePoliticalBusinessesAsTracking(ProportionalElectionUnion union)
+    {
+        var electionIds = union.ProportionalElectionUnionEntries
+            .Select(e => e.ProportionalElectionId)
+            .ToList();
+
+        return await _simplePoliticalBusinessRepo
+            .Query()
+            .AsSplitQuery()
+            .AsTracking()
+            .Where(x => electionIds.Contains(x.Id))
+            .ToDictionaryAsync(x => x.Id, x => x);
     }
 }
