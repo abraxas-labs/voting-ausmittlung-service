@@ -29,7 +29,7 @@ public class MajorityElectionResultBuilder : PoliticalBusinessResultBuilder<Majo
     private readonly IDbRepository<DataContext, SecondaryMajorityElectionWriteInMapping> _secondaryMajorityElectionWriteInsRepo;
     private readonly IDbRepository<DataContext, MajorityElectionWriteInBallot> _majorityElectionWriteInBallotsRepo;
     private readonly IDbRepository<DataContext, SecondaryMajorityElectionWriteInBallot> _secondaryMajorityElectionWriteInBallotsRepo;
-    private readonly IDbRepository<DataContext, MajorityElectionResultBallot> _ballotRepo;
+    private readonly IDbRepository<DataContext, MajorityElectionResultBundle> _bundleRepo;
     private readonly IDbRepository<DataContext, SecondaryMajorityElectionResultBallot> _secondaryBallotRepo;
     private readonly MajorityElectionBallotGroupResultBuilder _ballotGroupResultBuilder;
     private readonly MajorityElectionCandidateResultBuilder _candidateResultBuilder;
@@ -44,7 +44,7 @@ public class MajorityElectionResultBuilder : PoliticalBusinessResultBuilder<Majo
         IDbRepository<DataContext, SecondaryMajorityElectionWriteInMapping> secondaryMajorityElectionWriteInsRepo,
         IDbRepository<DataContext, MajorityElectionWriteInBallot> majorityElectionWriteInBallotsRepo,
         IDbRepository<DataContext, SecondaryMajorityElectionWriteInBallot> secondaryMajorityElectionWriteInBallotsRepo,
-        IDbRepository<DataContext, MajorityElectionResultBallot> ballotRepo,
+        IDbRepository<DataContext, MajorityElectionResultBundle> bundleRepo,
         IDbRepository<DataContext, SecondaryMajorityElectionResultBallot> secondaryBallotRepo,
         IDbRepository<DataContext, CountingCircleResultComment> resultCommentRepo,
         SimpleCountingCircleResultRepo simpleResultRepo,
@@ -61,7 +61,7 @@ public class MajorityElectionResultBuilder : PoliticalBusinessResultBuilder<Majo
         _secondaryMajorityElectionWriteInsRepo = secondaryMajorityElectionWriteInsRepo;
         _majorityElectionWriteInBallotsRepo = majorityElectionWriteInBallotsRepo;
         _secondaryMajorityElectionWriteInBallotsRepo = secondaryMajorityElectionWriteInBallotsRepo;
-        _ballotRepo = ballotRepo;
+        _bundleRepo = bundleRepo;
         _secondaryBallotRepo = secondaryBallotRepo;
         _ballotGroupResultBuilder = ballotGroupResultBuilder;
         _candidateResultBuilder = candidateResultBuilder;
@@ -257,24 +257,16 @@ public class MajorityElectionResultBuilder : PoliticalBusinessResultBuilder<Majo
         electionResult.UpdateVoterParticipation();
     }
 
-    internal async Task UpdateTotalCountOfBallotGroupVotes(Guid electionResultId, int sum)
-    {
-        var result = await _resultRepo.GetByKey(electionResultId)
-                     ?? throw new EntityNotFoundException(electionResultId);
-        result.ConventionalCountOfBallotGroupVotes = sum;
-        await _resultRepo.Update(result);
-    }
-
     internal async Task AddVoteCountsFromBundle(Guid electionResultId, Guid bundleId)
     {
         await AdjustConventionalVoteCountsForBundle(electionResultId, bundleId, 1);
-        await AdjustSecondaryVoteCountsForBundle(electionResultId, bundleId, 1);
+        await AdjustSecondaryVoteCountsForBundle(bundleId, 1);
     }
 
     internal async Task RemoveVoteCountsFromBundle(Guid electionResultId, Guid bundleId)
     {
         await AdjustConventionalVoteCountsForBundle(electionResultId, bundleId, -1);
-        await AdjustSecondaryVoteCountsForBundle(electionResultId, bundleId, -1);
+        await AdjustSecondaryVoteCountsForBundle(bundleId, -1);
     }
 
     internal async Task ResetIndividualVoteCounts(Guid electionId)
@@ -361,68 +353,52 @@ public class MajorityElectionResultBuilder : PoliticalBusinessResultBuilder<Majo
 
     private async Task AdjustConventionalVoteCountsForBundle(Guid electionResultId, Guid bundleId, int factor)
     {
-        var electionResult = await _resultRepo.GetByKey(electionResultId)
-                             ?? throw new EntityNotFoundException(electionResultId);
+        var sums = await _bundleRepo.Query()
+            .Where(x => x.Id == bundleId)
+            .Select(x => new
+            {
+                Individual = x.Ballots.Sum(b => b.IndividualVoteCount),
+                Invalid = x.Ballots.Sum(b => b.InvalidVoteCount),
+                Empty = x.Ballots.Sum(b => b.EmptyVoteCount),
+                CandidateVoteCount = x.Ballots.SelectMany(b => b.BallotCandidates).Count(c => c.Selected),
+            })
+            .FirstOrDefaultAsync()
+            ?? throw new EntityNotFoundException(bundleId);
 
-        var individualVoteCountSum = await _ballotRepo.Query()
-            .Where(x => x.BundleId == bundleId)
-            .SumAsync(x => x.IndividualVoteCount);
-        electionResult.ConventionalSubTotal.IndividualVoteCount += individualVoteCountSum * factor;
-
-        var invalidVoteCountSum = await _ballotRepo.Query()
-            .Where(x => x.BundleId == bundleId)
-            .SumAsync(x => x.InvalidVoteCount);
-        electionResult.ConventionalSubTotal.InvalidVoteCount += invalidVoteCountSum * factor;
-
-        var emptyVoteCountSum = await _ballotRepo.Query()
-            .Where(x => x.BundleId == bundleId)
-            .SumAsync(x => x.EmptyVoteCount);
-        electionResult.ConventionalSubTotal.EmptyVoteCountExclWriteIns += emptyVoteCountSum * factor;
-
-        var candidateVoteCount = await _ballotRepo.Query()
-            .Where(x => x.BundleId == bundleId)
-            .SelectMany(x => x.BallotCandidates)
-            .CountAsync(x => x.Selected);
-        electionResult.ConventionalSubTotal.TotalCandidateVoteCountExclIndividual += candidateVoteCount * factor;
-
-        await _resultRepo.Update(electionResult);
+        await _resultRepo.Query()
+            .Where(x => x.Id == electionResultId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(x => x.ConventionalSubTotal.IndividualVoteCount, x => x.ConventionalSubTotal.IndividualVoteCount + (sums.Individual * factor))
+                    .SetProperty(x => x.ConventionalSubTotal.InvalidVoteCount, x => x.ConventionalSubTotal.InvalidVoteCount + (sums.Invalid * factor))
+                    .SetProperty(x => x.ConventionalSubTotal.EmptyVoteCountExclWriteIns, x => x.ConventionalSubTotal.EmptyVoteCountExclWriteIns + (sums.Empty * factor))
+                    .SetProperty(x => x.ConventionalSubTotal.TotalCandidateVoteCountExclIndividual, x => x.ConventionalSubTotal.TotalCandidateVoteCountExclIndividual + (sums.CandidateVoteCount * factor)));
     }
 
-    private async Task AdjustSecondaryVoteCountsForBundle(Guid electionResultId, Guid bundleId, int factor)
+    private async Task AdjustSecondaryVoteCountsForBundle(Guid bundleId, int factor)
     {
-        var electionResults = await _resultRepo.Query()
-                                  .AsTracking()
-                                  .Where(x => x.Id == electionResultId)
-                                  .SelectMany(x => x.SecondaryMajorityElectionResults)
-                                  .ToListAsync()
-                              ?? throw new EntityNotFoundException(electionResultId);
         var voteCountSums = await _secondaryBallotRepo.Query()
             .Where(x => x.PrimaryBallot.BundleId == bundleId)
-            .GroupBy(x => x.SecondaryMajorityElectionResult.SecondaryMajorityElectionId, (electionId, ballots) =>
+            .GroupBy(x => x.SecondaryMajorityElectionResultId, (resultId, ballots) =>
                 new
                 {
-                    SecondaryElectionId = electionId,
-                    CountOfIndividualVotes = ballots.Sum(x => x.IndividualVoteCount),
-                    CountOfEmptyVotes = ballots.Sum(x => x.EmptyVoteCount),
-                    CountOfInvalidVotes = ballots.Sum(x => x.InvalidVoteCount),
+                    SecondaryResultId = resultId,
+                    Individual = ballots.Sum(x => x.IndividualVoteCount),
+                    Empty = ballots.Sum(x => x.EmptyVoteCount),
+                    Invalid = ballots.Sum(x => x.InvalidVoteCount),
                     CandidateVoteCount = ballots.Sum(b => b.CandidateVoteCountExclIndividual),
                 })
-            .ToDictionaryAsync(x => x.SecondaryElectionId, x => new { x.CountOfIndividualVotes, x.CountOfEmptyVotes, x.CountOfInvalidVotes, x.CandidateVoteCount });
+            .ToDictionaryAsync(x => x.SecondaryResultId, x => new { x.Individual, x.Empty, x.Invalid, x.CandidateVoteCount });
 
-        foreach (var electionResult in electionResults)
+        foreach (var (resultId, sums) in voteCountSums)
         {
-            if (!voteCountSums.TryGetValue(electionResult.SecondaryMajorityElectionId, out var voteCounts))
-            {
-                continue;
-            }
-
-            electionResult.ConventionalSubTotal.IndividualVoteCount += voteCounts.CountOfIndividualVotes * factor;
-            electionResult.ConventionalSubTotal.EmptyVoteCountExclWriteIns += voteCounts.CountOfEmptyVotes * factor;
-            electionResult.ConventionalSubTotal.InvalidVoteCount += voteCounts.CountOfInvalidVotes * factor;
-            electionResult.ConventionalSubTotal.TotalCandidateVoteCountExclIndividual += voteCounts.CandidateVoteCount * factor;
+            await _secondaryResultRepo.Query()
+                .Where(x => x.Id == resultId)
+                .ExecuteUpdateAsync(setters =>
+                    setters.SetProperty(x => x.ConventionalSubTotal.IndividualVoteCount, x => x.ConventionalSubTotal.IndividualVoteCount + (sums.Individual * factor))
+                        .SetProperty(x => x.ConventionalSubTotal.InvalidVoteCount, x => x.ConventionalSubTotal.InvalidVoteCount + (sums.Invalid * factor))
+                        .SetProperty(x => x.ConventionalSubTotal.EmptyVoteCountExclWriteIns, x => x.ConventionalSubTotal.EmptyVoteCountExclWriteIns + (sums.Empty * factor))
+                        .SetProperty(x => x.ConventionalSubTotal.TotalCandidateVoteCountExclIndividual, x => x.ConventionalSubTotal.TotalCandidateVoteCountExclIndividual + (sums.CandidateVoteCount * factor)));
         }
-
-        await _dataContext.SaveChangesAsync();
     }
 
     private void UpdateSecondaryMajorityElectionResults(

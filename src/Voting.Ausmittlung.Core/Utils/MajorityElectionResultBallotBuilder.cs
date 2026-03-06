@@ -33,7 +33,7 @@ public class MajorityElectionResultBallotBuilder
         _dbContext = dbContext;
     }
 
-    internal async Task<bool> CreateBallot(
+    internal async Task CreateBallot(
         Guid bundleId,
         MajorityElectionResultBallotCreated data)
     {
@@ -50,13 +50,7 @@ public class MajorityElectionResultBallotBuilder
                     CandidateIds = e.CandidateResults.Select(c => c.CandidateId),
                 }),
             })
-            .FirstOrDefaultAsync();
-
-        // The bundle may not exist
-        if (ids == null)
-        {
-            return false;
-        }
+            .FirstAsync();
 
         var selectedCandidates = data.SelectedCandidateIds.Select(Guid.Parse).ToHashSet();
         var ballot = new MajorityElectionResultBallot
@@ -104,7 +98,6 @@ public class MajorityElectionResultBallotBuilder
         }
 
         await _ballotRepo.Create(ballot);
-        return true;
     }
 
     internal async Task UpdateBallot(
@@ -135,6 +128,11 @@ public class MajorityElectionResultBallotBuilder
                 User = data.EventInfo.User.ToDataUser(),
                 Timestamp = data.EventInfo.Timestamp.ToDateTime(),
             });
+        }
+
+        if (ballot.Bundle.State == BallotBundleState.ReadyForReview)
+        {
+            ballot.ModifiedDuringReview = true;
         }
 
         await _dbContext.SaveChangesAsync();

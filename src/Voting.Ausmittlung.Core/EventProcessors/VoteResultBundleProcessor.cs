@@ -183,7 +183,7 @@ public class VoteResultBundleProcessor :
         await UpdateCountOfBundlesNotReviewedOrDeleted(bundle.BallotResultId, 1);
         await RemoveVotesFromResults(bundle);
 
-        var log = await ProcessBundleToReadyForReview(bundleId, eventData.SampleBallotNumbers, user, timestamp);
+        var log = await ProcessBundleToReadyForReview(bundle, eventData.SampleBallotNumbers, user, timestamp);
         _eventLogger.LogBundleEvent(eventData, bundleId, voteResultId, log);
     }
 
@@ -211,6 +211,10 @@ public class VoteResultBundleProcessor :
                 LastName = user.LastName,
                 SecureConnectId = user.SecureConnectId,
             };
+
+            await _ballotRepo.Query()
+                .Where(x => x.BundleId == bundle.Id)
+                .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.ModifiedDuringReview, false));
         }
 
         if (newState == BallotBundleState.ReadyForReview && oldState == BallotBundleState.InCorrection)
@@ -269,24 +273,18 @@ public class VoteResultBundleProcessor :
     {
         var bundle = await _bundleRepo.GetByKey(bundleId)
                      ?? throw new EntityNotFoundException(bundleId);
+        return await ProcessBundleToReadyForReview(bundle, sampleBallotNumbers, user, timestamp);
+    }
+
+    private async Task<VoteResultBundleLog> ProcessBundleToReadyForReview(VoteResultBundle bundle, IList<int> sampleBallotNumbers, User user, DateTime timestamp)
+    {
         var log = await UpdateBundleState(bundle, BallotBundleState.ReadyForReview, user, timestamp);
 
-        if (sampleBallotNumbers.Count == 0)
-        {
-            return log;
-        }
-
-        var ballots = await _ballotRepo.Query()
-            .Where(b =>
-                b.BundleId == bundleId
-                && (sampleBallotNumbers.Contains(b.Number) || b.MarkedForReview))
-            .ToListAsync();
-        foreach (var ballot in ballots)
-        {
-            ballot.MarkedForReview = sampleBallotNumbers.Contains(ballot.Number);
-        }
-
-        await _ballotRepo.UpdateRange(ballots);
+        await _ballotRepo.Query()
+            .Where(b => b.BundleId == bundle.Id)
+            .ExecuteUpdateAsync(setters => setters.SetProperty(
+                x => x.MarkedForReview,
+                x => sampleBallotNumbers.Contains(x.Number)));
         return log;
     }
 

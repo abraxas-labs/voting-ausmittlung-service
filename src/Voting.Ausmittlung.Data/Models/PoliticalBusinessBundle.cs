@@ -31,4 +31,10 @@ public abstract class PoliticalBusinessBundle : BaseEntity
 
     [NotMapped]
     public ProtocolExport? ProtocolExport { get; set; }
+
+    [NotMapped]
+    public List<int> BallotNumbersModifiedDuringReview { get; set; } = new();
+
+    [NotMapped]
+    public List<string> BallotModificationUserIds { get; set; } = new();
 }

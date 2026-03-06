@@ -2239,6 +2239,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<bool>("MarkedForReview")
                         .HasColumnType("boolean");
 
+                    b.Property<bool>("ModifiedDuringReview")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("Number")
                         .HasColumnType("integer");
 
@@ -3226,6 +3229,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<bool>("MarkedForReview")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("ModifiedDuringReview")
                         .HasColumnType("boolean");
 
                     b.Property<int>("Number")
@@ -4674,6 +4680,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<bool>("MarkedForReview")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("ModifiedDuringReview")
                         .HasColumnType("boolean");
 
                     b.Property<int>("Number")

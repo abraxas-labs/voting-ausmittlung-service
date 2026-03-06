@@ -264,23 +264,23 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
                 Apply(ev);
                 break;
             case MajorityElectionResultBundleSubmissionFinished _:
-                State = BallotBundleState.ReadyForReview;
+                SetState(BallotBundleState.ReadyForReview);
                 break;
             case MajorityElectionResultBundleCorrectionFinished ev:
-                State = BallotBundleState.ReadyForReview;
+                SetState(BallotBundleState.ReadyForReview);
                 CreatedBy = ev.EventInfo.User.Id;
                 break;
             case MajorityElectionResultBundleReviewRejected _:
-                State = BallotBundleState.InCorrection;
+                SetState(BallotBundleState.InCorrection);
                 break;
             case MajorityElectionResultBundleReviewSucceeded _:
-                State = BallotBundleState.Reviewed;
+                SetState(BallotBundleState.Reviewed);
                 break;
             case MajorityElectionResultBundleDeleted _:
-                State = BallotBundleState.Deleted;
+                SetState(BallotBundleState.Deleted);
                 break;
             case MajorityElectionResultBundleResetToSubmissionFinished _:
-                State = BallotBundleState.ReadyForReview;
+                SetState(BallotBundleState.ReadyForReview);
                 break;
             case MajorityElectionResultBallotUpdated ev:
                 TrackPossibleModification(ev.EventInfo.User.Id);

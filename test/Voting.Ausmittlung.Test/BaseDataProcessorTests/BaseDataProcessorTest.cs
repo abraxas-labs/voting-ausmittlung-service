@@ -11,6 +11,7 @@ using FluentAssertions;
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Voting.Ausmittlung.Core.EventProcessors;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.EventSignature;
@@ -36,6 +37,7 @@ public abstract class BaseDataProcessorTest : BaseTest<TestApplicationFactory, T
 
         TestEventPublisher = GetService<TestEventPublisher>();
         EventPublisherMock = GetService<EventPublisherMock>();
+        GetService<EventProcessingInMemoryStateHolder>().ResetState();
         EventPublisherMock.Clear();
 
         ContestCache = GetService<ContestCache>();

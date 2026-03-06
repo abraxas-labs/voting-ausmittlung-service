@@ -131,6 +131,7 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
 
         var majorityElection = _mapper.Map<PdfMajorityElection>(data);
         majorityElection.DomainOfInfluenceResults = _mapper.Map<List<PdfMajorityElectionDomainOfInfluenceResult>>(doiResults);
+        await _pdfMajorityElectionUtil.SetEndResultIsComplete(majorityElection.Id, majorityElection.EndResult, data.EndResult!.CandidateEndResults);
 
         // only show cc results in election which are not included in doi results (ex: reporting level 1 and cc Auslandschweizer)
         majorityElection.Results = _mapper.Map<List<PdfMajorityElectionResult>>(notAssignableResult.Results);

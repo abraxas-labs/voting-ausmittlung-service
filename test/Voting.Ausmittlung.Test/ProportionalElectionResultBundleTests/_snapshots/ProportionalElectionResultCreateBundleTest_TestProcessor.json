@@ -222,7 +222,9 @@
           "State": 1
         }
       ],
-      "CountOfModifiedBallots": 0
+      "CountOfModifiedBallots": 0,
+      "BallotNumbersModifiedDuringReview": [],
+      "BallotModificationUserIds": []
     },
     {
       "Id": "e0cf709d-f8eb-477a-b57d-ce058c3ce186",
@@ -263,7 +265,9 @@
           "State": 1
         }
       ],
-      "CountOfModifiedBallots": 0
+      "CountOfModifiedBallots": 0,
+      "BallotNumbersModifiedDuringReview": [],
+      "BallotModificationUserIds": []
     },
     {
       "Id": "b1e326d7-2f47-43d7-8430-cf150401337c",
@@ -296,7 +300,9 @@
           "State": 1
         }
       ],
-      "CountOfModifiedBallots": 0
+      "CountOfModifiedBallots": 0,
+      "BallotNumbersModifiedDuringReview": [],
+      "BallotModificationUserIds": []
     },
     {
       "Id": "e6be0892-eb02-41a7-a32b-d5b71de926f3",
@@ -329,7 +335,9 @@
           "State": 1
         }
       ],
-      "CountOfModifiedBallots": 0
+      "CountOfModifiedBallots": 0,
+      "BallotNumbersModifiedDuringReview": [],
+      "BallotModificationUserIds": []
     },
     {
       "Id": "ce73c633-8689-4e8d-bb77-612f354b4ad6",
@@ -370,7 +378,9 @@
           "State": 1
         }
       ],
-      "CountOfModifiedBallots": 0
+      "CountOfModifiedBallots": 0,
+      "BallotNumbersModifiedDuringReview": [],
+      "BallotModificationUserIds": []
     },
     {
       "Id": "e9590e17-abae-4e41-a575-08d1f5d79db3",
@@ -403,7 +413,9 @@
           "State": 1
         }
       ],
-      "CountOfModifiedBallots": 0
+      "CountOfModifiedBallots": 0,
+      "BallotNumbersModifiedDuringReview": [],
+      "BallotModificationUserIds": []
     }
   ]
 }

@@ -66,6 +66,36 @@ public class ExportDownloadEch0252ExportTest : ExportBaseRestTest
     }
 
     [Fact]
+    public async Task ShouldWorkWithWriteIn()
+    {
+        await RunOnDb(async db =>
+        {
+            var candidate = await db.MajorityElectionCandidates
+                .AsTracking()
+                .Include(x => x.Translations)
+                .SingleAsync(x => x.Id == Guid.Parse(MajorityElectionMockedData.CandidateIdStGallenMajorityElectionInContestStGallen));
+            candidate.Street = string.Empty;
+            candidate.Locality = string.Empty;
+            candidate.Title = string.Empty;
+            candidate.HouseNumber = string.Empty;
+            candidate.ZipCode = string.Empty;
+            candidate.Origin = string.Empty;
+            candidate.Country = string.Empty;
+            candidate.DateOfBirth = null;
+            candidate.Incumbent = false;
+            candidate.CreatedDuringActiveContest = true;
+            candidate.Translations.Clear();
+            await db.SaveChangesAsync();
+        });
+
+        await TestExport(NewValidRequest(), StGallenReportExporterApiClient, archive =>
+        {
+            var formattedXmlMajorityElections = ValidateAndFormat(archive, "eCH-0252_majority-election-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml");
+            formattedXmlMajorityElections.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252MajorityElectionsApiWriteIn.xml");
+        });
+    }
+
+    [Fact]
     public async Task ShouldWorkWithCandidateListResultsInfo()
     {
         await ModifyDbEntities<ProportionalElectionResult>(x => true, x =>

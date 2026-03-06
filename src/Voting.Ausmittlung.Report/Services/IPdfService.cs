@@ -11,7 +11,7 @@ public interface IPdfService
 {
     Task<Stream> Render<T>(string templateName, T data);
 
-    Task StartPdfGeneration<T>(string templateName, T data, string webhookUrl);
+    Task StartPdfGeneration<T>(string templateName, T data, string webhookUrl, int? asyncJobPriority);
 
     Task<Stream> GetPdf(int printJobId, CancellationToken ct = default);
 }

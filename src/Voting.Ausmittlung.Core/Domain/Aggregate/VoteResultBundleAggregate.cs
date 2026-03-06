@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using AutoMapper;
@@ -75,8 +74,6 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
         EnsureInState(BallotBundleState.InProcess, BallotBundleState.InCorrection);
         CheckBallotNumber(ballotNumber, ResultEntryParams.AutomaticBallotNumberGeneration);
 
-        ValidateAtLeastOneAnswer(questionBallotAnswers, tieBreakQuestionBallotAnswers);
-
         var ev = new VoteResultBallotCreated
         {
             EventInfo = _eventInfoProvider.NewEventInfo(),
@@ -99,8 +96,6 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
     {
         EnsureInState(BallotBundleState.InProcess, BallotBundleState.InCorrection, BallotBundleState.ReadyForReview);
         EnsureHasBallot(ballotNumber);
-
-        ValidateAtLeastOneAnswer(questionBallotAnswers, tieBreakQuestionBallotAnswers);
 
         var ev = new VoteResultBallotUpdated
         {
@@ -238,23 +233,23 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
                 Apply(ev);
                 break;
             case VoteResultBundleSubmissionFinished _:
-                State = BallotBundleState.ReadyForReview;
+                SetState(BallotBundleState.ReadyForReview);
                 break;
             case VoteResultBundleCorrectionFinished ev:
-                State = BallotBundleState.ReadyForReview;
+                SetState(BallotBundleState.ReadyForReview);
                 CreatedBy = ev.EventInfo.User.Id;
                 break;
             case VoteResultBundleReviewRejected _:
-                State = BallotBundleState.InCorrection;
+                SetState(BallotBundleState.InCorrection);
                 break;
             case VoteResultBundleReviewSucceeded _:
-                State = BallotBundleState.Reviewed;
+                SetState(BallotBundleState.Reviewed);
                 break;
             case VoteResultBundleDeleted _:
-                State = BallotBundleState.Deleted;
+                SetState(BallotBundleState.Deleted);
                 break;
             case VoteResultBundleResetToSubmissionFinished _:
-                State = BallotBundleState.ReadyForReview;
+                SetState(BallotBundleState.ReadyForReview);
                 break;
             case VoteResultBallotUpdated ev:
                 TrackPossibleModification(ev.EventInfo.User.Id);
@@ -293,16 +288,5 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
         CurrentBallotNumber = CountOfBallots > 0
             ? BallotNumbers[^1]
             : ev.BallotNumber - 1;
-    }
-
-    private void ValidateAtLeastOneAnswer(
-        IEnumerable<VoteResultBallotQuestionAnswer> questionAnswers,
-        IEnumerable<VoteResultBallotTieBreakQuestionAnswer> tieBreakQuestionAnswers)
-    {
-        if (questionAnswers.All(q => q.Answer == BallotQuestionAnswer.Unspecified)
-            && tieBreakQuestionAnswers.All(q => q.Answer == TieBreakQuestionAnswer.Unspecified))
-        {
-            throw new ValidationException("At least one answer must be specified");
-        }
     }
 }

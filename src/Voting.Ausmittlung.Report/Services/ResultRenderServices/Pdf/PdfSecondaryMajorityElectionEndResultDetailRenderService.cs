@@ -29,6 +29,7 @@ public class PdfSecondaryMajorityElectionEndResultDetailRenderService : IRendere
     private readonly MajorityElectionDomainOfInfluenceResultBuilder _doiResultBuilder;
     private readonly IDbRepository<DataContext, ContestCountingCircleDetails> _ccDetailsRepo;
     private readonly IClock _clock;
+    private readonly PdfMajorityElectionUtil _majorityElectionUtil;
 
     public PdfSecondaryMajorityElectionEndResultDetailRenderService(
         TemplateService templateService,
@@ -37,7 +38,8 @@ public class PdfSecondaryMajorityElectionEndResultDetailRenderService : IRendere
         IMapper mapper,
         MajorityElectionDomainOfInfluenceResultBuilder doiResultBuilder,
         IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo,
-        IClock clock)
+        IClock clock,
+        PdfMajorityElectionUtil majorityElectionUtil)
     {
         _templateService = templateService;
         _repo = repo;
@@ -46,6 +48,7 @@ public class PdfSecondaryMajorityElectionEndResultDetailRenderService : IRendere
         _doiResultBuilder = doiResultBuilder;
         _ccDetailsRepo = ccDetailsRepo;
         _clock = clock;
+        _majorityElectionUtil = majorityElectionUtil;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -139,6 +142,7 @@ public class PdfSecondaryMajorityElectionEndResultDetailRenderService : IRendere
         var majorityElection = _mapper.Map<PdfMajorityElection>(data);
         majorityElection.EmptyVoteCountDisabled = false;
         majorityElection.DomainOfInfluenceResults = _mapper.Map<List<PdfMajorityElectionDomainOfInfluenceResult>>(doiResults);
+        await _majorityElectionUtil.SetEndResultIsComplete(secondaryData.PrimaryMajorityElectionId, majorityElection.EndResult, data.EndResult!.CandidateEndResults);
 
         // only show cc results in election which are not included in doi results (ex: reporting level 1 and cc Auslandschweizer)
         majorityElection.Results = _mapper.Map<List<PdfMajorityElectionResult>>(notAssignableResult.Results);

@@ -30,4 +30,10 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <SonarQubeSetting Include="sonar.cpd.exclusions">
+      <Value>EventProcessors/*ResultBundleProcessor.cs,Services/Read/*ResultBundleReader.cs</Value>
+    </SonarQubeSetting>
+  </ItemGroup>
+
 </Project>

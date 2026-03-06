@@ -186,23 +186,21 @@ public class VoteResultCreateBallotTest : VoteResultBundleBaseTest
     }
 
     [Fact]
-    public async Task TestShouldThrowAllUnspecified()
+    public async Task TestShouldReturnWhenAllUnspecified()
     {
-        await AssertStatus(
-            async () => await ErfassungCreatorClient.CreateBallotAsync(NewValidRequest(x =>
+        await ErfassungCreatorClient.CreateBallotAsync(NewValidRequest(x =>
+        {
+            foreach (var qa in x.QuestionAnswers)
             {
-                foreach (var qa in x.QuestionAnswers)
-                {
-                    qa.Answer = SharedProto.BallotQuestionAnswer.Unspecified;
-                }
+                qa.Answer = SharedProto.BallotQuestionAnswer.Unspecified;
+            }
 
-                foreach (var qa in x.TieBreakQuestionAnswers)
-                {
-                    qa.Answer = SharedProto.TieBreakQuestionAnswer.Unspecified;
-                }
-            })),
-            StatusCode.InvalidArgument,
-            "At least one answer must be specified");
+            foreach (var qa in x.TieBreakQuestionAnswers)
+            {
+                qa.Answer = SharedProto.TieBreakQuestionAnswer.Unspecified;
+            }
+        }));
+        EventPublisherMock.GetSinglePublishedEvent<VoteResultBallotCreated>().MatchSnapshot();
     }
 
     [Fact]

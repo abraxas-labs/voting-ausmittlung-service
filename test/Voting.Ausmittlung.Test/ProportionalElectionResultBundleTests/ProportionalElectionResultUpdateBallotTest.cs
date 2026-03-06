@@ -113,6 +113,13 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
             .Where(x => x.Ballot.BundleId == ProportionalElectionResultBundleMockedData.GossauBundle3.Id)
             .CountAsync());
         logsCount.Should().Be(1);
+
+        var bundle = await ErfassungCreatorClient.GetBundleAsync(new GetProportionalElectionResultBundleRequest
+        {
+            BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle3,
+        });
+        bundle.Bundle.BallotNumbersModifiedDuringReview.Count.Should().Be(1);
+        bundle.Bundle.BallotNumbersModifiedDuringReview[0].Should().Be(LatestBallotNumber);
     }
 
     [Fact]

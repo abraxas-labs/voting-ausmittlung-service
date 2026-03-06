@@ -151,13 +151,14 @@ public abstract class PoliticalBusinessResultProcessor<T>
 
     protected async Task UpdatePublished(Guid resultId, bool published)
     {
-        var result = await _repo.GetByKey(resultId)
-                     ?? throw new EntityNotFoundException(resultId);
-        var simpleResult = await _simpleResultRepo.GetByKey(resultId)
-                           ?? throw new EntityNotFoundException(nameof(SimpleCountingCircleResult), resultId);
+        var affected = await _repo.Query()
+            .Where(x => x.Id == resultId)
+            .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.Published, published));
+        EntityNotFoundException.ThrowIfNoRowsAffected(affected, resultId);
 
-        simpleResult.Published = result.Published = published;
-        await _repo.Update(result);
-        await _simpleResultRepo.Update(simpleResult);
+        affected = await _simpleResultRepo.Query()
+            .Where(x => x.Id == resultId)
+            .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.Published, published));
+        EntityNotFoundException.ThrowIfNoRowsAffected(affected, resultId);
     }
 }

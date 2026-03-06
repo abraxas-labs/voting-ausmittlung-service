@@ -94,11 +94,11 @@ public class ResultImportDeleteImportedECountingDataTest : ResultImportDeleteImp
     [Fact]
     public async Task ProcessorShouldWork()
     {
-        await ResultImportMockedData.SeedECounting(RunScoped, CreateHttpClient);
+        var eventCounter = await ResultImportMockedData.SeedECounting(RunScoped, CreateHttpClient);
 
         var id = "759b344f-511a-41f6-8836-43870949e52c";
         await TestEventPublisher.Publish(
-            0,
+            eventCounter,
             new ResultImportDataDeleted
             {
                 ContestId = ContestMockedData.IdStGallenEvoting,

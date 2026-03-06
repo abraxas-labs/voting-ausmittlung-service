@@ -18,4 +18,10 @@ public abstract class PrimaryElectionResultBallot : BaseEntity
     /// Should only be used for ordering the ballot inside a bundle.
     /// </summary>
     public int Index { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether this ballot was modified while the bundle was in the ReadyForReview state.
+    /// The value is reset when the bundle is sent back for corrections.
+    /// </summary>
+    public bool ModifiedDuringReview { get; set; }
 }

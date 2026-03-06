@@ -10,6 +10,7 @@ using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
@@ -138,6 +139,11 @@ public class VoteResultRejectBundleReviewTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestProcessor()
     {
+        var bundleId = VoteResultBundleMockedData.GossauBundle1.Id;
+        await ModifyDbEntities<VoteResultBallot>(
+            b => b.BundleId == bundleId,
+            b => b.ModifiedDuringReview = true);
+
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
             new VoteResultBundleReviewRejected
@@ -158,6 +164,9 @@ public class VoteResultRejectBundleReviewTest : VoteResultBundleBaseTest
 
         bundle.MatchSnapshot(x => x.BallotResult.VoteResult.CountingCircleId);
         await AssertHasPublishedEventProcessedMessage(VoteResultBundleReviewRejected.Descriptor, bundle.Id);
+
+        var hasModifiedBallots = await RunOnDb(db => db.VoteResultBallots.AnyAsync(b => b.BundleId == bundleId && b.ModifiedDuringReview));
+        hasModifiedBallots.Should().BeFalse();
     }
 
     [Fact]

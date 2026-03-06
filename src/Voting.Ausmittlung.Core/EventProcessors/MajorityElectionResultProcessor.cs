@@ -103,7 +103,6 @@ public class MajorityElectionResultProcessor :
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         var counts = eventData.Results.ToDictionary(x => GuidParser.Parse(x.BallotGroupId), x => x.VoteCount);
         await _ballotGroupResultBuilder.UpdateBallotGroupAndCandidateResults(electionResultId, counts);
-        await _resultBuilder.UpdateTotalCountOfBallotGroupVotes(electionResultId, counts.Values.Sum());
         _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 

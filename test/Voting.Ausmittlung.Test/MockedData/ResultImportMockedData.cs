@@ -19,9 +19,10 @@ namespace Voting.Ausmittlung.Test.MockedData;
 
 public static class ResultImportMockedData
 {
-    public static Task SeedEVoting(
+    public static Task<long> SeedEVoting(
         Func<Func<IServiceProvider, Task>, Task> runScoped,
-        Func<bool, string, string, string[], HttpClient> createClient)
+        Func<bool, string, string, string[], HttpClient> createClient,
+        long eventNrCounter = 0)
     {
         var uri = new Uri(
             $"api/result_import/e-voting/{ContestMockedData.IdStGallenEvoting}",
@@ -29,22 +30,24 @@ public static class ResultImportMockedData
 
         var ech0222File = "ImportTests/ExampleFiles/ech0222_import_ok.xml";
         var ech0110File = "ImportTests/ExampleFiles/ech0110_import_ok.xml";
-        return Seed(runScoped, createClient, RolesMockedData.MonitoringElectionAdmin, SecureConnectTestDefaults.MockedTenantStGallen.Id, uri, ech0222File, ech0110File);
+        return Seed(eventNrCounter, runScoped, createClient, RolesMockedData.MonitoringElectionAdmin, SecureConnectTestDefaults.MockedTenantStGallen.Id, uri, ech0222File, ech0110File);
     }
 
-    public static Task SeedECounting(
+    public static Task<long> SeedECounting(
         Func<Func<IServiceProvider, Task>, Task> runScoped,
-        Func<bool, string, string, string[], HttpClient> createClient)
+        Func<bool, string, string, string[], HttpClient> createClient,
+        long eventNrCounter = 0)
     {
         var uri = new Uri(
             $"api/result_import/e-counting/{ContestMockedData.IdStGallenEvoting}/{CountingCircleMockedData.IdUzwil}",
             UriKind.RelativeOrAbsolute);
 
         var ech0222File = "ImportTests/ExampleFiles/ech0222_e_counting_import_ok.xml";
-        return Seed(runScoped, createClient, RolesMockedData.ErfassungElectionAdmin, SecureConnectTestDefaults.MockedTenantUzwil.Id, uri, ech0222File);
+        return Seed(eventNrCounter, runScoped, createClient, RolesMockedData.ErfassungElectionAdmin, SecureConnectTestDefaults.MockedTenantUzwil.Id, uri, ech0222File);
     }
 
-    private static Task Seed(
+    private static async Task<long> Seed(
+        long eventNrCounter,
         Func<Func<IServiceProvider, Task>, Task> runScoped,
         Func<bool, string, string, string[], HttpClient> createClient,
         string role,
@@ -53,7 +56,7 @@ public static class ResultImportMockedData
         string ech0222File,
         string? ech0110File = null)
     {
-        return runScoped(async sp =>
+        await runScoped(async sp =>
         {
             var client = createClient(
                 true,
@@ -72,38 +75,37 @@ public static class ResultImportMockedData
 
             var publisherMock = sp.GetRequiredService<EventPublisherMock>();
             var testPublisher = sp.GetRequiredService<TestEventPublisher>();
-            var eventIdCounter = 0;
-            await testPublisher.Publish(eventIdCounter++, publisherMock.GetSinglePublishedEvent<ResultImportCreated>());
-            await testPublisher.Publish(eventIdCounter++, publisherMock.GetSinglePublishedEvent<ResultImportStarted>());
+            await testPublisher.Publish(eventNrCounter++, publisherMock.GetSinglePublishedEvent<ResultImportCreated>());
+            await testPublisher.Publish(eventNrCounter++, publisherMock.GetSinglePublishedEvent<ResultImportStarted>());
 
             var propImportEvents = publisherMock.GetPublishedEvents<ProportionalElectionResultImported>().ToArray();
-            await testPublisher.Publish(eventIdCounter, propImportEvents);
-            eventIdCounter += propImportEvents.Length;
+            await testPublisher.Publish(eventNrCounter, propImportEvents);
+            eventNrCounter += propImportEvents.Length;
 
             var majorityImportEvents = publisherMock.GetPublishedEvents<MajorityElectionResultImported>().ToArray();
-            await testPublisher.Publish(eventIdCounter, majorityImportEvents);
-            eventIdCounter += majorityImportEvents.Length;
+            await testPublisher.Publish(eventNrCounter, majorityImportEvents);
+            eventNrCounter += majorityImportEvents.Length;
 
             var majorityElectionWriteInBallotEvents =
                 publisherMock.GetPublishedEvents<MajorityElectionWriteInBallotImported>().ToArray();
-            await testPublisher.Publish(eventIdCounter, majorityElectionWriteInBallotEvents);
-            eventIdCounter += majorityElectionWriteInBallotEvents.Length;
+            await testPublisher.Publish(eventNrCounter, majorityElectionWriteInBallotEvents);
+            eventNrCounter += majorityElectionWriteInBallotEvents.Length;
 
             var secMajorityImportEvents =
                 publisherMock.GetPublishedEvents<SecondaryMajorityElectionResultImported>().ToArray();
-            await testPublisher.Publish(eventIdCounter, secMajorityImportEvents);
-            eventIdCounter += secMajorityImportEvents.Length;
+            await testPublisher.Publish(eventNrCounter, secMajorityImportEvents);
+            eventNrCounter += secMajorityImportEvents.Length;
 
             var secMajorityElectionWriteInBallotEvents = publisherMock
                 .GetPublishedEvents<SecondaryMajorityElectionWriteInBallotImported>().ToArray();
-            await testPublisher.Publish(eventIdCounter, secMajorityElectionWriteInBallotEvents);
-            eventIdCounter += secMajorityElectionWriteInBallotEvents.Length;
+            await testPublisher.Publish(eventNrCounter, secMajorityElectionWriteInBallotEvents);
+            eventNrCounter += secMajorityElectionWriteInBallotEvents.Length;
 
             var voteImportEvents = publisherMock.GetPublishedEvents<VoteResultImported>().ToArray();
-            await testPublisher.Publish(eventIdCounter, voteImportEvents);
-            eventIdCounter += voteImportEvents.Length;
+            await testPublisher.Publish(eventNrCounter, voteImportEvents);
+            eventNrCounter += voteImportEvents.Length;
 
-            await testPublisher.Publish(eventIdCounter, publisherMock.GetSinglePublishedEvent<ResultImportCompleted>());
+            await testPublisher.Publish(eventNrCounter, publisherMock.GetSinglePublishedEvent<ResultImportCompleted>());
 
             publisherMock.Clear();
 
@@ -112,5 +114,7 @@ public static class ResultImportMockedData
             db.EventProcessingStates.Remove(await db.EventProcessingStates.SingleAsync());
             await db.SaveChangesAsync();
         });
+
+        return eventNrCounter;
     }
 }

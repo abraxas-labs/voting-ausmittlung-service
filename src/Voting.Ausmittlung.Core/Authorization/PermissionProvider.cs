@@ -54,8 +54,6 @@ public class PermissionProvider : IPermissionProvider
             Permissions.ProportionalElectionCandidate.Read,
             Permissions.ProportionalElectionList.Read,
 
-            Permissions.Export.ExportData,
-
             Permissions.EventLog.Watch,
         };
 
@@ -86,8 +84,6 @@ public class PermissionProvider : IPermissionProvider
             Permissions.ProportionalElectionCandidate.Read,
             Permissions.ProportionalElectionList.Read,
 
-            Permissions.Export.ExportData,
-
             Permissions.EventLog.Watch,
         };
 
@@ -114,8 +110,6 @@ public class PermissionProvider : IPermissionProvider
             Permissions.ProportionalElectionCandidate.Read,
             Permissions.ProportionalElectionList.Read,
 
-            Permissions.Export.ExportData,
-
             Permissions.EventLog.Watch,
         };
 
@@ -141,8 +135,6 @@ public class PermissionProvider : IPermissionProvider
 
             Permissions.ProportionalElectionCandidate.Read,
             Permissions.ProportionalElectionList.Read,
-
-            Permissions.Export.ExportData,
 
             Permissions.EventLog.Watch,
         };

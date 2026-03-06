@@ -278,6 +278,10 @@
         "State": 1
       }
     ],
-    "CountOfModifiedBallots": 2
+    "CountOfModifiedBallots": 2,
+    "BallotNumbersModifiedDuringReview": [],
+    "BallotModificationUserIds": [
+      "test-id"
+    ]
   }
 }

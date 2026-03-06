@@ -8,6 +8,8 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 
 public class PdfMajorityElectionEndResult : PdfPoliticalBusinessEndResult
 {
+    public bool IsComplete { get; set; }
+
     public PdfPoliticalBusinessCountOfVoters CountOfVoters { get; set; }
         = new PdfPoliticalBusinessCountOfVoters();
 

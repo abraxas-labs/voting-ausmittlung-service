@@ -90,7 +90,7 @@ public class MajorityElectionResultBundleProcessor
         // event (which deletes all bundles in the read model, but the aggregates still exist),
         // between a bundle create and a ballot create event.
         // Thats why we just log and skip the processing of this event, if the bundle does not exist.
-        if (!await _ballotBuilder.CreateBallot(bundleId, eventData))
+        if (!await UpdateCountOfBallots(bundleId, 1))
         {
             _logger.LogWarning(
                 "Could not process {EventName} with ballot number {BallotNumber} because the bundle {BundleId} does not exist. Skip processing",
@@ -100,7 +100,7 @@ public class MajorityElectionResultBundleProcessor
             return;
         }
 
-        await UpdateCountOfBallots(bundleId, 1);
+        await _ballotBuilder.CreateBallot(bundleId, eventData);
         _eventLogger.LogBundleEvent(eventData, bundleId, GuidParser.ParseNullable(eventData.ElectionResultId));
     }
 
@@ -147,7 +147,7 @@ public class MajorityElectionResultBundleProcessor
         var user = eventData.EventInfo.User.ToDataUser();
         var timestamp = eventData.EventInfo.Timestamp.ToDateTime();
         var bundle = await _bundleRepo.GetByKey(bundleId)
-                     ?? throw new EntityNotFoundException(bundleId);
+            ?? throw new EntityNotFoundException(bundleId);
 
         if (bundle.State != BallotBundleState.Reviewed)
         {
@@ -168,7 +168,7 @@ public class MajorityElectionResultBundleProcessor
         var user = eventData.EventInfo.User.ToDataUser();
         var timestamp = eventData.EventInfo.Timestamp.ToDateTime();
         var bundle = await _bundleRepo.GetByKey(bundleId)
-                     ?? throw new EntityNotFoundException(bundleId);
+            ?? throw new EntityNotFoundException(bundleId);
         var log = await UpdateBundleState(bundle, BallotBundleState.InCorrection, user, timestamp);
         _eventLogger.LogBundleEvent(eventData, bundleId, GuidParser.ParseNullable(eventData.ElectionResultId), log);
     }
@@ -179,7 +179,7 @@ public class MajorityElectionResultBundleProcessor
         var user = eventData.EventInfo.User.ToDataUser();
         var timestamp = eventData.EventInfo.Timestamp.ToDateTime();
         var bundle = await _bundleRepo.GetByKey(bundleId)
-                     ?? throw new EntityNotFoundException(bundleId);
+            ?? throw new EntityNotFoundException(bundleId);
         await AddVotesToResults(bundle);
         var log = await UpdateBundleState(bundle, BallotBundleState.Reviewed, user, timestamp);
         await UpdateCountOfBundlesNotReviewedOrDeleted(bundle.ElectionResultId, -1);
@@ -198,15 +198,16 @@ public class MajorityElectionResultBundleProcessor
         await UpdateCountOfBundlesNotReviewedOrDeleted(electionResultId, 1);
         await RemoveVotesFromResults(bundle);
 
-        var log = await ProcessBundleToReadyForReview(bundleId, eventData.SampleBallotNumbers, user, timestamp);
+        var log = await ProcessBundleToReadyForReview(bundle, eventData.SampleBallotNumbers, user, timestamp);
         _eventLogger.LogBundleEvent(eventData, bundleId, electionResultId, log);
     }
 
-    private async Task UpdateCountOfBallots(Guid bundleId, int delta)
+    private async Task<bool> UpdateCountOfBallots(Guid bundleId, int delta)
     {
-        await _bundleRepo.Query()
+        var affected = await _bundleRepo.Query()
             .Where(x => x.Id == bundleId)
             .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.CountOfBallots, x => x.CountOfBallots + delta));
+        return affected == 1;
     }
 
     private async Task<MajorityElectionResultBundleLog> UpdateBundleState(
@@ -226,6 +227,10 @@ public class MajorityElectionResultBundleProcessor
                 LastName = user.LastName,
                 SecureConnectId = user.SecureConnectId,
             };
+
+            await _ballotRepo.Query()
+                .Where(x => x.BundleId == bundle.Id)
+                .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.ModifiedDuringReview, false));
         }
 
         if (newState == BallotBundleState.ReadyForReview && oldState == BallotBundleState.InCorrection)
@@ -285,25 +290,18 @@ public class MajorityElectionResultBundleProcessor
     private async Task<MajorityElectionResultBundleLog> ProcessBundleToReadyForReview(Guid bundleId, IList<int> sampleBallotNumbers, User user, DateTime timestamp)
     {
         var bundle = await _bundleRepo.GetByKey(bundleId)
-                     ?? throw new EntityNotFoundException(bundleId);
+            ?? throw new EntityNotFoundException(bundleId);
+        return await ProcessBundleToReadyForReview(bundle, sampleBallotNumbers, user, timestamp);
+    }
+
+    private async Task<MajorityElectionResultBundleLog> ProcessBundleToReadyForReview(MajorityElectionResultBundle bundle, IList<int> sampleBallotNumbers, User user, DateTime timestamp)
+    {
         var log = await UpdateBundleState(bundle, BallotBundleState.ReadyForReview, user, timestamp);
-
-        if (sampleBallotNumbers.Count == 0)
-        {
-            return log;
-        }
-
-        var ballots = await _ballotRepo.Query()
-            .Where(b =>
-                b.BundleId == bundleId
-                && (sampleBallotNumbers.Contains(b.Number) || b.MarkedForReview))
-            .ToListAsync();
-        foreach (var ballot in ballots)
-        {
-            ballot.MarkedForReview = sampleBallotNumbers.Contains(ballot.Number);
-        }
-
-        await _ballotRepo.UpdateRange(ballots);
+        await _ballotRepo.Query()
+            .Where(b => b.BundleId == bundle.Id)
+            .ExecuteUpdateAsync(setters => setters.SetProperty(
+                x => x.MarkedForReview,
+                x => sampleBallotNumbers.Contains(x.Number)));
         return log;
     }
 }

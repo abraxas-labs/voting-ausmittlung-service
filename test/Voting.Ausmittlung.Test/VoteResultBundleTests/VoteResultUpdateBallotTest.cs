@@ -105,6 +105,13 @@ public class VoteResultUpdateBallotTest : VoteResultBundleBaseTest
             .Where(x => x.Ballot.BundleId == VoteResultBundleMockedData.GossauBundle3.Id)
             .CountAsync());
         logsCount.Should().Be(1);
+
+        var bundle = await ErfassungCreatorClient.GetBundleAsync(new GetVoteResultBundleRequest
+        {
+            BundleId = VoteResultBundleMockedData.IdGossauBundle3,
+        });
+        bundle.Bundle.BallotNumbersModifiedDuringReview.Count.Should().Be(1);
+        bundle.Bundle.BallotNumbersModifiedDuringReview[0].Should().Be(LatestBallotNumber);
     }
 
     [Fact]
@@ -205,23 +212,21 @@ public class VoteResultUpdateBallotTest : VoteResultBundleBaseTest
     }
 
     [Fact]
-    public async Task TestShouldThrowAllUnspecified()
+    public async Task TestShouldReturnWhenAllUnspecified()
     {
-        await AssertStatus(
-            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x =>
+        await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x =>
+        {
+            foreach (var qa in x.QuestionAnswers)
             {
-                foreach (var qa in x.QuestionAnswers)
-                {
-                    qa.Answer = SharedProto.BallotQuestionAnswer.Unspecified;
-                }
+                qa.Answer = SharedProto.BallotQuestionAnswer.Unspecified;
+            }
 
-                foreach (var qa in x.TieBreakQuestionAnswers)
-                {
-                    qa.Answer = SharedProto.TieBreakQuestionAnswer.Unspecified;
-                }
-            })),
-            StatusCode.InvalidArgument,
-            "At least one answer must be specified");
+            foreach (var qa in x.TieBreakQuestionAnswers)
+            {
+                qa.Answer = SharedProto.TieBreakQuestionAnswer.Unspecified;
+            }
+        }));
+        EventPublisherMock.GetSinglePublishedEvent<VoteResultBallotUpdated>().MatchSnapshot();
     }
 
     [Theory]

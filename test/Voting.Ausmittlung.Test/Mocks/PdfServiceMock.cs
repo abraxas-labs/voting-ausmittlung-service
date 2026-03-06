@@ -26,7 +26,7 @@ public class PdfServiceMock : IPdfService
         return Task.FromResult(stream);
     }
 
-    public Task StartPdfGeneration<T>(string templateName, T data, string webhookUrl)
+    public Task StartPdfGeneration<T>(string templateName, T data, string webhookUrl, int? asyncJobPriority)
     {
         _generatedByTemplateName[templateName] = DmDocXmlSerializer.Serialize(data);
         return Task.CompletedTask;

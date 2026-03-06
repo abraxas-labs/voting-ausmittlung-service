@@ -28,4 +28,10 @@ public class VoteResultBallot : BaseEntity
     public int Index { get; set; }
 
     public List<VoteResultBallotLog> Logs { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets a value indicating whether this ballot was modified while the bundle was in the ReadyForReview state.
+    /// The value is reset when the bundle is sent back for corrections.
+    /// </summary>
+    public bool ModifiedDuringReview { get; set; }
 }

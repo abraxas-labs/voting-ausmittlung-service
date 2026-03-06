@@ -33,7 +33,7 @@ internal static class VoteInfoCandidateMapping
             PositionOnList = position.ToString(),
             CandidateReferenceOnPosition = GenerateCandidateReference(candidate),
             CandidateIdentification = candidate.Id.ToString(),
-            CandidateTextOnPosition = text.CandidateTextInfo,
+            CandidateTextOnPosition = text?.CandidateTextInfo,
         };
     }
 
@@ -69,7 +69,7 @@ internal static class VoteInfoCandidateMapping
             PoliticalFamilyName = candidate.PoliticalLastName,
             CallName = candidate.PoliticalFirstName,
             CandidateReference = candidate.Number,
-            CandidateText = candidateText.CandidateTextInfo,
+            CandidateText = candidateText?.CandidateTextInfo,
             DateOfBirth = candidate.DateOfBirth,
             Sex = candidate.Sex.ToEchSexType(),
             OccupationalTitle = occupationInfos?.Count == 0 ? null : occupationInfos,
@@ -83,7 +83,7 @@ internal static class VoteInfoCandidateMapping
         };
     }
 
-    internal static CandidateTextInformationType ToEchCandidateText(
+    internal static CandidateTextInformationType? ToEchCandidateText(
         this ElectionCandidate candidate,
         Ech0252MappingContext ctx,
         PoliticalBusinessType politicalBusinessType,
@@ -113,14 +113,25 @@ internal static class VoteInfoCandidateMapping
                 ? string.Empty
                 : $", {IncumbentText}";
 
+            var candidateText = string.Format(candidateTextBase, occupationTitleText, partyText, incumbentText)
+                .TrimStart(',')
+                .TrimStart(' ');
+
+            if (string.IsNullOrWhiteSpace(candidateText))
+            {
+                continue;
+            }
+
             textInfos.CandidateTextInfo.Add(new CandidateTextInformationTypeCandidateTextInfo
             {
                 Language = language,
-                CandidateText = string.Format(candidateTextBase, occupationTitleText, partyText, incumbentText).TrimStart(',').TrimStart(' '),
+                CandidateText = candidateText,
             });
         }
 
-        return textInfos;
+        return textInfos.CandidateTextInfo.Count == 0
+            ? null
+            : textInfos;
     }
 
     internal static SexType ToEchSexType(this Data.Models.SexType sex)

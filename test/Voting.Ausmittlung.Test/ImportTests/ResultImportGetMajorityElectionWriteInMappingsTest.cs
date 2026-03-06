@@ -45,7 +45,7 @@ public class ResultImportGetMajorityElectionWriteInMappingsTest : BaseTest<Resul
         await ModifyDbEntities((CountingCircle _) => true, cc => cc.EVoting = true);
         await ModifyDbEntities((Contest _) => true, contest => contest.EVoting = true);
 
-        await ResultImportMockedData.SeedEVoting(RunScoped, CreateHttpClient);
+        var eventNrCounter = await ResultImportMockedData.SeedEVoting(RunScoped, CreateHttpClient);
 
         await ResultImportECountingMockedData.Seed(RunScoped);
         await ResultImportECountingMockedData.SeedUzwilAggregates(RunScoped);
@@ -59,7 +59,7 @@ public class ResultImportGetMajorityElectionWriteInMappingsTest : BaseTest<Resul
             });
 
         EventPublisherMock.Clear();
-        await ResultImportMockedData.SeedECounting(RunScoped, CreateHttpClient);
+        await ResultImportMockedData.SeedECounting(RunScoped, CreateHttpClient, eventNrCounter);
     }
 
     [Fact]

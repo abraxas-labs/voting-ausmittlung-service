@@ -153,5 +153,7 @@
   "BallotNumbersToReview": [],
   "BallotNumbers": [],
   "ProtocolExport": null,
+  "BallotNumbersModifiedDuringReview": [],
+  "BallotModificationUserIds": [],
   "Id": "6c73b736-cc42-4325-a8be-7e5233f3d54e"
 }

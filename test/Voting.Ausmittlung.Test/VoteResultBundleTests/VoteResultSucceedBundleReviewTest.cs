@@ -175,6 +175,11 @@ public class VoteResultSucceedBundleReviewTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestProcessor()
     {
+        var bundleId = VoteResultBundleMockedData.GossauBundle1.Id;
+        await ModifyDbEntities<VoteResultBallot>(
+            b => b.BundleId == bundleId,
+            b => b.ModifiedDuringReview = true);
+
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
             new VoteResultBundleReviewSucceeded
@@ -195,6 +200,9 @@ public class VoteResultSucceedBundleReviewTest : VoteResultBundleBaseTest
 
         bundle.MatchSnapshot(x => x.BallotResult.VoteResult.CountingCircleId);
         await AssertHasPublishedEventProcessedMessage(VoteResultBundleReviewSucceeded.Descriptor, bundle.Id);
+
+        var hasModifiedBallots = await RunOnDb(db => db.VoteResultBallots.AnyAsync(b => b.BundleId == bundleId && b.ModifiedDuringReview));
+        hasModifiedBallots.Should().BeFalse();
     }
 
     [Fact]

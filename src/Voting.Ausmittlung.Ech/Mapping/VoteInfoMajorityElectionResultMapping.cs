@@ -42,16 +42,17 @@ internal static class VoteInfoMajorityElectionResultMapping
         IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
     {
         var allCountingCirclesDone = majorityElection.EndResult!.AllCountingCirclesDone;
-        var drawElection = allCountingCirclesDone
+        var allCountingCirclesAudited = allCountingCirclesDone && majorityElection.Results.All(r => r.State >= CountingCircleResultState.AuditedTentatively);
+        var drawElection = allCountingCirclesAudited
             ? ToDrawElection(majorityElection.EndResult!, ctx)
             : null;
-        var isComplete = allCountingCirclesDone
+        var isComplete = allCountingCirclesAudited
             && drawElection?.MajorityElection is not { IsDrawPending: true };
 
         return new EventElectionResultDeliveryTypeElectionGroupResultElectionResult
         {
             ElectionIdentification = majorityElection.Id.ToString(),
-            Elected = allCountingCirclesDone ? new ElectedType
+            Elected = allCountingCirclesAudited ? new ElectedType
             {
                 MajorityElection = new ElectedTypeMajorityElection
                 {
@@ -85,16 +86,17 @@ internal static class VoteInfoMajorityElectionResultMapping
         IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
     {
         var allCountingCirclesDone = secondaryMajorityElection.PrimaryMajorityElection.EndResult!.AllCountingCirclesDone;
-        var drawElection = allCountingCirclesDone
+        var allCountingCirclesAudited = allCountingCirclesDone && secondaryMajorityElection.PrimaryMajorityElection.Results.All(r => r.State >= CountingCircleResultState.AuditedTentatively);
+        var drawElection = allCountingCirclesAudited
             ? ToDrawElection(secondaryMajorityElection.EndResult!, ctx)
             : null;
-        var isComplete = allCountingCirclesDone
+        var isComplete = allCountingCirclesAudited
             && drawElection?.MajorityElection is not { IsDrawPending: true };
 
         return new EventElectionResultDeliveryTypeElectionGroupResultElectionResult
         {
             ElectionIdentification = secondaryMajorityElection.Id.ToString(),
-            Elected = allCountingCirclesDone ? new ElectedType
+            Elected = allCountingCirclesAudited ? new ElectedType
             {
                 MajorityElection = new ElectedTypeMajorityElection
                 {

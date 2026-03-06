@@ -30,6 +30,8 @@ namespace Voting.Ausmittlung.Test.ImportTests;
 
 public class ResultImportResetMajorityElectionWriteInsTest : BaseTest<ResultImportService.ResultImportServiceClient>
 {
+    private long _eventNrCounter;
+
     public ResultImportResetMajorityElectionWriteInsTest(TestApplicationFactory factory)
         : base(factory)
     {
@@ -50,7 +52,7 @@ public class ResultImportResetMajorityElectionWriteInsTest : BaseTest<ResultImpo
         await ModifyDbEntities((CountingCircle _) => true, cc => cc.EVoting = true);
         await ModifyDbEntities((Contest _) => true, contest => contest.EVoting = true);
 
-        await ResultImportMockedData.SeedEVoting(RunScoped, CreateHttpClient);
+        _eventNrCounter = await ResultImportMockedData.SeedEVoting(RunScoped, CreateHttpClient);
 
         await ResultImportECountingMockedData.Seed(RunScoped);
         await ResultImportECountingMockedData.SeedUzwilAggregates(RunScoped);
@@ -64,7 +66,7 @@ public class ResultImportResetMajorityElectionWriteInsTest : BaseTest<ResultImpo
             });
 
         EventPublisherMock.Clear();
-        await ResultImportMockedData.SeedECounting(RunScoped, CreateHttpClient);
+        _eventNrCounter = await ResultImportMockedData.SeedECounting(RunScoped, CreateHttpClient, _eventNrCounter);
     }
 
     [Fact]
@@ -73,8 +75,10 @@ public class ResultImportResetMajorityElectionWriteInsTest : BaseTest<ResultImpo
         var groups = await FetchMappings();
         var (primaryEvents, secondaryEvents) = await ResetMappings(groups);
 
-        await TestEventPublisher.Publish(primaryEvents.ToArray());
-        await TestEventPublisher.Publish(primaryEvents.Count, secondaryEvents.ToArray());
+        await TestEventPublisher.Publish(_eventNrCounter, primaryEvents.ToArray());
+        _eventNrCounter += primaryEvents.Count;
+
+        await TestEventPublisher.Publish(_eventNrCounter, secondaryEvents.ToArray());
 
         ResetIds(primaryEvents, secondaryEvents);
 
@@ -122,19 +126,17 @@ public class ResultImportResetMajorityElectionWriteInsTest : BaseTest<ResultImpo
         var groups = await FetchMappings();
         var (primaryEvents, secondaryEvents) = await ResetMappings(groups);
 
-        var eventCounter = 0;
-        await TestEventPublisher.Publish(eventCounter, primaryEvents.ToArray());
-        eventCounter += primaryEvents.Count;
-        await TestEventPublisher.Publish(eventCounter, secondaryEvents.ToArray());
-        eventCounter += secondaryEvents.Count;
+        await TestEventPublisher.Publish(_eventNrCounter, primaryEvents.ToArray());
+        _eventNrCounter += primaryEvents.Count;
+        await TestEventPublisher.Publish(_eventNrCounter, secondaryEvents.ToArray());
+        _eventNrCounter += secondaryEvents.Count;
 
         EventPublisherMock.Clear();
         var (primaryEvents2, secondaryEvents2) = await ResetMappings(groups);
-        await TestEventPublisher.Publish(eventCounter, primaryEvents2.ToArray());
-        eventCounter += primaryEvents2.Count;
+        await TestEventPublisher.Publish(_eventNrCounter, primaryEvents2.ToArray());
+        _eventNrCounter += primaryEvents2.Count;
 
-        await TestEventPublisher.Publish(eventCounter, secondaryEvents2.ToArray());
-        eventCounter += secondaryEvents2.Count;
+        await TestEventPublisher.Publish(_eventNrCounter, secondaryEvents2.ToArray());
 
         var primaryEVotingEvent = primaryEvents.Single(x => x.ImportType == ResultImportType.Evoting);
         var primaryResult = await RunOnDb(db => db.MajorityElectionResults
@@ -194,8 +196,10 @@ public class ResultImportResetMajorityElectionWriteInsTest : BaseTest<ResultImpo
         var groups = await FetchMappings();
         var (primaryEvents, secondaryEvents) = await ResetMappings(groups, StGallenErfassungElectionAdminClient);
 
-        await TestEventPublisher.Publish(primaryEvents.ToArray());
-        await TestEventPublisher.Publish(primaryEvents.Count, secondaryEvents.ToArray());
+        await TestEventPublisher.Publish(_eventNrCounter, primaryEvents.ToArray());
+        _eventNrCounter += primaryEvents.Count;
+
+        await TestEventPublisher.Publish(_eventNrCounter, secondaryEvents.ToArray());
 
         ResetIds(primaryEvents, secondaryEvents);
 

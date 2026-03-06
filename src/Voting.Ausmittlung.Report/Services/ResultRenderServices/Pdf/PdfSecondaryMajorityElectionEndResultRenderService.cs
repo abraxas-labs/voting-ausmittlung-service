@@ -27,19 +27,22 @@ public class PdfSecondaryMajorityElectionEndResultRenderService : IRendererServi
     private readonly IDbRepository<DataContext, SecondaryMajorityElectionResult> _resultRepo;
     private readonly IMapper _mapper;
     private readonly IClock _clock;
+    private readonly PdfMajorityElectionUtil _pdfMajorityElectionUtil;
 
     public PdfSecondaryMajorityElectionEndResultRenderService(
         TemplateService templateService,
         IDbRepository<DataContext, SecondaryMajorityElectionEndResult> repo,
         IDbRepository<DataContext, SecondaryMajorityElectionResult> resultRepo,
         IMapper mapper,
-        IClock clock)
+        IClock clock,
+        PdfMajorityElectionUtil pdfMajorityElectionUtil)
     {
         _templateService = templateService;
         _repo = repo;
         _resultRepo = resultRepo;
         _mapper = mapper;
         _clock = clock;
+        _pdfMajorityElectionUtil = pdfMajorityElectionUtil;
     }
 
     public async Task<FileModel> Render(
@@ -62,6 +65,7 @@ public class PdfSecondaryMajorityElectionEndResultRenderService : IRendererServi
         MajorityElectionResultUtils.RemoveCountToIndividualCandidatesAndAdjustTotals(data);
 
         var majorityElection = _mapper.Map<PdfMajorityElection>(data.SecondaryMajorityElection);
+        await _pdfMajorityElectionUtil.SetEndResultIsComplete(data.PrimaryMajorityElectionEndResult.MajorityElectionId, majorityElection.EndResult, data.CandidateEndResults);
         PdfMajorityElectionEndResultUtil.MapCandidateEndResultsToStateLists(majorityElection.EndResult!);
 
         // reset the domain of influence on the result, since this is a single domain of influence report

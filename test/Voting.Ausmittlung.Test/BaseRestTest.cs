@@ -20,6 +20,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Core.EventProcessors;
 using Voting.Ausmittlung.Core.Extensions;
 using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Utils;
@@ -53,6 +54,7 @@ public abstract class BaseRestTest : RestAuthorizationBaseTest<TestApplicationFa
         TestEventPublisher = GetService<TestEventPublisher>();
         EventPublisherMock = GetService<EventPublisherMock>();
         AggregateRepositoryMock = GetService<AggregateRepositoryMock>();
+        GetService<EventProcessingInMemoryStateHolder>().ResetState();
         EventPublisherMock.Clear();
         AggregateRepositoryMock.Clear();
 

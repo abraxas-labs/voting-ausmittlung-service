@@ -224,7 +224,9 @@
           "State": 1
         }
       ],
-      "CountOfModifiedBallots": 2
+      "CountOfModifiedBallots": 2,
+      "BallotNumbersModifiedDuringReview": [],
+      "BallotModificationUserIds": []
     },
     {
       "Id": "",
@@ -256,7 +258,9 @@
           "State": 1
         }
       ],
-      "CountOfModifiedBallots": 0
+      "CountOfModifiedBallots": 0,
+      "BallotNumbersModifiedDuringReview": [],
+      "BallotModificationUserIds": []
     },
     {
       "Id": "",
@@ -288,7 +292,9 @@
           "State": 1
         }
       ],
-      "CountOfModifiedBallots": 0
+      "CountOfModifiedBallots": 0,
+      "BallotNumbersModifiedDuringReview": [],
+      "BallotModificationUserIds": []
     }
   ]
 }

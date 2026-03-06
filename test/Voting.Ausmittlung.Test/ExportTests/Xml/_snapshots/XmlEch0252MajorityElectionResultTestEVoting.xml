@@ -1164,26 +1164,6 @@
             </namedElement>
           </resultData>
         </countingCircleResult>
-        <elected>
-          <majorityElection>
-            <absoluteMajority>3304</absoluteMajority>
-            <isElectionResultComplete>true</isElectionResultComplete>
-            <electedCandidate>
-              <candidateOrWriteInCandidate>
-                <candidateIdentification>bf683ec2-27c1-44b9-b56b-6e4c82e4dd60</candidateIdentification>
-                <candidateReference>number4</candidateReference>
-              </candidateOrWriteInCandidate>
-              <isElectedByDraw>false</isElectedByDraw>
-            </electedCandidate>
-            <electedCandidate>
-              <candidateOrWriteInCandidate>
-                <candidateIdentification>a9df7271-04d8-4bea-b654-499de0a99942</candidateIdentification>
-                <candidateReference>number2</candidateReference>
-              </candidateOrWriteInCandidate>
-              <isElectedByDraw>false</isElectedByDraw>
-            </electedCandidate>
-          </majorityElection>
-        </elected>
       </electionResult>
       <electionResult>
         <electionIdentification>8cfaec6d-6e37-472e-b63e-073f6fd980fe</electionIdentification>
@@ -1575,25 +1555,6 @@
             </namedElement>
           </resultData>
         </countingCircleResult>
-        <elected>
-          <majorityElection>
-            <absoluteMajority>3304</absoluteMajority>
-            <isElectionResultComplete>false</isElectionResultComplete>
-          </majorityElection>
-        </elected>
-        <drawElection>
-          <majorityElection>
-            <isDrawPending>true</isDrawPending>
-            <candidateDrawElection>
-              <candidateIdentification>5ee6f477-660a-4832-9bd0-d4f6c5cd91ee</candidateIdentification>
-              <candidateReference>number3</candidateReference>
-            </candidateDrawElection>
-            <candidateDrawElection>
-              <candidateIdentification>bb79e109-3b25-41d2-af1d-c7e4468c24e8</candidateIdentification>
-              <candidateReference>number2</candidateReference>
-            </candidateDrawElection>
-          </majorityElection>
-        </drawElection>
       </electionResult>
       <electionResult>
         <electionIdentification>f78a229e-0790-4e69-b212-7c5fd960cd98</electionIdentification>
@@ -1985,12 +1946,6 @@
             </namedElement>
           </resultData>
         </countingCircleResult>
-        <elected>
-          <majorityElection>
-            <absoluteMajority>3304</absoluteMajority>
-            <isElectionResultComplete>true</isElectionResultComplete>
-          </majorityElection>
-        </elected>
       </electionResult>
     </electionGroupResult>
     <electionGroupResult>

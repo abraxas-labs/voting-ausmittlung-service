@@ -82,6 +82,11 @@ public class ProportionalElectionResultBallotBuilder
             });
         }
 
+        if (ballot.Bundle.State == BallotBundleState.ReadyForReview)
+        {
+            ballot.ModifiedDuringReview = true;
+        }
+
         await _dbContext.SaveChangesAsync();
 
         var sqlStringBuilder = new StringBuilder();

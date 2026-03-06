@@ -43,10 +43,22 @@ public class VoteResultBallotBuilder
     {
         var bundle = await _bundleRepo.Query()
             .AsSplitQuery()
-            .Include(x => x.BallotResult.Ballot.BallotQuestions)
-            .Include(x => x.BallotResult.Ballot.TieBreakQuestions)
-            .FirstOrDefaultAsync(x => x.Id == bundleId)
-                     ?? throw new EntityNotFoundException(bundleId);
+            .Where(x => x.Id == bundleId)
+            .Select(x => new
+            {
+                QuestionInfos = x.BallotResult.Ballot.BallotQuestions.Select(q => new
+                {
+                    q.Id,
+                    q.Number,
+                }).ToList(),
+                TieBreakQuestionInfos = x.BallotResult.Ballot.TieBreakQuestions.Select(q => new
+                {
+                    q.Id,
+                    q.Number,
+                }).ToList(),
+            })
+            .FirstOrDefaultAsync()
+            ?? throw new EntityNotFoundException(bundleId);
 
         var ballot = new VoteResultBallot
         {
@@ -55,8 +67,8 @@ public class VoteResultBallotBuilder
             BundleId = bundleId,
         };
 
-        ReplaceBallotQuestionAnswers(ballot, data.QuestionAnswers, bundle.BallotResult.Ballot.BallotQuestions);
-        ReplaceBallotTieBreakQuestionAnswers(ballot, data.TieBreakQuestionAnswers, bundle.BallotResult.Ballot.TieBreakQuestions);
+        ReplaceBallotQuestionAnswers(ballot, data.QuestionAnswers, bundle.QuestionInfos.ToDictionary(x => x.Number, x => x.Id));
+        ReplaceBallotTieBreakQuestionAnswers(ballot, data.TieBreakQuestionAnswers, bundle.TieBreakQuestionInfos.ToDictionary(x => x.Number, x => x.Id));
         await _ballotRepo.Create(ballot);
     }
 
@@ -75,8 +87,8 @@ public class VoteResultBallotBuilder
             .FirstOrDefaultAsync(x => x.Number == data.BallotNumber && x.BundleId == bundleId)
             ?? throw new EntityNotFoundException(new { bundleId, data.BallotNumber });
 
-        ReplaceBallotQuestionAnswers(ballot, data.QuestionAnswers, ballot.Bundle.BallotResult.Ballot.BallotQuestions);
-        ReplaceBallotTieBreakQuestionAnswers(ballot, data.TieBreakQuestionAnswers, ballot.Bundle.BallotResult.Ballot.TieBreakQuestions);
+        ReplaceBallotQuestionAnswers(ballot, data.QuestionAnswers, ballot.Bundle.BallotResult.Ballot.BallotQuestions.ToDictionary(x => x.Number, x => x.Id));
+        ReplaceBallotTieBreakQuestionAnswers(ballot, data.TieBreakQuestionAnswers, ballot.Bundle.BallotResult.Ballot.TieBreakQuestions.ToDictionary(x => x.Number, x => x.Id));
 
         if (ballot.Bundle.State > BallotBundleState.InProcess)
         {
@@ -87,27 +99,31 @@ public class VoteResultBallotBuilder
             });
         }
 
+        if (ballot.Bundle.State == BallotBundleState.ReadyForReview)
+        {
+            ballot.ModifiedDuringReview = true;
+        }
+
         await _dbContext.SaveChangesAsync();
     }
 
     private void ReplaceBallotQuestionAnswers(
         VoteResultBallot ballot,
         IEnumerable<VoteResultBallotUpdatedQuestionAnswerEventData> answers,
-        ICollection<BallotQuestion> ballotQuestions)
+        Dictionary<int, Guid> questionsByNumber)
     {
         ballot.QuestionAnswers.Clear();
 
-        var questionsByNumber = ballotQuestions.ToDictionary(x => x.Number);
         foreach (var answer in answers)
         {
-            if (!questionsByNumber.TryGetValue(answer.QuestionNumber, out var question))
+            if (!questionsByNumber.TryGetValue(answer.QuestionNumber, out var questionId))
             {
                 throw new ValidationException("unknown question number is not allowed");
             }
 
             ballot.QuestionAnswers.Add(new VoteResultBallotQuestionAnswer
             {
-                QuestionId = question.Id,
+                QuestionId = questionId,
                 Answer = _mapper.Map<BallotQuestionAnswer>(answer.Answer),
             });
         }
@@ -116,21 +132,20 @@ public class VoteResultBallotBuilder
     private void ReplaceBallotTieBreakQuestionAnswers(
         VoteResultBallot ballot,
         IEnumerable<VoteResultBallotUpdatedTieBreakQuestionAnswerEventData> answers,
-        ICollection<TieBreakQuestion> tieBreakQuestions)
+        Dictionary<int, Guid> questionsByNumber)
     {
         ballot.TieBreakQuestionAnswers.Clear();
 
-        var questionsByNumber = tieBreakQuestions.ToDictionary(x => x.Number);
         foreach (var answer in answers)
         {
-            if (!questionsByNumber.TryGetValue(answer.QuestionNumber, out var question))
+            if (!questionsByNumber.TryGetValue(answer.QuestionNumber, out var questionId))
             {
                 throw new ValidationException("unknown question number is not allowed");
             }
 
             ballot.TieBreakQuestionAnswers.Add(new VoteResultBallotTieBreakQuestionAnswer
             {
-                QuestionId = question.Id,
+                QuestionId = questionId,
                 Answer = _mapper.Map<TieBreakQuestionAnswer>(answer.Answer),
             });
         }

@@ -33,7 +33,7 @@ public class LanguageService
     {
         if (!Languages.All.Contains(lang))
         {
-            _logger.LogWarning("Language {lang} is not valid, using fallback language", lang);
+            _logger.LogDebug("Language {lang} is not valid, using fallback language", lang);
             lang = FallbackLanguage;
         }
         else

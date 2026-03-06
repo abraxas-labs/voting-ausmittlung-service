@@ -81,7 +81,7 @@ public class TemplateService
 
         if (context.AsyncPdfGenerationInfo is { } asyncPdfInfo)
         {
-            await _pdfService.StartPdfGeneration(key, data, asyncPdfInfo.WebhookUrl);
+            await _pdfService.StartPdfGeneration(key, data, asyncPdfInfo.WebhookUrl, asyncPdfInfo.AsyncJobPriority);
             return new FileModel(
                 context,
                 fileName,

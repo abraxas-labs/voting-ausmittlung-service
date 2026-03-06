@@ -238,6 +238,10 @@ public class ProportionalElectionResultBundleProcessor :
                 LastName = user.LastName,
                 SecureConnectId = user.SecureConnectId,
             };
+
+            await _ballotRepo.Query()
+                .Where(x => x.BundleId == bundle.Id)
+                .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.ModifiedDuringReview, false));
         }
 
         if (newState == BallotBundleState.ReadyForReview && oldState == BallotBundleState.InCorrection)

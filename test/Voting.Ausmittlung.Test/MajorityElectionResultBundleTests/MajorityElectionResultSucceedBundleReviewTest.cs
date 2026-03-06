@@ -181,6 +181,11 @@ public class MajorityElectionResultSucceedBundleReviewTest : MajorityElectionRes
     [Fact]
     public async Task TestProcessor()
     {
+        var bundleId = MajorityElectionResultBundleMockedData.StGallenBundle1.Id;
+        await ModifyDbEntities<MajorityElectionResultBallot>(
+            b => b.BundleId == bundleId,
+            b => b.ModifiedDuringReview = true);
+
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
             new MajorityElectionResultBundleReviewSucceeded
@@ -200,8 +205,10 @@ public class MajorityElectionResultSucceedBundleReviewTest : MajorityElectionRes
         }
 
         bundle.MatchSnapshot(x => x.ElectionResult.CountingCircleId);
-
         await AssertHasPublishedEventProcessedMessage(MajorityElectionResultBundleReviewSucceeded.Descriptor, bundle.Id);
+
+        var hasModifiedBallots = await RunOnDb(db => db.MajorityElectionResultBallots.AnyAsync(b => b.BundleId == bundleId && b.ModifiedDuringReview));
+        hasModifiedBallots.Should().BeFalse();
     }
 
     [Fact]

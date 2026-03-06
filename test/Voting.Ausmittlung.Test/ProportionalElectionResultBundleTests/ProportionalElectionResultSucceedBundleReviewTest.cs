@@ -182,7 +182,6 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
     [Fact]
     public async Task TestProcessor()
     {
-        var resultId = ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen;
         var bundle1Id = Guid.Parse(ProportionalElectionResultBundleMockedData.IdGossauBundle1);
         var bundle2Id = Guid.Parse(ProportionalElectionResultBundleMockedData.IdGossauBundle2);
 
@@ -191,6 +190,10 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
         await CreateBallot(ProportionalElectionResultBundleMockedData.GossauBundle2NoList.Id);
         await CreateBallot(ProportionalElectionResultBundleMockedData.GossauBundle2NoList.Id);
         await CreateBallot(ProportionalElectionResultBundleMockedData.GossauBundle2NoList.Id);
+
+        await ModifyDbEntities<ProportionalElectionResultBallot>(
+            b => b.BundleId == bundle1Id || b.BundleId == bundle2Id,
+            b => b.ModifiedDuringReview = true);
 
         await ShouldHaveCandidateResults(false);
         await ShouldHaveListResults(false);
@@ -216,6 +219,12 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
         bundle.ElectionResult.TotalCountOfListsWithoutParty.Should().Be(0);
         bundle.ElectionResult.TotalCountOfListsWithParty.Should().Be(2);
         bundle.ElectionResult.TotalCountOfBlankRowsOnListsWithoutParty.Should().Be(0);
+
+        var hasModifiedBallotsBundle1 = await RunOnDb(db => db.ProportionalElectionResultBallots.AnyAsync(b => b.BundleId == bundle1Id && b.ModifiedDuringReview));
+        hasModifiedBallotsBundle1.Should().BeFalse();
+
+        var hasModifiedBallotsBundle2 = await RunOnDb(db => db.ProportionalElectionResultBallots.AnyAsync(b => b.BundleId == bundle2Id && b.ModifiedDuringReview));
+        hasModifiedBallotsBundle2.Should().BeTrue();
 
         await TestEventPublisher.Publish(
             GetNextEventNumber(),

@@ -31,6 +31,8 @@ namespace Voting.Ausmittlung.Test.ImportTests;
 
 public class ResultImportMapMajorityElectionWriteInsTest : BaseTest<ResultImportService.ResultImportServiceClient>
 {
+    private long _eventNrCounter;
+
     public ResultImportMapMajorityElectionWriteInsTest(TestApplicationFactory factory)
         : base(factory)
     {
@@ -51,7 +53,7 @@ public class ResultImportMapMajorityElectionWriteInsTest : BaseTest<ResultImport
         await ModifyDbEntities((CountingCircle _) => true, cc => cc.EVoting = true);
         await ModifyDbEntities((Contest _) => true, contest => contest.EVoting = true);
 
-        await ResultImportMockedData.SeedEVoting(RunScoped, CreateHttpClient);
+        _eventNrCounter = await ResultImportMockedData.SeedEVoting(RunScoped, CreateHttpClient);
 
         await ResultImportECountingMockedData.Seed(RunScoped);
         await ResultImportECountingMockedData.SeedUzwilAggregates(RunScoped);
@@ -65,7 +67,7 @@ public class ResultImportMapMajorityElectionWriteInsTest : BaseTest<ResultImport
             });
 
         EventPublisherMock.Clear();
-        await ResultImportMockedData.SeedECounting(RunScoped, CreateHttpClient);
+        _eventNrCounter = await ResultImportMockedData.SeedECounting(RunScoped, CreateHttpClient, _eventNrCounter);
     }
 
     [Fact]
@@ -86,8 +88,10 @@ public class ResultImportMapMajorityElectionWriteInsTest : BaseTest<ResultImport
             }
         });
 
-        await TestEventPublisher.Publish(primaryEvents.ToArray());
-        await TestEventPublisher.Publish(primaryEvents.Count, secondaryEvents.ToArray());
+        await TestEventPublisher.Publish(_eventNrCounter, primaryEvents.ToArray());
+        _eventNrCounter += primaryEvents.Count;
+
+        await TestEventPublisher.Publish(_eventNrCounter, secondaryEvents.ToArray());
 
         ResetIds(primaryEvents, secondaryEvents);
 
@@ -150,8 +154,10 @@ public class ResultImportMapMajorityElectionWriteInsTest : BaseTest<ResultImport
             }
         });
 
-        await TestEventPublisher.Publish(primaryEvents.ToArray());
-        await TestEventPublisher.Publish(primaryEvents.Count, secondaryEvents.ToArray());
+        await TestEventPublisher.Publish(_eventNrCounter, primaryEvents.ToArray());
+        _eventNrCounter += primaryEvents.Count;
+
+        await TestEventPublisher.Publish(_eventNrCounter, secondaryEvents.ToArray());
 
         var resultAfter = await RunOnDb(db => db.MajorityElectionResults
             .Include(x => x.CountOfVoters)
@@ -236,8 +242,10 @@ public class ResultImportMapMajorityElectionWriteInsTest : BaseTest<ResultImport
             },
             StGallenErfassungElectionAdminClient);
 
-        await TestEventPublisher.Publish(primaryEvents.ToArray());
-        await TestEventPublisher.Publish(primaryEvents.Count, secondaryEvents.ToArray());
+        await TestEventPublisher.Publish(_eventNrCounter, primaryEvents.ToArray());
+        _eventNrCounter += primaryEvents.Count;
+
+        await TestEventPublisher.Publish(_eventNrCounter, secondaryEvents.ToArray());
 
         ResetIds(primaryEvents, secondaryEvents);
 

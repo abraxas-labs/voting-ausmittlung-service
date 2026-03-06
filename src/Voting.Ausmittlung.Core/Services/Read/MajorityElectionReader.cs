@@ -38,7 +38,7 @@ public class MajorityElectionReader
         var query = _electionRepo.Query().AsSplitQuery();
         if (includeSecondary)
         {
-            query = query.Include(x => x.SecondaryMajorityElections)
+            query = query.Include(x => x.SecondaryMajorityElections.OrderBy(y => y.PoliticalBusinessNumber))
                 .ThenInclude(x => x.Candidates.OrderBy(y => y.Position))
                 .ThenInclude(x => x.Translations);
         }

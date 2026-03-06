@@ -166,7 +166,7 @@ public class ResultImportDeleteImportedEVotingDataTest : ResultImportDeleteImpor
     [Fact]
     public async Task ProcessorShouldWork()
     {
-        await ResultImportMockedData.SeedEVoting(RunScoped, CreateHttpClient);
+        var eventCounter = await ResultImportMockedData.SeedEVoting(RunScoped, CreateHttpClient);
 
         // Add some voting cards, so we can verify that only the e-voting voting cards will be deleted
         await RunOnDb(async db =>
@@ -202,7 +202,7 @@ public class ResultImportDeleteImportedEVotingDataTest : ResultImportDeleteImpor
 
         var id = "3b29fd77-3cb2-4b34-b490-442d248ddd13";
         await TestEventPublisher.Publish(
-            0,
+            eventCounter,
             new ResultImportDataDeleted
             {
                 ContestId = ContestMockedData.IdStGallenEvoting,

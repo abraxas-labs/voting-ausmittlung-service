@@ -20,8 +20,8 @@ public class DmDocPdfService : IPdfService
     public Task<Stream> Render<T>(string templateName, T data)
         => _dmDoc.FinishAsPdf(templateName, data);
 
-    public Task StartPdfGeneration<T>(string templateName, T data, string webhookUrl)
-        => _dmDoc.StartAsyncPdfGeneration(templateName, data, webhookUrl);
+    public Task StartPdfGeneration<T>(string templateName, T data, string webhookUrl, int? asyncJobPriority)
+        => _dmDoc.StartAsyncPdfGeneration(templateName, data, webhookUrl, null, asyncJobPriority);
 
     public Task<Stream> GetPdf(int printJobId, CancellationToken ct = default)
         => _dmDoc.GetPdfForPrintJob(printJobId, ct);

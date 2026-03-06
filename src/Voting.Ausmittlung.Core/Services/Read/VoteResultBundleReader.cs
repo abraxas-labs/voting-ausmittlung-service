@@ -112,6 +112,8 @@ public class VoteResultBundleReader
                 b.MarkedForReview,
                 b.Index,
                 HasLogs = b.Logs.Count > 0,
+                b.ModifiedDuringReview,
+                ModificationUserIds = b.Logs.OrderBy(l => l.User.SecureConnectId).Select(l => l.User.SecureConnectId),
             })
             .OrderBy(b => b.Index)
             .ToListAsync();
@@ -121,7 +123,11 @@ public class VoteResultBundleReader
             .Select(b => b.Number)
             .ToList();
         bundle.CountOfModifiedBallots = ballotInfo.Count(b => b.HasLogs);
-
+        bundle.BallotNumbersModifiedDuringReview = ballotInfo
+            .Where(b => b.ModifiedDuringReview)
+            .Select(b => b.Number)
+            .ToList();
+        bundle.BallotModificationUserIds = ballotInfo.SelectMany(b => b.ModificationUserIds).Distinct().ToList();
         bundle.BallotResult.Ballot.OrderQuestions();
         return bundle;
     }

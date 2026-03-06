@@ -147,6 +147,11 @@ public class ProportionalElectionResultRejectBundleReviewTest : ProportionalElec
     [Fact]
     public async Task TestProcessor()
     {
+        var bundleId = ProportionalElectionResultBundleMockedData.GossauBundle1List1.Id;
+        await ModifyDbEntities<ProportionalElectionResultBallot>(
+            b => b.BundleId == bundleId,
+            b => b.ModifiedDuringReview = true);
+
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
             new ProportionalElectionResultBundleReviewRejected
@@ -166,6 +171,9 @@ public class ProportionalElectionResultRejectBundleReviewTest : ProportionalElec
         }
 
         bundle.MatchSnapshot(x => x.ElectionResult.CountingCircleId);
+
+        var hasModifiedBallots = await RunOnDb(db => db.ProportionalElectionResultBallots.AnyAsync(b => b.BundleId == bundleId && b.ModifiedDuringReview));
+        hasModifiedBallots.Should().BeFalse();
 
         await AssertHasPublishedEventProcessedMessage(ProportionalElectionResultBundleReviewRejected.Descriptor, bundle.Id);
     }

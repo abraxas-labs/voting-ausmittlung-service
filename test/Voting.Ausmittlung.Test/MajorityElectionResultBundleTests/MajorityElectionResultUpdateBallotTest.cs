@@ -142,6 +142,13 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
             .Where(x => x.Ballot.BundleId == MajorityElectionResultBundleMockedData.StGallenBundle3.Id)
             .CountAsync());
         logsCount.Should().Be(1);
+
+        var bundle = await ErfassungCreatorClient.GetBundleAsync(new GetMajorityElectionResultBundleRequest
+        {
+            BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle3,
+        });
+        bundle.Bundle.BallotNumbersModifiedDuringReview.Count.Should().Be(1);
+        bundle.Bundle.BallotNumbersModifiedDuringReview[0].Should().Be(LatestBallotNumber);
     }
 
     [Fact]

@@ -227,23 +227,23 @@ public class ProportionalElectionResultBundleAggregate : PoliticalBusinessResult
                 Apply(ev);
                 break;
             case ProportionalElectionResultBundleSubmissionFinished _:
-                State = BallotBundleState.ReadyForReview;
+                SetState(BallotBundleState.ReadyForReview);
                 break;
             case ProportionalElectionResultBundleCorrectionFinished ev:
-                State = BallotBundleState.ReadyForReview;
+                SetState(BallotBundleState.ReadyForReview);
                 CreatedBy = ev.EventInfo.User.Id;
                 break;
             case ProportionalElectionResultBundleReviewRejected _:
-                State = BallotBundleState.InCorrection;
+                SetState(BallotBundleState.InCorrection);
                 break;
             case ProportionalElectionResultBundleReviewSucceeded _:
-                State = BallotBundleState.Reviewed;
+                SetState(BallotBundleState.Reviewed);
                 break;
             case ProportionalElectionResultBundleDeleted _:
-                State = BallotBundleState.Deleted;
+                SetState(BallotBundleState.Deleted);
                 break;
             case ProportionalElectionResultBundleResetToSubmissionFinished _:
-                State = BallotBundleState.ReadyForReview;
+                SetState(BallotBundleState.ReadyForReview);
                 break;
             case ProportionalElectionResultBallotUpdated ev:
                 TrackPossibleModification(ev.EventInfo.User.Id);

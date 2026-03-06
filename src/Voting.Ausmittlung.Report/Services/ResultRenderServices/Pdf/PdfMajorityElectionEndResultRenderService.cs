@@ -65,6 +65,7 @@ public class PdfMajorityElectionEndResultRenderService : IRendererService
         var majorityElection = _mapper.Map<PdfMajorityElection>(data.MajorityElection);
         PdfMajorityElectionEndResultUtil.MapCandidateEndResultsToStateLists(majorityElection.EndResult!);
         await _pdfMajorityElectionUtil.FillEmptyVoteCountDisabled(majorityElection);
+        await _pdfMajorityElectionUtil.SetEndResultIsComplete(majorityElection.Id, majorityElection.EndResult, data.CandidateEndResults);
 
         // reset the domain of influence on the result, since this is a single domain of influence report
         var domainOfInfluence = majorityElection.DomainOfInfluence;

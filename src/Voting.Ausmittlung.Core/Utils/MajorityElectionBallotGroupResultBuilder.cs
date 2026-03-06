@@ -57,12 +57,12 @@ public class MajorityElectionBallotGroupResultBuilder
         IDictionary<Guid, int> ballotGroupCounts)
     {
         var electionResult = await _resultRepo.Query()
-                                 .AsTracking()
-                                 .AsSplitQuery()
-                                 .Include(x => x.SecondaryMajorityElectionResults)
-                                 .Include(x => x.BallotGroupResults).ThenInclude(x => x.BallotGroup.Entries).ThenInclude(c => c.Candidates)
-                                 .FirstOrDefaultAsync(x => x.Id == resultId)
-                             ?? throw new EntityNotFoundException(resultId);
+            .AsTracking()
+            .AsSplitQuery()
+            .Include(x => x.SecondaryMajorityElectionResults)
+            .Include(x => x.BallotGroupResults).ThenInclude(x => x.BallotGroup.Entries).ThenInclude(c => c.Candidates)
+            .FirstOrDefaultAsync(x => x.Id == resultId)
+            ?? throw new EntityNotFoundException(resultId);
 
         var byBallotGroupId = electionResult.BallotGroupResults
             .ToDictionary(x => x.BallotGroupId);
@@ -88,6 +88,7 @@ public class MajorityElectionBallotGroupResultBuilder
             SumCandidateDeltas(secondaryMajorityCandidateDeltas, ballotGroupResult.BallotGroup, c => c.SecondaryElectionCandidateId, countDelta);
         }
 
+        electionResult.ConventionalCountOfBallotGroupVotes = ballotGroupCounts.Values.Sum();
         await _dataContext.SaveChangesAsync();
 
         await _candidateResultBuilder.AdjustConventionalVotes(resultId, primaryCandidateDeltas);

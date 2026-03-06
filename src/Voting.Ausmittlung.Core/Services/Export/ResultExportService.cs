@@ -229,6 +229,7 @@ public class ResultExportService
         var asyncPdfGenerationInfo = new AsyncPdfGenerationInfo
         {
             WebhookUrl = _publisherConfig.Documatrix.GetProtocolExportCallbackUrl(protocolExportId, callbackToken),
+            AsyncJobPriority = template.AsyncJobPriority,
         };
 
         var exportTemplateKeyCantonSuffix = _publisherConfig.ExportTemplateKeyCantonSuffixEnabled || _publisherConfig.EnableCantonSuffixTemplateKeys.Contains(exportTemplate.Template.Key)

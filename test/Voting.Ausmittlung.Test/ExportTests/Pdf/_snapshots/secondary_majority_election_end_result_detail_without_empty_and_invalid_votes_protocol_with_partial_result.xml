@@ -31,6 +31,7 @@
       <CountOfDoneCountingCircles>0</CountOfDoneCountingCircles>
       <TotalCountOfCountingCircles>2</TotalCountOfCountingCircles>
       <AllCountingCirclesDone>false</AllCountingCirclesDone>
+      <IsComplete>false</IsComplete>
       <CountOfVoters>
         <VoterParticipation>2.501</VoterParticipation>
         <TotalReceivedBallots>5002</TotalReceivedBallots>

@@ -1,4 +1,4 @@
-# ✨ Changelog (`v2.86.1`)
+# ✨ Changelog (`v2.90.1`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,11 +8,90 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v2.86.1
-Previous version ---- v2.71.9
+This version -------- v2.90.1
+Previous version ---- v2.86.1
 Initial version ----- v1.29.14
-Total commits ------- 63
+Total commits ------- 14
 ```
+
+## [v2.90.1] - 2026-03-06
+
+### 🔄 Changed
+
+- fix(VOTING-6969): don't emit empty candidate text in ech 252
+
+## [v2.90.0] - 2026-03-04
+
+### 🆕 Added
+
+- feat: detect db event processing lag and restart subscription if database is behind
+
+## [v2.89.2] - 2026-02-26
+
+### :arrows_counterclockwise: Changed
+
+- Voting Lib Version -\> log level to warning for mapped exceptions with state in ExceptionInterceptor for grpc. Ticket reference: VOTING-6642, VOTING-6643, VOTING-6641
+
+## [v2.89.1] - 2026-02-26
+
+### 🔄 Changed
+
+- allow empty vote ballots on variant ballots
+
+## [v2.89.0] - 2026-02-25
+
+### 🔄 Changed
+
+- speed up majority election event processing
+
+## [v2.88.0] - 2026-02-24
+
+### :new: Added
+
+- add parameter to pass async job priority for start async pdf generation
+- use priorty from template repository to set bundle review protocols to 10
+
+## [v2.87.4] - 2026-02-23
+
+### :arrows_counterclockwise: Changed
+
+- LanguageService method SetLanguage: Reduce Loglevel to debug for message: Language {lang} is not valid, using fallback language
+
+## [v2.87.3] - 2026-02-20
+
+### 🔄 Changed
+
+- add majority election end result isComplete to PDF exports
+
+## [v2.87.2] - 2026-02-19
+
+### 🔄 Changed
+
+- correctly set majority election end result in eCH-0252
+
+## [v2.87.1] - 2026-02-16
+
+### 🆕 Added
+
+- add ballot modification users to bundles
+
+## [v2.87.0] - 2026-02-16
+
+### 🆕 Added
+
+- save modified ballot numbers during review
+
+## [v2.86.3] - 2026-02-12
+
+### 🔄 Changed
+
+- sort secondary elections in list candidates by political business number
+
+## [v2.86.2] - 2026-02-10
+
+### ❌ Removed
+
+- remove export permissions for erfassung creator and bundle controller
 
 ## [v2.86.1] - 2026-02-06
 

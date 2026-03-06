@@ -20,7 +20,7 @@ public abstract class PoliticalBusinessResultBundleAggregate : BaseEventSignatur
 
     public string CreatedBy { get; protected set; } = string.Empty;
 
-    public BallotBundleState State { get; protected set; } = BallotBundleState.InProcess;
+    public BallotBundleState State { get; private set; } = BallotBundleState.InProcess;
 
     public int BundleNumber { get; protected set; }
 
@@ -56,6 +56,11 @@ public abstract class PoliticalBusinessResultBundleAggregate : BaseEventSignatur
 
     protected IEnumerable<int> GenerateBallotNumberSamples()
         => RandomUtil.Samples(BallotNumbers, BallotBundleSampleSize).OrderBy(x => x);
+
+    protected void SetState(BallotBundleState state)
+    {
+        State = state;
+    }
 
     protected void TrackPossibleModification(string userId)
     {

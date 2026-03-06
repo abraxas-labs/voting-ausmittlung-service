@@ -264,10 +264,6 @@ public class ResultExportTest : BaseRestTest
 
     protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungCreatorWithoutBundleControl;
-        yield return RolesMockedData.ErfassungBundleController;
-        yield return RolesMockedData.ErfassungRestrictedBundleController;
         yield return RolesMockedData.ErfassungElectionSupporter;
         yield return RolesMockedData.ErfassungElectionAdmin;
         yield return RolesMockedData.MonitoringElectionAdmin;
