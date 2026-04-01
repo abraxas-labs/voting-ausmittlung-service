@@ -228,7 +228,8 @@
       "HasComments": false,
       "AuditedTentativelyTimestamp": null,
       "PlausibilisedTimestamp": null,
-      "ReadyForCorrectionTimestamp": null
+      "ReadyForCorrectionTimestamp": null,
+      "ECountingImported": false
     },
     {
       "Id": "b945f15b-38b9-5c88-807b-9977488504ad",
@@ -266,7 +267,8 @@
       "HasComments": false,
       "AuditedTentativelyTimestamp": null,
       "PlausibilisedTimestamp": null,
-      "ReadyForCorrectionTimestamp": null
+      "ReadyForCorrectionTimestamp": null,
+      "ECountingImported": false
     },
     {
       "Id": "e9108db7-b67f-5338-a170-c2efe570f1fd",
@@ -304,7 +306,8 @@
       "HasComments": false,
       "AuditedTentativelyTimestamp": null,
       "PlausibilisedTimestamp": null,
-      "ReadyForCorrectionTimestamp": null
+      "ReadyForCorrectionTimestamp": null,
+      "ECountingImported": false
     }
   ],
   "CurrentTenantIsResponsible": true,

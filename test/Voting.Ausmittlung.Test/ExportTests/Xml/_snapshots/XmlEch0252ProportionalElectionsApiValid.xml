@@ -1,0 +1,120 @@
+<delivery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.ech.ch/xmlns/eCH-0252/2">
+  <deliveryHeader>
+    <senderId xmlns="http://www.ech.ch/xmlns/eCH-0058/5">ABX-VOTING</senderId>
+    <messageId xmlns="http://www.ech.ch/xmlns/eCH-0058/5">mock-id</messageId>
+    <messageType xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1198</messageType>
+    <sendingApplication xmlns="http://www.ech.ch/xmlns/eCH-0058/5">
+      <manufacturer>Abraxas Informatik AG</manufacturer>
+      <product>Voting.Ausmittlung</product>
+      <productVersion>0.0.0.1</productVersion>
+    </sendingApplication>
+    <comment xmlns="http://www.ech.ch/xmlns/eCH-0058/5">Test / Testphase</comment>
+    <messageDate xmlns="http://www.ech.ch/xmlns/eCH-0058/5">2020-01-10T13:12:10.2Z</messageDate>
+    <action xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1</action>
+    <testDeliveryFlag xmlns="http://www.ech.ch/xmlns/eCH-0058/5">true</testDeliveryFlag>
+  </deliveryHeader>
+  <electionResultDelivery>
+    <cantonId>17</cantonId>
+    <pollingDay>2020-08-31</pollingDay>
+    <electionGroupResult>
+      <electionGroupIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionGroupIdentification>
+      <electionResult>
+        <electionIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionIdentification>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>3443</countingCircleId>
+            <countingCircleName>Gossau</countingCircleName>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
+          </countingCircle>
+          <resultData>
+            <countOfVotersInformation>
+              <countOfVotersTotal>15600</countOfVotersTotal>
+              <subtotalInfo>
+                <countOfVoters>7900</countOfVoters>
+                <voterType>1</voterType>
+                <sex>1</sex>
+              </subtotalInfo>
+              <subtotalInfo>
+                <countOfVoters>6900</countOfVoters>
+                <voterType>1</voterType>
+                <sex>2</sex>
+              </subtotalInfo>
+              <subtotalInfo>
+                <countOfVoters>500</countOfVoters>
+                <voterType>2</voterType>
+                <sex>1</sex>
+              </subtotalInfo>
+              <subtotalInfo>
+                <countOfVoters>300</countOfVoters>
+                <voterType>2</voterType>
+                <sex>2</sex>
+              </subtotalInfo>
+            </countOfVotersInformation>
+            <votingCardInformation>
+              <countOfVotingCardsReceivedInBallotBox>1900</countOfVotingCardsReceivedInBallotBox>
+              <countOfVotingCardsReceivedByMail>900</countOfVotingCardsReceivedByMail>
+              <countOfInvalidVotingCardsReceivedByMail>2900</countOfInvalidVotingCardsReceivedByMail>
+            </votingCardInformation>
+            <isFullyCounted>false</isFullyCounted>
+            <lockoutTimestamp>2022-04-11T12:03:00Z</lockoutTimestamp>
+            <voterTurnout>0.00</voterTurnout>
+            <countOfReceivedBallots>0</countOfReceivedBallots>
+            <countOfBlankBallots>0</countOfBlankBallots>
+            <countOfInvalidBallots>0</countOfInvalidBallots>
+            <countOfValidBallots>0</countOfValidBallots>
+            <electionResult>
+              <electionIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionIdentification>
+              <proportionalElection>
+                <countOfChangedBallotsWithoutListDesignation>0</countOfChangedBallotsWithoutListDesignation>
+                <countOfBlankVotesOfChangedBallotsWithoutListDesignation>0</countOfBlankVotesOfChangedBallotsWithoutListDesignation>
+                <listResults>
+                  <listIdentification>9091a3b6-3785-4adc-a486-f486e686503e</listIdentification>
+                  <listIndentureNumber>1a</listIndentureNumber>
+                  <countOfChangedBallots>0</countOfChangedBallots>
+                  <countOfUnchangedBallots>0</countOfUnchangedBallots>
+                  <countOfCandidateVotes>0</countOfCandidateVotes>
+                  <countOfAdditionalVotes>0</countOfAdditionalVotes>
+                  <candidateResults>
+                    <candidateIdentification>8b4837a9-c3ba-4ec5-9e50-536a9b4347a9</candidateIdentification>
+                    <candidateReferenceOnPosition>1a.number1</candidateReferenceOnPosition>
+                    <countOfVotesFromChangedBallots>0</countOfVotesFromChangedBallots>
+                    <countOfVotesFromUnchangedBallots>0</countOfVotesFromUnchangedBallots>
+                  </candidateResults>
+                  <candidateResults>
+                    <candidateIdentification>9efe090f-883b-4e86-89c2-cd132ea84cbd</candidateIdentification>
+                    <candidateReferenceOnPosition>1a.number2</candidateReferenceOnPosition>
+                    <countOfVotesFromChangedBallots>0</countOfVotesFromChangedBallots>
+                    <countOfVotesFromUnchangedBallots>0</countOfVotesFromUnchangedBallots>
+                  </candidateResults>
+                </listResults>
+                <listResults>
+                  <listIdentification>bfe54c2a-6bdf-41a3-bf11-321203c380d3</listIdentification>
+                  <listIndentureNumber>2</listIndentureNumber>
+                  <countOfChangedBallots>0</countOfChangedBallots>
+                  <countOfUnchangedBallots>0</countOfUnchangedBallots>
+                  <countOfCandidateVotes>0</countOfCandidateVotes>
+                  <countOfAdditionalVotes>0</countOfAdditionalVotes>
+                  <candidateResults>
+                    <candidateIdentification>4933f558-bb34-4260-862a-fae71c52d619</candidateIdentification>
+                    <candidateReferenceOnPosition>02.number3</candidateReferenceOnPosition>
+                    <countOfVotesFromChangedBallots>0</countOfVotesFromChangedBallots>
+                    <countOfVotesFromUnchangedBallots>0</countOfVotesFromUnchangedBallots>
+                  </candidateResults>
+                </listResults>
+              </proportionalElection>
+            </electionResult>
+            <namedElement>
+              <elementName>countingStatus</elementName>
+              <text>6</text>
+            </namedElement>
+            <namedElement>
+              <elementName>lastCountingStatusChange</elementName>
+              <text>2022-04-11T12:03:00Z</text>
+            </namedElement>
+          </resultData>
+        </countingCircleResult>
+      </electionResult>
+    </electionGroupResult>
+    <numberOfEntries>1</numberOfEntries>
+  </electionResultDelivery>
+</delivery>

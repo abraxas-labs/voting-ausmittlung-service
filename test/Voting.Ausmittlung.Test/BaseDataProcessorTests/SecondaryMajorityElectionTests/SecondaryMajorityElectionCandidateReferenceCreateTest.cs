@@ -99,6 +99,9 @@ public class SecondaryMajorityElectionCandidateReferenceCreateTest : BaseDataPro
         await ModifyDbEntities<MajorityElectionResult>(
             r => r.Id == detailedResultId,
             r => r.Entry = MajorityElectionResultEntry.Detailed);
+        await ModifyDbEntities<Contest>(
+            c => c.Id == ContestMockedData.Bundesurnengang.Id,
+            c => c.State = ContestState.Active);
 
         var id = Guid.Parse("4c03f2b6-adde-42d2-a762-d0c065892394");
         await TestEventPublisher.Publish(

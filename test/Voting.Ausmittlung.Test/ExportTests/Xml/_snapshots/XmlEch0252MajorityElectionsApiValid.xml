@@ -1,0 +1,96 @@
+<delivery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.ech.ch/xmlns/eCH-0252/2">
+  <deliveryHeader>
+    <senderId xmlns="http://www.ech.ch/xmlns/eCH-0058/5">ABX-VOTING</senderId>
+    <messageId xmlns="http://www.ech.ch/xmlns/eCH-0058/5">mock-id</messageId>
+    <messageType xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1198</messageType>
+    <sendingApplication xmlns="http://www.ech.ch/xmlns/eCH-0058/5">
+      <manufacturer>Abraxas Informatik AG</manufacturer>
+      <product>Voting.Ausmittlung</product>
+      <productVersion>0.0.0.1</productVersion>
+    </sendingApplication>
+    <comment xmlns="http://www.ech.ch/xmlns/eCH-0058/5">Test / Testphase</comment>
+    <messageDate xmlns="http://www.ech.ch/xmlns/eCH-0058/5">2020-01-10T13:12:10.2Z</messageDate>
+    <action xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1</action>
+    <testDeliveryFlag xmlns="http://www.ech.ch/xmlns/eCH-0058/5">true</testDeliveryFlag>
+  </deliveryHeader>
+  <electionResultDelivery>
+    <cantonId>17</cantonId>
+    <pollingDay>2020-08-31</pollingDay>
+    <electionGroupResult>
+      <electionGroupIdentification>50415df8-6ee9-4eb4-9e31-68c0d3021e76</electionGroupIdentification>
+      <electionResult>
+        <electionIdentification>50415df8-6ee9-4eb4-9e31-68c0d3021e76</electionIdentification>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>3443</countingCircleId>
+            <countingCircleName>Gossau</countingCircleName>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
+          </countingCircle>
+          <resultData>
+            <countOfVotersInformation>
+              <countOfVotersTotal>15600</countOfVotersTotal>
+              <subtotalInfo>
+                <countOfVoters>7900</countOfVoters>
+                <voterType>1</voterType>
+                <sex>1</sex>
+              </subtotalInfo>
+              <subtotalInfo>
+                <countOfVoters>6900</countOfVoters>
+                <voterType>1</voterType>
+                <sex>2</sex>
+              </subtotalInfo>
+              <subtotalInfo>
+                <countOfVoters>500</countOfVoters>
+                <voterType>2</voterType>
+                <sex>1</sex>
+              </subtotalInfo>
+              <subtotalInfo>
+                <countOfVoters>300</countOfVoters>
+                <voterType>2</voterType>
+                <sex>2</sex>
+              </subtotalInfo>
+            </countOfVotersInformation>
+            <votingCardInformation>
+              <countOfVotingCardsReceivedInBallotBox>1900</countOfVotingCardsReceivedInBallotBox>
+              <countOfVotingCardsReceivedByMail>900</countOfVotingCardsReceivedByMail>
+              <countOfInvalidVotingCardsReceivedByMail>2900</countOfInvalidVotingCardsReceivedByMail>
+            </votingCardInformation>
+            <isFullyCounted>false</isFullyCounted>
+            <voterTurnout>70.00</voterTurnout>
+            <countOfReceivedBallots>6000</countOfReceivedBallots>
+            <countOfBlankBallots>500</countOfBlankBallots>
+            <countOfInvalidBallots>500</countOfInvalidBallots>
+            <countOfValidBallots>5000</countOfValidBallots>
+            <electionResult>
+              <electionIdentification>50415df8-6ee9-4eb4-9e31-68c0d3021e76</electionIdentification>
+              <majorityElection>
+                <candidateResult>
+                  <candidateOrWriteInCandidate>
+                    <candidateIdentification>4a44cb35-05a7-41f9-aa1e-034bedd320ec</candidateIdentification>
+                    <candidateReference>number2</candidateReference>
+                  </candidateOrWriteInCandidate>
+                  <countOfVotesTotal>0</countOfVotesTotal>
+                </candidateResult>
+                <candidateResult>
+                  <candidateOrWriteInCandidate>
+                    <candidateIdentification>77ce6bf0-b27c-4d9d-926f-ced7863aff2f</candidateIdentification>
+                    <candidateReference>number1</candidateReference>
+                  </candidateOrWriteInCandidate>
+                  <countOfVotesTotal>0</countOfVotesTotal>
+                </candidateResult>
+                <countOfInvalidVotesTotal>0</countOfInvalidVotesTotal>
+                <countOfBlankVotesTotal>0</countOfBlankVotesTotal>
+                <countOfIndividualVotesTotal>0</countOfIndividualVotesTotal>
+              </majorityElection>
+            </electionResult>
+            <namedElement>
+              <elementName>countingStatus</elementName>
+              <text>1</text>
+            </namedElement>
+          </resultData>
+        </countingCircleResult>
+      </electionResult>
+    </electionGroupResult>
+    <numberOfEntries>1</numberOfEntries>
+  </electionResultDelivery>
+</delivery>

@@ -6,10 +6,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Schema;
 using Ech0252_2_0;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +25,7 @@ using Voting.Ausmittlung.Ech.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services;
 using Voting.Lib.Common;
+using Voting.Lib.Database.Models;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Ech;
 using Voting.Lib.Ech.Ech0252_2_0.Schemas;
@@ -91,29 +95,52 @@ public class Ech0252ExportService
             var noPbTypesFilter = filter.PoliticalBusinessTypes.Count == 0;
             if (noPbTypesFilter || filter.PoliticalBusinessTypes.Contains(PoliticalBusinessType.Vote))
             {
-                var voteDelivery = _ech0252Serializer.ToVoteDelivery(
+                var deliveries = GenerateDeliveries(
                     contest,
-                    ctx,
-                    enabledCountingCircleStates);
-                yield return RenderToXml(contest, voteDelivery, "vote-result-delivery");
+                    _ech0252Serializer.GetRelevantBallots(contest).ToList(),
+                    ballots => _ech0252Serializer.ToVoteDelivery(contest, ctx, ballots, enabledCountingCircleStates),
+                    "vote-result-delivery",
+                    ct);
+                await foreach (var voteDelivery in deliveries)
+                {
+                    yield return voteDelivery;
+                }
             }
 
             if (noPbTypesFilter || filter.PoliticalBusinessTypes.Contains(PoliticalBusinessType.ProportionalElection))
             {
-                var proportionalElectionDelivery = filter.InformationOnly
-                    ? _ech0252Serializer.ToProportionalElectionInformationDelivery(contest, ctx)
-                    : _ech0252Serializer.ToProportionalElectionResultDelivery(contest, enabledCountingCircleStates, filter.IncludeCandidateListResultsInfo);
-                yield return RenderToXml(contest, proportionalElectionDelivery, filter.InformationOnly ? "proportional-election-info-delivery" : "proportional-election-result-delivery");
+                Func<List<ProportionalElection>, Delivery> deliveryFunc = filter.InformationOnly
+                    ? elections => _ech0252Serializer.ToProportionalElectionInformationDelivery(contest, elections, ctx)
+                    : elections => _ech0252Serializer.ToProportionalElectionResultDelivery(contest, elections, enabledCountingCircleStates, filter.IncludeCandidateListResultsInfo);
+                var deliveries = GenerateDeliveries(
+                    contest,
+                    _ech0252Serializer.GetRelevantProportionalElections(contest).ToList(),
+                    deliveryFunc,
+                    filter.InformationOnly ? "proportional-election-info-delivery" : "proportional-election-result-delivery",
+                    ct);
+                await foreach (var delivery in deliveries)
+                {
+                    yield return delivery;
+                }
             }
 
             if (noPbTypesFilter
                 || filter.PoliticalBusinessTypes.Contains(PoliticalBusinessType.MajorityElection)
                 || filter.PoliticalBusinessTypes.Contains(PoliticalBusinessType.SecondaryMajorityElection))
             {
-                var majorityElectionDelivery = filter.InformationOnly
-                    ? _ech0252Serializer.ToMajorityElectionInformationDelivery(contest, ctx)
-                    : _ech0252Serializer.ToMajorityElectionResultDelivery(contest, ctx, enabledCountingCircleStates);
-                yield return RenderToXml(contest, majorityElectionDelivery, filter.InformationOnly ? "majority-election-info-delivery" : "majority-election-result-delivery");
+                Func<List<MajorityElection>, Delivery> deliveryFunc = filter.InformationOnly
+                    ? elections => _ech0252Serializer.ToMajorityElectionInformationDelivery(contest, elections, ctx)
+                    : elections => _ech0252Serializer.ToMajorityElectionResultDelivery(contest, elections, ctx, enabledCountingCircleStates);
+                var deliveries = GenerateDeliveries(
+                    contest,
+                    _ech0252Serializer.GetRelevantMajorityElections(contest).ToList(),
+                    deliveryFunc,
+                    filter.InformationOnly ? "majority-election-info-delivery" : "majority-election-result-delivery",
+                    ct);
+                await foreach (var delivery in deliveries)
+                {
+                    yield return delivery;
+                }
             }
         }
 
@@ -201,28 +228,118 @@ public class Ech0252ExportService
         }
     }
 
-    private FileModel RenderToXml(
+    // This method separates the entities into valid and invalid deliveries.
+    // Entities that result in an invalid eCH-0252 export (according to the schema) are combined into a separate XML.
+    // Should validation error occur, a JSON file explaining the errors is additionally generated.
+    private async IAsyncEnumerable<FileModel> GenerateDeliveries<T>(
         Contest contest,
-        Delivery data,
-        string type)
+        List<T> entities,
+        Func<List<T>, Delivery> toDeliveryFunc,
+        string fileNameArgument,
+        [EnumeratorCancellation] CancellationToken ct = default)
+        where T : BaseEntity
     {
-        var fileName = FileNameBuilder.GenerateFileName(
+        var failed = new Dictionary<Guid, string>();
+        var validEntities = new List<T>();
+        var invalidEntities = new List<T>();
+
+        foreach (var entity in entities)
+        {
+            var delivery = toDeliveryFunc([entity]);
+
+            // First, check whether the individual entity results in a valid eCH-0252 export
+            var path = Path.GetTempFileName();
+            try
+            {
+                await RenderToXml(delivery, path);
+                await ValidateXml(path);
+                validEntities.Add(entity);
+            }
+            catch (Exception e)
+            {
+                failed[entity.Id] = e.Message;
+                invalidEntities.Add(entity);
+            }
+            finally
+            {
+                // We cannot actually re-use the generated XML, since things such as order numbers
+                // and similar things change when generated together with multiple entities.
+                File.Delete(path);
+            }
+        }
+
+        // If there are no invalid entities, always generate an export for the valid entities (even if they are empty).
+        // This ensures that a contest without matching entities still has an export generated.
+        if (validEntities.Count > 0 || invalidEntities.Count == 0)
+        {
+            var goodDelivery = toDeliveryFunc(validEntities);
+            var fileName = BuildDeliveryFileName(fileNameArgument, contest);
+            yield return await CreateFileFromDelivery(goodDelivery, fileName, ct);
+        }
+
+        if (invalidEntities.Count > 0)
+        {
+            var fileName = BuildDeliveryFileName(fileNameArgument, contest);
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+
+            var badDelivery = toDeliveryFunc(invalidEntities);
+            yield return await CreateFileFromDelivery(badDelivery, $"{fileNameWithoutExtension}_invalid.xml", ct);
+
+            var errorsFileName = $"{fileNameWithoutExtension}_invalid.json";
+            yield return new FileModel(null, errorsFileName, ExportFileFormat.Unspecified, string.Empty, async (w, _) =>
+                await JsonSerializer.SerializeAsync(w.AsStream(), failed, cancellationToken: ct));
+        }
+    }
+
+    private async Task RenderToXml(Delivery data, string path)
+    {
+        await using var fs = File.Create(path);
+        _echSerializer.WriteXml(fs, data);
+    }
+
+    private async Task ValidateXml(string path)
+    {
+        _ech0252SchemaSet ??= Ech0252Schemas.LoadEch0252Schemas();
+        await using var fs = File.OpenRead(path);
+        using var xmlReader = XmlUtil.CreateReaderWithSchemaValidation(fs, _ech0252SchemaSet, new XmlReaderSettings
+        {
+            Async = true,
+        });
+
+        while (await xmlReader.ReadAsync())
+        {
+            // nothing to do here, just read the whole content to validate the XML
+        }
+    }
+
+    private async Task<FileModel> CreateFileFromDelivery(Delivery delivery, string fileName, CancellationToken ct)
+    {
+        var resultPath = Path.GetTempFileName();
+        await RenderToXml(delivery, resultPath);
+        return new FileModel(null, fileName, ExportFileFormat.Xml, delivery.DeliveryHeader.MessageId, async (w, _) =>
+        {
+            await using var fs = new FileStream(
+                resultPath,
+                FileMode.Open,
+                FileAccess.Read,
+                FileShare.Read,
+                4096,
+                FileOptions.Asynchronous | FileOptions.DeleteOnClose);
+            await fs.CopyToAsync(w.AsStream(), ct);
+        });
+    }
+
+    private string BuildDeliveryFileName(string fileNameArgument, Contest contest)
+    {
+        return FileNameBuilder.GenerateFileName(
             Ech0252ExportFileName,
             ExportFileFormat.Xml,
             new List<string>
             {
-                type,
+                fileNameArgument,
                 contest.Date.ToString("yyyyMMdd", CultureInfo.InvariantCulture),
                 contest.Id.ToString(),
             });
-
-        return new FileModel(null, fileName, ExportFileFormat.Xml, data.DeliveryHeader.MessageId, async (w, _) =>
-        {
-            _ech0252SchemaSet ??= Ech0252Schemas.LoadEch0252Schemas();
-            await using var xmlValidationStream = new XmlValidationOnWriteStream(w.AsStream(), _ech0252SchemaSet);
-            _echSerializer.WriteXml(xmlValidationStream, data, leaveStreamOpen: true);
-            await xmlValidationStream.WaitForValidation();
-        });
     }
 
     private IQueryable<Contest> BuildQuery(

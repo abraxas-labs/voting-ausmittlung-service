@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Ech.Models;
@@ -16,7 +15,7 @@ public class Ech0252MappingContext
     {
         EVoting = eVoting;
         Canton = canton;
-        _domainOfInfluences = domainOfInfluences ?? new();
+        _domainOfInfluences = domainOfInfluences ?? [];
     }
 
     public bool EVoting { get; }
@@ -25,7 +24,7 @@ public class Ech0252MappingContext
 
     public DomainOfInfluence? GetSuperiorAuthority(Guid doiId)
     {
-        var doi = _domainOfInfluences.FirstOrDefault(x => x.Id == doiId);
+        var doi = _domainOfInfluences.Find(x => x.Id == doiId);
 
         if (doi == null)
         {

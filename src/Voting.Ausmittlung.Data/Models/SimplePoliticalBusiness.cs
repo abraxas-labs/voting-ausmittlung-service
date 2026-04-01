@@ -43,6 +43,10 @@ public class SimplePoliticalBusiness : PoliticalBusiness, IPoliticalBusinessHasT
 
     public ICollection<ResultExportConfigurationPoliticalBusiness> ResultExportConfigurations { get; set; } = new HashSet<ResultExportConfigurationPoliticalBusiness>();
 
+    public ICollection<ResultImportPoliticalBusiness> ResultImportPoliticalBusinesses { get; set; } = new HashSet<ResultImportPoliticalBusiness>();
+
+    public ICollection<IgnoredImportPoliticalBusiness> IgnoredImportPoliticalBusinesses { get; set; } = new HashSet<IgnoredImportPoliticalBusiness>();
+
     IEnumerable<PoliticalBusinessTranslation> IPoliticalBusinessHasTranslations.Translations
     {
         get => Translations;

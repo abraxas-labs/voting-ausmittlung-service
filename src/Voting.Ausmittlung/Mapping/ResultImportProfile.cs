@@ -33,6 +33,11 @@ public class ResultImportProfile : Profile
             .ForMember(dst => dst.IndividualVotes, opts => opts.MapFrom(x => !x.Election.IndividualCandidatesDisabled));
         CreateMap<DataModels.MajorityElectionWriteInMappingBase, ProtoModels.MajorityElectionWriteInMapping>();
 
+        CreateMap<DataModels.ResultImportPoliticalBusiness, ProtoModels.SimplePoliticalBusiness>()
+            .IncludeMembers(x => x.PoliticalBusiness);
+        CreateMap<DataModels.IgnoredImportPoliticalBusiness, ProtoModels.SimplePoliticalBusiness>()
+            .IncludeMembers(x => x.PoliticalBusiness);
+
         // write
         CreateMap<MapMajorityElectionWriteInRequest, DomainModels.MajorityElectionWriteIn>();
     }

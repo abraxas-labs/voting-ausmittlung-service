@@ -12,11 +12,11 @@ using VoteType = Ech0252_2_0.VoteType;
 
 namespace Voting.Ausmittlung.Ech.Mapping;
 
-internal static class VoteInfoVoteMapping
+public static class VoteInfoVoteMapping
 {
     private const string FederalIdentifier = "idBund";
 
-    internal static IEnumerable<VoteInfoType> ToVoteInfoEchVote(
+    public static IEnumerable<VoteInfoType> ToVoteInfoEchVote(
         this Ballot ballot,
         Ech0252MappingContext ctx,
         IReadOnlyCollection<CountingCircleResultState>? enabledResultStates,
@@ -117,7 +117,7 @@ internal static class VoteInfoVoteMapping
         }
     }
 
-    private static VoteInfoType ToVoteInfoEchVote(
+    internal static VoteInfoType ToVoteInfoEchVote(
         BallotQuestion question,
         VoteSubTypeType type,
         string? mainQuestionId,
@@ -171,7 +171,7 @@ internal static class VoteInfoVoteMapping
         };
     }
 
-    private static VoteInfoType ToVoteInfoEchVote(
+    internal static VoteInfoType ToVoteInfoEchVote(
         TieBreakQuestion question,
         VoteSubTypeType type,
         string? mainQuestionId,

@@ -231,6 +231,8 @@
       }
     ],
     "ResultExportConfigurations": [],
+    "ResultImportPoliticalBusinesses": [],
+    "IgnoredImportPoliticalBusinesses": [],
     "PoliticalBusinessNumber": "2000",
     "Active": false,
     "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",

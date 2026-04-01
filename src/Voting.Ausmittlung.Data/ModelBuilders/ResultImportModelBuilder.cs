@@ -10,7 +10,9 @@ namespace Voting.Ausmittlung.Data.ModelBuilders;
 public class ResultImportModelBuilder :
     IEntityTypeConfiguration<ResultImport>,
     IEntityTypeConfiguration<ResultImportCountingCircle>,
-    IEntityTypeConfiguration<EmptyImportCountingCircle>
+    IEntityTypeConfiguration<EmptyImportCountingCircle>,
+    IEntityTypeConfiguration<ResultImportPoliticalBusiness>,
+    IEntityTypeConfiguration<IgnoredImportPoliticalBusiness>
 {
     public void Configure(EntityTypeBuilder<ResultImport> builder)
     {
@@ -65,6 +67,36 @@ public class ResultImportModelBuilder :
             .HasOne(x => x.CountingCircle)
             .WithMany()
             .HasForeignKey(x => x.CountingCircleId)
+            .IsRequired();
+    }
+
+    public void Configure(EntityTypeBuilder<IgnoredImportPoliticalBusiness> builder)
+    {
+        builder
+            .HasOne(x => x.ResultImport)
+            .WithMany(x => x.IgnoredPoliticalBusinesses)
+            .HasForeignKey(x => x.ResultImportId)
+            .IsRequired();
+
+        builder
+            .HasOne(x => x.PoliticalBusiness)
+            .WithMany(x => x.IgnoredImportPoliticalBusinesses)
+            .HasForeignKey(x => x.PoliticalBusinessId)
+            .IsRequired();
+    }
+
+    public void Configure(EntityTypeBuilder<ResultImportPoliticalBusiness> builder)
+    {
+        builder
+            .HasOne(x => x.ResultImport)
+            .WithMany(x => x.ImportedPoliticalBusinesses)
+            .HasForeignKey(x => x.ResultImportId)
+            .IsRequired();
+
+        builder
+            .HasOne(x => x.PoliticalBusiness)
+            .WithMany(x => x.ResultImportPoliticalBusinesses)
+            .HasForeignKey(x => x.PoliticalBusinessId)
             .IsRequired();
     }
 }

@@ -1,6 +1,7 @@
 // (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,7 +25,8 @@ public class ResultImportProcessor :
     IEventProcessor<ResultImportStarted>,
     IEventProcessor<ResultImportCompleted>,
     IEventProcessor<ResultImportCountingCircleCompleted>,
-    IEventProcessor<ResultImportDataDeleted>
+    IEventProcessor<ResultImportDataDeleted>,
+    IEventProcessor<ResultImportPoliticalBusinessDataDeleted>
 {
     private readonly IDbRepository<DataContext, ResultImport> _importsRepo;
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
@@ -36,6 +38,10 @@ public class ResultImportProcessor :
     private readonly VoteEndResultBuilder _voteEndResultBuilder;
     private readonly VoteResultBuilder _voteResultBuilder;
     private readonly ContestCountingCircleDetailsBuilder _contestCountingCircleDetailsBuilder;
+    private readonly IDbRepository<DataContext, SimplePoliticalBusiness> _simplePbRepo;
+    private readonly IDbRepository<DataContext, SecondaryMajorityElection> _secondaryElectionRepo;
+    private readonly IDbRepository<DataContext, ResultImportPoliticalBusiness> _resultImportPbRepo;
+    private readonly IDbRepository<DataContext, SimpleCountingCircleResult> _simpleCountingCircleResultRepo;
     private readonly IMapper _mapper;
     private readonly EventLogger _eventLogger;
 
@@ -51,7 +57,11 @@ public class ResultImportProcessor :
         ProportionalElectionResultBuilder proportionalElectionResultBuilder,
         MajorityElectionResultBuilder majorityElectionResultBuilder,
         VoteResultBuilder voteResultBuilder,
-        IDbRepository<DataContext, ContestCountingCircleDetails> contestCountingCircleDetailsRepo)
+        IDbRepository<DataContext, ContestCountingCircleDetails> contestCountingCircleDetailsRepo,
+        IDbRepository<DataContext, SimplePoliticalBusiness> simplePbRepo,
+        IDbRepository<DataContext, SecondaryMajorityElection> secondaryElectionRepo,
+        IDbRepository<DataContext, ResultImportPoliticalBusiness> resultImportPbRepo,
+        IDbRepository<DataContext, SimpleCountingCircleResult> simpleCountingCircleResultRepo)
     {
         _importsRepo = importsRepo;
         _contestRepo = contestRepo;
@@ -65,6 +75,10 @@ public class ResultImportProcessor :
         _majorityElectionResultBuilder = majorityElectionResultBuilder;
         _voteResultBuilder = voteResultBuilder;
         _contestCountingCircleDetailsRepo = contestCountingCircleDetailsRepo;
+        _simplePbRepo = simplePbRepo;
+        _secondaryElectionRepo = secondaryElectionRepo;
+        _resultImportPbRepo = resultImportPbRepo;
+        _simpleCountingCircleResultRepo = simpleCountingCircleResultRepo;
     }
 
     public async Task Process(ResultImportStarted eventData)
@@ -78,6 +92,11 @@ public class ResultImportProcessor :
             StartedBy = eventData.EventInfo.User.ToDataUser(),
             FileName = eventData.FileName,
             IgnoredCountingCircles = _mapper.Map<List<IgnoredImportCountingCircle>>(eventData.IgnoredCountingCircles),
+            IgnoredPoliticalBusinesses = eventData.IgnoredPoliticalBusinesses
+                .Select(x => new IgnoredImportPoliticalBusiness
+                {
+                    PoliticalBusinessId = GuidParser.Parse(x),
+                }).ToList(),
             EmptyCountingCircles = eventData.EmptyCountingCircleIds
                 .Select(x => new EmptyImportCountingCircle
                 {
@@ -93,7 +112,11 @@ public class ResultImportProcessor :
         }
 
         await _importsRepo.Create(import);
-        await DeleteImportedData(import);
+
+        if (import.ImportType is ResultImportType.EVoting)
+        {
+            await DeleteImportedData(import);
+        }
     }
 
     public async Task Process(ResultImportDataDeleted eventData)
@@ -120,6 +143,54 @@ public class ResultImportProcessor :
         await DeleteImportedData(import);
     }
 
+    public async Task Process(ResultImportPoliticalBusinessDataDeleted eventData)
+    {
+        var politicalBusinessId = GuidParser.Parse(eventData.PoliticalBusinessId);
+
+        var import = new ResultImport
+        {
+            Id = GuidParser.Parse(eventData.ImportId),
+            Started = eventData.EventInfo.Timestamp.ToDateTime(),
+            Deleted = true,
+            Completed = true,
+            ContestId = GuidParser.Parse(eventData.ContestId),
+            CountingCircleId = GuidParser.Parse(eventData.CountingCircleId),
+            StartedBy = eventData.EventInfo.User.ToDataUser(),
+            ImportType = (ResultImportType)eventData.ImportType,
+            ImportedPoliticalBusinesses = new List<ResultImportPoliticalBusiness>
+            {
+                new() { PoliticalBusinessId = politicalBusinessId },
+            },
+        };
+
+        import.CountingCircleId = AusmittlungUuidV5.BuildCountingCircleSnapshot(import.ContestId, import.CountingCircleId.Value);
+        var countingCircleId = import.CountingCircleId!.Value;
+
+        // If majority election import data is deleted, the related secondary elections are always deleted as well.
+        // Because we display secondary elections as seperated entities in the import, we also have to attach them when import data gets deleted.
+        await AttachSecondaryElectionsToImport(import, politicalBusinessId);
+
+        var pbType = (await _simplePbRepo.GetByKey(politicalBusinessId)
+            ?? throw new EntityNotFoundException(nameof(SimplePoliticalBusiness), politicalBusinessId)).PoliticalBusinessType;
+
+        switch (pbType)
+        {
+            case PoliticalBusinessType.Vote:
+                await _voteResultBuilder.ResetAllResults(import.ContestId, countingCircleId, VotingDataSource.ECounting, politicalBusinessId);
+                break;
+            case PoliticalBusinessType.ProportionalElection:
+                await _proportionalElectionResultBuilder.ResetAllResults(import.ContestId, countingCircleId, VotingDataSource.ECounting, politicalBusinessId);
+                break;
+            case PoliticalBusinessType.MajorityElection:
+                await _majorityElectionResultBuilder.ResetAllResults(import.ContestId, countingCircleId, VotingDataSource.ECounting, politicalBusinessId);
+                break;
+            default:
+                throw new InvalidOperationException($"Invalid political business type: {pbType}");
+        }
+
+        await _importsRepo.Create(import);
+    }
+
     public async Task Process(ResultImportCompleted eventData)
     {
         var importId = GuidParser.Parse(eventData.ImportId);
@@ -127,6 +198,15 @@ public class ResultImportProcessor :
                      ?? throw new EntityNotFoundException(nameof(ResultImport), importId);
 
         import.Completed = true;
+        import.ImportedPoliticalBusinesses = eventData.ImportedVoteIds
+            .Concat(eventData.ImportedProportionalElectionIds)
+            .Concat(eventData.ImportedMajorityElectionIds)
+            .Concat(eventData.ImportedSecondaryMajorityElectionIds)
+            .Select(id => new ResultImportPoliticalBusiness
+            {
+                PoliticalBusinessId = GuidParser.Parse(id),
+            }).ToList();
+
         await _importsRepo.Update(import);
         await SetImported(import, true);
 
@@ -223,5 +303,30 @@ public class ResultImportProcessor :
         await _contestCountingCircleDetailsRepo.Query()
             .Where(x => x.ContestId == import.ContestId && x.CountingCircleId == import.CountingCircleId)
             .ExecuteUpdateAsync(x => x.SetProperty(c => c.ECountingResultsImported, imported));
+    }
+
+    private async Task AttachSecondaryElectionsToImport(ResultImport import, Guid primaryPoliticalBusinessId)
+    {
+        var secondaryElectionIds = await _secondaryElectionRepo.Query()
+            .Where(sme => sme.PrimaryMajorityElectionId == primaryPoliticalBusinessId)
+            .Select(sme => sme.Id)
+            .ToListAsync();
+
+        if (secondaryElectionIds.Count == 0)
+        {
+            return;
+        }
+
+        var importedSecondaryElectionIds = await _simpleCountingCircleResultRepo.Query()
+            .Where(ccr => ccr.CountingCircleId == import.CountingCircleId!.Value
+                && ccr.ECountingImported
+                && secondaryElectionIds.Contains(ccr.PoliticalBusinessId))
+            .Select(ipb => ipb.PoliticalBusinessId)
+            .ToListAsync();
+
+        foreach (var importedSecondaryElectionId in importedSecondaryElectionIds)
+        {
+            import.ImportedPoliticalBusinesses.Add(new() { PoliticalBusinessId = importedSecondaryElectionId });
+        }
     }
 }

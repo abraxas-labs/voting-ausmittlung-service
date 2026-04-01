@@ -41,7 +41,7 @@
   "OccupationTitle": "occupation title de",
   "Description": "1.2 3pol last name 3pol firstName",
   "CountToIndividual": false,
-  "CreatedDuringActiveContest": false,
+  "CreatedDuringActiveContest": true,
   "ReportingType": 0,
   "Number": "1.2",
   "FirstName": "3firstName",

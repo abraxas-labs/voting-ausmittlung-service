@@ -109,7 +109,7 @@ public class EVotingResultImportWriter
 
         var (emptyCountingCircles, ignoredCountingCircles) = await ValidateAndFilterCountingCircles(contest, importData);
         var resultAggregatesToSave = await SetAllResultsToInSubmissionOrCorrection(contest);
-        var importAggregate = await _resultImportWriter.Import(importData, importMeta, contest, emptyCountingCircles, ignoredCountingCircles);
+        var importAggregate = await _resultImportWriter.Import(importData, importMeta, contest, emptyCountingCircles, ignoredCountingCircles, []);
         await SetSuccessorAndSave(importAggregate, contest.TestingPhaseEnded, false);
         await Task.WhenAll(resultAggregatesToSave.Select(agg => _aggregateRepository.Save(agg)));
         await _aggregateRepository.Save(importAggregate);

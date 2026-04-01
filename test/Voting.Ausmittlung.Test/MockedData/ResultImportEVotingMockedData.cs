@@ -164,7 +164,8 @@ public static class ResultImportEVotingMockedData
                 null,
                 "mock-message-id",
                 uzwil1.EmptyCountingCircles.Select(x => x.CountingCircleId).ToList(),
-                uzwil1.IgnoredCountingCircles);
+                uzwil1.IgnoredCountingCircles,
+                []);
             uzwil1Aggregate.Complete();
 
             var importsId = AusmittlungUuidV5.BuildContestImports(uzwil1.ContestId, false);
@@ -186,7 +187,8 @@ public static class ResultImportEVotingMockedData
                 null,
                 "mock-message-id",
                 uzwil2.EmptyCountingCircles.Select(x => x.CountingCircleId).ToList(),
-                uzwil2.IgnoredCountingCircles);
+                uzwil2.IgnoredCountingCircles,
+                []);
             uzwil2Aggregate.Complete();
 
             uzwilDeletedAggregate.SucceedBy(uzwil2Aggregate.Id, true);

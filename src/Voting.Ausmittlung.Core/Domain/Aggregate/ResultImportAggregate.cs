@@ -70,7 +70,8 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
         Guid? countingCircleId,
         string echMessageId,
         IEnumerable<Guid> emptyCountingCircles,
-        IEnumerable<IgnoredImportCountingCircle> ignoredImportCountingCircles)
+        IEnumerable<IgnoredImportCountingCircle> ignoredImportCountingCircles,
+        IEnumerable<Guid> ignoredPoliticalBusinesses)
     {
         EnsureNotStarted();
         EnsureHasNoSuccessor();
@@ -87,6 +88,7 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
                 ImportId = Id.ToString(),
                 EchMessageId = echMessageId,
                 EmptyCountingCircleIds = { emptyCountingCircles.Select(x => x.ToString()) },
+                IgnoredPoliticalBusinesses = { ignoredPoliticalBusinesses.Select(x => x.ToString()) },
                 IgnoredCountingCircles = { _mapper.Map<IEnumerable<ImportIgnoredCountingCircleEventData>>(ignoredImportCountingCircles) },
             },
             new EventSignatureBusinessDomainData(contestId));
@@ -357,6 +359,23 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
             new EventSignatureBusinessDomainData(contestId));
     }
 
+    internal void DeletePoliticalBusinessData(Guid contestId, Guid countingCircleId, Guid politicalBusinessId)
+    {
+        EnsureNotStarted();
+        EnsureHasNoSuccessor();
+
+        RaiseEvent(
+            new ResultImportPoliticalBusinessDataDeleted
+            {
+                ImportId = Guid.NewGuid().ToString(),
+                ContestId = contestId.ToString(),
+                CountingCircleId = countingCircleId.ToString(),
+                PoliticalBusinessId = politicalBusinessId.ToString(),
+                ImportType = Abraxas.Voting.Ausmittlung.Shared.V1.ResultImportType.Ecounting,
+                EventInfo = _eventInfoProvider.NewEventInfo(),
+            });
+    }
+
     internal void Complete()
     {
         EnsureInProgress();
@@ -458,6 +477,12 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
                 _importedVoteIds.Add(GuidParser.Parse(ev.VoteId));
                 break;
             case ResultImportDataDeleted ev:
+                Id = Guid.Parse(ev.ImportId);
+                ContestId = Guid.Parse(ev.ContestId);
+                CountingCircleId = GuidParser.ParseNullable(ev.CountingCircleId);
+                Deleted = ev.EventInfo.Timestamp.ToDateTime();
+                break;
+            case ResultImportPoliticalBusinessDataDeleted ev:
                 Id = Guid.Parse(ev.ImportId);
                 ContestId = Guid.Parse(ev.ContestId);
                 CountingCircleId = GuidParser.ParseNullable(ev.CountingCircleId);
@@ -589,6 +614,19 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
         if (importType != ImportType)
         {
             throw new ValidationException($"Only imports of type {importType} are supported.");
+        }
+    }
+
+    private void EnsureHasPrimaryPoliticalBusinessImported(Guid politicalBusinessId)
+    {
+        var pbIds = _importedVoteIds
+            .Concat(_importedProportionalElectionIds)
+            .Concat(_importedMajorityElectionIds)
+            .ToList();
+
+        if (!pbIds.Contains(politicalBusinessId))
+        {
+            throw new ValidationException($"Political business {politicalBusinessId} is not imported in import {Id}");
         }
     }
 }

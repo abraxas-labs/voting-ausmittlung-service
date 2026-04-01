@@ -17,6 +17,8 @@
     "ImportType": 1,
     "ImportedCountingCircles": [],
     "IgnoredCountingCircles": [],
+    "ImportedPoliticalBusinesses": [],
+    "IgnoredPoliticalBusinesses": [],
     "EmptyCountingCircles": [],
     "MajorityElectionWriteInMappings": [],
     "SecondaryMajorityElectionWriteInMappings": [],

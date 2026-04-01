@@ -1,0 +1,324 @@
+<delivery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.ech.ch/xmlns/eCH-0252/2">
+  <deliveryHeader>
+    <senderId xmlns="http://www.ech.ch/xmlns/eCH-0058/5">ABX-VOTING</senderId>
+    <messageId xmlns="http://www.ech.ch/xmlns/eCH-0058/5">mock-id</messageId>
+    <messageType xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1198</messageType>
+    <sendingApplication xmlns="http://www.ech.ch/xmlns/eCH-0058/5">
+      <manufacturer>Abraxas Informatik AG</manufacturer>
+      <product>Voting.Ausmittlung</product>
+      <productVersion>0.0.0.1</productVersion>
+    </sendingApplication>
+    <comment xmlns="http://www.ech.ch/xmlns/eCH-0058/5">Test / Testphase</comment>
+    <messageDate xmlns="http://www.ech.ch/xmlns/eCH-0058/5">2020-01-10T13:12:10.2Z</messageDate>
+    <action xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1</action>
+    <testDeliveryFlag xmlns="http://www.ech.ch/xmlns/eCH-0058/5">true</testDeliveryFlag>
+  </deliveryHeader>
+  <voteBaseDelivery>
+    <cantonId>17</cantonId>
+    <pollingDay>2020-08-31</pollingDay>
+    <voteInfo>
+      <vote>
+        <voteIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_1</voteIdentification>
+        <mainVoteIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_1</mainVoteIdentification>
+        <domainOfInfluence>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Gossau</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
+        </domainOfInfluence>
+        <superiorAuthority>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Gossau</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
+        </superiorAuthority>
+        <pollingDay>2020-08-31</pollingDay>
+        <voteTitleInformation>
+          <language>de</language>
+          <voteTitle>Abstimmung Gossau de - Frage 1 Gossau de</voteTitle>
+          <voteTitleShort>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - Frage 1 Gossau de</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>fr</language>
+          <voteTitle>Abstimmung Gossau fr - Frage 1 Gossau fr</voteTitle>
+          <voteTitleShort>Abst Gossau fr - Frage 1 Gossau fr</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>it</language>
+          <voteTitle>Abstimmung Gossau it - Frage 1 Gossau it</voteTitle>
+          <voteTitleShort>Abst Gossau it - Frage 1 Gossau it</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>rm</language>
+          <voteTitle>Abstimmung Gossau rm - Frage 1 Gossau rm</voteTitle>
+          <voteTitleShort>Abst Gossau rm - Frage 1 Gossau rm</voteTitleShort>
+        </voteTitleInformation>
+        <decisiveMajority>1</decisiveMajority>
+        <voteSubType>1</voteSubType>
+        <sequence>1</sequence>
+      </vote>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>3443</countingCircleId>
+          <countingCircleName>Gossau</countingCircleName>
+          <domainOfInfluenceType>SK</domainOfInfluenceType>
+        </countingCircle>
+        <resultData>
+          <countOfVotersInformation>
+            <countOfVotersTotal>15600</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>7900</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>6900</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+          </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>1900</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>900</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>2900</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
+          <isFullyCounted>true</isFullyCounted>
+          <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
+          <voterTurnout>75.00</voterTurnout>
+          <receivedVotes>20000</receivedVotes>
+          <receivedInvalidVotes>3000</receivedInvalidVotes>
+          <receivedBlankVotes>2000</receivedBlankVotes>
+          <receivedValidVotes>12000</receivedValidVotes>
+          <countOfYesVotes>5500</countOfYesVotes>
+          <countOfNoVotes>4490</countOfNoVotes>
+          <countOfVotesWithoutAnswer>10</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>4</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-10-22T12:03:00Z</text>
+          </namedElement>
+        </resultData>
+      </countingCircleInfo>
+      <voteResultData>
+        <percentOfYesVotes>0</percentOfYesVotes>
+        <percentOfNoVotes>0</percentOfNoVotes>
+      </voteResultData>
+    </voteInfo>
+    <voteInfo>
+      <vote>
+        <voteIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_2</voteIdentification>
+        <mainVoteIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_1</mainVoteIdentification>
+        <domainOfInfluence>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Gossau</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
+        </domainOfInfluence>
+        <superiorAuthority>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Gossau</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
+        </superiorAuthority>
+        <pollingDay>2020-08-31</pollingDay>
+        <voteTitleInformation>
+          <language>de</language>
+          <voteTitle>Abstimmung Gossau de - Frage 2 Gossau de</voteTitle>
+          <voteTitleShort>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - Frage 2 Gossau de</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>fr</language>
+          <voteTitle>Abstimmung Gossau fr - Frage 2 Gossau fr</voteTitle>
+          <voteTitleShort>Abst Gossau fr - Frage 2 Gossau fr</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>it</language>
+          <voteTitle>Abstimmung Gossau it - Frage 2 Gossau it</voteTitle>
+          <voteTitleShort>Abst Gossau it - Frage 2 Gossau it</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>rm</language>
+          <voteTitle>Abstimmung Gossau rm - Frage 2 Gossau rm</voteTitle>
+          <voteTitleShort>Abst Gossau rm - Frage 2 Gossau rm</voteTitleShort>
+        </voteTitleInformation>
+        <decisiveMajority>1</decisiveMajority>
+        <voteSubType>2</voteSubType>
+        <sequence>2</sequence>
+      </vote>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>3443</countingCircleId>
+          <countingCircleName>Gossau</countingCircleName>
+          <domainOfInfluenceType>SK</domainOfInfluenceType>
+        </countingCircle>
+        <resultData>
+          <countOfVotersInformation>
+            <countOfVotersTotal>15600</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>7900</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>6900</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+          </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>1900</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>900</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>2900</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
+          <isFullyCounted>true</isFullyCounted>
+          <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
+          <voterTurnout>75.00</voterTurnout>
+          <receivedVotes>20000</receivedVotes>
+          <receivedInvalidVotes>3000</receivedInvalidVotes>
+          <receivedBlankVotes>2000</receivedBlankVotes>
+          <receivedValidVotes>12000</receivedValidVotes>
+          <countOfYesVotes>4500</countOfYesVotes>
+          <countOfNoVotes>6500</countOfNoVotes>
+          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>4</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-10-22T12:03:00Z</text>
+          </namedElement>
+        </resultData>
+      </countingCircleInfo>
+      <voteResultData>
+        <percentOfYesVotes>0</percentOfYesVotes>
+        <percentOfNoVotes>0</percentOfNoVotes>
+      </voteResultData>
+    </voteInfo>
+    <voteInfo>
+      <vote>
+        <voteIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_1_t</voteIdentification>
+        <mainVoteIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_1</mainVoteIdentification>
+        <domainOfInfluence>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Gossau</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
+        </domainOfInfluence>
+        <superiorAuthority>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Gossau</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
+        </superiorAuthority>
+        <pollingDay>2020-08-31</pollingDay>
+        <voteTitleInformation>
+          <language>de</language>
+          <voteTitle>Abstimmung Gossau de - Stichfrage 1 Gossau (Frage 1 vs Frage 2) de</voteTitle>
+          <voteTitleShort>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - Stichfrage 1 Gossau (Frage 1 vs Frage 2) de</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>fr</language>
+          <voteTitle>Abstimmung Gossau fr - Stichfrage 1 Gossau (Frage 1 vs Frage 2) fr</voteTitle>
+          <voteTitleShort>Abst Gossau fr - Stichfrage 1 Gossau (Frage 1 vs Frage 2) fr</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>it</language>
+          <voteTitle>Abstimmung Gossau it - Stichfrage 1 Gossau (Frage 1 vs Frage 2) it</voteTitle>
+          <voteTitleShort>Abst Gossau it - Stichfrage 1 Gossau (Frage 1 vs Frage 2) it</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>rm</language>
+          <voteTitle>Abstimmung Gossau rm - Stichfrage 1 Gossau (Frage 1 vs Frage 2) rm</voteTitle>
+          <voteTitleShort>Abst Gossau rm - Stichfrage 1 Gossau (Frage 1 vs Frage 2) rm</voteTitleShort>
+        </voteTitleInformation>
+        <decisiveMajority>1</decisiveMajority>
+        <voteSubType>3</voteSubType>
+        <sequence>3</sequence>
+      </vote>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>3443</countingCircleId>
+          <countingCircleName>Gossau</countingCircleName>
+          <domainOfInfluenceType>SK</domainOfInfluenceType>
+        </countingCircle>
+        <resultData>
+          <countOfVotersInformation>
+            <countOfVotersTotal>15600</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>7900</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>6900</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+          </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>1900</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>900</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>2900</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
+          <isFullyCounted>true</isFullyCounted>
+          <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
+          <voterTurnout>75.00</voterTurnout>
+          <receivedVotes>20000</receivedVotes>
+          <receivedInvalidVotes>3000</receivedInvalidVotes>
+          <receivedBlankVotes>2000</receivedBlankVotes>
+          <receivedValidVotes>12000</receivedValidVotes>
+          <countOfYesVotes>4500</countOfYesVotes>
+          <countOfNoVotes>6400</countOfNoVotes>
+          <countOfVotesWithoutAnswer>100</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>4</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-10-22T12:03:00Z</text>
+          </namedElement>
+        </resultData>
+      </countingCircleInfo>
+      <voteResultData>
+        <percentOfYesVotes>0</percentOfYesVotes>
+        <percentOfNoVotes>0</percentOfNoVotes>
+      </voteResultData>
+    </voteInfo>
+    <numberOfEntries>3</numberOfEntries>
+  </voteBaseDelivery>
+</delivery>

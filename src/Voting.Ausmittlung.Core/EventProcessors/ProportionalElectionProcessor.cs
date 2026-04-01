@@ -545,11 +545,14 @@ public class ProportionalElectionProcessor :
             .Where(c => c.ProportionalElectionListId == existingCandidate.ProportionalElectionListId
                 && c.Position > existingCandidate.Position)
             .ToListAsync();
-        DecreaseCandidatePositions(candidatesToUpdate, existingCandidate.Position);
+
+        // decrease the accumulated position first, since this is higher than the actual position
         if (existingCandidate.Accumulated)
         {
             DecreaseCandidatePositions(candidatesToUpdate, existingCandidate.AccumulatedPosition);
         }
+
+        DecreaseCandidatePositions(candidatesToUpdate, existingCandidate.Position);
 
         await _candidateRepo.UpdateRange(candidatesToUpdate);
     }

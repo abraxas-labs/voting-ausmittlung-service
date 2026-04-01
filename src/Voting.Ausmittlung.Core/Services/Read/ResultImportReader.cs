@@ -168,6 +168,10 @@ public class ResultImportReader
             .ThenInclude(x => x.CountingCircle)
             .Include(x => x.EmptyCountingCircles.OrderBy(cc => cc.CountingCircle!.Name))
             .ThenInclude(x => x.CountingCircle)
+            .Include(x => x.IgnoredPoliticalBusinesses.OrderBy(ipb => ipb.PoliticalBusiness!.PoliticalBusinessNumber))
+            .ThenInclude(x => x.PoliticalBusiness!.Translations)
+            .Include(x => x.ImportedPoliticalBusinesses.OrderBy(ipb => ipb.PoliticalBusiness!.PoliticalBusinessNumber))
+            .ThenInclude(x => x.PoliticalBusiness!.Translations)
             .Where(x => x.ImportType == importType && x.ContestId == contestId);
 
         if (basisCountingCircleId.HasValue)

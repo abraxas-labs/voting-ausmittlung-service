@@ -19,6 +19,7 @@ using Voting.Lib.Database.Repositories;
 namespace Voting.Ausmittlung.Core.EventProcessors;
 
 public class SecondaryMajorityElectionResultImportProcessor :
+    PoliticalBusinessResultImportProcessor,
     IEventProcessor<SecondaryMajorityElectionResultImported>,
     IEventProcessor<SecondaryMajorityElectionWriteInBallotImported>,
     IEventProcessor<SecondaryMajorityElectionWriteInsMapped>,
@@ -36,6 +37,7 @@ public class SecondaryMajorityElectionResultImportProcessor :
         IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo,
         DataContext dataContext,
         IMapper mapper)
+        : base(simpleResultRepo)
     {
         _importRepo = importRepo;
         _secondaryMajorityElectionResultRepo = secondaryMajorityElectionResultRepo;
@@ -69,6 +71,11 @@ public class SecondaryMajorityElectionResultImportProcessor :
             .Include(x => x.WriteInMappings)
             .FirstOrDefaultAsync(x => x.PrimaryResult.CountingCircle.BasisCountingCircleId == countingCircleId && x.SecondaryMajorityElectionId == electionId)
             ?? throw new EntityNotFoundException(nameof(SecondaryMajorityElectionResult), new { countingCircleId, electionId });
+
+        if (dataSource is VotingDataSource.ECounting)
+        {
+            await SetSimpleResultECountingImported(result.Id);
+        }
 
         // no update for the count of voters, since we only know them per election group but not for each election itself.
         var subTotal = result.GetNonNullableSubTotal(dataSource);

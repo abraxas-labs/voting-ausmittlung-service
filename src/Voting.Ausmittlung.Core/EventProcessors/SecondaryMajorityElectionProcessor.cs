@@ -347,9 +347,9 @@ public class SecondaryMajorityElectionProcessor :
         }
 
         var contestState = await _repo.Query()
-            .Where(x => x.Id == referencedCandidate.MajorityElectionId)
-            .Select(x => x.Contest.State)
-            .FirstOrDefaultAsync();
+            .Where(x => x.PrimaryMajorityElectionId == referencedCandidate.MajorityElectionId)
+            .Select(x => x.PrimaryMajorityElection.Contest.State)
+            .FirstAsync();
         var candidateReference = _mapper.Map<SecondaryMajorityElectionCandidate>(referencedCandidate);
         _mapper.Map(eventData.MajorityElectionCandidateReference, candidateReference);
         candidateReference.CreatedDuringActiveContest = contestState == ContestState.Active;

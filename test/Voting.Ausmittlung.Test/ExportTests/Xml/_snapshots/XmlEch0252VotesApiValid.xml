@@ -1,0 +1,352 @@
+<delivery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.ech.ch/xmlns/eCH-0252/2">
+  <deliveryHeader>
+    <senderId xmlns="http://www.ech.ch/xmlns/eCH-0058/5">ABX-VOTING</senderId>
+    <messageId xmlns="http://www.ech.ch/xmlns/eCH-0058/5">mock-id</messageId>
+    <messageType xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1198</messageType>
+    <sendingApplication xmlns="http://www.ech.ch/xmlns/eCH-0058/5">
+      <manufacturer>Abraxas Informatik AG</manufacturer>
+      <product>Voting.Ausmittlung</product>
+      <productVersion>0.0.0.1</productVersion>
+    </sendingApplication>
+    <comment xmlns="http://www.ech.ch/xmlns/eCH-0058/5">Test / Testphase</comment>
+    <messageDate xmlns="http://www.ech.ch/xmlns/eCH-0058/5">2020-01-10T13:12:10.2Z</messageDate>
+    <action xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1</action>
+    <testDeliveryFlag xmlns="http://www.ech.ch/xmlns/eCH-0058/5">true</testDeliveryFlag>
+  </deliveryHeader>
+  <voteBaseDelivery>
+    <cantonId>17</cantonId>
+    <pollingDay>2020-08-31</pollingDay>
+    <voteInfo>
+      <vote>
+        <voteIdentification>0ed26aad-e169-4d55-b9a9-90475ba81a02_1</voteIdentification>
+        <domainOfInfluence>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CT</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">0002</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">St. Gallen</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">St. …</domainOfInfluenceShortname>
+        </domainOfInfluence>
+        <superiorAuthority>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CT</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">0002</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">St. Gallen</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">St. …</domainOfInfluenceShortname>
+        </superiorAuthority>
+        <pollingDay>2020-08-31</pollingDay>
+        <voteTitleInformation>
+          <language>de</language>
+          <voteTitle>Abstimmung St. Gallen de</voteTitle>
+          <voteTitleShort>Abst SG de</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>fr</language>
+          <voteTitle>Abstimmung St. Gallen fr</voteTitle>
+          <voteTitleShort>Abst SG fr</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>it</language>
+          <voteTitle>Abstimmung St. Gallen it</voteTitle>
+          <voteTitleShort>Abst SG it</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>rm</language>
+          <voteTitle>Abstimmung St. Gallen rm</voteTitle>
+          <voteTitleShort>Abst SG rm</voteTitleShort>
+        </voteTitleInformation>
+        <decisiveMajority>1</decisiveMajority>
+        <voteSubType>1</voteSubType>
+        <sequence>1</sequence>
+      </vote>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>3443</countingCircleId>
+          <countingCircleName>Gossau</countingCircleName>
+          <domainOfInfluenceType>SK</domainOfInfluenceType>
+        </countingCircle>
+        <resultData>
+          <countOfVotersInformation>
+            <countOfVotersTotal>15800</countOfVotersTotal>
+            <subtotalInfo>
+              <countOfVoters>8000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>7000</countOfVoters>
+              <voterType>1</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>500</countOfVoters>
+              <voterType>2</voterType>
+              <sex>1</sex>
+            </subtotalInfo>
+            <subtotalInfo>
+              <countOfVoters>300</countOfVoters>
+              <voterType>2</voterType>
+              <sex>2</sex>
+            </subtotalInfo>
+          </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>3000</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
+          <isFullyCounted>true</isFullyCounted>
+          <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
+          <voterTurnout>0.00</voterTurnout>
+          <receivedVotes>0</receivedVotes>
+          <receivedInvalidVotes>0</receivedInvalidVotes>
+          <receivedBlankVotes>0</receivedBlankVotes>
+          <receivedValidVotes>0</receivedValidVotes>
+          <countOfYesVotes>0</countOfYesVotes>
+          <countOfNoVotes>0</countOfNoVotes>
+          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>4</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-10-22T12:03:00Z</text>
+          </namedElement>
+        </resultData>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>5500</countingCircleId>
+          <countingCircleName>St. Gallen</countingCircleName>
+          <domainOfInfluenceType>MU</domainOfInfluenceType>
+        </countingCircle>
+        <resultData>
+          <countOfVotersInformation>
+            <countOfVotersTotal>0</countOfVotersTotal>
+          </countOfVotersInformation>
+          <votingCardInformation />
+          <isFullyCounted>true</isFullyCounted>
+          <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
+          <voterTurnout>0.00</voterTurnout>
+          <receivedVotes>0</receivedVotes>
+          <receivedInvalidVotes>0</receivedInvalidVotes>
+          <receivedBlankVotes>0</receivedBlankVotes>
+          <receivedValidVotes>0</receivedValidVotes>
+          <countOfYesVotes>0</countOfYesVotes>
+          <countOfNoVotes>0</countOfNoVotes>
+          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>4</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-10-22T12:03:00Z</text>
+          </namedElement>
+        </resultData>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>5500-3</countingCircleId>
+          <countingCircleName>St. Gallen Auslandschweizer</countingCircleName>
+          <domainOfInfluenceType>MU</domainOfInfluenceType>
+        </countingCircle>
+        <resultData>
+          <countOfVotersInformation>
+            <countOfVotersTotal>0</countOfVotersTotal>
+          </countOfVotersInformation>
+          <votingCardInformation />
+          <isFullyCounted>true</isFullyCounted>
+          <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
+          <voterTurnout>0.00</voterTurnout>
+          <receivedVotes>0</receivedVotes>
+          <receivedInvalidVotes>0</receivedInvalidVotes>
+          <receivedBlankVotes>0</receivedBlankVotes>
+          <receivedValidVotes>0</receivedValidVotes>
+          <countOfYesVotes>0</countOfYesVotes>
+          <countOfNoVotes>0</countOfNoVotes>
+          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>4</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-10-22T12:03:00Z</text>
+          </namedElement>
+        </resultData>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>5500-2</countingCircleId>
+          <countingCircleName>St. Gallen Haggen</countingCircleName>
+          <domainOfInfluenceType>MU</domainOfInfluenceType>
+        </countingCircle>
+        <resultData>
+          <countOfVotersInformation>
+            <countOfVotersTotal>0</countOfVotersTotal>
+          </countOfVotersInformation>
+          <votingCardInformation />
+          <isFullyCounted>true</isFullyCounted>
+          <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
+          <voterTurnout>0.00</voterTurnout>
+          <receivedVotes>0</receivedVotes>
+          <receivedInvalidVotes>0</receivedInvalidVotes>
+          <receivedBlankVotes>0</receivedBlankVotes>
+          <receivedValidVotes>0</receivedValidVotes>
+          <countOfYesVotes>0</countOfYesVotes>
+          <countOfNoVotes>0</countOfNoVotes>
+          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>4</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-10-22T12:03:00Z</text>
+          </namedElement>
+        </resultData>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>5500-1</countingCircleId>
+          <countingCircleName>St. Gallen St. Fiden</countingCircleName>
+          <domainOfInfluenceType>MU</domainOfInfluenceType>
+        </countingCircle>
+        <resultData>
+          <countOfVotersInformation>
+            <countOfVotersTotal>0</countOfVotersTotal>
+          </countOfVotersInformation>
+          <votingCardInformation />
+          <isFullyCounted>true</isFullyCounted>
+          <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
+          <voterTurnout>0.00</voterTurnout>
+          <receivedVotes>0</receivedVotes>
+          <receivedInvalidVotes>0</receivedInvalidVotes>
+          <receivedBlankVotes>0</receivedBlankVotes>
+          <receivedValidVotes>0</receivedValidVotes>
+          <countOfYesVotes>0</countOfYesVotes>
+          <countOfNoVotes>0</countOfNoVotes>
+          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>4</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-10-22T12:03:00Z</text>
+          </namedElement>
+        </resultData>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>1234</countingCircleId>
+          <countingCircleName>Uzwil</countingCircleName>
+          <domainOfInfluenceType>SK</domainOfInfluenceType>
+        </countingCircle>
+        <resultData>
+          <countOfVotersInformation>
+            <countOfVotersTotal>0</countOfVotersTotal>
+          </countOfVotersInformation>
+          <votingCardInformation />
+          <isFullyCounted>true</isFullyCounted>
+          <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
+          <voterTurnout>0.00</voterTurnout>
+          <receivedVotes>0</receivedVotes>
+          <receivedInvalidVotes>0</receivedInvalidVotes>
+          <receivedBlankVotes>0</receivedBlankVotes>
+          <receivedValidVotes>0</receivedValidVotes>
+          <countOfYesVotes>0</countOfYesVotes>
+          <countOfNoVotes>0</countOfNoVotes>
+          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>4</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-10-22T12:03:00Z</text>
+          </namedElement>
+        </resultData>
+      </countingCircleInfo>
+      <voteResultData>
+        <percentOfYesVotes>0</percentOfYesVotes>
+        <percentOfNoVotes>0</percentOfNoVotes>
+      </voteResultData>
+    </voteInfo>
+    <voteInfo>
+      <vote>
+        <voteIdentification>e6ee82f9-70d4-4ffa-a673-34d56fc47204_1</voteIdentification>
+        <domainOfInfluence>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3443</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Uzwil</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Uzwil</domainOfInfluenceShortname>
+        </domainOfInfluence>
+        <superiorAuthority>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3443</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Uzwil</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Uzwil</domainOfInfluenceShortname>
+        </superiorAuthority>
+        <pollingDay>2020-08-31</pollingDay>
+        <voteTitleInformation>
+          <language>de</language>
+          <voteTitle>Abstimmung Uzwil de</voteTitle>
+          <voteTitleShort>Abst Uzwil de</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>fr</language>
+          <voteTitle>Abstimmung Uzwil fr</voteTitle>
+          <voteTitleShort>Abst Uzwil fr</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>it</language>
+          <voteTitle>Abstimmung Uzwil it</voteTitle>
+          <voteTitleShort>Abst Uzwil it</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>rm</language>
+          <voteTitle>Abstimmung Uzwil rm</voteTitle>
+          <voteTitleShort>Abst Uzwil rm</voteTitleShort>
+        </voteTitleInformation>
+        <decisiveMajority>1</decisiveMajority>
+        <voteSubType>1</voteSubType>
+        <sequence>1</sequence>
+      </vote>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>1234</countingCircleId>
+          <countingCircleName>Uzwil</countingCircleName>
+          <domainOfInfluenceType>SK</domainOfInfluenceType>
+        </countingCircle>
+        <resultData>
+          <countOfVotersInformation>
+            <countOfVotersTotal>0</countOfVotersTotal>
+          </countOfVotersInformation>
+          <votingCardInformation />
+          <isFullyCounted>true</isFullyCounted>
+          <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
+          <voterTurnout>75.00</voterTurnout>
+          <receivedVotes>20000</receivedVotes>
+          <receivedInvalidVotes>3000</receivedInvalidVotes>
+          <receivedBlankVotes>2000</receivedBlankVotes>
+          <receivedValidVotes>12000</receivedValidVotes>
+          <countOfYesVotes>5300</countOfYesVotes>
+          <countOfNoVotes>4500</countOfNoVotes>
+          <countOfVotesWithoutAnswer>200</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>4</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-10-22T12:03:00Z</text>
+          </namedElement>
+        </resultData>
+      </countingCircleInfo>
+      <voteResultData>
+        <percentOfYesVotes>0</percentOfYesVotes>
+        <percentOfNoVotes>0</percentOfNoVotes>
+      </voteResultData>
+    </voteInfo>
+    <numberOfEntries>2</numberOfEntries>
+  </voteBaseDelivery>
+</delivery>

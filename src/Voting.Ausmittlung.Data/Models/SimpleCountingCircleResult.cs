@@ -54,4 +54,6 @@ public class SimpleCountingCircleResult : BaseEntity
     public PoliticalBusinessNullableCountOfVoters CountOfVoters { get; set; } = new();
 
     public bool Published { get; set; }
+
+    public bool ECountingImported { get; set; }
 }

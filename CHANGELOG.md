@@ -1,4 +1,4 @@
-# ✨ Changelog (`v2.90.1`)
+# ✨ Changelog (`v2.93.0`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,11 +8,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v2.90.1
-Previous version ---- v2.86.1
+This version -------- v2.93.0
+Previous version ---- v2.90.1
 Initial version ----- v1.29.14
-Total commits ------- 14
+Total commits ------- 7
 ```
+
+## [v2.93.0] - 2026-03-30
+
+### 🔄 Changed
+
+- set results to published after contest past locked
+
+### 🔄 Changed
+
+- Implemented a retry mechanism in `ResultExportsJob` to handle exceptions by retrying up to three times before to leave the scheduled job execution.
+
+## [v2.92.0] - 2026-03-23
+
+### 🔄 Changed
+
+- e-counting import flow without deleting previous imports
+
+## [v2.91.0] - 2026-03-23
+
+### 🆕 Added
+
+- better error reporting for eCH-0252 exports
+
+## [v2.90.3] - 2026-03-12
+
+### 🔄 Changed
+
+- removing accumulated candidates preserves the order of the positions
+
+## [v2.90.2] - 2026-03-09
+
+### 🔄 Changed
+
+- correctly set CreatedDuringActiveContest for secondary majority election candidate references
 
 ## [v2.90.1] - 2026-03-06
 

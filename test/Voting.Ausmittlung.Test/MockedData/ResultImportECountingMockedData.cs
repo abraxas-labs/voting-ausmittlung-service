@@ -3,7 +3,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
@@ -70,6 +73,14 @@ public static class ResultImportECountingMockedData
             SecureConnectId = "fc8e9579-baee-46c1-8c61-46ac30f1b733",
         },
         ImportType = ResultImportType.ECounting,
+        ImportedPoliticalBusinesses = new List<ResultImportPoliticalBusiness>
+        {
+            new()
+            {
+                Id = Guid.Parse("c72a9453-8f8c-4176-8fb5-1cc088303aa0"),
+                PoliticalBusinessId = Guid.Parse(VoteMockedData.IdUzwilVoteInContestStGallen),
+            },
+        },
     };
 
     public static ResultImport Gossau1 => new ResultImport
@@ -121,7 +132,8 @@ public static class ResultImportECountingMockedData
                 uzwil1.CountingCircleId,
                 "mock-message-id",
                 [],
-                uzwil1.IgnoredCountingCircles);
+                uzwil1.IgnoredCountingCircles,
+                []);
             uzwil1Aggregate.Complete();
 
             var importsId = AusmittlungUuidV5.BuildContestCountingCircleImports(uzwil1.ContestId, uzwil1.CountingCircleId!.Value, false);
@@ -143,7 +155,8 @@ public static class ResultImportECountingMockedData
                 uzwil2.CountingCircleId,
                 "mock-message-id",
                 [],
-                uzwil2.IgnoredCountingCircles);
+                uzwil2.IgnoredCountingCircles,
+                []);
             uzwil2Aggregate.ImportVoteResult(new VoteResultImport(Guid.Parse(VoteMockedData.IdUzwilVoteInContestStGallen), CountingCircleMockedData.GuidUzwil, 10));
             uzwil2Aggregate.Complete();
 
@@ -159,11 +172,38 @@ public static class ResultImportECountingMockedData
 
     public static Task Seed(Func<Func<IServiceProvider, Task>, Task> runScoped)
     {
-        return runScoped(sp =>
+        return runScoped(async sp =>
         {
+            var items = All.ToList();
+
+            foreach (var item in items.Where(x => x.CountingCircleId.HasValue))
+            {
+                item.CountingCircleId = AusmittlungUuidV5.BuildCountingCircleSnapshot(item.ContestId, item.CountingCircleId!.Value);
+            }
+
             var db = sp.GetRequiredService<DataContext>();
-            db.AddRange(All);
-            return db.SaveChangesAsync();
+            db.AddRange(items);
+            await db.SaveChangesAsync();
+
+            var resultImports = await db.ResultImports
+                .Where(x => x.CountingCircleId != null)
+                .Include(x => x.CountingCircle)
+                .Include(x => x.ImportedPoliticalBusinesses)
+                .ToListAsync();
+
+            var ccrKeys = resultImports
+                .SelectMany(x => x.ImportedPoliticalBusinesses
+                    .Select(ipb => new { x.CountingCircle!.BasisCountingCircleId, ipb.PoliticalBusinessId }))
+                .ToList();
+
+            var resultIds = ccrKeys.Select(ccrKey => AusmittlungUuidV5.BuildPoliticalBusinessResult(
+                ccrKey.PoliticalBusinessId,
+                ccrKey.BasisCountingCircleId,
+                false));
+
+            await db.SimpleCountingCircleResults
+                .Where(x => resultIds.Contains(x.Id))
+                .ExecuteUpdateAsync(setter => setter.SetProperty(y => y.ECountingImported, true));
         });
     }
 }

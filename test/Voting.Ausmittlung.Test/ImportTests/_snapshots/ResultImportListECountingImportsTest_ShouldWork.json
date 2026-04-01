@@ -17,7 +17,22 @@
       "FileName": "import_uzwil_2.xml",
       "ImportedCountingCircles": [],
       "EmptyCountingCircles": [],
-      "IgnoredCountingCircles": []
+      "IgnoredCountingCircles": [],
+      "ImportedPoliticalBusinesses": [
+        {
+          "Id": "c72a9453-8f8c-4176-8fb5-1cc088303aa0",
+          "BusinessType": 1,
+          "Title": "166: Abst Uzwil de",
+          "Active": true,
+          "DomainOfInfluence": null,
+          "NumberOfMandates": null,
+          "CountOfSecondaryBusinesses": 0,
+          "PoliticalBusinessNumber": "166",
+          "ShortDescription": "Abst Uzwil de",
+          "BusinessSubType": 0
+        }
+      ],
+      "IgnoredPoliticalBusinesses": []
     },
     {
       "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
@@ -36,7 +51,9 @@
       "FileName": "",
       "ImportedCountingCircles": [],
       "EmptyCountingCircles": [],
-      "IgnoredCountingCircles": []
+      "IgnoredCountingCircles": [],
+      "ImportedPoliticalBusinesses": [],
+      "IgnoredPoliticalBusinesses": []
     },
     {
       "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
@@ -55,7 +72,9 @@
       "FileName": "import_uzwil_1.xml",
       "ImportedCountingCircles": [],
       "EmptyCountingCircles": [],
-      "IgnoredCountingCircles": []
+      "IgnoredCountingCircles": [],
+      "ImportedPoliticalBusinesses": [],
+      "IgnoredPoliticalBusinesses": []
     }
   ]
 }

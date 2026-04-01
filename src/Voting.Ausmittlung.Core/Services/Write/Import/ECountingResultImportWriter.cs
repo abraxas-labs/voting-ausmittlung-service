@@ -33,8 +33,20 @@ public class ECountingResultImportWriter
     private readonly VoteResultImportWriter _voteResultImportWriter;
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
     private readonly IDbRepository<DataContext, SimpleCountingCircleResult> _simpleResultsRepo;
+    private readonly IDbRepository<DataContext, ResultImport> _resultImportRepo;
 
-    public ECountingResultImportWriter(ILogger<EVotingResultImportWriter> logger, ResultImportWriter resultImportWriter, PermissionService permissionService, ContestService contestService, IAggregateRepository aggregateRepository, ProportionalElectionResultImportWriter proportionalElectionResultImportWriter, MajorityElectionResultImportWriter majorityElectionResultImportWriter, VoteResultImportWriter voteResultImportWriter, IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultsRepo, IDbRepository<DataContext, Contest> contestRepo)
+    public ECountingResultImportWriter(
+        ILogger<EVotingResultImportWriter> logger,
+        ResultImportWriter resultImportWriter,
+        PermissionService permissionService,
+        ContestService contestService,
+        IAggregateRepository aggregateRepository,
+        ProportionalElectionResultImportWriter proportionalElectionResultImportWriter,
+        MajorityElectionResultImportWriter majorityElectionResultImportWriter,
+        VoteResultImportWriter voteResultImportWriter,
+        IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultsRepo,
+        IDbRepository<DataContext, Contest> contestRepo,
+        IDbRepository<DataContext, ResultImport> resultImportRepo)
     {
         _logger = logger;
         _resultImportWriter = resultImportWriter;
@@ -46,11 +58,13 @@ public class ECountingResultImportWriter
         _voteResultImportWriter = voteResultImportWriter;
         _simpleResultsRepo = simpleResultsRepo;
         _contestRepo = contestRepo;
+        _resultImportRepo = resultImportRepo;
     }
 
-    public async Task Delete(
+    public async Task DeletePoliticalBusinessImportData(
         Guid contestId,
-        Guid basisCountingCircleId)
+        Guid basisCountingCircleId,
+        Guid politicalBusinessId)
     {
         await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircleWithBasisId(basisCountingCircleId, contestId);
 
@@ -59,18 +73,26 @@ public class ECountingResultImportWriter
         _contestService.EnsureNotLocked(contest);
 
         var id = AusmittlungUuidV5.BuildContestCountingCircleImports(contestId, basisCountingCircleId, contest.TestingPhaseEnded);
+        var countingCircleId = AusmittlungUuidV5.BuildCountingCircleSnapshot(contestId, basisCountingCircleId);
         var resultImports = await _aggregateRepository.GetById<CountingCircleResultImportsAggregate>(id);
-        var prevImport = await _aggregateRepository.GetById<ResultImportAggregate>(resultImports.LastImportId!.Value);
-        var prevImportImportedPoliticalBusinessIds = prevImport.ImportedVoteIds
-            .Concat(prevImport.ImportedProportionalElectionIds)
-            .Concat(prevImport.ImportedMajorityElectionIds)
-            .ToHashSet();
 
-        // e-counting allows to import files which do not include all political businesses
-        // only previously imported results need to be in a matching state.
-        await EnsureAllResultsInSubmissionOrCorrection(contestId, basisCountingCircleId, prevImportImportedPoliticalBusinessIds);
-        await _resultImportWriter.CreateDeleteImportAndSave(resultImports, prevImport);
-        _logger.LogInformation("Deleted e-counting imported data for {CountingCircleId}", basisCountingCircleId);
+        var hasResultImportWithPoliticalBusinessImported = await _resultImportRepo.Query()
+            .AsSplitQuery()
+            .OrderByDescending(i => i.Started)
+            .Include(i => i.ImportedPoliticalBusinesses)
+            .AnyAsync(i => i.ContestId == contestId
+                && i.CountingCircleId == countingCircleId
+                && i.ImportedPoliticalBusinesses.Any(ipb => ipb.PoliticalBusinessId == politicalBusinessId && ipb.PoliticalBusiness!.PoliticalBusinessType != PoliticalBusinessType.SecondaryMajorityElection)
+                && !i.Deleted);
+
+        if (!hasResultImportWithPoliticalBusinessImported)
+        {
+            throw new EntityNotFoundException(nameof(ResultImport), new[] { contestId, politicalBusinessId, countingCircleId });
+        }
+
+        await EnsureAllResultsInSubmissionOrCorrection(contestId, basisCountingCircleId, new HashSet<Guid> { politicalBusinessId });
+        await _resultImportWriter.CreatePoliticalBusinessDeleteImportAndSave(resultImports, politicalBusinessId);
+        _logger.LogInformation("Deleted e-counting imported data for political business {PoliticalBusinessId} in counting circle  {CountingCircleId}", politicalBusinessId, basisCountingCircleId);
     }
 
     public async Task Import(ResultImportMeta importMeta)
@@ -89,9 +111,10 @@ public class ECountingResultImportWriter
 
         _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircle(ccDetail.CountingCircle, contest);
         var importData = _resultImportWriter.Deserialize(importMeta, false);
+        var ignoredPoliticalBusinesses = await FilterPoliticalBusinessResults(importData, ccDetail);
         ValidateCountingCircles(importMeta.BasisCountingCircleId.Value, importData.PoliticalBusinessResults);
 
-        var importAggregate = await _resultImportWriter.Import(importData, importMeta, contest, [], []);
+        var importAggregate = await _resultImportWriter.Import(importData, importMeta, contest, [], [], ignoredPoliticalBusinesses);
 
         // secondary elections are part of the primary election aggregate
         // the business type is only set during Import, therefore validate after the import,
@@ -154,5 +177,32 @@ public class ECountingResultImportWriter
         {
             throw new ValidationException("Unexpected number of results during eCounting import, there may be an unexpected id in the import data or the result is in an unexpected state.");
         }
+    }
+
+    private async Task<ISet<Guid>> FilterPoliticalBusinessResults(
+        VotingImport importData,
+        ContestCountingCircleDetails ccDetail)
+    {
+        var basisCcId = ccDetail.CountingCircle.BasisCountingCircleId.ToString();
+
+        var alreadyImportedPoliticalBusinesses = await _simpleResultsRepo.Query()
+            .Where(r => r.CountingCircleId == ccDetail.CountingCircleId && r.ECountingImported)
+            .Select(r => r.PoliticalBusinessId)
+            .ToListAsync();
+
+        var ignoredPoliticalBusinessIds = new HashSet<Guid>();
+
+        foreach (var pbResult in importData.PoliticalBusinessResults)
+        {
+            if (!alreadyImportedPoliticalBusinesses.Contains(pbResult.PoliticalBusinessId))
+            {
+                continue;
+            }
+
+            ignoredPoliticalBusinessIds.Add(pbResult.PoliticalBusinessId);
+        }
+
+        importData.RemoveResults(ignoredPoliticalBusinessIds.Select(pbId => (pbId, basisCcId)));
+        return ignoredPoliticalBusinessIds;
     }
 }

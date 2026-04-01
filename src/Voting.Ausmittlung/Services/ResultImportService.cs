@@ -62,11 +62,12 @@ public class ResultImportService : ServiceBase
     }
 
     [AuthorizePermission(Permissions.Import.DeleteECounting)]
-    public override async Task<Empty> DeleteECountingImportData(DeleteECountingResultImportDataRequest request, ServerCallContext context)
+    public override async Task<Empty> DeleteECountingPoliticalBusinessImportData(DeleteECountingResultPoliticalBusinessImportDataRequest request, ServerCallContext context)
     {
-        await _eCountingResultImportWriter.Delete(
+        await _eCountingResultImportWriter.DeletePoliticalBusinessImportData(
             GuidParser.Parse(request.ContestId),
-            GuidParser.Parse(request.CountingCircleId));
+            GuidParser.Parse(request.CountingCircleId),
+            GuidParser.Parse(request.PoliticalBusinessId));
         return ProtobufEmpty.Instance;
     }
 

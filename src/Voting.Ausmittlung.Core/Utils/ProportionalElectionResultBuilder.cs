@@ -229,7 +229,7 @@ public class ProportionalElectionResultBuilder : PoliticalBusinessResultBuilder<
         await AdjustListResultForBundle(resultBundle, -1);
     }
 
-    internal async Task ResetAllResults(Guid contestId, Guid countingCircleId, VotingDataSource dataSource)
+    internal async Task ResetAllResults(Guid contestId, Guid countingCircleId, VotingDataSource dataSource, Guid? electionId = null)
     {
         var electionResults = await _resultRepo
             .Query()
@@ -238,7 +238,7 @@ public class ProportionalElectionResultBuilder : PoliticalBusinessResultBuilder<
             .Include(x => x.UnmodifiedListResults)
             .Include(x => x.ListResults).ThenInclude(x => x.CandidateResults).ThenInclude(x => x.VoteSources)
             .Include(x => x.Bundles)
-            .Where(x => x.CountingCircleId == countingCircleId && x.ProportionalElection.ContestId == contestId)
+            .Where(x => x.CountingCircleId == countingCircleId && x.ProportionalElection.ContestId == contestId && (electionId == null || x.ProportionalElectionId == electionId))
             .ToListAsync();
 
         foreach (var electionResult in electionResults)

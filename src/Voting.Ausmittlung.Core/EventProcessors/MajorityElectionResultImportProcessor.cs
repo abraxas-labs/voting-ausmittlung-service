@@ -22,6 +22,7 @@ using ResultImportType = Voting.Ausmittlung.Data.Models.ResultImportType;
 namespace Voting.Ausmittlung.Core.EventProcessors;
 
 public class MajorityElectionResultImportProcessor :
+    PoliticalBusinessResultImportProcessor,
     IEventProcessor<MajorityElectionResultImported>,
     IEventProcessor<MajorityElectionWriteInBallotImported>,
     IEventProcessor<MajorityElectionWriteInsReset>,
@@ -41,6 +42,7 @@ public class MajorityElectionResultImportProcessor :
         IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo,
         DataContext dataContext,
         IMapper mapper)
+        : base(simpleResultRepo)
     {
         _eventLogger = eventLogger;
         _importRepo = importRepo;
@@ -86,9 +88,14 @@ public class MajorityElectionResultImportProcessor :
         countOfVoters.BlankBallots = eventData.BlankBallotCount;
         countOfVoters.AccountedBallots = eventData.CountOfVoters - eventData.BlankBallotCount;
 
-        if (importType == ResultImportType.EVoting)
+        switch (importType)
         {
-            result.TotalSentEVotingVotingCards = eventData.CountOfVotersInformation?.TotalCountOfVoters;
+            case ResultImportType.EVoting:
+                result.TotalSentEVotingVotingCards = eventData.CountOfVotersInformation?.TotalCountOfVoters;
+                break;
+            case ResultImportType.ECounting:
+                await SetSimpleResultECountingImported(result.Id);
+                break;
         }
 
         if (eventData.WriteIns.Count > 0)

@@ -153,4 +153,44 @@ public class ContestPastLockedTest : ContestProcessorBaseTest
         ev.Metadata.HsmSignature = ByteString.Empty;
         ev.MatchSnapshot("event");
     }
+
+    [Fact]
+    public async Task TestContestPastLockedShouldPublishResults()
+    {
+        SetContestCacheKey(_contestId, _key);
+
+        await TestEventPublisher.Publish(
+            new ContestPastLocked
+            {
+                ContestId = _contestId.ToString(),
+            });
+
+        var voteResults = await RunOnDb(db => db.VoteResults
+            .Where(r => r.Vote.ContestId == _contestId)
+            .Select(r => r.Published)
+            .ToListAsync());
+        voteResults.Count.Should().BeGreaterThan(0);
+        voteResults.All(r => r).Should().BeTrue();
+
+        var majorityElectionResults = await RunOnDb(db => db.MajorityElectionResults
+            .Where(r => r.MajorityElection.ContestId == _contestId)
+            .Select(r => r.Published)
+            .ToListAsync());
+        majorityElectionResults.Count.Should().BeGreaterThan(0);
+        majorityElectionResults.All(r => r).Should().BeTrue();
+
+        var proportionalElectionResults = await RunOnDb(db => db.ProportionalElectionResults
+            .Where(r => r.ProportionalElection.ContestId == _contestId)
+            .Select(r => r.Published)
+            .ToListAsync());
+        proportionalElectionResults.Count.Should().BeGreaterThan(0);
+        proportionalElectionResults.All(r => r).Should().BeTrue();
+
+        var simpleResults = await RunOnDb(db => db.SimpleCountingCircleResults
+            .Where(r => r.PoliticalBusiness!.ContestId == _contestId)
+            .Select(r => r.Published)
+            .ToListAsync());
+        simpleResults.Count.Should().BeGreaterThan(0);
+        simpleResults.All(r => r).Should().BeTrue();
+    }
 }

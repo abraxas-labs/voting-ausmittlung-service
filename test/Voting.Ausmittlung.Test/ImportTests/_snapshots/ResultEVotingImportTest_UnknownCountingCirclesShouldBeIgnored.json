@@ -34,7 +34,8 @@
         "IsTestCountingCircle": false
       }
     ],
-    "ImportType": 1
+    "ImportType": 1,
+    "IgnoredPoliticalBusinesses": []
   },
   "db": {
     "Contest": null,
@@ -71,6 +72,8 @@
         "Id": "00000000-0000-0000-0000-000000000000"
       }
     ],
+    "ImportedPoliticalBusinesses": [],
+    "IgnoredPoliticalBusinesses": [],
     "EmptyCountingCircles": [],
     "MajorityElectionWriteInMappings": [],
     "SecondaryMajorityElectionWriteInMappings": [],

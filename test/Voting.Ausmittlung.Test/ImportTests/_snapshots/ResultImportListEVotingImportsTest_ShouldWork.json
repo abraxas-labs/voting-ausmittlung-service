@@ -53,7 +53,9 @@
           "CountingCircleDescription": "",
           "IsTestCountingCircle": false
         }
-      ]
+      ],
+      "ImportedPoliticalBusinesses": [],
+      "IgnoredPoliticalBusinesses": []
     },
     {
       "ContestId": "cc70fe43-8f4e-4bc6-a461-b808907bc996",
@@ -122,7 +124,9 @@
           "ECounting": true
         }
       ],
-      "IgnoredCountingCircles": []
+      "IgnoredCountingCircles": [],
+      "ImportedPoliticalBusinesses": [],
+      "IgnoredPoliticalBusinesses": []
     }
   ]
 }

@@ -12,7 +12,7 @@
         <FileVersion>0.0.0.1</FileVersion>
         <Version>0.0.0.1</Version>
 
-        <VotingAusmittlungProtoVersion>1.151.1</VotingAusmittlungProtoVersion>
+        <VotingAusmittlungProtoVersion>1.152.0</VotingAusmittlungProtoVersion>
         <VotingBasisProtoVersion>1.135.0</VotingBasisProtoVersion>
         <VotingLibVersion>20.14.0</VotingLibVersion>
         <EfCoreVersion>8.0.2</EfCoreVersion>
@@ -31,9 +31,10 @@
         <PackageReference Include="Voting.Lib.Common" Version="$(VotingLibVersion)" />
     </ItemGroup>
 
-    <PropertyGroup>
-        <TreatWarningsAsErrors Condition="'$(Configuration)' == 'Release'">true</TreatWarningsAsErrors>
-        <MSBuildTreatWarningsAsErrors Condition="'$(Configuration)' == 'Release'">true</MSBuildTreatWarningsAsErrors>
+    <PropertyGroup Condition="'$(Configuration)' == 'Release' OR '$(TREAT_WARNINGS_AS_ERROS)' == 'true'">
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+      <MSBuildTreatWarningsAsErrors>true</MSBuildTreatWarningsAsErrors>
+      <WarningsNotAsErrors>NU1902;NU1903</WarningsNotAsErrors>
     </PropertyGroup>
 
 </Project>

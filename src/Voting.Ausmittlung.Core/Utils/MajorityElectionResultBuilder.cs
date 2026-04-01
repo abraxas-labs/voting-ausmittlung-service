@@ -317,7 +317,7 @@ public class MajorityElectionResultBuilder : PoliticalBusinessResultBuilder<Majo
         await _dataContext.SaveChangesAsync();
     }
 
-    internal async Task ResetAllResults(Guid contestId, Guid countingCircleId, VotingDataSource dataSource)
+    internal async Task ResetAllResults(Guid contestId, Guid countingCircleId, VotingDataSource dataSource, Guid? electionId = null)
     {
         var electionResults = await _resultRepo
             .Query()
@@ -327,7 +327,7 @@ public class MajorityElectionResultBuilder : PoliticalBusinessResultBuilder<Majo
             .Include(x => x.Bundles)
             .Include(x => x.CandidateResults)
             .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.CandidateResults)
-            .Where(x => x.CountingCircleId == countingCircleId && x.MajorityElection.ContestId == contestId)
+            .Where(x => x.CountingCircleId == countingCircleId && x.MajorityElection.ContestId == contestId && (electionId == null || x.MajorityElectionId == electionId))
             .ToListAsync();
 
         foreach (var electionResult in electionResults)
@@ -340,6 +340,30 @@ public class MajorityElectionResultBuilder : PoliticalBusinessResultBuilder<Majo
         await _dataContext.SaveChangesAsync();
     }
 
+    protected override async Task ResetSimpleResult(Guid resultId, VotingDataSource dataSource, bool includeCountOfVoters, MajorityElectionResult result)
+    {
+        await base.ResetSimpleResult(resultId, dataSource, includeCountOfVoters, result);
+
+        if (dataSource is not VotingDataSource.ECounting)
+        {
+            return;
+        }
+
+        await UnsetSecondarySimpleResultsECountingImported(result.SecondaryMajorityElectionResults);
+    }
+
+    protected override async Task ResetSimpleResults(IEnumerable<MajorityElectionResult> results, VotingDataSource dataSource)
+    {
+        await base.ResetSimpleResults(results, dataSource);
+
+        if (dataSource is not VotingDataSource.ECounting)
+        {
+            return;
+        }
+
+        await UnsetSecondarySimpleResultsECountingImported(results.SelectMany(x => x.SecondaryMajorityElectionResults));
+    }
+
     protected override Task ResetSimpleResult(
         SimpleCountingCircleResult simpleResult,
         VotingDataSource dataSource,
@@ -349,6 +373,20 @@ public class MajorityElectionResultBuilder : PoliticalBusinessResultBuilder<Majo
         simpleResult.CountOfElectionsWithUnmappedEVotingWriteIns = result.CountOfElectionsWithUnmappedEVotingWriteIns;
         simpleResult.CountOfElectionsWithUnmappedECountingWriteIns = result.CountOfElectionsWithUnmappedECountingWriteIns;
         return base.ResetSimpleResult(simpleResult, dataSource, includeCountOfVoters, result);
+    }
+
+    private async Task UnsetSecondarySimpleResultsECountingImported(IEnumerable<SecondaryMajorityElectionResult> secondaryElectionResults)
+    {
+        var secondaryResultIds = secondaryElectionResults.Select(x => x.Id).ToList();
+
+        var updatedCount = await SimpleResultRepo.Query()
+            .Where(ccr => secondaryResultIds.Contains(ccr.Id))
+            .ExecuteUpdateAsync(x => x.SetProperty(y => y.ECountingImported, false));
+
+        if (secondaryResultIds.Count != updatedCount)
+        {
+            throw new InvalidOperationException($"Secondary simple result count expected {secondaryResultIds.Count} but found {updatedCount}");
+        }
     }
 
     private async Task AdjustConventionalVoteCountsForBundle(Guid electionResultId, Guid bundleId, int factor)

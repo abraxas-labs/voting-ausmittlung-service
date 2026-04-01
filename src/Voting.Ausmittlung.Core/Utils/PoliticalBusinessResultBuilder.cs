@@ -38,14 +38,14 @@ public abstract class PoliticalBusinessResultBuilder<TResult>
         await SimpleResultRepo.Update(simpleResult);
     }
 
-    protected async Task ResetSimpleResult(Guid resultId, VotingDataSource dataSource, bool includeCountOfVoters, TResult result)
+    protected virtual async Task ResetSimpleResult(Guid resultId, VotingDataSource dataSource, bool includeCountOfVoters, TResult result)
     {
         var simpleResult = await SimpleResultRepo.GetByKey(resultId)
                            ?? throw new EntityNotFoundException(nameof(SimpleCountingCircleResult), resultId);
         await ResetSimpleResult(simpleResult, dataSource, includeCountOfVoters, result);
     }
 
-    protected async Task ResetSimpleResults(
+    protected virtual async Task ResetSimpleResults(
         IEnumerable<TResult> results,
         VotingDataSource dataSource)
     {
@@ -69,6 +69,11 @@ public abstract class PoliticalBusinessResultBuilder<TResult>
         if (includeCountOfVoters)
         {
             simpleResult.CountOfVoters.ResetSubTotal(dataSource, result.TotalCountOfVoters);
+        }
+
+        if (dataSource is VotingDataSource.ECounting)
+        {
+            simpleResult.ECountingImported = false;
         }
 
         simpleResult.HasComments = false;

@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1;
 using FluentAssertions;
@@ -30,13 +31,22 @@ public class ProportionalElectionCandidateDeleteTest : BaseDataProcessorTest
     {
         await TestEventPublisher.Publish(new ProportionalElectionCandidateDeleted
         {
-            ProportionalElectionCandidateId = ProportionalElectionMockedData.CandidateIdStGallenProportionalElectionInContestStGallen,
+            ProportionalElectionCandidateId = ProportionalElectionMockedData.CandidateId1GossauProportionalElectionInContestStGallen,
         });
 
         var idGuid = Guid.Parse(ProportionalElectionMockedData
-            .CandidateIdStGallenProportionalElectionInContestStGallen);
+            .CandidateId1GossauProportionalElectionInContestStGallen);
         var item = await RunOnDb(db => db.ProportionalElections
             .FirstOrDefaultAsync(c => c.Id == idGuid));
         item.Should().BeNull();
+
+        var listId = Guid.Parse(ProportionalElectionMockedData.ListId1GossauProportionalElectionInContestStGallen);
+        var remainingCandidatesPositions = await RunOnDb(db => db.ProportionalElectionCandidates
+            .Where(x => x.ProportionalElectionListId == listId)
+            .OrderBy(x => x.Position)
+            .Select(x => x.Position)
+            .ToListAsync());
+
+        remainingCandidatesPositions.Should().BeEquivalentTo(Enumerable.Range(1, remainingCandidatesPositions.Count));
     }
 }

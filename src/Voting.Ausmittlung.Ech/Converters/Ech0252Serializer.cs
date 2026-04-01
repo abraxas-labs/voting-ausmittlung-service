@@ -30,18 +30,39 @@ public class Ech0252Serializer
         Ech0252MappingContext ctx,
         IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
     {
+        var ballots = GetRelevantBallots(contest);
+        return ToVoteDelivery(contest, ctx, ballots, enabledResultStates);
+    }
+
+    public Delivery ToVoteDelivery(
+        Contest contest,
+        Ech0252MappingContext ctx,
+        IEnumerable<Ballot> ballots,
+        IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
+    {
         var sequenceBySuperiorAuthorityId = new Dictionary<Guid, ushort>();
-        var voteInfos = contest.Votes
+        var voteInfos = ballots.SelectMany(b => b.ToVoteInfoEchVote(
+                ctx,
+                enabledResultStates,
+                sequenceBySuperiorAuthorityId,
+                b.Vote.Results.All(r => r.Published)))
+            .ToList();
+        return ToVoteDelivery(contest, voteInfos);
+    }
+
+    public IEnumerable<Ballot> GetRelevantBallots(Contest contest)
+    {
+        return contest.Votes
             .Where(IsInEchDelivery)
             .Select(x => new { PbNumber = ParsePoliticalBusinessNumber(x.PoliticalBusinessNumber), Vote = x })
             .OrderBy(x => x.PbNumber)
             .ThenBy(x => x.Vote.DomainOfInfluence.Type)
             .ThenBy(x => x.Vote.Id)
-            .SelectMany(x => x.Vote.Ballots
-                .OrderBy(b => b.Position)
-                .SelectMany(b => b.ToVoteInfoEchVote(ctx, enabledResultStates, sequenceBySuperiorAuthorityId, x.Vote.Results.All(r => r.Published))))
-            .ToList();
+            .SelectMany(x => x.Vote.Ballots.OrderBy(b => b.Position));
+    }
 
+    public Delivery ToVoteDelivery(Contest contest, List<VoteInfoType> voteInfos)
+    {
         return new Delivery
         {
             DeliveryHeader = BuildDeliveryHeader(contest),
@@ -60,10 +81,16 @@ public class Ech0252Serializer
         IReadOnlyCollection<CountingCircleResultState>? enabledResultStates,
         bool includeCandidateListResultsInfo)
     {
-        var elections = contest.ProportionalElections
-            .Where(IsInEchDelivery)
-            .ToList();
+        var elections = GetRelevantProportionalElections(contest);
+        return ToProportionalElectionResultDelivery(contest, elections, enabledResultStates, includeCandidateListResultsInfo);
+    }
 
+    public Delivery ToProportionalElectionResultDelivery(
+        Contest contest,
+        List<ProportionalElection> elections,
+        IReadOnlyCollection<CountingCircleResultState>? enabledResultStates,
+        bool includeCandidateListResultsInfo)
+    {
         var electionDelivery = new EventElectionResultDeliveryType
         {
             CantonId = ToCantonId(contest.DomainOfInfluence.Canton),
@@ -82,15 +109,59 @@ public class Ech0252Serializer
         };
     }
 
+    public List<ProportionalElection> GetRelevantProportionalElections(Contest contest)
+    {
+        return contest.ProportionalElections
+            .Where(IsInEchDelivery)
+            .Select(x => new { PbNumber = ParsePoliticalBusinessNumber(x.PoliticalBusinessNumber), ProportionalElection = x })
+            .OrderBy(x => x.PbNumber)
+            .ThenBy(x => x.ProportionalElection.DomainOfInfluence.Type)
+            .ThenBy(x => x.ProportionalElection.Id)
+            .Select(x => x.ProportionalElection)
+            .ToList();
+    }
+
+    public Delivery ToProportionalElectionInformationDelivery(Contest contest, Ech0252MappingContext ctx)
+    {
+        var elections = GetRelevantProportionalElections(contest);
+        return ToProportionalElectionInformationDelivery(contest, elections, ctx);
+    }
+
+    public Delivery ToProportionalElectionInformationDelivery(Contest contest, List<ProportionalElection> elections, Ech0252MappingContext ctx)
+    {
+        var positionBySuperiorAuthorityId = new Dictionary<Guid, int>();
+        var electionDelivery = new EventElectionInformationDeliveryType
+        {
+            CantonId = ToCantonId(contest.DomainOfInfluence.Canton),
+            PollingDay = contest.Date,
+            ElectionAssociation = contest.ProportionalElectionUnions.ToVoteInfoEchElectionAssociations().ToList(),
+            ElectionGroupInfo = elections.ToVoteInfoEchProportionalElectionGroups(ctx, positionBySuperiorAuthorityId).ToList(),
+        };
+
+        electionDelivery.NumberOfEntries = (ushort)electionDelivery.ElectionGroupInfo.Count;
+
+        return new Delivery
+        {
+            DeliveryHeader = BuildDeliveryHeader(contest),
+            ElectionInformationDelivery = electionDelivery,
+        };
+    }
+
     public Delivery ToMajorityElectionResultDelivery(
         Contest contest,
         Ech0252MappingContext ctx,
         IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
     {
-        var elections = contest.MajorityElections
-            .Where(IsInEchDelivery)
-            .ToList();
+        var elections = GetRelevantMajorityElections(contest);
+        return ToMajorityElectionResultDelivery(contest, elections, ctx, enabledResultStates);
+    }
 
+    public Delivery ToMajorityElectionResultDelivery(
+        Contest contest,
+        List<MajorityElection> elections,
+        Ech0252MappingContext ctx,
+        IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
+    {
         var electionDelivery = new EventElectionResultDeliveryType
         {
             CantonId = ToCantonId(contest.DomainOfInfluence.Canton),
@@ -109,38 +180,9 @@ public class Ech0252Serializer
         };
     }
 
-    public Delivery ToProportionalElectionInformationDelivery(Contest contest, Ech0252MappingContext ctx)
+    public List<MajorityElection> GetRelevantMajorityElections(Contest contest)
     {
-        var positionBySuperiorAuthorityId = new Dictionary<Guid, int>();
-        var elections = contest.ProportionalElections
-            .Where(IsInEchDelivery)
-            .Select(x => new { PbNumber = ParsePoliticalBusinessNumber(x.PoliticalBusinessNumber), ProportionalElection = x })
-            .OrderBy(x => x.PbNumber)
-            .ThenBy(x => x.ProportionalElection.DomainOfInfluence.Type)
-            .ThenBy(x => x.ProportionalElection.Id)
-            .Select(x => x.ProportionalElection);
-
-        var electionDelivery = new EventElectionInformationDeliveryType
-        {
-            CantonId = ToCantonId(contest.DomainOfInfluence.Canton),
-            PollingDay = contest.Date,
-            ElectionAssociation = contest.ProportionalElectionUnions.ToVoteInfoEchElectionAssociations().ToList(),
-            ElectionGroupInfo = elections.ToVoteInfoEchProportionalElectionGroups(ctx, positionBySuperiorAuthorityId).ToList(),
-        };
-
-        electionDelivery.NumberOfEntries = (ushort)electionDelivery.ElectionGroupInfo.Count;
-
-        return new Delivery
-        {
-            DeliveryHeader = BuildDeliveryHeader(contest),
-            ElectionInformationDelivery = electionDelivery,
-        };
-    }
-
-    public Delivery ToMajorityElectionInformationDelivery(Contest contest, Ech0252MappingContext ctx)
-    {
-        var positionBySuperiorAuthorityId = new Dictionary<Guid, int>();
-        var elections = contest.MajorityElections
+        return contest.MajorityElections
             .Where(IsInEchDelivery)
             .Select(x => new { PbNumber = ParsePoliticalBusinessNumber(x.PoliticalBusinessNumber), MajorityElection = x })
             .OrderBy(x => x.PbNumber)
@@ -148,7 +190,17 @@ public class Ech0252Serializer
             .ThenBy(x => x.MajorityElection.Id)
             .Select(x => x.MajorityElection)
             .ToList();
+    }
 
+    public Delivery ToMajorityElectionInformationDelivery(Contest contest, Ech0252MappingContext ctx)
+    {
+        var elections = GetRelevantMajorityElections(contest);
+        return ToMajorityElectionInformationDelivery(contest, elections, ctx);
+    }
+
+    public Delivery ToMajorityElectionInformationDelivery(Contest contest, List<MajorityElection> elections, Ech0252MappingContext ctx)
+    {
+        var positionBySuperiorAuthorityId = new Dictionary<Guid, int>();
         var electionDelivery = new EventElectionInformationDeliveryType
         {
             CantonId = ToCantonId(contest.DomainOfInfluence.Canton),

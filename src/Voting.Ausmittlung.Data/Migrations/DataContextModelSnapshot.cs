@@ -1644,6 +1644,27 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.ToTable("IgnoredImportCountingCircles");
                 });
 
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.IgnoredImportPoliticalBusiness", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("PoliticalBusinessId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ResultImportId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PoliticalBusinessId");
+
+                    b.HasIndex("ResultImportId");
+
+                    b.ToTable("IgnoredImportPoliticalBusiness");
+                });
+
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.MajorityElection", b =>
                 {
                     b.Property<Guid>("Id")
@@ -3756,6 +3777,27 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.ToTable("ResultImportCountingCircle");
                 });
 
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ResultImportPoliticalBusiness", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("PoliticalBusinessId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ResultImportId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PoliticalBusinessId");
+
+                    b.HasIndex("ResultImportId");
+
+                    b.ToTable("ResultImportPoliticalBusiness");
+                });
+
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.SecondaryMajorityElection", b =>
                 {
                     b.Property<Guid>("Id")
@@ -4255,6 +4297,9 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.Property<Guid>("CountingCircleId")
                         .HasColumnType("uuid");
+
+                    b.Property<bool>("ECountingImported")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("HasComments")
                         .HasColumnType("boolean");
@@ -6086,6 +6131,25 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasForeignKey("ResultImportId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ResultImport");
+                });
+
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.IgnoredImportPoliticalBusiness", b =>
+                {
+                    b.HasOne("Voting.Ausmittlung.Data.Models.SimplePoliticalBusiness", "PoliticalBusiness")
+                        .WithMany("IgnoredImportPoliticalBusinesses")
+                        .HasForeignKey("PoliticalBusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Voting.Ausmittlung.Data.Models.ResultImport", "ResultImport")
+                        .WithMany("IgnoredPoliticalBusinesses")
+                        .HasForeignKey("ResultImportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PoliticalBusiness");
 
                     b.Navigation("ResultImport");
                 });
@@ -8734,6 +8798,25 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Navigation("ResultImport");
                 });
 
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ResultImportPoliticalBusiness", b =>
+                {
+                    b.HasOne("Voting.Ausmittlung.Data.Models.SimplePoliticalBusiness", "PoliticalBusiness")
+                        .WithMany("ResultImportPoliticalBusinesses")
+                        .HasForeignKey("PoliticalBusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Voting.Ausmittlung.Data.Models.ResultImport", "ResultImport")
+                        .WithMany("ImportedPoliticalBusinesses")
+                        .HasForeignKey("ResultImportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PoliticalBusiness");
+
+                    b.Navigation("ResultImport");
+                });
+
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.SecondaryMajorityElection", b =>
                 {
                     b.HasOne("Voting.Ausmittlung.Data.Models.ElectionGroup", "ElectionGroup")
@@ -10382,7 +10465,11 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.Navigation("IgnoredCountingCircles");
 
+                    b.Navigation("IgnoredPoliticalBusinesses");
+
                     b.Navigation("ImportedCountingCircles");
+
+                    b.Navigation("ImportedPoliticalBusinesses");
 
                     b.Navigation("MajorityElectionWriteInBallots");
 
@@ -10462,7 +10549,11 @@ namespace Voting.Ausmittlung.Data.Migrations
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.SimplePoliticalBusiness", b =>
                 {
+                    b.Navigation("IgnoredImportPoliticalBusinesses");
+
                     b.Navigation("ResultExportConfigurations");
+
+                    b.Navigation("ResultImportPoliticalBusinesses");
 
                     b.Navigation("SimpleResults");
 

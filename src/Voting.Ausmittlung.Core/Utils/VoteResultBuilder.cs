@@ -76,9 +76,11 @@ public class VoteResultBuilder : PoliticalBusinessResultBuilder<VoteResult>
     internal async Task ResetAllResults(
         Guid contestId,
         Guid countingCircleId,
-        VotingDataSource dataSource)
+        VotingDataSource dataSource,
+        Guid? voteId = null)
     {
-        var voteResults = await _voteResultRepo.GetVoteResultsWithQuestionResultsAsTracked(contestId, countingCircleId);
+        var voteResults = await _voteResultRepo.GetVoteResultsWithQuestionResultsAsTracked(contestId, countingCircleId, voteId);
+
         foreach (var voteResult in voteResults)
         {
             await ResetResult(voteResult, dataSource, false, true);

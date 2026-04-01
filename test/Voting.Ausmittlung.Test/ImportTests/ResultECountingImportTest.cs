@@ -278,16 +278,24 @@ public class ResultECountingImportTest : BaseRestTest
         await RunEvents<ResultImportCountingCircleCompleted>(false);
 
         import = await RunOnDb(db => db.ResultImports
+            .AsSplitQuery()
             .Include(x => x.ImportedCountingCircles.OrderBy(cc => cc.CountingCircleId))
+            .Include(x => x.ImportedPoliticalBusinesses)
+            .Include(x => x.IgnoredPoliticalBusinesses)
             .FirstAsync(x => x.Id == Guid.Parse(importStarted.ImportId)));
         import.Id = Guid.Empty;
         import.Completed.Should().BeTrue();
+        import.ImportedPoliticalBusinesses.Should().HaveCount(4);
+        import.IgnoredPoliticalBusinesses.Should().HaveCount(0);
+
         foreach (var importedCc in import.ImportedCountingCircles)
         {
             importedCc.ResultImportId = Guid.Empty;
             importedCc.Id = Guid.Empty;
         }
 
+        import.ImportedPoliticalBusinesses = null!;
+        import.IgnoredPoliticalBusinesses = null!;
         import.MatchSnapshot("completed");
 
         var writeIns = await RunOnDb(db => db.MajorityElectionWriteInMappings.OrderBy(x => x.WriteInCandidateName).ToListAsync());
@@ -305,11 +313,26 @@ public class ResultECountingImportTest : BaseRestTest
             db.Contests.SingleAsync(c => c.Id == ContestMockedData.GuidStGallenEvoting));
         contest.ECountingResultsImported.Should().BeTrue();
 
+        var resultIds = vote.Results.Select(r => r.Id)
+            .Concat(proportionalElection.Results.Select(r => r.Id))
+            .Concat(majorityElection.Results.Select(r => r.Id))
+            .Concat(majorityElection.Results.SelectMany(r => r.SecondaryMajorityElectionResults.Select(s => s.Id)))
+            .ToList();
+
+        resultIds.Any().Should().BeTrue();
+
+        var simpleResultsECountingImportedCount = await RunOnDb(db =>
+            db.SimpleCountingCircleResults
+                .Where(r => resultIds.Contains(r.Id) && r.ECountingImported)
+                .CountAsync());
+
+        resultIds.Count.Should().Be(simpleResultsECountingImportedCount);
+
         await AssertHasPublishedEventProcessedMessage(ResultImportCountingCircleCompleted.Descriptor, importId);
     }
 
     [Fact]
-    public async Task ProcessorImportTwiceShouldOverwrite()
+    public async Task ProcessorImportTwiceShouldIgnorePoliticalBusinesses()
     {
         async Task<string> RunImport()
         {
@@ -368,6 +391,21 @@ public class ResultECountingImportTest : BaseRestTest
         (await RunOnDb(db => db.ResultImports.CountAsync()))
             .Should()
             .Be(2);
+
+        var resultImports = await RunOnDb(db => db.ResultImports
+            .AsSplitQuery()
+            .Include(i => i.IgnoredPoliticalBusinesses)
+            .Include(i => i.ImportedPoliticalBusinesses)
+            .Where(i => i.Id == Guid.Parse(firstImportId) || i.Id == Guid.Parse(secondImportId))
+            .ToListAsync());
+
+        var firstImport = resultImports.Single(i => i.Id == Guid.Parse(firstImportId));
+        firstImport.ImportedPoliticalBusinesses.Should().HaveCount(4);
+        firstImport.IgnoredPoliticalBusinesses.Should().HaveCount(0);
+
+        var secondImport = resultImports.Single(i => i.Id == Guid.Parse(secondImportId));
+        secondImport.ImportedPoliticalBusinesses.Should().HaveCount(0);
+        secondImport.IgnoredPoliticalBusinesses.Should().HaveCount(4);
     }
 
     protected override HttpClient CreateHttpClient(

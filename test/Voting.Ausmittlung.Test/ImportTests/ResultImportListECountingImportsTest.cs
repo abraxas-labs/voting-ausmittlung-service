@@ -25,6 +25,7 @@ public class ResultImportListECountingImportsTest : BaseTest<ResultImportService
     {
         await base.InitializeAsync();
         await ContestMockedData.Seed(RunScoped);
+        await VoteMockedData.Seed(RunScoped);
         await ResultImportECountingMockedData.Seed(RunScoped);
         await PermissionMockedData.Seed(RunScoped);
     }

@@ -143,7 +143,8 @@ public class ResultImportWriter
         ResultImportMeta importMeta,
         Contest contest,
         IEnumerable<Guid> emptyCountingCircles,
-        IEnumerable<IgnoredImportCountingCircle> ignoredCountingCircles)
+        IEnumerable<IgnoredImportCountingCircle> ignoredCountingCircles,
+        IEnumerable<Guid> ignoredPoliticalBusinesses)
     {
         var resultsByType = GroupByBusinessType(importData.PoliticalBusinessResults, contest.SimplePoliticalBusinesses);
 
@@ -158,7 +159,8 @@ public class ResultImportWriter
             importMeta.BasisCountingCircleId,
             importData.EchMessageId,
             emptyCountingCircles,
-            ignoredCountingCircles);
+            ignoredCountingCircles,
+            ignoredPoliticalBusinesses);
 
         if (importData.VotingCards != null)
         {
@@ -203,6 +205,20 @@ public class ResultImportWriter
 
         resultImports.CreateImport(resultImports.Id, deleteImport);
         prevImport.SucceedBy(deleteImport.Id, false);
+        await _aggregateRepository.Save(resultImports);
+        await _aggregateRepository.Save(prevImport);
+        await _aggregateRepository.Save(deleteImport);
+    }
+
+    internal async Task CreatePoliticalBusinessDeleteImportAndSave(BaseResultImportsAggregate resultImports, Guid politicalBusinessId)
+    {
+        var prevImport = await _aggregateRepository.GetById<ResultImportAggregate>(resultImports.LastImportId!.Value);
+
+        var deleteImport = _aggregateFactory.New<ResultImportAggregate>();
+        deleteImport.DeletePoliticalBusinessData(prevImport.ContestId, resultImports.CountingCircleId!.Value, politicalBusinessId);
+
+        resultImports.CreateImport(resultImports.Id, deleteImport);
+        prevImport.SucceedBy(deleteImport.Id, true);
         await _aggregateRepository.Save(resultImports);
         await _aggregateRepository.Save(prevImport);
         await _aggregateRepository.Save(deleteImport);

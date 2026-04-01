@@ -146,6 +146,48 @@ public abstract class ResultImportDeleteImportedDataBaseTest : BaseTest<ResultIm
         }
     }
 
+    protected async Task AssertSecondaryMajorityElectionResultZero(Guid electionId)
+    {
+        var secondaryMajorityElection = await RunOnDb(
+            db => db.SecondaryMajorityElections
+                .AsSplitQuery()
+                .Include(x => x.EndResult!)
+                .ThenInclude(x => x.CandidateEndResults)
+                .Include(x => x.Results)
+                .ThenInclude(x => x.CandidateResults)
+                .Include(x => x.Results)
+                .ThenInclude(x => x.WriteInMappings)
+                .Include(x => x.Results)
+                .ThenInclude(x => x.WriteInBallots)
+                .ThenInclude(x => x.WriteInPositions)
+                .FirstAsync(x => x.Id == electionId),
+            Languages.German);
+
+        var endResultSubTotal = secondaryMajorityElection.EndResult!.GetSubTotal(_dataSource);
+        endResultSubTotal.TotalCandidateVoteCountInclIndividual.Should().Be(0);
+        endResultSubTotal.InvalidVoteCount.Should().Be(0);
+        endResultSubTotal.EmptyVoteCountInclWriteIns.Should().Be(0);
+        foreach (var candidateResult in secondaryMajorityElection.EndResult!.CandidateEndResults)
+        {
+            candidateResult.GetVoteCountOfDataSource(_dataSource).Should().Be(0);
+        }
+
+        foreach (var result in secondaryMajorityElection.Results)
+        {
+            result.WriteInMappings.Should().HaveCount(0);
+            result.WriteInBallots.Should().HaveCount(0);
+
+            var subTotal = result.GetNonNullableSubTotal(_dataSource);
+            subTotal.TotalCandidateVoteCountInclIndividual.Should().Be(0);
+            subTotal.InvalidVoteCount.Should().Be(0);
+            subTotal.EmptyVoteCountInclWriteIns.Should().Be(0);
+            foreach (var candidateResult in result.CandidateResults)
+            {
+                candidateResult.GetVoteCountOfDataSource(_dataSource).Should().Be(0);
+            }
+        }
+    }
+
     protected async Task AssertVoteResultZero(Guid voteId)
     {
         var vote = await RunOnDb(

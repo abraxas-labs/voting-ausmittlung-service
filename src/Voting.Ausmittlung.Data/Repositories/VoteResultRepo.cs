@@ -24,10 +24,10 @@ public class VoteResultRepo : PoliticalBusinessResultRepo<VoteResult>
             .FirstOrDefaultAsync(b => b.Id == id);
     }
 
-    public Task<List<VoteResult>> GetVoteResultsWithQuestionResultsAsTracked(Guid contestId, Guid countingCircleId)
+    public Task<List<VoteResult>> GetVoteResultsWithQuestionResultsAsTracked(Guid contestId, Guid countingCircleId, Guid? voteId = null)
     {
         return GetVoteResultQueryWithQuestionResultsAsTracked()
-            .Where(x => x.CountingCircleId == countingCircleId && x.Vote.ContestId == contestId)
+            .Where(x => x.CountingCircleId == countingCircleId && x.Vote.ContestId == contestId && (voteId == null || x.VoteId == voteId))
             .ToListAsync();
     }
 

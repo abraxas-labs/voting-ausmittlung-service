@@ -16,11 +16,14 @@ using ResultImportType = Voting.Ausmittlung.Data.Models.ResultImportType;
 
 namespace Voting.Ausmittlung.Core.EventProcessors;
 
-public class VoteResultImportProcessor : IEventProcessor<VoteResultImported>
+public class VoteResultImportProcessor : PoliticalBusinessResultImportProcessor, IEventProcessor<VoteResultImported>
 {
     private readonly IDbRepository<DataContext, VoteResult> _voteResultRepo;
 
-    public VoteResultImportProcessor(IDbRepository<DataContext, VoteResult> voteResultRepo)
+    public VoteResultImportProcessor(
+        IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo,
+        IDbRepository<DataContext, VoteResult> voteResultRepo)
+        : base(simpleResultRepo)
     {
         _voteResultRepo = voteResultRepo;
     }
@@ -58,9 +61,14 @@ public class VoteResultImportProcessor : IEventProcessor<VoteResultImported>
             ProcessTieBreakQuestionResults(dataSource, ballotResult, importedBallotResult.TieBreakQuestionResults);
         }
 
-        if (importType == ResultImportType.EVoting)
+        switch (importType)
         {
-            voteResult.TotalSentEVotingVotingCards = eventData.CountOfVotersInformation?.TotalCountOfVoters;
+            case ResultImportType.EVoting:
+                voteResult.TotalSentEVotingVotingCards = eventData.CountOfVotersInformation?.TotalCountOfVoters;
+                break;
+            case ResultImportType.ECounting:
+                await SetSimpleResultECountingImported(voteResult.Id);
+                break;
         }
 
         await _voteResultRepo.Update(voteResult);

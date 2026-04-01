@@ -17,11 +17,14 @@ using ResultImportType = Voting.Ausmittlung.Data.Models.ResultImportType;
 
 namespace Voting.Ausmittlung.Core.EventProcessors;
 
-public class ProportionalElectionResultImportProcessor : IEventProcessor<ProportionalElectionResultImported>
+public class ProportionalElectionResultImportProcessor : PoliticalBusinessResultImportProcessor, IEventProcessor<ProportionalElectionResultImported>
 {
     private readonly IDbRepository<DataContext, ProportionalElectionResult> _proportionalElectionResultRepo;
 
-    public ProportionalElectionResultImportProcessor(IDbRepository<DataContext, ProportionalElectionResult> proportionalElectionResultRepo)
+    public ProportionalElectionResultImportProcessor(
+        IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo,
+        IDbRepository<DataContext, ProportionalElectionResult> proportionalElectionResultRepo)
+        : base(simpleResultRepo)
     {
         _proportionalElectionResultRepo = proportionalElectionResultRepo;
     }
@@ -57,9 +60,14 @@ public class ProportionalElectionResultImportProcessor : IEventProcessor<Proport
         UpdateCountOfVoters(importType, eventData, result);
         result.UpdateVoterParticipation();
 
-        if (importType == ResultImportType.EVoting)
+        switch (importType)
         {
-            result.TotalSentEVotingVotingCards = eventData.CountOfVotersInformation?.TotalCountOfVoters;
+            case ResultImportType.EVoting:
+                result.TotalSentEVotingVotingCards = eventData.CountOfVotersInformation?.TotalCountOfVoters;
+                break;
+            case ResultImportType.ECounting:
+                await SetSimpleResultECountingImported(result.Id);
+                break;
         }
 
         ProcessCandidates(dataSource, result, eventData.CandidateResults);

@@ -266,6 +266,8 @@
           }
         ],
         "ResultExportConfigurations": [],
+        "ResultImportPoliticalBusinesses": [],
+        "IgnoredImportPoliticalBusinesses": [],
         "PoliticalBusinessNumber": "10286",
         "Active": false,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
@@ -307,6 +309,8 @@
           }
         ],
         "ResultExportConfigurations": [],
+        "ResultImportPoliticalBusinesses": [],
+        "IgnoredImportPoliticalBusinesses": [],
         "PoliticalBusinessNumber": "10226",
         "Active": true,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
@@ -348,6 +352,8 @@
           }
         ],
         "ResultExportConfigurations": [],
+        "ResultImportPoliticalBusinesses": [],
+        "IgnoredImportPoliticalBusinesses": [],
         "PoliticalBusinessNumber": "155",
         "Active": true,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",

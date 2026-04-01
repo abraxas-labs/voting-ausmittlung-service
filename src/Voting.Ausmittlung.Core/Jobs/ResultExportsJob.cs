@@ -56,6 +56,9 @@ public class ResultExportsJob : IScheduledJob
         // this should work as there should only be 1-2 automated exports per contest
         // if this ever should get larger we should reconsider introducing concurrency.
         // also with the current implementation, the exports could overlap (ex. in a cluster), but this shouldn't matter.
+        const int maxRetries = 3;
+        var retryCount = 0;
+
         while (!ct.IsCancellationRequested)
         {
             // as soon as there is no job to work on anymore
@@ -66,10 +69,19 @@ public class ResultExportsJob : IScheduledJob
                 {
                     return;
                 }
+
+                retryCount = 0;
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "Failed to run result exports job");
+                retryCount++;
+                _logger.LogError(e, "Failed to run result exports job (attempt {RetryCount}/{MaxRetries})", retryCount, maxRetries);
+
+                if (retryCount >= maxRetries)
+                {
+                    _logger.LogError("Maximum retry count of {MaxRetries} reached, stopping result exports job", maxRetries);
+                    return;
+                }
             }
         }
     }

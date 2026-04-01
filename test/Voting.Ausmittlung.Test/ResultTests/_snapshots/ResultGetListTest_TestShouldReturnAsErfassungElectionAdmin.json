@@ -193,7 +193,8 @@
       "HasComments": false,
       "AuditedTentativelyTimestamp": null,
       "PlausibilisedTimestamp": null,
-      "ReadyForCorrectionTimestamp": null
+      "ReadyForCorrectionTimestamp": null,
+      "ECountingImported": false
     }
   ],
   "CurrentTenantIsResponsible": true,

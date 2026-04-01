@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1;
 using AutoMapper;
@@ -41,6 +42,7 @@ public class ContestProcessor :
     private readonly IMapper _mapper;
     private readonly ContestResultInitializer _contestResultInitializer;
     private readonly ContestCantonDefaultsBuilder _contestCantonDefaultsBuilder;
+    private readonly DataContext _dataContext;
 
     public ContestProcessor(
         ILogger<ContestProcessor> logger,
@@ -55,7 +57,8 @@ public class ContestProcessor :
         ResultExportConfigurationBuilder resultExportConfigurationBuilder,
         IMapper mapper,
         ContestResultInitializer contestResultInitializer,
-        ContestCantonDefaultsBuilder contestCantonDefaultsBuilder)
+        ContestCantonDefaultsBuilder contestCantonDefaultsBuilder,
+        DataContext dataContext)
     {
         _logger = logger;
         _repo = repo;
@@ -66,6 +69,7 @@ public class ContestProcessor :
         _mapper = mapper;
         _contestResultInitializer = contestResultInitializer;
         _contestCantonDefaultsBuilder = contestCantonDefaultsBuilder;
+        _dataContext = dataContext;
         _resultExportConfigRepo = resultExportConfigRepo;
         _aggregatedContestCountingCircleDetailsBuilder = aggregatedContestCountingCircleDetailsBuilder;
         _contestCountingCircleDetailsBuilder = contestCountingCircleDetailsBuilder;
@@ -158,6 +162,19 @@ public class ContestProcessor :
         var id = GuidParser.Parse(eventData.ContestId);
         await UpdateState(id, ContestState.PastLocked);
         await _resultExportConfigRepo.UnsetAllNextExecutionDates(id);
+
+        await _dataContext.MajorityElectionResults
+            .Where(x => x.MajorityElection.ContestId == id)
+            .ExecuteUpdateAsync(s => s.SetProperty(r => r.Published, true));
+        await _dataContext.ProportionalElectionResults
+            .Where(x => x.ProportionalElection.ContestId == id)
+            .ExecuteUpdateAsync(s => s.SetProperty(r => r.Published, true));
+        await _dataContext.VoteResults
+            .Where(x => x.Vote.ContestId == id)
+            .ExecuteUpdateAsync(s => s.SetProperty(r => r.Published, true));
+        await _dataContext.SimpleCountingCircleResults
+            .Where(x => x.PoliticalBusiness!.ContestId == id)
+            .ExecuteUpdateAsync(s => s.SetProperty(r => r.Published, true));
     }
 
     public Task Process(ContestPastUnlocked eventData) => UpdateState(GuidParser.Parse(eventData.ContestId), ContestState.PastUnlocked);
