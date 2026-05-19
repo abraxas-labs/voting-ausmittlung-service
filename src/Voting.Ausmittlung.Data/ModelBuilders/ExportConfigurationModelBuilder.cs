@@ -34,9 +34,9 @@ public class ExportConfigurationModelBuilder :
             .IsRequired();
 
         builder
-            .HasOne(x => x.DomainOfInfluence)
+            .HasOne(x => x.ExportConfiguration)
             .WithMany(x => x.ResultExportConfigurations)
-            .HasForeignKey(x => x.DomainOfInfluenceId)
+            .HasForeignKey(x => x.ExportConfigurationId)
             .IsRequired();
     }
 

@@ -34,6 +34,7 @@ public class ECountingResultImportWriter
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
     private readonly IDbRepository<DataContext, SimpleCountingCircleResult> _simpleResultsRepo;
     private readonly IDbRepository<DataContext, ResultImport> _resultImportRepo;
+    private readonly IDbRepository<DataContext, Ballot> _ballotRepo;
 
     public ECountingResultImportWriter(
         ILogger<EVotingResultImportWriter> logger,
@@ -46,7 +47,8 @@ public class ECountingResultImportWriter
         VoteResultImportWriter voteResultImportWriter,
         IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultsRepo,
         IDbRepository<DataContext, Contest> contestRepo,
-        IDbRepository<DataContext, ResultImport> resultImportRepo)
+        IDbRepository<DataContext, ResultImport> resultImportRepo,
+        IDbRepository<DataContext, Ballot> ballotRepo)
     {
         _logger = logger;
         _resultImportWriter = resultImportWriter;
@@ -59,6 +61,7 @@ public class ECountingResultImportWriter
         _simpleResultsRepo = simpleResultsRepo;
         _contestRepo = contestRepo;
         _resultImportRepo = resultImportRepo;
+        _ballotRepo = ballotRepo;
     }
 
     public async Task DeletePoliticalBusinessImportData(
@@ -190,19 +193,75 @@ public class ECountingResultImportWriter
             .Select(r => r.PoliticalBusinessId)
             .ToListAsync();
 
-        var ignoredPoliticalBusinessIds = new HashSet<Guid>();
+        var ignoredElectionIds = new HashSet<Guid>();
+        var ignoredVoteIds = new HashSet<Guid>();
 
-        foreach (var pbResult in importData.PoliticalBusinessResults)
+        var importPoliticalBusinesses = await ResolveImportPoliticalBusinessIds(importData);
+        var voteImportResults = importData.PoliticalBusinessResults
+            .Where(r => r.PoliticalBusinessType is PoliticalBusinessType.Vote)
+            .Cast<VotingImportVoteResult>()
+            .ToList();
+
+        foreach (var importPoliticalBusiness in importPoliticalBusinesses)
         {
-            if (!alreadyImportedPoliticalBusinesses.Contains(pbResult.PoliticalBusinessId))
+            if (!alreadyImportedPoliticalBusinesses.Contains(importPoliticalBusiness.Id))
             {
                 continue;
             }
 
-            ignoredPoliticalBusinessIds.Add(pbResult.PoliticalBusinessId);
+            if (importPoliticalBusiness.BallotIds.Count > 0)
+            {
+                var voteImportResultsWithAlreadyImportedBallotResults = voteImportResults
+                    .Where(vr => vr.BallotResults.Any(br => importPoliticalBusiness.BallotIds.Contains(br.BallotId)))
+                    .ToList();
+
+                foreach (var voteImportResultWithAlreadyImportedBallotResults in voteImportResultsWithAlreadyImportedBallotResults)
+                {
+                    voteImportResultWithAlreadyImportedBallotResults.RemoveBallotResults(importPoliticalBusiness.BallotIds);
+                }
+
+                ignoredVoteIds.Add(importPoliticalBusiness.Id);
+            }
+            else
+            {
+                ignoredElectionIds.Add(importPoliticalBusiness.Id);
+            }
         }
 
-        importData.RemoveResults(ignoredPoliticalBusinessIds.Select(pbId => (pbId, basisCcId)));
-        return ignoredPoliticalBusinessIds;
+        // Only remove the elections from the import data here.
+        // Ballots were already previously removed (a imported vote may contain ballots from multiple VOTING votes).
+        importData.RemoveResults(ignoredElectionIds.Select(pbId => (pbId, basisCcId)));
+        return ignoredVoteIds.Concat(ignoredElectionIds).ToHashSet();
     }
+
+    private async Task<List<PoliticalBusinessImportData>> ResolveImportPoliticalBusinessIds(VotingImport importData)
+    {
+        var importPoliticalBusinesses = importData.PoliticalBusinessResults
+            .Where(r => r.PoliticalBusinessType is not PoliticalBusinessType.Vote)
+            .Select(r => new PoliticalBusinessImportData(r.PoliticalBusinessId, new()))
+            .ToList();
+
+        // The imported votes not correlate to the votes in our system, as the "VOTING votes" are not the same as the eCH votes
+        // Use the ballots instead.
+        var importedBallotIds = importData.PoliticalBusinessResults
+            .Where(r => r.PoliticalBusinessType is PoliticalBusinessType.Vote)
+            .Cast<VotingImportVoteResult>()
+            .SelectMany(r => r.BallotResults)
+            .Select(r => r.BallotId)
+            .ToList();
+
+        var ballotIdsByVoteId = await _ballotRepo.Query()
+            .Where(b => importedBallotIds.Contains(b.Id))
+            .GroupBy(b => b.VoteId)
+            .ToDictionaryAsync(b => b.Key, b => b.Select(y => y.Id).ToList());
+
+        foreach (var (voteId, ballotIds) in ballotIdsByVoteId)
+        {
+            importPoliticalBusinesses.Add(new PoliticalBusinessImportData(voteId, ballotIds));
+        }
+
+        return importPoliticalBusinesses;
+    }
+
+    private sealed record PoliticalBusinessImportData(Guid Id, List<Guid> BallotIds);
 }

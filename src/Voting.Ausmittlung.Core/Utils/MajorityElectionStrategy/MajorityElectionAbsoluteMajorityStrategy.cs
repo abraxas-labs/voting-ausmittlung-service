@@ -88,11 +88,6 @@ public class MajorityElectionAbsoluteMajorityStrategy : MajorityElectionMandateA
         TMajorityElectionCandidateEndResultBase candidateEndResult,
         MajorityElectionMandateDistributionContext<TMajorityElectionCandidateEndResultBase> context)
     {
-        if (candidateEndResult.State == MajorityElectionCandidateEndResultState.AbsoluteMajorityAndNotElectedInPrimaryElectionNotEligible)
-        {
-            return;
-        }
-
         var hasAbsoluteMajority = candidateEndResult.VoteCount >= context.AbsoluteMajority;
 
         candidateEndResult.State = hasAbsoluteMajority

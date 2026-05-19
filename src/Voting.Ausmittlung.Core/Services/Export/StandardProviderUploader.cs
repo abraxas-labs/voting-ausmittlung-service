@@ -49,7 +49,7 @@ public class StandardProviderUploader : IExportProviderUploader
 
             try
             {
-                await _dokConnector.Upload(export.EaiMessageType, file.Filename, file.Write, ct);
+                await _dokConnector.Upload(export.ExportConfiguration!.EaiMessageType, file.Filename, file.Write, ct);
             }
             catch (Exception e)
             {

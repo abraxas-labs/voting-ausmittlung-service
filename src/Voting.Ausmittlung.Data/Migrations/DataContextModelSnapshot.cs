@@ -3632,23 +3632,11 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<Guid>("ContestId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("DomainOfInfluenceId")
+                    b.Property<Guid?>("DomainOfInfluenceId")
                         .HasColumnType("uuid");
-
-                    b.Property<string>("EaiMessageType")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<Guid>("ExportConfigurationId")
                         .HasColumnType("uuid");
-
-                    b.Property<string[]>("ExportKeys")
-                        .IsRequired()
-                        .HasColumnType("text[]");
 
                     b.Property<int?>("IntervalMinutes")
                         .HasColumnType("integer");
@@ -3659,14 +3647,13 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<DateTime?>("NextExecution")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("Provider")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ContestId");
 
                     b.HasIndex("DomainOfInfluenceId");
+
+                    b.HasIndex("ExportConfigurationId");
 
                     b.ToTable("ResultExportConfigurations");
                 });
@@ -8685,15 +8672,19 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Voting.Ausmittlung.Data.Models.DomainOfInfluence", "DomainOfInfluence")
+                    b.HasOne("Voting.Ausmittlung.Data.Models.DomainOfInfluence", null)
                         .WithMany("ResultExportConfigurations")
-                        .HasForeignKey("DomainOfInfluenceId")
+                        .HasForeignKey("DomainOfInfluenceId");
+
+                    b.HasOne("Voting.Ausmittlung.Data.Models.ExportConfiguration", "ExportConfiguration")
+                        .WithMany("ResultExportConfigurations")
+                        .HasForeignKey("ExportConfigurationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Contest");
 
-                    b.Navigation("DomainOfInfluence");
+                    b.Navigation("ExportConfiguration");
                 });
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ResultExportConfigurationPoliticalBusiness", b =>
@@ -10159,6 +10150,11 @@ namespace Voting.Ausmittlung.Data.Migrations
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ElectionGroup", b =>
                 {
                     b.Navigation("SecondaryMajorityElections");
+                });
+
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ExportConfiguration", b =>
+                {
+                    b.Navigation("ResultExportConfigurations");
                 });
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.HagenbachBischoffCalculationRound", b =>

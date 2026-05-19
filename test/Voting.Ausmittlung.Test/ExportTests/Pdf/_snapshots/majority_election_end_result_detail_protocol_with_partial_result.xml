@@ -675,6 +675,36 @@
             <TotalCountOfInvalidVotingCards>150</TotalCountOfInvalidVotingCards>
             <TotalCountOfVotingCards>2900</TotalCountOfVotingCards>
             <TotalCountOfEVotingVotingCards>150</TotalCountOfEVotingVotingCards>
+            <ContestVotingCardDetail>
+              <CountOfReceivedVotingCards>150</CountOfReceivedVotingCards>
+              <Valid>false</Valid>
+              <Channel>ByMail</Channel>
+              <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
+            </ContestVotingCardDetail>
+            <ContestVotingCardDetail>
+              <CountOfReceivedVotingCards>400</CountOfReceivedVotingCards>
+              <Valid>true</Valid>
+              <Channel>BallotBox</Channel>
+              <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
+            </ContestVotingCardDetail>
+            <ContestVotingCardDetail>
+              <CountOfReceivedVotingCards>2000</CountOfReceivedVotingCards>
+              <Valid>true</Valid>
+              <Channel>ByMail</Channel>
+              <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
+            </ContestVotingCardDetail>
+            <ContestVotingCardDetail>
+              <CountOfReceivedVotingCards>150</CountOfReceivedVotingCards>
+              <Valid>true</Valid>
+              <Channel>EVoting</Channel>
+              <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
+            </ContestVotingCardDetail>
+            <ContestVotingCardDetail>
+              <CountOfReceivedVotingCards>200</CountOfReceivedVotingCards>
+              <Valid>true</Valid>
+              <Channel>Paper</Channel>
+              <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
+            </ContestVotingCardDetail>
             <CountingMachine>Unspecified</CountingMachine>
           </ContestCountingCircleDetails>
         </CountingCircle>
@@ -1627,6 +1657,36 @@
       <TotalCountOfInvalidVotingCards>150</TotalCountOfInvalidVotingCards>
       <TotalCountOfVotingCards>2900</TotalCountOfVotingCards>
       <TotalCountOfEVotingVotingCards>150</TotalCountOfEVotingVotingCards>
+      <ContestVotingCardDetail>
+        <CountOfReceivedVotingCards>400</CountOfReceivedVotingCards>
+        <Valid>true</Valid>
+        <Channel>BallotBox</Channel>
+        <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
+      </ContestVotingCardDetail>
+      <ContestVotingCardDetail>
+        <CountOfReceivedVotingCards>150</CountOfReceivedVotingCards>
+        <Valid>false</Valid>
+        <Channel>ByMail</Channel>
+        <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
+      </ContestVotingCardDetail>
+      <ContestVotingCardDetail>
+        <CountOfReceivedVotingCards>2000</CountOfReceivedVotingCards>
+        <Valid>true</Valid>
+        <Channel>ByMail</Channel>
+        <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
+      </ContestVotingCardDetail>
+      <ContestVotingCardDetail>
+        <CountOfReceivedVotingCards>150</CountOfReceivedVotingCards>
+        <Valid>true</Valid>
+        <Channel>EVoting</Channel>
+        <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
+      </ContestVotingCardDetail>
+      <ContestVotingCardDetail>
+        <CountOfReceivedVotingCards>200</CountOfReceivedVotingCards>
+        <Valid>true</Valid>
+        <Channel>Paper</Channel>
+        <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
+      </ContestVotingCardDetail>
     </ContestDomainOfInfluenceDetails>
     <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
   </DomainOfInfluence>

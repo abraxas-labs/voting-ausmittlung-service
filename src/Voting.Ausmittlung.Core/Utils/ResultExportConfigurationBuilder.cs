@@ -60,12 +60,7 @@ public class ResultExportConfigurationBuilder
             {
                 Id = AusmittlungUuidV5.BuildResultExportConfiguration(contest.Id, config.Id),
                 ContestId = contest.Id,
-                Description = config.Description,
-                ExportKeys = config.ExportKeys,
-                EaiMessageType = config.EaiMessageType,
                 ExportConfigurationId = config.Id,
-                Provider = config.Provider,
-                DomainOfInfluenceId = doi.Id,
             });
         });
 

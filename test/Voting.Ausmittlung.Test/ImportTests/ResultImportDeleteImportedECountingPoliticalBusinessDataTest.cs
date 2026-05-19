@@ -88,13 +88,19 @@ public class ResultImportDeleteImportedECountingPoliticalBusinessDataTest : Resu
         var eventCounter = await ResultImportMockedData.SeedECounting(RunScoped, CreateHttpClient);
 
         var pbId = Guid.Parse(VoteMockedData.IdUzwilVoteInContestStGallen);
+        var ccId = Guid.Parse(CountingCircleMockedData.IdUzwil);
+        var resultId = AusmittlungUuidV5.BuildPoliticalBusinessResult(pbId, ccId, false);
+
+        var simpleCcr = await RunOnDb(db => db.SimpleCountingCircleResults.SingleAsync(r => r.Id == resultId));
+        simpleCcr.ECountingImported.Should().BeTrue();
+
         var id = "759b344f-511a-41f6-8836-43870949e52c";
         await TestEventPublisher.Publish(
             eventCounter,
             new ResultImportPoliticalBusinessDataDeleted
             {
                 ContestId = ContestMockedData.IdStGallenEvoting,
-                CountingCircleId = CountingCircleMockedData.IdUzwil,
+                CountingCircleId = ccId.ToString(),
                 ImportType = ResultImportType.Ecounting,
                 ImportId = id,
                 EventInfo = GetMockedEventInfo(),
@@ -108,9 +114,10 @@ public class ResultImportDeleteImportedECountingPoliticalBusinessDataTest : Resu
         import.ImportedPoliticalBusinesses = null!;
 
         import.MatchSnapshot();
-
-        // TODO: Test ECountingIMportedReset
         await AssertVoteResultZero(Guid.Parse(VoteMockedData.IdUzwilVoteInContestStGallen));
+
+        simpleCcr = await RunOnDb(db => db.SimpleCountingCircleResults.SingleAsync(r => r.Id == resultId));
+        simpleCcr.ECountingImported.Should().BeFalse();
     }
 
     [Fact]

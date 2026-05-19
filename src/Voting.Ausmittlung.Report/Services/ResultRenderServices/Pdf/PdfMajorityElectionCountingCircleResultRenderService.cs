@@ -88,14 +88,15 @@ public class PdfMajorityElectionCountingCircleResultRenderService : IRendererSer
             data.ResetAllResults();
         }
 
+        ccDetails?.OrderVotingCardsAndSubTotals();
+
         var majorityElection = _mapper.Map<PdfMajorityElection>(data.MajorityElection);
         var countingCircle = majorityElection.Results![0].CountingCircle!;
         countingCircle.ContestCountingCircleDetails = _mapper.Map<PdfContestCountingCircleDetails>(ccDetails);
         PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(countingCircle.ContestCountingCircleDetails, data.MajorityElection.DomainOfInfluence);
         await _pdfMajorityElectionUtil.FillEmptyVoteCountDisabled(majorityElection);
 
-        // we don't need this data in the xml
-        countingCircle.ContestCountingCircleDetails.VotingCards = new List<PdfVotingCardResultDetail>();
+        // we don't need the count of voters sub totals in the xml
         countingCircle.ContestCountingCircleDetails.CountOfVotersInformationSubTotals = new List<PdfCountOfVotersInformationSubTotal>();
 
         // reset the counting circle on the result, since this is a single counting circle report

@@ -1,5 +1,0 @@
-<Project>
-  <!-- import parent: https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build -->
-  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
-
-</Project>

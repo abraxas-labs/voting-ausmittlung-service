@@ -61,6 +61,7 @@ public class PdfMajorityElectionEndResultRenderService : IRendererService
             ?? throw new ValidationException($"invalid data requested: politicalBusinessId: {ctx.PoliticalBusinessId}");
         data.MoveECountingToConventional();
         MajorityElectionResultUtils.RemoveCountToIndividualCandidatesAndAdjustTotals(data);
+        data.MajorityElection.DomainOfInfluence.Details?.OrderVotingCardsAndSubTotals();
 
         var majorityElection = _mapper.Map<PdfMajorityElection>(data.MajorityElection);
         PdfMajorityElectionEndResultUtil.MapCandidateEndResultsToStateLists(majorityElection.EndResult!);
@@ -72,8 +73,7 @@ public class PdfMajorityElectionEndResultRenderService : IRendererService
         domainOfInfluence!.Details ??= new PdfContestDomainOfInfluenceDetails();
         PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(domainOfInfluence.Details, data.MajorityElection.DomainOfInfluence);
 
-        // we don't need this data in the xml
-        domainOfInfluence.Details.VotingCards = new List<PdfVotingCardResultDetail>();
+        // we don't need the count of voters sub totals in the xml
         domainOfInfluence.Details.CountOfVotersInformationSubTotals = new List<PdfCountOfVotersInformationSubTotal>();
         majorityElection.DomainOfInfluence = null;
 

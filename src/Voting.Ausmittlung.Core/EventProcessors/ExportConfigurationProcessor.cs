@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1;
 using Abraxas.Voting.Basis.Events.V1.Data;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
@@ -43,21 +44,15 @@ public class ExportConfigurationProcessor :
         var config = _mapper.Map<ExportConfiguration>(eventData.Configuration);
         await _exportConfigRepo.Create(config);
 
-        var dois = await _domainOfInfluenceRepo.ListWithContestsInState(
-            config.DomainOfInfluenceId,
-            ContestState.Active,
-            ContestState.TestingPhase);
+        var dois = await _domainOfInfluenceRepo.Query()
+            .Where(doi => doi.BasisDomainOfInfluenceId == config.DomainOfInfluenceId && doi.SnapshotContestId.HasValue)
+            .ToListAsync();
 
         var resultExportConfigs = dois.Select(doi => new ResultExportConfiguration
         {
             Id = AusmittlungUuidV5.BuildResultExportConfiguration(doi.SnapshotContestId!.Value, config.Id),
             ContestId = doi.SnapshotContestId!.Value,
-            Description = config.Description,
-            ExportKeys = config.ExportKeys,
-            EaiMessageType = config.EaiMessageType,
             ExportConfigurationId = config.Id,
-            Provider = config.Provider,
-            DomainOfInfluenceId = doi.Id,
         });
 
         await _resultExportConfigRepo.CreateRange(resultExportConfigs);
@@ -68,17 +63,6 @@ public class ExportConfigurationProcessor :
         AdjustOldEvents(eventData.Configuration);
         var config = _mapper.Map<ExportConfiguration>(eventData.Configuration);
         await _exportConfigRepo.Update(config);
-
-        var existingResultConfigs = await _resultExportConfigRepo.GetActiveOrTestingPhaseExportConfigurations(config.Id);
-        foreach (var resultConfig in existingResultConfigs)
-        {
-            resultConfig.Description = config.Description;
-            resultConfig.ExportKeys = config.ExportKeys;
-            resultConfig.EaiMessageType = config.EaiMessageType;
-            resultConfig.Provider = config.Provider;
-        }
-
-        await _resultExportConfigRepo.UpdateRange(existingResultConfigs);
     }
 
     public async Task Process(ExportConfigurationDeleted eventData)
@@ -86,8 +70,9 @@ public class ExportConfigurationProcessor :
         var id = GuidParser.Parse(eventData.ConfigurationId);
         await _exportConfigRepo.DeleteByKey(id);
 
-        var existingResultConfigs = await _resultExportConfigRepo.GetActiveOrTestingPhaseExportConfigurations(id);
-        await _resultExportConfigRepo.DeleteRangeByKey(existingResultConfigs.Select(x => x.Id));
+        await _resultExportConfigRepo.Query()
+            .Where(x => x.ExportConfigurationId == id)
+            .ExecuteDeleteAsync();
     }
 
     private void AdjustOldEvents(ExportConfigurationEventData eventData)

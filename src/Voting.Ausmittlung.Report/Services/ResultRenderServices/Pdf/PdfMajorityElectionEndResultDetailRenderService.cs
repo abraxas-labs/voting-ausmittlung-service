@@ -90,6 +90,7 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
         data.Results = results;
         data.MoveECountingToConventional();
         MajorityElectionResultUtils.RemoveCountToIndividualCandidatesAndAdjustTotals(data);
+        data.DomainOfInfluence.Details?.OrderVotingCardsAndSubTotals();
 
         var ccDetailsList = await _ccDetailsRepo
             .Query()
@@ -100,6 +101,11 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
             .ToListAsync(ct);
 
         PdfCountingCircleResultUtil.ResetResultsIfNotDone(results, ccDetailsList);
+
+        foreach (var ccDetail in ccDetailsList)
+        {
+            ccDetail.OrderVotingCardsAndSubTotals();
+        }
 
         if (isPartialResult)
         {
@@ -124,8 +130,7 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
         {
             PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(details, data.DomainOfInfluence);
 
-            // we don't need this data in the xml
-            details.VotingCards = new List<PdfVotingCardResultDetail>();
+            // we don't need the count of voters sub totals in the xml
             details.CountOfVotersInformationSubTotals = new List<PdfCountOfVotersInformationSubTotal>();
         }
 
@@ -156,8 +161,7 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
         domainOfInfluence!.Details ??= new PdfContestDomainOfInfluenceDetails();
         PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(domainOfInfluence.Details, data.DomainOfInfluence);
 
-        // we don't need this data in the xml
-        domainOfInfluence.Details.VotingCards = new List<PdfVotingCardResultDetail>();
+        // we don't need the count of voters sub totals in the xml
         domainOfInfluence.Details.CountOfVotersInformationSubTotals = new List<PdfCountOfVotersInformationSubTotal>();
         majorityElection.DomainOfInfluence = null;
 

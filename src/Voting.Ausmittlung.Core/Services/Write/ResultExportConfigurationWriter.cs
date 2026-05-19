@@ -41,14 +41,14 @@ public class ResultExportConfigurationWriter
 
         var existingConfig = await _repo
                 .Query()
-                .Include(x => x.DomainOfInfluence)
+                .Include(x => x.ExportConfiguration!.DomainOfInfluence)
                 .FirstOrDefaultAsync(x => x.Id == id)
             ?? throw new EntityNotFoundException(nameof(ResultExportConfiguration), id);
-        _permissionService.EnsureIsDomainOfInfluenceManager(existingConfig.DomainOfInfluence);
+        _permissionService.EnsureIsDomainOfInfluenceManager(existingConfig.ExportConfiguration!.DomainOfInfluence);
 
         await _resultExportService.ValidateExportConfigurationPoliticalBusinesses(config.ContestId, config.PoliticalBusinessIds);
         _resultExportService.ValidateExportConfigurationPoliticalBusinessMetadata(
-            existingConfig.Provider,
+            existingConfig.ExportConfiguration!.Provider,
             config.PoliticalBusinessIds,
             config.PoliticalBusinessMetadata);
 

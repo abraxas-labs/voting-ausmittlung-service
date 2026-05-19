@@ -32,8 +32,9 @@ public class ResultExportConfigurationReader
             .AsSplitQuery()
             .Include(x => x.PoliticalBusinesses)
             .Include(x => x.PoliticalBusinessMetadata)
-            .Where(x => x.ContestId == contestId && x.DomainOfInfluence.SecureConnectId == _permissionService.TenantId)
-            .OrderBy(x => x.Description)
+            .Include(x => x.ExportConfiguration)
+            .Where(x => x.ContestId == contestId && x.ExportConfiguration!.DomainOfInfluence.SecureConnectId == _permissionService.TenantId)
+            .OrderBy(x => x.ExportConfiguration!.Description)
             .ToListAsync();
     }
 }

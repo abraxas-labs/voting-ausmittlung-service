@@ -170,8 +170,12 @@ public class ResultImportReader
             .ThenInclude(x => x.CountingCircle)
             .Include(x => x.IgnoredPoliticalBusinesses.OrderBy(ipb => ipb.PoliticalBusiness!.PoliticalBusinessNumber))
             .ThenInclude(x => x.PoliticalBusiness!.Translations)
+            .Include(x => x.IgnoredPoliticalBusinesses)
+            .ThenInclude(x => x.PoliticalBusiness!.DomainOfInfluence)
             .Include(x => x.ImportedPoliticalBusinesses.OrderBy(ipb => ipb.PoliticalBusiness!.PoliticalBusinessNumber))
             .ThenInclude(x => x.PoliticalBusiness!.Translations)
+            .Include(x => x.ImportedPoliticalBusinesses)
+            .ThenInclude(x => x.PoliticalBusiness!.DomainOfInfluence)
             .Where(x => x.ImportType == importType && x.ContestId == contestId);
 
         if (basisCountingCircleId.HasValue)

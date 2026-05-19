@@ -241,12 +241,16 @@ public class ContestCreateTest : ContestProcessorBaseTest
         var contestId = Guid.Parse(contest.Id);
         var resultExportConfigurations = await RunOnDb(
             db => db.ResultExportConfigurations
+                .Include(x => x.ExportConfiguration)
                 .Where(x => x.ContestId == contestId)
+                .OrderBy(x => x.ExportConfiguration!.Description)
+                .ThenBy(x => x.ContestId)
                 .ToListAsync());
 
         foreach (var resultConfig in resultExportConfigurations)
         {
-            resultConfig.DomainOfInfluenceId = Guid.Empty;
+            resultConfig.ExportConfiguration!.DomainOfInfluenceId = Guid.Empty;
+            resultConfig.ExportConfiguration.ResultExportConfigurations = [];
         }
 
         resultExportConfigurations.ShouldMatchSnapshot();

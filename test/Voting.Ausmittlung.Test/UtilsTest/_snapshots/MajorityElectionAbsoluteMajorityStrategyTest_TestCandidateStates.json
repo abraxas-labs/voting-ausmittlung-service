@@ -76,7 +76,7 @@
       "CandidateNumber": "K005",
       "VoteCount": 375,
       "Rank": 5,
-      "State": "NotElected",
+      "State": "NotElectedInPrimaryElectionNotEligible",
       "LotDecisionRequired": false
     }
   ]

@@ -55,14 +55,16 @@ public class ExportConfigurationCreateTest : BaseDataProcessorTest
 
         var resultConfigs = await RunOnDb(db => db
             .ResultExportConfigurations
+            .Include(x => x.ExportConfiguration)
             .Where(x => x.ExportConfigurationId == id)
-            .OrderBy(x => x.Description)
+            .OrderBy(x => x.ExportConfiguration!.Description)
             .ThenBy(x => x.ContestId)
             .ToListAsync());
 
         foreach (var resultConfig in resultConfigs)
         {
-            resultConfig.DomainOfInfluenceId = Guid.Empty;
+            resultConfig.ExportConfiguration!.DomainOfInfluenceId = Guid.Empty;
+            resultConfig.ExportConfiguration!.ResultExportConfigurations = [];
         }
 
         resultConfigs.MatchSnapshot("resultConfigs");

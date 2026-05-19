@@ -33,11 +33,17 @@ public abstract class MajorityElectionMandateAlgorithmStrategy : IMajorityElecti
         MajorityElectionMandateDistributionContext<TMajorityElectionCandidateEndResultBase> context)
         where TMajorityElectionCandidateEndResultBase : MajorityElectionCandidateEndResultBase
     {
+        // Candidate is already not eligible, not elected in primary election.
+        // Do not modify that state further. It is also irrelevant to any lot decisions.
+        if (!candidateEndResult.State.IsEligible())
+        {
+            return;
+        }
+
         if (context.AllNumberOfMandatesDistributed)
         {
             if (context.VoteCountWithRestMandatesInUncompletedLotDecision.HasValue &&
-                context.VoteCountWithRestMandatesInUncompletedLotDecision == candidateEndResult.VoteCount &&
-                candidateEndResult.State.IsEligible())
+                context.VoteCountWithRestMandatesInUncompletedLotDecision == candidateEndResult.VoteCount)
             {
                 candidateEndResult.State = MajorityElectionCandidateEndResultState.Pending;
                 candidateEndResult.LotDecisionRequired = true;
@@ -45,11 +51,6 @@ public abstract class MajorityElectionMandateAlgorithmStrategy : IMajorityElecti
             }
 
             SetCandidateNotElected(candidateEndResult, context);
-            return;
-        }
-
-        if (!candidateEndResult.State.IsEligible())
-        {
             return;
         }
 

@@ -28,13 +28,6 @@ public class DomainOfInfluenceRepo : DbRepository<DataContext, DomainOfInfluence
             .ToListAsync();
     }
 
-    public Task<List<DomainOfInfluence>> ListWithContestsInState(Guid basisDomainOfInfluenceId, params ContestState[] states)
-    {
-        return Query()
-            .Where(doi => doi.BasisDomainOfInfluenceId == basisDomainOfInfluenceId && states.Contains(doi.SnapshotContest!.State))
-            .ToListAsync();
-    }
-
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened inerpolated string parameters.")]
     public async Task<List<Guid>> GetHierarchicalGreaterOrSelfDomainOfInfluenceIds(Guid domainOfInfluenceId)
     {
@@ -128,7 +121,7 @@ public class DomainOfInfluenceRepo : DbRepository<DataContext, DomainOfInfluence
                     SELECT a.""AncestorId"", COUNT(DISTINCT ap.""NodeId"") AS ""Count""
                     FROM ancestors a
                     INNER JOIN ancestor_path ap ON a.""AncestorId"" = ANY(ap.""Path"")
-                    GROUP BY a.""AncestorId""     
+                    GROUP BY a.""AncestorId""
                     HAVING COUNT(DISTINCT ap.""NodeId"") = {{0}}
                 )
                 SELECT ca.""AncestorId"" AS {idColumnName}

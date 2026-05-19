@@ -67,7 +67,7 @@ public class SeantisProviderUploader : IExportProviderUploader
                 throw new InvalidOperationException($"No Seantis token configured for political business {pbId}");
             }
 
-            await UploadZip(contexts, token, export.EaiMessageType, ct);
+            await UploadZip(contexts, token, export.ExportConfiguration!.EaiMessageType, ct);
         }
     }
 

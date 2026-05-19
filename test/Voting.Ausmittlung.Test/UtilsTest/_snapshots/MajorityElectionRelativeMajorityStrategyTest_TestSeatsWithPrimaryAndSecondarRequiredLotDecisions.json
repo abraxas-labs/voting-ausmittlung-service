@@ -153,14 +153,14 @@
         "CandidateNumber": "K004",
         "VoteCount": 500,
         "Rank": 5,
-        "State": "NotElected",
+        "State": "NotElectedInPrimaryElectionNotEligible",
         "LotDecisionRequired": false
       },
       {
         "CandidateNumber": "K005",
         "VoteCount": 375,
         "Rank": 6,
-        "State": "NotElected",
+        "State": "NotElectedInPrimaryElectionNotEligible",
         "LotDecisionRequired": false
       }
     ]
@@ -236,14 +236,14 @@
         "CandidateNumber": "K004",
         "VoteCount": 500,
         "Rank": 5,
-        "State": "NotElected",
+        "State": "NotElectedInPrimaryElectionNotEligible",
         "LotDecisionRequired": false
       },
       {
         "CandidateNumber": "K005",
         "VoteCount": 375,
         "Rank": 6,
-        "State": "NotElected",
+        "State": "NotElectedInPrimaryElectionNotEligible",
         "LotDecisionRequired": false
       }
     ]

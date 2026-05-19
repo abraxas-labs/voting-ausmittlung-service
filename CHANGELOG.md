@@ -1,4 +1,4 @@
-# ✨ Changelog (`v2.93.0`)
+# ✨ Changelog (`v2.95.3`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,11 +8,54 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v2.93.0
-Previous version ---- v2.90.1
+This version -------- v2.95.3
+Previous version ---- v2.93.0
 Initial version ----- v1.29.14
-Total commits ------- 7
+Total commits ------- 8
 ```
+
+## [v2.95.3] - 2026-05-07
+
+### ❌ Removed
+
+- remove export configuration contest snapshots
+
+## [v2.95.2] - 2026-04-22
+
+### 🔄 Changed
+
+- trigger deployment
+- workflow and tags pipeline
+
+## [v2.95.1] - 2026-04-15
+
+### 🔄 Changed
+
+- include domain of influence in e-counting political businesses import
+
+## [v2.95.0] - 2026-04-13
+
+### 🆕 Added
+
+- feat(VOTING-6596): include voting card details in majority election protocols
+
+## [v2.94.0] - 2026-04-10
+
+### 🔄 Changed
+
+- feat(VOTING-7009): sharded tests
+
+## [v2.93.2] - 2026-04-09
+
+### 🔄 Changed
+
+- consider votes in e-couting import correctly
+
+## [v2.93.1] - 2026-04-08
+
+### 🔄 Changed
+
+- correctly respect already set secondary majority candidate end result state
 
 ## [v2.93.0] - 2026-03-30
 

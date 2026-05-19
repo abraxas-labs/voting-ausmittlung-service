@@ -3,17 +3,18 @@
 
 using System;
 using System.Collections.Generic;
+using Voting.Lib.Database.Models;
 
 namespace Voting.Ausmittlung.Data.Models;
 
 /// <summary>
 /// Contest specific export configuration.
 /// </summary>
-public class ResultExportConfiguration : ExportConfigurationBase
+public class ResultExportConfiguration : BaseEntity
 {
-    // no foreign key integrity to keep this entity
-    // even if the original export configuration is deleted
     public Guid ExportConfigurationId { get; set; }
+
+    public ExportConfiguration? ExportConfiguration { get; set; }
 
     public Contest? Contest { get; set; }
 

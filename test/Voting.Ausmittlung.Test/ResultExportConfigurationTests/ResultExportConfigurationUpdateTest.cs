@@ -107,6 +107,7 @@ public class ResultExportConfigurationUpdateTest : BaseTest<ExportService.Export
             Guid.Parse(ExportConfigurationMockedData.IdStGallenIntf001));
         var updated = await RunOnDb(db => db.ResultExportConfigurations
             .AsSplitQuery()
+            .Include(x => x.ExportConfiguration)
             .Include(x => x.PoliticalBusinesses)
             .Include(x => x.PoliticalBusinessMetadata)
             .FirstAsync(x => x.Id == id));
@@ -121,7 +122,7 @@ public class ResultExportConfigurationUpdateTest : BaseTest<ExportService.Export
             metadata.Id = Guid.Empty;
         }
 
-        updated.DomainOfInfluenceId = Guid.Empty;
+        updated.ExportConfiguration!.DomainOfInfluenceId = Guid.Empty;
         updated.MatchSnapshot();
     }
 

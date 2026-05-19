@@ -616,17 +616,4 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
             throw new ValidationException($"Only imports of type {importType} are supported.");
         }
     }
-
-    private void EnsureHasPrimaryPoliticalBusinessImported(Guid politicalBusinessId)
-    {
-        var pbIds = _importedVoteIds
-            .Concat(_importedProportionalElectionIds)
-            .Concat(_importedMajorityElectionIds)
-            .ToList();
-
-        if (!pbIds.Contains(politicalBusinessId))
-        {
-            throw new ValidationException($"Political business {politicalBusinessId} is not imported in import {Id}");
-        }
-    }
 }

@@ -155,12 +155,12 @@ public class ResultExportService
     {
         var export = await _resultExportConfigurationRepo.Query()
             .AsSplitQuery()
-            .Include(x => x.DomainOfInfluence)
+            .Include(x => x.ExportConfiguration!.DomainOfInfluence)
             .Include(x => x.Contest)
             .FirstOrDefaultAsync(x => x.ExportConfigurationId == exportConfigurationId && x.ContestId == contestId)
             ?? throw new EntityNotFoundException(nameof(ResultExportConfiguration));
 
-        _permissionService.EnsureIsDomainOfInfluenceManager(export.DomainOfInfluence);
+        _permissionService.EnsureIsDomainOfInfluenceManager(export.ExportConfiguration!.DomainOfInfluence);
 
         var politicalBusinesses = await ValidateExportConfigurationPoliticalBusinesses(contestId, politicalBusinessIds);
 
@@ -173,7 +173,7 @@ public class ResultExportService
             })
             .ToList();
 
-        ValidateExportConfigurationPoliticalBusinessMetadata(export.Provider, politicalBusinessIds, politicalBusinessMetadata);
+        ValidateExportConfigurationPoliticalBusinessMetadata(export.ExportConfiguration!.Provider, politicalBusinessIds, politicalBusinessMetadata);
         export.PoliticalBusinessMetadata = new List<Data.Models.ResultExportConfigurationPoliticalBusinessMetadata>();
         foreach (var (pbId, metadata) in politicalBusinessMetadata)
         {
@@ -272,6 +272,7 @@ public class ResultExportService
                 .ThenInclude(x => x.PoliticalBusiness!.SimpleResults)
                     .ThenInclude(x => x.CountingCircle)
             .Include(x => x.PoliticalBusinessMetadata)
+            .Include(x => x.ExportConfiguration)
             .FirstOrDefaultAsync(x => x.Id == id, ct)
             ?? throw new EntityNotFoundException(nameof(ResultExportConfiguration));
 
@@ -423,7 +424,7 @@ public class ResultExportService
         aggregate.AutomatedExportTriggered(export.ContestId, export.ExportConfigurationId, jobId, triggerMode);
 
         var exportKeys = new List<string>();
-        foreach (var key in export.ExportKeys)
+        foreach (var key in export.ExportConfiguration!.ExportKeys)
         {
             if (_publisherConfig.DisabledExportTemplateKeys.Contains(key))
             {
@@ -441,9 +442,9 @@ public class ResultExportService
             exportKeys.Add(key);
         }
 
-        if (!_uploaders.TryGetValue(export.Provider, out var uploader))
+        if (!_uploaders.TryGetValue(export.ExportConfiguration!.Provider, out var uploader))
         {
-            throw new InvalidOperationException($"No export uploader for provider {export.Provider} configured");
+            throw new InvalidOperationException($"No export uploader for provider {export.ExportConfiguration!.Provider} configured");
         }
 
         var reportContexts = _exportService.BuildRenderContexts(exportKeys, export);

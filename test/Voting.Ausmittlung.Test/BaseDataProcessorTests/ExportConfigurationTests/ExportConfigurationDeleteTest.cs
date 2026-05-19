@@ -43,10 +43,9 @@ public class ExportConfigurationDeleteTest : BaseDataProcessorTest
         var hasResultConfigs = await RunOnDb(db => db
             .ResultExportConfigurations
             .Where(x => x.ExportConfigurationId == id)
-            .OrderBy(x => x.Description)
             .AnyAsync());
 
-        // these should still exist on archived contests.
-        hasResultConfigs.Should().BeTrue();
+        // these should also be deleted on archived contests.
+        hasResultConfigs.Should().BeFalse();
     }
 }

@@ -40,8 +40,10 @@ public class ExportProfile : Profile
             .ForMember(dst => dst.ProtocolExports_, opts => opts.MapFrom(src => src.Templates));
 
         CreateMap<DataModels.ResultExportConfiguration, ProtoModels.ResultExportConfiguration>()
+            .IncludeMembers(src => src.ExportConfiguration)
             .ForMember(dst => dst.PoliticalBusinessIds, opts => opts.MapFrom(src => src.PoliticalBusinesses!.Select(x => x.PoliticalBusinessId)))
             .ForMember(dst => dst.PoliticalBusinessMetadata, opts => opts.MapFrom(src => src.PoliticalBusinessMetadata!.ToDictionary(x => x.PoliticalBusinessId)));
+        CreateMap<DataModels.ExportConfiguration, ProtoModels.ResultExportConfiguration>();
         CreateMap<DataModels.ResultExportConfigurationPoliticalBusinessMetadata, ProtoModels.PoliticalBusinessExportMetadata>();
         CreateMap<IEnumerable<DataModels.ResultExportConfiguration>, ProtoModels.ResultExportConfigurations>()
             .ForMember(dst => dst.Configurations, opts => opts.MapFrom(x => x));

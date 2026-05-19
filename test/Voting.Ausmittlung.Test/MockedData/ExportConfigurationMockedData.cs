@@ -108,12 +108,7 @@ public static class ExportConfigurationMockedData
                 {
                     Id = AusmittlungUuidV5.BuildResultExportConfiguration(doi.SnapshotContestId!.Value, config.Id),
                     ContestId = doi.SnapshotContestId!.Value,
-                    Description = config.Description,
-                    ExportKeys = config.ExportKeys,
-                    EaiMessageType = config.EaiMessageType,
                     ExportConfigurationId = config.Id,
-                    Provider = config.Provider,
-                    DomainOfInfluenceId = doi.Id,
                     IntervalMinutes = 60,
                     PoliticalBusinesses = doi.SimplePoliticalBusinesses
                         .Select(x => new ResultExportConfigurationPoliticalBusiness

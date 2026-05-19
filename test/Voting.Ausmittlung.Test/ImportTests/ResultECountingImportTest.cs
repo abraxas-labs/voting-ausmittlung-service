@@ -20,6 +20,7 @@ using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.EventProcessors;
 using Voting.Ausmittlung.Core.Services.Write.Import;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Ech.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Ausmittlung.Test.Utils;
@@ -37,6 +38,7 @@ public class ResultECountingImportTest : BaseRestTest
     private const string TestFileOk = "ImportTests/ExampleFiles/ech0222_e_counting_import_ok.xml";
     private const string TestFileInvalid = "ImportTests/ExampleFiles/ech0222_e_counting_import_invalid.xml";
     private const string TestFileOtherContestId = "ImportTests/ExampleFiles/ech0222_e_counting_import_other_contest_id.xml";
+    private const string TestFileMixedVotes = "ImportTests/ExampleFiles/ech0222_e_counting_import_mixed_votes.xml";
 
     public ResultECountingImportTest(TestApplicationFactory factory)
         : base(factory)
@@ -152,6 +154,84 @@ public class ResultECountingImportTest : BaseRestTest
     }
 
     [Fact]
+    public async Task TestWithMixedVotesShouldWork()
+    {
+        var voteId1 = Guid.Parse(VoteMockedData.IdUzwilVoteInContestStGallen);
+        var voteId2 = Guid.Parse(VoteMockedData.IdStGallenVoteInContestStGallen);
+
+        var resultIds = new[]
+        {
+            AusmittlungUuidV5.BuildPoliticalBusinessResult(voteId1, CountingCircleMockedData.GuidUzwil, false),
+            AusmittlungUuidV5.BuildPoliticalBusinessResult(voteId2, CountingCircleMockedData.GuidUzwil, false),
+        };
+
+        var simpleCcrs = await RunOnDb(db => db.SimpleCountingCircleResults.Where(r => resultIds.Contains(r.Id)).ToListAsync());
+        simpleCcrs.Count.Should().Be(2);
+        simpleCcrs.All(r => !r.ECountingImported).Should().BeTrue();
+
+        using var resp = await ErfassungElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileMixedVotes));
+        resp.EnsureSuccessStatusCode();
+
+        var importStarted = EventPublisherMock.GetSinglePublishedEvent<ResultImportStarted>();
+        await TestEventPublisher.Publish(GetNextEventNumber(), importStarted);
+
+        await RunEvents<VoteResultImported>(false);
+
+        var importCompleted = EventPublisherMock.GetSinglePublishedEvent<ResultImportCompleted>();
+        await TestEventPublisher.Publish(GetNextEventNumber(), importCompleted);
+        await RunEvents<ResultImportCountingCircleCompleted>(false);
+
+        var import = await RunOnDb(db => db.ResultImports
+            .AsSplitQuery()
+            .Include(x => x.ImportedCountingCircles.OrderBy(cc => cc.CountingCircleId))
+            .Include(x => x.ImportedPoliticalBusinesses)
+            .Include(x => x.IgnoredPoliticalBusinesses)
+            .FirstAsync(x => x.Id == Guid.Parse(importStarted.ImportId)));
+        import.Id = Guid.Empty;
+        import.Completed.Should().BeTrue();
+        import.ImportedPoliticalBusinesses.Should().HaveCount(2);
+        import.IgnoredPoliticalBusinesses.Should().HaveCount(0);
+
+        simpleCcrs = await RunOnDb(db => db.SimpleCountingCircleResults.Where(r => resultIds.Contains(r.Id)).ToListAsync());
+        simpleCcrs.All(r => r.ECountingImported).Should().BeTrue();
+
+        // Test whether the imported votes get ignored correctly.
+        EventPublisherMock.Clear();
+        using var resp2 = await ErfassungElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileMixedVotes));
+        resp2.EnsureSuccessStatusCode();
+
+        importStarted = EventPublisherMock.GetSinglePublishedEvent<ResultImportStarted>();
+        await TestEventPublisher.Publish(GetNextEventNumber(), importStarted);
+
+        await RunEvents<VoteResultImported>(false);
+
+        importCompleted = EventPublisherMock.GetSinglePublishedEvent<ResultImportCompleted>();
+        await TestEventPublisher.Publish(GetNextEventNumber(), importCompleted);
+        await RunEvents<ResultImportCountingCircleCompleted>(false);
+
+        import = await RunOnDb(db => db.ResultImports
+            .AsSplitQuery()
+            .Include(x => x.ImportedCountingCircles.OrderBy(cc => cc.CountingCircleId))
+            .Include(x => x.ImportedPoliticalBusinesses)
+            .Include(x => x.IgnoredPoliticalBusinesses)
+            .FirstAsync(x => x.Id == Guid.Parse(importStarted.ImportId)));
+        import.Id = Guid.Empty;
+        import.Completed.Should().BeTrue();
+        import.ImportedPoliticalBusinesses.Should().HaveCount(0);
+        import.IgnoredPoliticalBusinesses.Should().HaveCount(2);
+
+        // Assert vote results
+        var question1ECountingSubTotal = (await GetVoteWithResults(voteId1)).Results.Single().Results.Single().QuestionResults.Single().ECountingSubTotal;
+        var question2ECountingSubTotal = (await GetVoteWithResults(voteId2)).Results.Single().Results.Single().QuestionResults.Single().ECountingSubTotal;
+        question1ECountingSubTotal.TotalCountOfAnswerYes.Should().Be(1);
+        question1ECountingSubTotal.TotalCountOfAnswerNo.Should().Be(1);
+        question1ECountingSubTotal.TotalCountOfAnswerUnspecified.Should().Be(0);
+        question2ECountingSubTotal.TotalCountOfAnswerYes.Should().Be(1);
+        question2ECountingSubTotal.TotalCountOfAnswerNo.Should().Be(0);
+        question2ECountingSubTotal.TotalCountOfAnswerUnspecified.Should().Be(0);
+    }
+
+    [Fact]
     public async Task InvalidImportFileShouldThrow()
     {
         await AssertProblemDetails(
@@ -264,7 +344,7 @@ public class ResultECountingImportTest : BaseRestTest
         await RunEvents<MajorityElectionResultImported>(false);
         await RunEvents<SecondaryMajorityElectionResultImported>(false);
 
-        var vote = await GetVoteWithResults();
+        var vote = await GetVoteWithResults(Guid.Parse(VoteMockedData.IdUzwilVoteInContestStGallen));
         vote.Results.MatchSnapshot("voteResults");
 
         var proportionalElection = await GetProportionalElectionWithResults();
@@ -368,7 +448,7 @@ public class ResultECountingImportTest : BaseRestTest
             majorityElectionResult.TotalCandidateVoteCountInclIndividual.Should().Be(7);
             majorityElectionResult.CandidateResults.First().ECountingExclWriteInsVoteCount.Should().Be(7);
 
-            var vote = await GetVoteWithResults();
+            var vote = await GetVoteWithResults(Guid.Parse(VoteMockedData.IdUzwilVoteInContestStGallen));
             var voteBallotResult = vote.Results.Single().Results.Single();
             var questionResult = voteBallotResult.QuestionResults.Single();
             questionResult.ECountingSubTotal.TotalCountOfAnswerYes.Should().Be(1);
@@ -487,7 +567,7 @@ public class ResultECountingImportTest : BaseRestTest
         return election;
     }
 
-    private async Task<Vote> GetVoteWithResults()
+    private async Task<Vote> GetVoteWithResults(Guid voteId)
     {
         var vote = await RunOnDb(
             db => db.Votes
@@ -496,8 +576,7 @@ public class ResultECountingImportTest : BaseRestTest
                 .ThenInclude(x => x.Results)
                 .ThenInclude(x => x.QuestionResults)
                 .Include(x => x.Results).ThenInclude(x => x.Results).ThenInclude(x => x.TieBreakQuestionResults)
-                .FirstAsync(x =>
-                    x.Id == Guid.Parse(VoteMockedData.IdUzwilVoteInContestStGallen)),
+                .FirstAsync(x => x.Id == voteId),
             Languages.German);
         SortAndCleanIds(vote);
         return vote;
