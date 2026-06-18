@@ -1,4 +1,4 @@
-# ✨ Changelog (`v2.95.3`)
+# ✨ Changelog (`v2.95.4`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,11 +8,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v2.95.3
-Previous version ---- v2.93.0
+This version -------- v2.95.4
+Previous version ---- v2.95.3
 Initial version ----- v1.29.14
-Total commits ------- 8
+Total commits ------- 2
 ```
+
+## [v2.95.4] - 2026-06-05
+
+### 🔄 Changed
+
+- fixed a potential deadlock issue during XML serialization where synchronous pipe writing could block the async XML validation reader
+- migrate sonarqube analysis props from csproj to separate xml file
+- exclude nuget cache folder from analysis
 
 ## [v2.95.3] - 2026-05-07
 

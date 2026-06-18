@@ -112,10 +112,17 @@ public class TemplateService
         where T : notnull
     {
         var fileName = FileNameBuilder.GenerateFileName(context.Template, filenameArgs);
-        return new FileModel(context, fileName, ExportFileFormat.Xml, messageId, async (w, _) =>
+        return new FileModel(context, fileName, ExportFileFormat.Xml, messageId, async (w, ct) =>
         {
             await using var xmlValidationStream = new XmlValidationOnWriteStream(w.AsStream(), schemaSet);
-            _echSerializer.WriteXml(xmlValidationStream, data, BuildXmlAttributeOverrides(), true);
+
+            // WriteXml is synchronous and writes into a Pipe. The concurrent ValidateXml task
+            // reads from the other end of that Pipe. If WriteXml ran on the current thread it
+            // could deadlock once the Pipe's internal buffer fills up, because the reader
+            // (an async Task) would never get a chance to drain it. Task.Run offloads the
+            // blocking serialization to a thread-pool thread so both sides of the Pipe can
+            // make progress concurrently.
+            await Task.Run(() => _echSerializer.WriteXml(xmlValidationStream, data, BuildXmlAttributeOverrides(), true), ct);
             await xmlValidationStream.WaitForValidation();
             await w.CompleteAsync();
         });

@@ -19,6 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{C128A9
 		global.json = global.json
 		config\project.ruleset = config\project.ruleset
 		readme.md = readme.md
+		config\SonarQube.Analysis.xml = config\SonarQube.Analysis.xml
 		config\stylecop.json = config\stylecop.json
 	EndProjectSection
 EndProject

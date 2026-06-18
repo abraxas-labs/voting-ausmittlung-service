@@ -448,6 +448,9 @@ public class ResultExportService
         }
 
         var reportContexts = _exportService.BuildRenderContexts(exportKeys, export);
+
+        _logger.LogDebug("uploading result export {ExportId} to {ExportProvider}", export.ExportConfigurationId, export.ExportConfiguration.Provider);
+
         await uploader.RenderAndUpload(
             export,
             reportContexts,
