@@ -4,6 +4,7 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="$(EfCoreVersion)" Condition="'$(Configuration)' != 'Release'" PrivateAssets="All" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
       <PackageReference Include="Voting.Lib.Database" Version="$(VotingLibVersion)" />
+      <PackageReference Include="Voting.Lib.Iam.SecondFactor" Version="$(VotingLibVersion)" />
     </ItemGroup>
 
   <ItemGroup>

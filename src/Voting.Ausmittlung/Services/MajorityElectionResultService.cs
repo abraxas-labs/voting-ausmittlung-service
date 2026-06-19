@@ -128,7 +128,7 @@ public class MajorityElectionResultService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
     public override async Task<Empty> SubmissionFinished(MajorityElectionResultSubmissionFinishedRequest request, ServerCallContext context)
     {
-        await _majorityElectionResultWriter.SubmissionFinished(GuidParser.Parse(request.ElectionResultId), GuidParser.ParseNullable(request.SecondFactorTransactionId), context.CancellationToken);
+        await _majorityElectionResultWriter.SubmissionFinished(GuidParser.Parse(request.ElectionResultId), GuidParser.ParseNullable(request.SecondFactorAuthorization?.SecondFactorTransactionId), request.SecondFactorAuthorization?.OtpCode, context.CancellationToken);
         return ProtobufEmpty.Instance;
     }
 
@@ -149,7 +149,7 @@ public class MajorityElectionResultService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
     public override async Task<Empty> CorrectionFinished(MajorityElectionResultCorrectionFinishedRequest request, ServerCallContext context)
     {
-        await _majorityElectionResultWriter.CorrectionFinished(GuidParser.Parse(request.ElectionResultId), request.Comment, GuidParser.ParseNullable(request.SecondFactorTransactionId), context.CancellationToken);
+        await _majorityElectionResultWriter.CorrectionFinished(GuidParser.Parse(request.ElectionResultId), request.Comment, GuidParser.ParseNullable(request.SecondFactorAuthorization?.SecondFactorTransactionId), request.SecondFactorAuthorization?.OtpCode, context.CancellationToken);
         return ProtobufEmpty.Instance;
     }
 
@@ -233,7 +233,7 @@ public class MajorityElectionResultService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessEndResult.Finalize)]
     public override async Task<Empty> FinalizeEndResult(FinalizeMajorityElectionEndResultRequest request, ServerCallContext context)
     {
-        await _majorityElectionEndResultWriter.Finalize(GuidParser.Parse(request.MajorityElectionId), GuidParser.Parse(request.SecondFactorTransactionId), context.CancellationToken);
+        await _majorityElectionEndResultWriter.Finalize(GuidParser.Parse(request.MajorityElectionId), GuidParser.Parse(request.SecondFactorAuthorization?.SecondFactorTransactionId ?? string.Empty), request.SecondFactorAuthorization?.OtpCode, context.CancellationToken);
         return ProtobufEmpty.Instance;
     }
 
@@ -285,8 +285,8 @@ public class MajorityElectionResultService : ServiceBase
     public override async Task<Empty> SubmissionFinishedAndAuditedTentatively(MajorityElectionResultSubmissionFinishedAndAuditedTentativelyRequest request, ServerCallContext context)
     {
         var electionResultId = GuidParser.Parse(request.ElectionResultId);
-        var secondFactorTransactionId = GuidParser.Parse(request.SecondFactorTransactionId);
-        await _majorityElectionResultWriter.SubmissionFinishedAndAuditedTentatively(electionResultId, secondFactorTransactionId, context.CancellationToken);
+        var secondFactorTransactionId = GuidParser.Parse(request.SecondFactorAuthorization?.SecondFactorTransactionId ?? string.Empty);
+        await _majorityElectionResultWriter.SubmissionFinishedAndAuditedTentatively(electionResultId, secondFactorTransactionId, request.SecondFactorAuthorization?.OtpCode, context.CancellationToken);
         return ProtobufEmpty.Instance;
     }
 
@@ -302,8 +302,8 @@ public class MajorityElectionResultService : ServiceBase
     public override async Task<Empty> CorrectionFinishedAndAuditedTentatively(MajorityElectionResultCorrectionFinishedAndAuditedTentativelyRequest request, ServerCallContext context)
     {
         var electionResultId = GuidParser.Parse(request.ElectionResultId);
-        var secondFactorTransactionId = GuidParser.Parse(request.SecondFactorTransactionId);
-        await _majorityElectionResultWriter.CorrectionFinishedAndAuditedTentatively(electionResultId, secondFactorTransactionId, context.CancellationToken);
+        var secondFactorTransactionId = GuidParser.Parse(request.SecondFactorAuthorization?.SecondFactorTransactionId ?? string.Empty);
+        await _majorityElectionResultWriter.CorrectionFinishedAndAuditedTentatively(electionResultId, secondFactorTransactionId, request.SecondFactorAuthorization?.OtpCode, context.CancellationToken);
         return ProtobufEmpty.Instance;
     }
 

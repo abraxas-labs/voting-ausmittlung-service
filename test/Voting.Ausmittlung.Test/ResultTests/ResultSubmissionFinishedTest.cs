@@ -15,6 +15,7 @@ using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Iam.SecondFactor.Testing.Mocks;
 using Voting.Lib.Testing.Utils;
 using Xunit;
 
@@ -25,12 +26,6 @@ public class ResultSubmissionFinishedTest : MultiResultBaseTest
     public ResultSubmissionFinishedTest(TestApplicationFactory factory)
         : base(factory)
     {
-    }
-
-    public override async Task InitializeAsync()
-    {
-        await base.InitializeAsync();
-        await SecondFactorTransactionMockedData.Seed(RunScoped);
     }
 
     [Fact]
@@ -78,7 +73,7 @@ public class ResultSubmissionFinishedTest : MultiResultBaseTest
         MajorityElectionResultId = MajorityElectionResultMockedData.GuidGossauElectionResultInContestStGallen;
 
         await SetResultState(CountingCircleResultState.SubmissionOngoing);
-        await StGallenErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty));
+        await StGallenErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest(x => x.SecondFactorAuthorization = null));
 
         var voteResultEvents = EventPublisherMock.GetPublishedEvents<VoteResultSubmissionFinished>().ToList();
         var proportionalElectionResultEvents = EventPublisherMock.GetPublishedEvents<ProportionalElectionResultSubmissionFinished>().ToList();
@@ -219,7 +214,7 @@ public class ResultSubmissionFinishedTest : MultiResultBaseTest
                 ProportionalElectionResultId.ToString(),
                 MajorityElectionResultId.ToString(),
             },
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
+            SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.VerifiedTransactionIdString },
         };
 
         action?.Invoke(request);

@@ -17,6 +17,7 @@ using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Iam.SecondFactor.Testing.Mocks;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Xunit;
 
@@ -45,7 +46,7 @@ public class MajorityElectionEndResultRevertFinalizationTest : MajorityElectionE
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeMajorityElectionEndResultRequest
         {
             MajorityElectionId = MajorityElectionEndResultMockedData.ElectionId,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
+            SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.VerifiedTransactionIdString },
         });
 
         await MonitoringElectionAdminClient.RevertEndResultFinalizationAsync(NewValidRequest());
@@ -62,7 +63,7 @@ public class MajorityElectionEndResultRevertFinalizationTest : MajorityElectionE
             await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeMajorityElectionEndResultRequest
             {
                 MajorityElectionId = MajorityElectionEndResultMockedData.ElectionId,
-                SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
+                SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.VerifiedTransactionIdString },
             });
 
             await MonitoringElectionAdminClient.RevertEndResultFinalizationAsync(NewValidRequest());
@@ -141,7 +142,7 @@ public class MajorityElectionEndResultRevertFinalizationTest : MajorityElectionE
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeMajorityElectionEndResultRequest
         {
             MajorityElectionId = MajorityElectionEndResultMockedData.ElectionId,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
+            SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.VerifiedTransactionIdString },
         });
 
         await new MajorityElectionResultService.MajorityElectionResultServiceClient(channel)

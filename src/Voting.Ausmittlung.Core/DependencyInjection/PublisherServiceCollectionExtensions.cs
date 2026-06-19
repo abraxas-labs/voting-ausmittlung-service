@@ -1,6 +1,7 @@
 // (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using FluentValidation;
 using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Configuration;
@@ -22,6 +23,8 @@ using Voting.Lib.Eventing;
 using Voting.Lib.Eventing.DependencyInjection;
 using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Iam.Authorization;
+using Voting.Lib.Iam.SecondFactor.Configuration;
+using Voting.Lib.Iam.SecondFactor.DependencyInjection;
 using Voting.Lib.Scheduler;
 using VotingValidators = Voting.Ausmittlung.Core.Services.Validation.Validators;
 
@@ -67,7 +70,11 @@ internal static class PublisherServiceCollectionExtensions
             .AddValidatorsFromAssemblyContaining<VotingCardResultDetailValidator>()
             .AddScoped<EventInfoProvider>()
             .AddDokConnector(config)
-            .AddSingleton<IActionIdComparer, ActionIdComparer>()
+            .AddSecondFactorTransactionProvider<SecondFactorTransactionStorageService>(new SecondFactorTransactionConfig
+            {
+                TransactionExpiration = TimeSpan.FromMinutes(config.SecondFactorTransactionExpiredAtMinutes),
+                CleanupJobInterval = config.CleanSecondFactorTransactionsJob.Interval,
+            })
             .AddScheduledJobs(config)
             .AddScoped<IAggregateRepositoryHandler, EventSignatureAggregateRepositoryHandler>()
             .AddScoped<ResultWriter>()
@@ -92,7 +99,6 @@ internal static class PublisherServiceCollectionExtensions
             .AddScoped<ProportionalElectionResultImportWriter>()
             .AddScoped<VoteResultImportWriter>()
             .AddScoped<ResultExportConfigurationWriter>()
-            .AddScoped<SecondFactorTransactionWriter>()
             .AddScoped<EventSignatureWriter>()
             .AddScoped<DoubleProportionalResultWriter>();
     }
@@ -136,7 +142,6 @@ internal static class PublisherServiceCollectionExtensions
     {
         return services
             .AddScheduledJob<ResultExportsJob>(config.AutomaticExports)
-            .AddScheduledJob<CleanSecondFactorTransactionsJob>(config.CleanSecondFactorTransactionsJob)
             .AddScheduledJob<CleanExportLogEntriesJob>(config.CleanExportLogEntriesJob);
     }
 

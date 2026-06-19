@@ -13,8 +13,8 @@ using Grpc.Net.Client;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
-using Voting.Ausmittlung.TemporaryData;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Iam.SecondFactor.Testing.Mocks;
 using Voting.Lib.Testing.Utils;
 using Xunit;
 
@@ -43,7 +43,7 @@ public class MajorityElectionResultSubmissionFinishedTest : MajorityElectionResu
     public async Task TestShouldReturnAsErfassungElectionAdminWithEmptySecondFactorId()
     {
         await RunToState(CountingCircleResultState.SubmissionOngoing);
-        await StGallenErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty));
+        await StGallenErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest(x => x.SecondFactorAuthorization = null));
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultSubmissionFinished>().MatchSnapshot();
     }
 
@@ -109,7 +109,7 @@ public class MajorityElectionResultSubmissionFinishedTest : MajorityElectionResu
     {
         await RunToState(CountingCircleResultState.SubmissionOngoing);
         await AssertStatus(
-            async () => await BundErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty)),
+            async () => await BundErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest(x => x.SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = string.Empty })),
             StatusCode.InvalidArgument);
     }
 
@@ -152,7 +152,7 @@ public class MajorityElectionResultSubmissionFinishedTest : MajorityElectionResu
                 new MajorityElectionResultSubmissionFinishedRequest
                 {
                     ElectionResultId = IdNotFound,
-                    SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
+                    SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.VerifiedTransactionIdString },
                 }),
             StatusCode.NotFound);
     }
@@ -166,7 +166,7 @@ public class MajorityElectionResultSubmissionFinishedTest : MajorityElectionResu
                 new MajorityElectionResultSubmissionFinishedRequest
                 {
                     ElectionResultId = IdBadFormat,
-                    SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
+                    SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.VerifiedTransactionIdString },
                 }),
             StatusCode.InvalidArgument);
     }
@@ -180,7 +180,7 @@ public class MajorityElectionResultSubmissionFinishedTest : MajorityElectionResu
                 new MajorityElectionResultSubmissionFinishedRequest
                 {
                     ElectionResultId = MajorityElectionResultMockedData.IdKircheElectionResultInContestKirche,
-                    SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
+                    SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.VerifiedTransactionIdString },
                 }),
             StatusCode.PermissionDenied);
     }
@@ -221,18 +221,10 @@ public class MajorityElectionResultSubmissionFinishedTest : MajorityElectionResu
     {
         await RunToState(CountingCircleResultState.SubmissionOngoing);
 
-        await RunScoped<TemporaryDataContext>(async db =>
-        {
-            var item = await db.SecondFactorTransactions
-                .AsTracking()
-                .FirstAsync(x => x.ExternalTokenJwtIds!.Contains(SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction));
-
-            item.ActionId = "updated-action-id";
-            await db.SaveChangesAsync();
-        });
+        var req = NewValidRequest(x => x.SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.ChangedDataTransactionIdString });
 
         await AssertStatus(
-            async () => await BundErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest()),
+            async () => await BundErfassungElectionAdminClient.SubmissionFinishedAsync(req),
             StatusCode.FailedPrecondition,
             "Data changed during the second factor transaction");
     }
@@ -242,23 +234,10 @@ public class MajorityElectionResultSubmissionFinishedTest : MajorityElectionResu
     {
         await RunToState(CountingCircleResultState.SubmissionOngoing);
 
-        const string invalidExternalId = "a11c61aa-af52-431b-9c0e-f86d24d8a72b";
-        await RunScoped<TemporaryDataContext>(async db =>
-        {
-            var item = await db.SecondFactorTransactions
-                .AsTracking()
-                .FirstAsync(x => x.ExternalTokenJwtIds!.Contains(SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction));
-
-            item.ExternalTokenJwtIds = [invalidExternalId];
-            await db.SaveChangesAsync();
-        });
+        var req = NewValidRequest(x => x.SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.UnverifiedTransactionIdString });
 
         await AssertStatus(
-            async () => await BundErfassungElectionAdminClient.SubmissionFinishedAsync(new MajorityElectionResultSubmissionFinishedRequest
-            {
-                ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
-                SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
-            }),
+            async () => await BundErfassungElectionAdminClient.SubmissionFinishedAsync(req),
             StatusCode.FailedPrecondition,
             "Second factor transaction is not verified");
     }
@@ -280,7 +259,7 @@ public class MajorityElectionResultSubmissionFinishedTest : MajorityElectionResu
         var req = new MajorityElectionResultSubmissionFinishedRequest
         {
             ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
+            SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.VerifiedTransactionIdString },
         };
         customizer?.Invoke(req);
         return req;

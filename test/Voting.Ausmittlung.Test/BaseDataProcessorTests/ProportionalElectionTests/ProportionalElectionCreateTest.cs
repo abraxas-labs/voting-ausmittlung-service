@@ -49,7 +49,7 @@ public class ProportionalElectionCreateTest : BaseDataProcessorTest
                     ContestId = ContestMockedData.IdGossau,
                     NumberOfMandates = 6,
                     MandateAlgorithm = SharedProto.ProportionalElectionMandateAlgorithm.HagenbachBischoff,
-                    FederalIdentification = 111,
+                    FederalIdentificationString = "111",
                 },
             },
             new ProportionalElectionCreated
@@ -300,5 +300,37 @@ public class ProportionalElectionCreateTest : BaseDataProcessorTest
             doiDetailsAfter.Details!.CountOfVotersInformationSubTotals,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct && x.VoterType == VoterType.Swiss && x.Sex == SexType.Male,
             0);
+    }
+
+    [Fact]
+    public async Task TestWithDeprecatedFederalIdentification()
+    {
+        var id = Guid.Parse("91d9234e-cd14-4e18-95ce-5c06a9cec6f0");
+        await TestEventPublisher.Publish(
+            new ProportionalElectionCreated
+            {
+                ProportionalElection = new ProportionalElectionEventData
+                {
+                    Id = id.ToString(),
+                    PoliticalBusinessNumber = "6000",
+                    OfficialDescription = { LanguageUtil.MockAllLanguages("Neue Proporzwahl 1") },
+                    ShortDescription = { LanguageUtil.MockAllLanguages("Neue Proporzwahl 1") },
+                    DomainOfInfluenceId = DomainOfInfluenceMockedData.IdGossau,
+                    ContestId = ContestMockedData.IdGossau,
+                    NumberOfMandates = 6,
+                    MandateAlgorithm = SharedProto.ProportionalElectionMandateAlgorithm.HagenbachBischoff,
+#pragma warning disable CS0612
+                    FederalIdentification = 111,
+#pragma warning restore CS0612
+                },
+            });
+
+        var election = await RunOnDb(
+            db => db.ProportionalElections
+                .Include(e => e.Translations)
+                .FirstAsync(x => x.Id == id),
+            Languages.German);
+
+        election.FederalIdentification.Should().Be("111");
     }
 }

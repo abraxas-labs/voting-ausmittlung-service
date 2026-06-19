@@ -17,6 +17,7 @@ using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Iam.SecondFactor.Testing.Mocks;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Xunit;
 
@@ -44,7 +45,7 @@ public class VoteEndResultRevertFinalizationTest : VoteResultBaseTest
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeVoteEndResultRequest
         {
             VoteId = VoteMockedData.IdGossauVoteInContestStGallen,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
+            SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.VerifiedTransactionIdString },
         });
         await MonitoringElectionAdminClient.RevertEndResultFinalizationAsync(NewValidRequest());
         var ev = EventPublisherMock.GetSinglePublishedEvent<VoteEndResultFinalizationReverted>();
@@ -60,7 +61,7 @@ public class VoteEndResultRevertFinalizationTest : VoteResultBaseTest
             await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeVoteEndResultRequest
             {
                 VoteId = VoteMockedData.IdGossauVoteInContestStGallen,
-                SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
+                SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.VerifiedTransactionIdString },
             });
             await MonitoringElectionAdminClient.RevertEndResultFinalizationAsync(NewValidRequest());
             return EventPublisherMock.GetSinglePublishedEventWithMetadata<VoteEndResultFinalizationReverted>();
@@ -137,7 +138,7 @@ public class VoteEndResultRevertFinalizationTest : VoteResultBaseTest
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeVoteEndResultRequest
         {
             VoteId = VoteMockedData.IdGossauVoteInContestStGallen,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
+            SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.VerifiedTransactionIdString },
         });
 
         await new VoteResultService.VoteResultServiceClient(channel)

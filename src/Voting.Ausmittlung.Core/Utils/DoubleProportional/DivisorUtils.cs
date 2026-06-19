@@ -4,7 +4,9 @@
 using System;
 using System.Linq;
 using Rationals;
+using Voting.Ausmittlung.Core.Extensions;
 using Voting.Ausmittlung.Core.Utils.DoubleProportional.Models;
+using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Core.Utils.DoubleProportional;
 
@@ -34,7 +36,7 @@ internal static class DivisorUtils
         return (Rational)n;
     }
 
-    public static Rational CalculateSelectDivisor(DivisorApportionment[] apportionments)
+    public static SelectDivisorCalculation CalculateSelectDivisor(DivisorApportionment[] apportionments)
     {
         var divisorsWithOneHalfNumberOfMandateLess = GetDivisors(apportionments, new Rational(-1, 2));
         var divisorsWithOneHalfNumberOfMandateMore = GetDivisors(apportionments, new Rational(1, 2));
@@ -45,8 +47,14 @@ internal static class DivisorUtils
         return CalculateSelectDivisor(divisorLowerBoundary, divisorUpperBoundary);
     }
 
-    public static Rational CalculateSelectDivisor(Rational divisorLowerBoundary, Rational divisorUpperBoundary)
+    public static SelectDivisorCalculation CalculateSelectDivisor(Rational divisorLowerBoundary, Rational divisorUpperBoundary)
     {
+        var selectDivisorCalculation = new SelectDivisorCalculation
+        {
+            UpperBoundary = divisorUpperBoundary.ToRationalNumber(),
+            LowerBoundary = divisorLowerBoundary.ToRationalNumber(),
+        };
+
         var midDivisor = (divisorLowerBoundary + divisorUpperBoundary) / 2;
 
         for (var countOfDigitsFromLeft = 0; countOfDigitsFromLeft < MaxSelectDivisorDigits; countOfDigitsFromLeft++)
@@ -54,11 +62,13 @@ internal static class DivisorUtils
             var divisor = Round(countOfDigitsFromLeft, midDivisor);
             if (divisor > divisorLowerBoundary && divisor < divisorUpperBoundary)
             {
-                return divisor;
+                selectDivisorCalculation.SelectDivisor = divisor.ToRationalNumber();
+                return selectDivisorCalculation;
             }
         }
 
-        return midDivisor;
+        selectDivisorCalculation.SelectDivisor = midDivisor.ToRationalNumber();
+        return selectDivisorCalculation;
     }
 
     private static int GetCountOfDigits(Rational n)

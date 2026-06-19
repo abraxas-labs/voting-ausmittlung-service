@@ -25,7 +25,8 @@ public class ProportionalElectionUnionEndResultPrepareFinalizeTest : Proportiona
     {
         var response = await MonitoringElectionAdminClient.PrepareFinalizeEndResultAsync(NewValidRequest());
         response.Id.Should().NotBeEmpty();
-        response.Code.Should().NotBeEmpty();
+        response.Nevis.QrCode.Should().NotBeEmpty();
+        response.Nevis.CorrelationCode.Should().NotBeEmpty();
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

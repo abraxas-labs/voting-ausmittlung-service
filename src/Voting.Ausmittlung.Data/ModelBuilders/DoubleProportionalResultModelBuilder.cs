@@ -1,6 +1,7 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Voting.Ausmittlung.Data.Models;
@@ -25,6 +26,8 @@ public class DoubleProportionalResultModelBuilder : IEntityTypeConfiguration<Dou
             .WithOne(x => x.DoubleProportionalResult)
             .HasForeignKey<DoubleProportionalResult>(x => x.ProportionalElectionId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.ComplexProperty(x => x.ElectionKeyCalculation, ConfigureSelectDivisorCalcutionProperty());
     }
 
     public void Configure(EntityTypeBuilder<DoubleProportionalResultRow> builder)
@@ -40,6 +43,8 @@ public class DoubleProportionalResultModelBuilder : IEntityTypeConfiguration<Dou
             .WithMany(x => x.Rows)
             .HasForeignKey(x => x.ResultId)
             .IsRequired();
+
+        builder.ComplexProperty(x => x.DivisorCalculation, ConfigureSelectDivisorCalcutionProperty());
     }
 
     public void Configure(EntityTypeBuilder<DoubleProportionalResultColumn> builder)
@@ -61,6 +66,8 @@ public class DoubleProportionalResultModelBuilder : IEntityTypeConfiguration<Dou
             .WithMany(x => x.Columns)
             .HasForeignKey(x => x.ResultId)
             .IsRequired();
+
+        builder.ComplexProperty(x => x.DivisorCalculation, ConfigureSelectDivisorCalcutionProperty());
     }
 
     public void Configure(EntityTypeBuilder<DoubleProportionalResultCell> builder)
@@ -82,5 +89,15 @@ public class DoubleProportionalResultModelBuilder : IEntityTypeConfiguration<Dou
             .WithMany(x => x.Cells)
             .HasForeignKey(x => x.ColumnId)
             .IsRequired();
+    }
+
+    private Action<ComplexPropertyBuilder<SelectDivisorCalculation>> ConfigureSelectDivisorCalcutionProperty()
+    {
+        return builder =>
+        {
+            builder.ComplexProperty(x => x.SelectDivisor);
+            builder.ComplexProperty(x => x.UpperBoundary);
+            builder.ComplexProperty(x => x.LowerBoundary);
+        };
     }
 }

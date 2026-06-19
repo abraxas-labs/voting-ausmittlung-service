@@ -48,7 +48,7 @@
         <ConventionalTotalUnaccountedBallots>1680</ConventionalTotalUnaccountedBallots>
         <CountOfAccountedBallots>6606</CountOfAccountedBallots>
         <CountOfInvalidBallots>6006</CountOfInvalidBallots>
-        <CountOfBlankBallots>1440</CountOfBlankBallots>
+        <CountOfBlankBallots>2406</CountOfBlankBallots>
       </CountOfVoters>
       <IndividualVoteCount>4326</IndividualVoteCount>
       <EmptyVoteCount>366</EmptyVoteCount>

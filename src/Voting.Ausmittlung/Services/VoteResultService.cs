@@ -105,7 +105,7 @@ public class VoteResultService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
     public override async Task<Empty> SubmissionFinished(VoteResultSubmissionFinishedRequest request, ServerCallContext context)
     {
-        await _voteResultWriter.SubmissionFinished(GuidParser.Parse(request.VoteResultId), GuidParser.ParseNullable(request.SecondFactorTransactionId), context.CancellationToken);
+        await _voteResultWriter.SubmissionFinished(GuidParser.Parse(request.VoteResultId), GuidParser.ParseNullable(request.SecondFactorAuthorization?.SecondFactorTransactionId), request.SecondFactorAuthorization?.OtpCode, context.CancellationToken);
         return ProtobufEmpty.Instance;
     }
 
@@ -126,7 +126,7 @@ public class VoteResultService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
     public override async Task<Empty> CorrectionFinished(VoteResultCorrectionFinishedRequest request, ServerCallContext context)
     {
-        await _voteResultWriter.CorrectionFinished(GuidParser.Parse(request.VoteResultId), request.Comment, GuidParser.ParseNullable(request.SecondFactorTransactionId), context.CancellationToken);
+        await _voteResultWriter.CorrectionFinished(GuidParser.Parse(request.VoteResultId), request.Comment, GuidParser.ParseNullable(request.SecondFactorAuthorization?.SecondFactorTransactionId), request.SecondFactorAuthorization?.OtpCode, context.CancellationToken);
         return ProtobufEmpty.Instance;
     }
 
@@ -184,7 +184,7 @@ public class VoteResultService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessEndResult.Finalize)]
     public override async Task<Empty> FinalizeEndResult(FinalizeVoteEndResultRequest request, ServerCallContext context)
     {
-        await _voteEndResultWriter.Finalize(GuidParser.Parse(request.VoteId), GuidParser.Parse(request.SecondFactorTransactionId), context.CancellationToken);
+        await _voteEndResultWriter.Finalize(GuidParser.Parse(request.VoteId), GuidParser.Parse(request.SecondFactorAuthorization?.SecondFactorTransactionId ?? string.Empty), request.SecondFactorAuthorization?.OtpCode, context.CancellationToken);
         return ProtobufEmpty.Instance;
     }
 
@@ -241,8 +241,8 @@ public class VoteResultService : ServiceBase
     public override async Task<Empty> SubmissionFinishedAndAuditedTentatively(VoteResultSubmissionFinishedAndAuditedTentativelyRequest request, ServerCallContext context)
     {
         var voteResultId = GuidParser.Parse(request.VoteResultId);
-        var secondFactorTransactionId = GuidParser.Parse(request.SecondFactorTransactionId);
-        await _voteResultWriter.SubmissionFinishedAndAuditedTentatively(voteResultId, secondFactorTransactionId, context.CancellationToken);
+        var secondFactorTransactionId = GuidParser.Parse(request.SecondFactorAuthorization?.SecondFactorTransactionId ?? string.Empty);
+        await _voteResultWriter.SubmissionFinishedAndAuditedTentatively(voteResultId, secondFactorTransactionId, request.SecondFactorAuthorization?.OtpCode, context.CancellationToken);
         return ProtobufEmpty.Instance;
     }
 
@@ -258,8 +258,8 @@ public class VoteResultService : ServiceBase
     public override async Task<Empty> CorrectionFinishedAndAuditedTentatively(VoteResultCorrectionFinishedAndAuditedTentativelyRequest request, ServerCallContext context)
     {
         var voteResultId = GuidParser.Parse(request.VoteResultId);
-        var secondFactorTransactionId = GuidParser.Parse(request.SecondFactorTransactionId);
-        await _voteResultWriter.CorrectionFinishedAndAuditedTentatively(voteResultId, secondFactorTransactionId, context.CancellationToken);
+        var secondFactorTransactionId = GuidParser.Parse(request.SecondFactorAuthorization?.SecondFactorTransactionId ?? string.Empty);
+        await _voteResultWriter.CorrectionFinishedAndAuditedTentatively(voteResultId, secondFactorTransactionId, request.SecondFactorAuthorization?.OtpCode, context.CancellationToken);
         return ProtobufEmpty.Instance;
     }
 

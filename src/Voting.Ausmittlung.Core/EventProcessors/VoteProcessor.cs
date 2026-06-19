@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1;
+using Abraxas.Voting.Basis.Events.V1.Data;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -170,7 +171,7 @@ public class VoteProcessor :
 
     public async Task Process(BallotCreated eventData)
     {
-        var model = _mapper.Map<Ballot>(eventData.Ballot);
+        var model = MapToBallot(eventData.Ballot);
 
         SetDefaultValues(model);
 
@@ -182,7 +183,7 @@ public class VoteProcessor :
 
     public async Task Process(BallotUpdated eventData)
     {
-        var ballot = _mapper.Map<Ballot>(eventData.Ballot);
+        var ballot = MapToBallot(eventData.Ballot);
 
         if (!await _ballotRepo.ExistsByKey(ballot.Id))
         {
@@ -370,5 +371,45 @@ public class VoteProcessor :
                     : BallotQuestionType.CounterProposal;
             }
         }
+    }
+
+    private Ballot MapToBallot(BallotEventData eventData)
+    {
+        var model = _mapper.Map<Ballot>(eventData);
+        model.BallotQuestions = eventData.BallotQuestions.Select(x => MapToBallotQuestion(x, model.Id)).ToList();
+        model.TieBreakQuestions = eventData.TieBreakQuestions.Select(x => MapToTieBreakQuestion(x, model.Id)).ToList();
+        return model;
+    }
+
+    private BallotQuestion MapToBallotQuestion(BallotQuestionEventData eventData, Guid ballotId)
+    {
+        var model = _mapper.Map<BallotQuestion>(eventData);
+        model.BallotId = ballotId;
+
+        // federal identification of type int is deprecated, it was replaced with data type string
+#pragma warning disable CS0612
+        if (eventData.FederalIdentification != null)
+        {
+            model.FederalIdentification = eventData.FederalIdentification.Value.ToString();
+        }
+#pragma warning restore CS0612
+
+        return model;
+    }
+
+    private TieBreakQuestion MapToTieBreakQuestion(TieBreakQuestionEventData eventData, Guid ballotId)
+    {
+        var model = _mapper.Map<TieBreakQuestion>(eventData);
+        model.BallotId = ballotId;
+
+        // federal identification of type int is deprecated, it was replaced with data type string
+#pragma warning disable CS0612
+        if (eventData.FederalIdentification != null)
+        {
+            model.FederalIdentification = eventData.FederalIdentification.Value.ToString();
+        }
+#pragma warning restore CS0612
+
+        return model;
     }
 }

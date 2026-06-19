@@ -131,8 +131,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<Guid>("BallotId")
                         .HasColumnType("uuid");
 
-                    b.Property<int?>("FederalIdentification")
-                        .HasColumnType("integer");
+                    b.Property<string>("FederalIdentification")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("Number")
                         .HasColumnType("integer");
@@ -1246,6 +1247,59 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<decimal>("VoterNumber")
                         .HasColumnType("numeric");
 
+                    b.ComplexProperty<Dictionary<string, object>>("ElectionKeyCalculation", "Voting.Ausmittlung.Data.Models.DoubleProportionalResult.ElectionKeyCalculation#SelectDivisorCalculation", b1 =>
+                        {
+                            b1.IsRequired();
+
+                            b1.ComplexProperty<Dictionary<string, object>>("LowerBoundary", "Voting.Ausmittlung.Data.Models.DoubleProportionalResult.ElectionKeyCalculation#SelectDivisorCalculation.LowerBoundary#RationalNumber", b2 =>
+                                {
+                                    b2.IsRequired();
+
+                                    b2.Property<string>("Dividend")
+                                        .IsRequired()
+                                        .HasColumnType("text");
+
+                                    b2.Property<string>("Divisor")
+                                        .IsRequired()
+                                        .HasColumnType("text");
+
+                                    b2.Property<decimal>("Quotient")
+                                        .HasColumnType("numeric");
+                                });
+
+                            b1.ComplexProperty<Dictionary<string, object>>("SelectDivisor", "Voting.Ausmittlung.Data.Models.DoubleProportionalResult.ElectionKeyCalculation#SelectDivisorCalculation.SelectDivisor#RationalNumber", b2 =>
+                                {
+                                    b2.IsRequired();
+
+                                    b2.Property<string>("Dividend")
+                                        .IsRequired()
+                                        .HasColumnType("text");
+
+                                    b2.Property<string>("Divisor")
+                                        .IsRequired()
+                                        .HasColumnType("text");
+
+                                    b2.Property<decimal>("Quotient")
+                                        .HasColumnType("numeric");
+                                });
+
+                            b1.ComplexProperty<Dictionary<string, object>>("UpperBoundary", "Voting.Ausmittlung.Data.Models.DoubleProportionalResult.ElectionKeyCalculation#SelectDivisorCalculation.UpperBoundary#RationalNumber", b2 =>
+                                {
+                                    b2.IsRequired();
+
+                                    b2.Property<string>("Dividend")
+                                        .IsRequired()
+                                        .HasColumnType("text");
+
+                                    b2.Property<string>("Divisor")
+                                        .IsRequired()
+                                        .HasColumnType("text");
+
+                                    b2.Property<decimal>("Quotient")
+                                        .HasColumnType("numeric");
+                                });
+                        });
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProportionalElectionId")
@@ -1349,6 +1403,59 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<decimal>("VoterNumber")
                         .HasColumnType("numeric");
 
+                    b.ComplexProperty<Dictionary<string, object>>("DivisorCalculation", "Voting.Ausmittlung.Data.Models.DoubleProportionalResultColumn.DivisorCalculation#SelectDivisorCalculation", b1 =>
+                        {
+                            b1.IsRequired();
+
+                            b1.ComplexProperty<Dictionary<string, object>>("LowerBoundary", "Voting.Ausmittlung.Data.Models.DoubleProportionalResultColumn.DivisorCalculation#SelectDivisorCalculation.LowerBoundary#RationalNumber", b2 =>
+                                {
+                                    b2.IsRequired();
+
+                                    b2.Property<string>("Dividend")
+                                        .IsRequired()
+                                        .HasColumnType("text");
+
+                                    b2.Property<string>("Divisor")
+                                        .IsRequired()
+                                        .HasColumnType("text");
+
+                                    b2.Property<decimal>("Quotient")
+                                        .HasColumnType("numeric");
+                                });
+
+                            b1.ComplexProperty<Dictionary<string, object>>("SelectDivisor", "Voting.Ausmittlung.Data.Models.DoubleProportionalResultColumn.DivisorCalculation#SelectDivisorCalculation.SelectDivisor#RationalNumber", b2 =>
+                                {
+                                    b2.IsRequired();
+
+                                    b2.Property<string>("Dividend")
+                                        .IsRequired()
+                                        .HasColumnType("text");
+
+                                    b2.Property<string>("Divisor")
+                                        .IsRequired()
+                                        .HasColumnType("text");
+
+                                    b2.Property<decimal>("Quotient")
+                                        .HasColumnType("numeric");
+                                });
+
+                            b1.ComplexProperty<Dictionary<string, object>>("UpperBoundary", "Voting.Ausmittlung.Data.Models.DoubleProportionalResultColumn.DivisorCalculation#SelectDivisorCalculation.UpperBoundary#RationalNumber", b2 =>
+                                {
+                                    b2.IsRequired();
+
+                                    b2.Property<string>("Dividend")
+                                        .IsRequired()
+                                        .HasColumnType("text");
+
+                                    b2.Property<string>("Divisor")
+                                        .IsRequired()
+                                        .HasColumnType("text");
+
+                                    b2.Property<decimal>("Quotient")
+                                        .HasColumnType("numeric");
+                                });
+                        });
+
                     b.HasKey("Id");
 
                     b.HasIndex("ListId")
@@ -1391,6 +1498,59 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.Property<decimal>("VoterNumber")
                         .HasColumnType("numeric");
+
+                    b.ComplexProperty<Dictionary<string, object>>("DivisorCalculation", "Voting.Ausmittlung.Data.Models.DoubleProportionalResultRow.DivisorCalculation#SelectDivisorCalculation", b1 =>
+                        {
+                            b1.IsRequired();
+
+                            b1.ComplexProperty<Dictionary<string, object>>("LowerBoundary", "Voting.Ausmittlung.Data.Models.DoubleProportionalResultRow.DivisorCalculation#SelectDivisorCalculation.LowerBoundary#RationalNumber", b2 =>
+                                {
+                                    b2.IsRequired();
+
+                                    b2.Property<string>("Dividend")
+                                        .IsRequired()
+                                        .HasColumnType("text");
+
+                                    b2.Property<string>("Divisor")
+                                        .IsRequired()
+                                        .HasColumnType("text");
+
+                                    b2.Property<decimal>("Quotient")
+                                        .HasColumnType("numeric");
+                                });
+
+                            b1.ComplexProperty<Dictionary<string, object>>("SelectDivisor", "Voting.Ausmittlung.Data.Models.DoubleProportionalResultRow.DivisorCalculation#SelectDivisorCalculation.SelectDivisor#RationalNumber", b2 =>
+                                {
+                                    b2.IsRequired();
+
+                                    b2.Property<string>("Dividend")
+                                        .IsRequired()
+                                        .HasColumnType("text");
+
+                                    b2.Property<string>("Divisor")
+                                        .IsRequired()
+                                        .HasColumnType("text");
+
+                                    b2.Property<decimal>("Quotient")
+                                        .HasColumnType("numeric");
+                                });
+
+                            b1.ComplexProperty<Dictionary<string, object>>("UpperBoundary", "Voting.Ausmittlung.Data.Models.DoubleProportionalResultRow.DivisorCalculation#SelectDivisorCalculation.UpperBoundary#RationalNumber", b2 =>
+                                {
+                                    b2.IsRequired();
+
+                                    b2.Property<string>("Dividend")
+                                        .IsRequired()
+                                        .HasColumnType("text");
+
+                                    b2.Property<string>("Divisor")
+                                        .IsRequired()
+                                        .HasColumnType("text");
+
+                                    b2.Property<decimal>("Quotient")
+                                        .HasColumnType("numeric");
+                                });
+                        });
 
                     b.HasKey("Id");
 
@@ -1713,8 +1873,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<bool>("EnforceReviewProcedureForCountingCircles")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("FederalIdentification")
-                        .HasColumnType("integer");
+                    b.Property<string>("FederalIdentification")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<bool>("IndividualCandidatesDisabled")
                         .HasColumnType("boolean");
@@ -2598,8 +2759,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<bool>("EnforceReviewProcedureForCountingCircles")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("FederalIdentification")
-                        .HasColumnType("integer");
+                    b.Property<string>("FederalIdentification")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("MandateAlgorithm")
                         .HasColumnType("integer");
@@ -4400,8 +4562,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<Guid>("BallotId")
                         .HasColumnType("uuid");
 
-                    b.Property<int?>("FederalIdentification")
-                        .HasColumnType("integer");
+                    b.Property<string>("FederalIdentification")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("Number")
                         .HasColumnType("integer");

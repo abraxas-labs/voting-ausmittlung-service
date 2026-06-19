@@ -21,6 +21,7 @@ using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Iam.Exceptions;
+using Voting.Lib.Iam.SecondFactor.Services;
 using DataModels = Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Core.Services.Write;
@@ -45,10 +46,10 @@ public class ProportionalElectionEndResultWriter : ElectionEndResultWriter<
         ContestService contestService,
         PermissionService permissionService,
         IDbRepository<DataContext, DataModels.ProportionalElectionEndResult> endResultRepo,
-        SecondFactorTransactionWriter secondFactorTransactionWriter,
+        ISecondFactorTransactionService secondFactorTransactionService,
         IDbRepository<DataContext, DataModels.ProportionalElectionListEndResult> listEndResultRepo,
         ProportionalElectionRepo proportionalElectionRepo)
-        : base(logger, aggregateRepository, aggregateFactory, contestService, permissionService, secondFactorTransactionWriter)
+        : base(logger, aggregateRepository, aggregateFactory, contestService, permissionService, secondFactorTransactionService)
     {
         _endResultReader = endResultReader;
         _permissionService = permissionService;

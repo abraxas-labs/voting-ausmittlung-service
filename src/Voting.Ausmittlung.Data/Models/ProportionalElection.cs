@@ -62,7 +62,7 @@ public class ProportionalElection : Election, IHasResults, IPoliticalBusinessHas
 
     public bool EnforceCandidateCheckDigitForCountingCircles { get; set; }
 
-    public int? FederalIdentification { get; set; }
+    public string FederalIdentification { get; set; } = string.Empty;
 
     public override void MoveECountingToConventional()
     {

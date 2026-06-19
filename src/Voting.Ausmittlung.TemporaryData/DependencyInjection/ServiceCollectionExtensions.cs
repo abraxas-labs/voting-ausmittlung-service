@@ -34,7 +34,6 @@ public static class ServiceCollectionExtensions
         });
 
         return services
-            .AddScoped<SecondFactorTransactionRepo>()
             .AddScoped<ExportLogEntryRepo>()
             .AddVotingLibDatabase<TemporaryDataContext>();
     }

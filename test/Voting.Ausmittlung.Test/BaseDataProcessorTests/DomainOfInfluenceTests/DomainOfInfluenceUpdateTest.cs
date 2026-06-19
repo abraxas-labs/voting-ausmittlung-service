@@ -26,11 +26,6 @@ public class DomainOfInfluenceUpdateTest : DomainOfInfluenceProcessorBaseTest
     {
     }
 
-    public override async Task InitializeAsync()
-    {
-        await base.InitializeAsync();
-    }
-
     [Fact]
     public async Task TestUpdated()
     {

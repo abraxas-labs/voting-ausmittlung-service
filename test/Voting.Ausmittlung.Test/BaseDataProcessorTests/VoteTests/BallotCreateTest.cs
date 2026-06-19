@@ -45,21 +45,21 @@ public class BallotCreateTest : VoteProcessorBaseTest
                                 Number = 1,
                                 Question = { LanguageUtil.MockAllLanguages("Variante 1") },
                                 Type = SharedProto.BallotQuestionType.MainBallot,
-                                FederalIdentification = 111,
+                                FederalIdentificationString = "111",
                             },
                             new BallotQuestionEventData
                             {
                                 Number = 2,
                                 Question = { LanguageUtil.MockAllLanguages("Variante 2") },
                                 Type = SharedProto.BallotQuestionType.Variant,
-                                FederalIdentification = 222,
+                                FederalIdentificationString = "222",
                             },
                             new BallotQuestionEventData
                             {
                                 Number = 3,
                                 Question = { LanguageUtil.MockAllLanguages("Variante 3") },
                                 Type = SharedProto.BallotQuestionType.Variant,
-                                FederalIdentification = 333,
+                                FederalIdentificationString = "333",
                             },
                     },
                     TieBreakQuestions =
@@ -70,6 +70,7 @@ public class BallotCreateTest : VoteProcessorBaseTest
                                 Question = { LanguageUtil.MockAllLanguages("TieBreak V1/V2") },
                                 Question1Number = 1,
                                 Question2Number = 2,
+                                FederalIdentificationString = "444",
                             },
                             new TieBreakQuestionEventData
                             {
@@ -77,6 +78,7 @@ public class BallotCreateTest : VoteProcessorBaseTest
                                 Question = { LanguageUtil.MockAllLanguages("TieBreak V1/V3") },
                                 Question1Number = 1,
                                 Question2Number = 3,
+                                FederalIdentificationString = "555",
                             },
                             new TieBreakQuestionEventData
                             {
@@ -84,6 +86,7 @@ public class BallotCreateTest : VoteProcessorBaseTest
                                 Question = { LanguageUtil.MockAllLanguages("TieBreak V2/V3") },
                                 Question1Number = 2,
                                 Question2Number = 3,
+                                FederalIdentificationString = "666",
                             },
                     },
                 },
@@ -121,5 +124,108 @@ public class BallotCreateTest : VoteProcessorBaseTest
         tieBreakQuestions[0].Question.Question.Should().Be("TieBreak V1/V2 de");
         tieBreakQuestions[1].Question.Question.Should().Be("TieBreak V1/V3 de");
         tieBreakQuestions[2].Question.Question.Should().Be("TieBreak V2/V3 de");
+    }
+
+    [Fact]
+    public async Task TestWithDeprecatedFederalIdentification()
+    {
+        var ballotId = "0afc89f8-fc84-4a86-ace6-2cedfb5f8033";
+        var ballotGuid = Guid.Parse(ballotId);
+        await TestEventPublisher.Publish(
+            new BallotCreated
+            {
+                Ballot = new BallotEventData
+                {
+                    Id = ballotId,
+                    Position = 3,
+                    VoteId = VoteMockedData.IdGossauVoteInContestGossau,
+                    BallotType = SharedProto.BallotType.VariantsBallot,
+                    HasTieBreakQuestions = true,
+                    BallotQuestions =
+                    {
+                            new BallotQuestionEventData
+                            {
+                                Number = 1,
+                                Question = { LanguageUtil.MockAllLanguages("Variante 1") },
+                                Type = SharedProto.BallotQuestionType.MainBallot,
+#pragma warning disable CS0612
+                                FederalIdentification = 111,
+#pragma warning restore CS0612
+                            },
+                            new BallotQuestionEventData
+                            {
+                                Number = 2,
+                                Question = { LanguageUtil.MockAllLanguages("Variante 2") },
+                                Type = SharedProto.BallotQuestionType.Variant,
+#pragma warning disable CS0612
+                                FederalIdentification = 222,
+#pragma warning restore CS0612
+                            },
+                            new BallotQuestionEventData
+                            {
+                                Number = 3,
+                                Question = { LanguageUtil.MockAllLanguages("Variante 3") },
+                                Type = SharedProto.BallotQuestionType.Variant,
+#pragma warning disable CS0612
+                                FederalIdentification = 333,
+#pragma warning restore CS0612
+                            },
+                    },
+                    TieBreakQuestions =
+                    {
+                            new TieBreakQuestionEventData
+                            {
+                                Number = 1,
+                                Question = { LanguageUtil.MockAllLanguages("TieBreak V1/V2") },
+                                Question1Number = 1,
+                                Question2Number = 2,
+#pragma warning disable CS0612
+                                FederalIdentification = 444,
+#pragma warning restore CS0612
+                            },
+                            new TieBreakQuestionEventData
+                            {
+                                Number = 2,
+                                Question = { LanguageUtil.MockAllLanguages("TieBreak V1/V3") },
+                                Question1Number = 1,
+                                Question2Number = 3,
+#pragma warning disable CS0612
+                                FederalIdentification = 555,
+#pragma warning restore CS0612
+                            },
+                            new TieBreakQuestionEventData
+                            {
+                                Number = 3,
+                                Question = { LanguageUtil.MockAllLanguages("TieBreak V2/V3") },
+                                Question1Number = 2,
+                                Question2Number = 3,
+#pragma warning disable CS0612
+                                FederalIdentification = 666,
+#pragma warning restore CS0612
+                            },
+                    },
+                },
+            });
+
+        var ballotQuestions = await RunOnDb(
+            db => db.BallotQuestions
+                .Where(x => x.BallotId == ballotGuid)
+                .OrderBy(x => x.Number)
+                .ToListAsync());
+
+        var tieBreakQuestions = await RunOnDb(
+            db => db.TieBreakQuestions
+                .Where(x => x.BallotId == ballotGuid)
+                .OrderBy(x => x.Number)
+                .ToListAsync());
+
+        ballotQuestions.Count.Should().Be(3);
+        ballotQuestions[0].FederalIdentification.Should().Be("111");
+        ballotQuestions[1].FederalIdentification.Should().Be("222");
+        ballotQuestions[2].FederalIdentification.Should().Be("333");
+        tieBreakQuestions.Count.Should().Be(3);
+        tieBreakQuestions[0].FederalIdentification.Should().Be("444");
+        tieBreakQuestions[1].FederalIdentification.Should().Be("555");
+        tieBreakQuestions[2].FederalIdentification.Should().Be("666");
     }
 }

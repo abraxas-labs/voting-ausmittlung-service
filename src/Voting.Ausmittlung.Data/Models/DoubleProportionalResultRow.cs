@@ -33,6 +33,11 @@ public class DoubleProportionalResultRow : BaseEntity
     public int Quorum { get; set; }
 
     /// <summary>
+    /// Gets or sets the "Domain of Influence" divider calculation details from the "Unterzuteilung".
+    /// </summary>
+    public SelectDivisorCalculation DivisorCalculation { get; set; } = new();
+
+    /// <summary>
     /// Gets or sets the "Domain of Influence" divider from the "Unterzuteilung".
     /// </summary>
     public decimal Divisor { get; set; }

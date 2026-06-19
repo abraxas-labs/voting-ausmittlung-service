@@ -9,6 +9,7 @@ using Abraxas.Voting.Basis.Events.V1;
 using Abraxas.Voting.Basis.Events.V1.Data;
 using AutoMapper;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Voting.Ausmittlung.Controllers.Models.Export;
 using Voting.Ausmittlung.Core.Auth;
@@ -576,6 +577,88 @@ public class ResultExportTemplateReaderTest : BaseIntegrationTest
         // Vote end result protocol should never be displayed as a partial result protocol.
         resultAfter.Any(x => x.ExportTemplateId == voteEndResultGossauTenantExportTemplateId).Should().BeFalse();
         resultAfter.Any(x => x.ExportTemplateId == majorityElectionEndResultGossauTenantExportTemplateId).Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task Ech0252ForContestManagerShouldFilter()
+    {
+        var ech0252voteTemplateId = AusmittlungUuidV5.BuildExportTemplate(
+            AusmittlungXmlContestTemplates.VoteResultsEch0252.Key,
+            SecureConnectTestDefaults.MockedTenantStGallen.Id).ToString();
+
+        var ech0252proportionalElectionTemplateId = AusmittlungUuidV5.BuildExportTemplate(
+            AusmittlungXmlContestTemplates.ProportionalElectionInfosEch0252.Key,
+            SecureConnectTestDefaults.MockedTenantStGallen.Id).ToString();
+
+        var ech0252majorityElectionTemplateId = AusmittlungUuidV5.BuildExportTemplate(
+            AusmittlungXmlContestTemplates.MajorityElectionInfosEch0252.Key,
+            SecureConnectTestDefaults.MockedTenantStGallen.Id).ToString();
+
+        var resultsBefore = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, null, new[] { ExportFileFormat.Xml }, SecureConnectTestDefaults.MockedTenantStGallen.Id);
+        resultsBefore.Any(x => x.ExportTemplateId == ech0252voteTemplateId).Should().BeTrue();
+        resultsBefore.Any(x => x.ExportTemplateId == ech0252proportionalElectionTemplateId).Should().BeTrue();
+        resultsBefore.Any(x => x.ExportTemplateId == ech0252majorityElectionTemplateId).Should().BeTrue();
+
+        // Remove owned political businesses of the manager.
+        await RunOnDb(async db =>
+        {
+            await db.SimplePoliticalBusinesses
+                .Where(pb => pb.DomainOfInfluence.SecureConnectId == SecureConnectTestDefaults.MockedTenantStGallen.Id)
+                .ExecuteDeleteAsync();
+        });
+
+        var resultsWithoutOwned = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, null, new[] { ExportFileFormat.Xml }, SecureConnectTestDefaults.MockedTenantStGallen.Id);
+        resultsWithoutOwned.Any(x => x.ExportTemplateId == ech0252voteTemplateId).Should().BeTrue();
+        resultsWithoutOwned.Any(x => x.ExportTemplateId == ech0252proportionalElectionTemplateId).Should().BeTrue();
+        resultsWithoutOwned.Any(x => x.ExportTemplateId == ech0252majorityElectionTemplateId).Should().BeTrue();
+
+        // Remove the rest (all).
+        await RunOnDb(async db =>
+        {
+            await db.SimplePoliticalBusinesses
+                .Where(pb => pb.ContestId == ContestMockedData.GuidStGallenEvoting)
+                .ExecuteDeleteAsync();
+        });
+
+        var resultsWithoutPbs = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, null, new[] { ExportFileFormat.Xml }, SecureConnectTestDefaults.MockedTenantStGallen.Id);
+        resultsWithoutPbs.Any(x => x.ExportTemplateId == ech0252voteTemplateId).Should().BeFalse();
+        resultsWithoutPbs.Any(x => x.ExportTemplateId == ech0252proportionalElectionTemplateId).Should().BeFalse();
+        resultsWithoutPbs.Any(x => x.ExportTemplateId == ech0252majorityElectionTemplateId).Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task Ech0252ForMonitoringUserShouldFilter()
+    {
+        var ech0252voteTemplateId = AusmittlungUuidV5.BuildExportTemplate(
+            AusmittlungXmlContestTemplates.VoteResultsEch0252.Key,
+            SecureConnectTestDefaults.MockedTenantUzwil.Id).ToString();
+
+        var ech0252proportionalElectionTemplateId = AusmittlungUuidV5.BuildExportTemplate(
+            AusmittlungXmlContestTemplates.ProportionalElectionInfosEch0252.Key,
+            SecureConnectTestDefaults.MockedTenantUzwil.Id).ToString();
+
+        var ech0252majorityElectionTemplateId = AusmittlungUuidV5.BuildExportTemplate(
+            AusmittlungXmlContestTemplates.MajorityElectionInfosEch0252.Key,
+            SecureConnectTestDefaults.MockedTenantUzwil.Id).ToString();
+
+        var resultsBefore = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, null, new[] { ExportFileFormat.Xml }, SecureConnectTestDefaults.MockedTenantUzwil.Id);
+        resultsBefore.Any(x => x.ExportTemplateId == ech0252voteTemplateId).Should().BeTrue();
+        resultsBefore.Any(x => x.ExportTemplateId == ech0252proportionalElectionTemplateId).Should().BeTrue();
+        resultsBefore.Any(x => x.ExportTemplateId == ech0252majorityElectionTemplateId).Should().BeTrue();
+
+        await RunOnDb(async db =>
+        {
+            await db.SimplePoliticalBusinesses
+                .Where(pb => pb.Id == Guid.Parse(MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen)
+                    || pb.Id == Guid.Parse(ProportionalElectionMockedData.IdUzwilProportionalElectionInContestStGallen)
+                    || pb.Id == Guid.Parse(VoteMockedData.IdUzwilVoteInContestStGallen))
+                .ExecuteDeleteAsync();
+        });
+
+        var resultsAfter = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, null, new[] { ExportFileFormat.Xml }, SecureConnectTestDefaults.MockedTenantUzwil.Id);
+        resultsAfter.Any(x => x.ExportTemplateId == ech0252voteTemplateId).Should().BeFalse();
+        resultsAfter.Any(x => x.ExportTemplateId == ech0252proportionalElectionTemplateId).Should().BeFalse();
+        resultsAfter.Any(x => x.ExportTemplateId == ech0252majorityElectionTemplateId).Should().BeFalse();
     }
 
     private async Task<List<DataExportTemplate>> FetchExportTemplates(Guid contestId, Guid? countingCircleId = null, ExportFileFormat[]? formats = null, string? tenantId = null)

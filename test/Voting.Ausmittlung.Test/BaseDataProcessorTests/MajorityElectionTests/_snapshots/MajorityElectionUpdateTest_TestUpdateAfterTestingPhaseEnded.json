@@ -33,7 +33,7 @@
     "ReviewProcedure": 1,
     "EnforceReviewProcedureForCountingCircles": true,
     "EnforceCandidateCheckDigitForCountingCircles": false,
-    "FederalIdentification": null,
+    "FederalIdentification": "",
     "PrimaryMajorityElectionId": null,
     "PrimaryMajorityElection": null,
     "SecondaryMajorityElectionsOnSeparateBallots": [],

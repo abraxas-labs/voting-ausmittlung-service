@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
-using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Iam.SecondFactor.Testing.Mocks;
 using Voting.Lib.Testing.Validation;
 
 namespace Voting.Ausmittlung.Test.ProtoValidatorTests.MajorityElectionResult;
@@ -20,7 +20,7 @@ public class FinalizeMajorityElectionEndResultRequestTest : ProtoValidatorBaseTe
     {
         yield return NewValidRequest(x => x.MajorityElectionId = "invalid-guid");
         yield return NewValidRequest(x => x.MajorityElectionId = string.Empty);
-        yield return NewValidRequest(x => x.SecondFactorTransactionId = string.Empty);
+        yield return NewValidRequest(x => x.SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = "invalid-guid" });
     }
 
     private FinalizeMajorityElectionEndResultRequest NewValidRequest(Action<FinalizeMajorityElectionEndResultRequest>? action = null)
@@ -28,7 +28,7 @@ public class FinalizeMajorityElectionEndResultRequestTest : ProtoValidatorBaseTe
         var request = new FinalizeMajorityElectionEndResultRequest
         {
             MajorityElectionId = "f67b688a-0566-4e3c-bd73-6063834fedaf",
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
+            SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.VerifiedTransactionIdString },
         };
 
         action?.Invoke(request);

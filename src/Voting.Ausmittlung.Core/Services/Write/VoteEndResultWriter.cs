@@ -11,6 +11,7 @@ using Voting.Ausmittlung.Data;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
+using Voting.Lib.Iam.SecondFactor.Services;
 using DataModels = Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Core.Services.Write;
@@ -26,8 +27,8 @@ public class VoteEndResultWriter : PoliticalBusinessEndResultWriter<VoteEndResul
         ContestService contestService,
         PermissionService permissionService,
         IDbRepository<DataContext, DataModels.VoteEndResult> endResultRepo,
-        SecondFactorTransactionWriter secondFactorTransactionWriter)
-        : base(logger, aggregateRepository, aggregateFactory, contestService, permissionService, secondFactorTransactionWriter)
+        ISecondFactorTransactionService secondFactorTransactionService)
+        : base(logger, aggregateRepository, aggregateFactory, contestService, permissionService, secondFactorTransactionService)
     {
         _endResultRepo = endResultRepo;
     }

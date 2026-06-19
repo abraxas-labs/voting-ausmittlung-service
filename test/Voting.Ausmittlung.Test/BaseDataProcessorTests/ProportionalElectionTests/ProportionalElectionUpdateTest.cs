@@ -56,7 +56,7 @@ public class ProportionalElectionUpdateTest : BaseDataProcessorTest
                 ReviewProcedure = SharedProto.ProportionalElectionReviewProcedure.Physically,
                 EnforceReviewProcedureForCountingCircles = false,
                 EnforceCandidateCheckDigitForCountingCircles = false,
-                FederalIdentification = 111,
+                FederalIdentificationString = "111",
             },
         });
 
@@ -477,5 +477,44 @@ public class ProportionalElectionUpdateTest : BaseDataProcessorTest
 
         unionEndResult.TotalCountOfElections.Should().Be(2);
         unionEndResult.CountOfDoneElections.Should().Be(2);
+    }
+
+    [Fact]
+    public async Task TestWithDeprecatedFederalIdentification()
+    {
+        await TestEventPublisher.Publish(new ProportionalElectionUpdated
+        {
+            ProportionalElection = new ProportionalElectionEventData
+            {
+                Id = ProportionalElectionMockedData.IdStGallenProportionalElectionInContestStGallen,
+                PoliticalBusinessNumber = "6000",
+                OfficialDescription = { LanguageUtil.MockAllLanguages("Update Proporzwahl") },
+                ShortDescription = { LanguageUtil.MockAllLanguages("Update Proporzwahl") },
+                DomainOfInfluenceId = DomainOfInfluenceMockedData.IdStGallen,
+                ContestId = ContestMockedData.IdStGallenEvoting,
+                AutomaticBallotBundleNumberGeneration = true,
+                AutomaticEmptyVoteCounting = false,
+                BallotBundleSize = 25,
+                BallotNumberGeneration = SharedProto.BallotNumberGeneration.RestartForEachBundle,
+                CandidateCheckDigit = false,
+                EnforceEmptyVoteCountingForCountingCircles = true,
+                MandateAlgorithm = SharedProto.ProportionalElectionMandateAlgorithm.HagenbachBischoff,
+                NumberOfMandates = 2,
+                ReviewProcedure = SharedProto.ProportionalElectionReviewProcedure.Physically,
+                EnforceReviewProcedureForCountingCircles = false,
+                EnforceCandidateCheckDigitForCountingCircles = false,
+#pragma warning disable CS0612
+                FederalIdentification = 111,
+#pragma warning restore CS0612
+            },
+        });
+
+        var election = await RunOnDb(
+            db => db.ProportionalElections
+                .Include(x => x.Translations)
+                .FirstAsync(x => x.Id == Guid.Parse(ProportionalElectionMockedData.IdStGallenProportionalElectionInContestStGallen)),
+            Languages.German);
+
+        election.FederalIdentification.Should().Be("111");
     }
 }

@@ -51,10 +51,10 @@ public class ProportionalElectionUnionEndResultAggregate : BaseEventSignatureAgg
             new EventSignatureBusinessDomainData(contestId));
     }
 
-    public ActionId PrepareFinalize(Guid unionId, bool testingPhaseEnded)
+    public IActionId PrepareFinalize(Guid unionId, bool testingPhaseEnded)
     {
         Id = AusmittlungUuidV5.BuildPoliticalBusinessUnionEndResult(unionId, testingPhaseEnded);
-        return new ActionId(nameof(Finalize), this);
+        return new EventStoreActionId(nameof(Finalize), this);
     }
 
     protected override void Apply(IMessage eventData)

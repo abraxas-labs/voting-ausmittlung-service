@@ -27,7 +27,7 @@
               "Question": "Frage 1 Gossau de",
               "BallotAnswers": [],
               "Type": 1,
-              "FederalIdentification": null,
+              "FederalIdentification": "",
               "Id": "00000000-0000-0000-0000-000000000000"
             }
           ],
@@ -62,7 +62,7 @@
               "Question": "Variante 1 de",
               "BallotAnswers": [],
               "Type": 1,
-              "FederalIdentification": 111,
+              "FederalIdentification": "111",
               "Id": "00000000-0000-0000-0000-000000000000"
             },
             {
@@ -81,7 +81,7 @@
               "Question": "Variante 2 de",
               "BallotAnswers": [],
               "Type": 3,
-              "FederalIdentification": 222,
+              "FederalIdentification": "222",
               "Id": "00000000-0000-0000-0000-000000000000"
             },
             {
@@ -100,7 +100,7 @@
               "Question": "Variante 3 de",
               "BallotAnswers": [],
               "Type": 3,
-              "FederalIdentification": 333,
+              "FederalIdentification": "333",
               "Id": "00000000-0000-0000-0000-000000000000"
             }
           ],
@@ -122,7 +122,7 @@
               "EndResult": null,
               "Question": "TieBreak V1/V2 de",
               "BallotAnswers": [],
-              "FederalIdentification": null,
+              "FederalIdentification": "444",
               "Id": "00000000-0000-0000-0000-000000000000"
             },
             {
@@ -142,7 +142,7 @@
               "EndResult": null,
               "Question": "TieBreak V1/V3 de",
               "BallotAnswers": [],
-              "FederalIdentification": null,
+              "FederalIdentification": "555",
               "Id": "00000000-0000-0000-0000-000000000000"
             },
             {
@@ -162,7 +162,7 @@
               "EndResult": null,
               "Question": "TieBreak V2/V3 de",
               "BallotAnswers": [],
-              "FederalIdentification": null,
+              "FederalIdentification": "666",
               "Id": "00000000-0000-0000-0000-000000000000"
             }
           ],

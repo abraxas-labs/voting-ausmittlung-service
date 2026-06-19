@@ -77,7 +77,6 @@ public abstract class MajorityElectionEndResultBaseTest : BaseTest<
         await base.InitializeAsync();
 
         await ContestMockedData.Seed(RunScoped);
-        await SecondFactorTransactionMockedData.Seed(RunScoped);
 
         await RunScoped((DomainOfInfluencePermissionBuilder permissionBuilder) =>
             permissionBuilder.RebuildPermissionTree());

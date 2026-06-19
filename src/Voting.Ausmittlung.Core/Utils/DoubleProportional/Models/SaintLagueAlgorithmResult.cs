@@ -4,6 +4,7 @@
 using System.Linq;
 using Rationals;
 using Voting.Ausmittlung.BiproportionalApportionment.TieAndTransfer;
+using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Core.Utils.DoubleProportional.Models;
 
@@ -14,13 +15,15 @@ public class SaintLagueAlgorithmResult
         int[] apportionment,
         TieState[] tieStates,
         int countOfMissingNumberOfMandates,
-        Rational electionKey)
+        Rational electionKey,
+        SelectDivisorCalculation electionKeyCalculation)
     {
         Quotients = quotients;
         Apportionment = apportionment;
         TieStates = tieStates;
         CountOfMissingNumberOfMandates = countOfMissingNumberOfMandates;
         ElectionKey = electionKey;
+        ElectionKeyCalculation = electionKeyCalculation;
     }
 
     public Rational[] Quotients { get; }
@@ -32,6 +35,8 @@ public class SaintLagueAlgorithmResult
     public int CountOfMissingNumberOfMandates { get; }
 
     public Rational ElectionKey { get; }
+
+    public SelectDivisorCalculation ElectionKeyCalculation { get; }
 
     public bool HasTies => TieStates.Any(t => t != TieState.Unique);
 }

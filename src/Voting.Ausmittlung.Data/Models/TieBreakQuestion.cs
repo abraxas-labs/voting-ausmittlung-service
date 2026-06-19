@@ -30,5 +30,5 @@ public class TieBreakQuestion : BaseEntity
 
     public ICollection<VoteResultBallotTieBreakQuestionAnswer> BallotAnswers { get; set; } = new HashSet<VoteResultBallotTieBreakQuestionAnswer>();
 
-    public int? FederalIdentification { get; set; }
+    public string FederalIdentification { get; set; } = string.Empty;
 }

@@ -86,8 +86,8 @@ public class EventSignatureService
 
         var keyData = _contestCache.Get(contestId).KeyData;
 
-        // the key data could be null, when a contest is not active or past unlocked.
-        if (keyData == null)
+        // the key data could be null or expired when a contest is not active or past unlocked.
+        if (keyData == null || keyData.IsExpired(_clock.UtcNow))
         {
             return new EventSignatureBusinessMetadata(contestId);
         }
@@ -223,8 +223,8 @@ public class EventSignatureService
             var contestId = GuidParser.Parse(businessMetadata.ContestId);
             var keyData = _contestCache.Get(contestId).KeyData;
 
-            // the key data could be null, when a contest is not active or past unlocked.
-            if (keyData == null)
+            // the key data could be null or expired when a contest is not active or past unlocked.
+            if (keyData == null || keyData.IsExpired(_clock.UtcNow))
             {
                 continue;
             }

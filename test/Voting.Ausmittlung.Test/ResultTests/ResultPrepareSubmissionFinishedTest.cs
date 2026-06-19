@@ -36,7 +36,8 @@ public class ResultPrepareSubmissionFinishedTest : MultiResultBaseTest
 
         var response = await ErfassungElectionAdminClient.PrepareSubmissionFinishedAsync(NewValidRequest());
         response.Id.Should().NotBeEmpty();
-        response.Code.Should().NotBeEmpty();
+        response.Nevis.QrCode.Should().NotBeEmpty();
+        response.Nevis.CorrelationCode.Should().NotBeEmpty();
     }
 
     [Fact]
@@ -55,7 +56,7 @@ public class ResultPrepareSubmissionFinishedTest : MultiResultBaseTest
 
         var response = await StGallenErfassungElectionAdminClient.PrepareSubmissionFinishedAsync(NewValidRequest());
         response.Id.Should().BeEmpty();
-        response.Code.Should().BeEmpty();
+        response.Nevis.Should().BeNull();
     }
 
     [Fact]
@@ -82,7 +83,7 @@ public class ResultPrepareSubmissionFinishedTest : MultiResultBaseTest
     {
         await SetResultState(CountingCircleResultState.SubmissionOngoing);
 
-        var response = await ErfassungElectionAdminClient.PrepareSubmissionFinishedAsync(NewValidRequest());
+        await ErfassungElectionAdminClient.PrepareSubmissionFinishedAsync(NewValidRequest());
         await AssertStatus(
             async () => await ErfassungElectionAdminClient.PrepareSubmissionFinishedAsync(
                 NewValidRequest(x => x.CountingCircleResultIds.Add(VoteResultMockedData.IdUzwilVoteInContestStGallenResult))),

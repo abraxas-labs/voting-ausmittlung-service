@@ -380,6 +380,14 @@ public class MajorityElectionProcessor :
             majorityElection.AutomaticBallotNumberGeneration = true;
         }
 
+        // federal identification of type int is deprecated, it was replaced with data type string
+#pragma warning disable CS0612
+        if (majorityElectionEventData.FederalIdentification != null)
+        {
+            majorityElection.FederalIdentification = majorityElectionEventData.FederalIdentification.Value.ToString();
+        }
+#pragma warning restore CS0612
+
         return majorityElection;
     }
 

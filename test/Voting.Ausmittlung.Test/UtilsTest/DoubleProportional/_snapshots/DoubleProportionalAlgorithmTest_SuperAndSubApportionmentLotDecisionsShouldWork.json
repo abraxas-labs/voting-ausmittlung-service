@@ -30,6 +30,23 @@
     3.0,
     2.0
   ],
+  "ElectionKeyCalculation": {
+    "SelectDivisor": {
+      "Quotient": 2.0,
+      "Dividend": "6",
+      "Divisor": "3"
+    },
+    "UpperBoundary": {
+      "Quotient": 2.0,
+      "Dividend": "6",
+      "Divisor": "3"
+    },
+    "LowerBoundary": {
+      "Quotient": 2.0,
+      "Dividend": "6",
+      "Divisor": "3"
+    }
+  },
   "SuperApportionment": {
     "NumberOfMandates": 4,
     "NumberOfMandatesForLotDecision": 1,
@@ -269,7 +286,164 @@
           4.0,
           4.0
         ],
-        "State": 3
+        "State": 3,
+        "RowDivisorCalculations": [
+          {
+            "SelectDivisor": {
+              "Quotient": 1.0,
+              "Dividend": "8",
+              "Divisor": "8"
+            },
+            "UpperBoundary": {
+              "Quotient": 1.0,
+              "Dividend": "8",
+              "Divisor": "8"
+            },
+            "LowerBoundary": {
+              "Quotient": 1.0,
+              "Dividend": "8",
+              "Divisor": "8"
+            }
+          },
+          {
+            "SelectDivisor": {
+              "Quotient": 2.0,
+              "Dividend": "2",
+              "Divisor": "1"
+            },
+            "UpperBoundary": {
+              "Quotient": 2.0,
+              "Dividend": "2",
+              "Divisor": "1"
+            },
+            "LowerBoundary": {
+              "Quotient": 2.0,
+              "Dividend": "2",
+              "Divisor": "1"
+            }
+          },
+          {
+            "SelectDivisor": {
+              "Quotient": 2.0,
+              "Dividend": "2",
+              "Divisor": "1"
+            },
+            "UpperBoundary": {
+              "Quotient": 2.0,
+              "Dividend": "2",
+              "Divisor": "1"
+            },
+            "LowerBoundary": {
+              "Quotient": 2.0,
+              "Dividend": "2",
+              "Divisor": "1"
+            }
+          },
+          {
+            "SelectDivisor": {
+              "Quotient": 0.5,
+              "Dividend": "8",
+              "Divisor": "16"
+            },
+            "UpperBoundary": {
+              "Quotient": 0.5,
+              "Dividend": "8",
+              "Divisor": "16"
+            },
+            "LowerBoundary": {
+              "Quotient": 0.5,
+              "Dividend": "8",
+              "Divisor": "16"
+            }
+          },
+          {
+            "SelectDivisor": {
+              "Quotient": 0.5,
+              "Dividend": "8",
+              "Divisor": "16"
+            },
+            "UpperBoundary": {
+              "Quotient": 0.5,
+              "Dividend": "8",
+              "Divisor": "16"
+            },
+            "LowerBoundary": {
+              "Quotient": 0.5,
+              "Dividend": "8",
+              "Divisor": "16"
+            }
+          }
+        ],
+        "ColumnDivisorCalculations": [
+          {
+            "SelectDivisor": {
+              "Quotient": 1.0,
+              "Dividend": "2",
+              "Divisor": "2"
+            },
+            "UpperBoundary": {
+              "Quotient": 1.0,
+              "Dividend": "2",
+              "Divisor": "2"
+            },
+            "LowerBoundary": {
+              "Quotient": 1.0,
+              "Dividend": "2",
+              "Divisor": "2"
+            }
+          },
+          {
+            "SelectDivisor": {
+              "Quotient": 1.0,
+              "Dividend": "2",
+              "Divisor": "2"
+            },
+            "UpperBoundary": {
+              "Quotient": 1.0,
+              "Dividend": "2",
+              "Divisor": "2"
+            },
+            "LowerBoundary": {
+              "Quotient": 1.0,
+              "Dividend": "2",
+              "Divisor": "2"
+            }
+          },
+          {
+            "SelectDivisor": {
+              "Quotient": 4.0,
+              "Dividend": "32",
+              "Divisor": "8"
+            },
+            "UpperBoundary": {
+              "Quotient": 4.0,
+              "Dividend": "32",
+              "Divisor": "8"
+            },
+            "LowerBoundary": {
+              "Quotient": 4.0,
+              "Dividend": "32",
+              "Divisor": "8"
+            }
+          },
+          {
+            "SelectDivisor": {
+              "Quotient": 4.0,
+              "Dividend": "32",
+              "Divisor": "8"
+            },
+            "UpperBoundary": {
+              "Quotient": 4.0,
+              "Dividend": "32",
+              "Divisor": "8"
+            },
+            "LowerBoundary": {
+              "Quotient": 4.0,
+              "Dividend": "32",
+              "Divisor": "8"
+            }
+          }
+        ]
       },
       {
         "NumberOfMandates": 1,
@@ -480,7 +654,164 @@
           0.5,
           0.5
         ],
-        "State": 3
+        "State": 3,
+        "RowDivisorCalculations": [
+          {
+            "SelectDivisor": {
+              "Quotient": 2.6666666666666665,
+              "Dividend": "16",
+              "Divisor": "6"
+            },
+            "UpperBoundary": {
+              "Quotient": 2.6666666666666665,
+              "Dividend": "16",
+              "Divisor": "6"
+            },
+            "LowerBoundary": {
+              "Quotient": 2.6666666666666665,
+              "Dividend": "16",
+              "Divisor": "6"
+            }
+          },
+          {
+            "SelectDivisor": {
+              "Quotient": 2.0,
+              "Dividend": "4",
+              "Divisor": "2"
+            },
+            "UpperBoundary": {
+              "Quotient": 2.0,
+              "Dividend": "4",
+              "Divisor": "2"
+            },
+            "LowerBoundary": {
+              "Quotient": 2.0,
+              "Dividend": "4",
+              "Divisor": "2"
+            }
+          },
+          {
+            "SelectDivisor": {
+              "Quotient": 2.0,
+              "Dividend": "4",
+              "Divisor": "2"
+            },
+            "UpperBoundary": {
+              "Quotient": 2.0,
+              "Dividend": "4",
+              "Divisor": "2"
+            },
+            "LowerBoundary": {
+              "Quotient": 2.0,
+              "Dividend": "4",
+              "Divisor": "2"
+            }
+          },
+          {
+            "SelectDivisor": {
+              "Quotient": 4.0,
+              "Dividend": "4",
+              "Divisor": "1"
+            },
+            "UpperBoundary": {
+              "Quotient": 4.0,
+              "Dividend": "4",
+              "Divisor": "1"
+            },
+            "LowerBoundary": {
+              "Quotient": 4.0,
+              "Dividend": "4",
+              "Divisor": "1"
+            }
+          },
+          {
+            "SelectDivisor": {
+              "Quotient": 4.0,
+              "Dividend": "4",
+              "Divisor": "1"
+            },
+            "UpperBoundary": {
+              "Quotient": 4.0,
+              "Dividend": "4",
+              "Divisor": "1"
+            },
+            "LowerBoundary": {
+              "Quotient": 4.0,
+              "Dividend": "4",
+              "Divisor": "1"
+            }
+          }
+        ],
+        "ColumnDivisorCalculations": [
+          {
+            "SelectDivisor": {
+              "Quotient": 1.0,
+              "Dividend": "4",
+              "Divisor": "4"
+            },
+            "UpperBoundary": {
+              "Quotient": 1.0,
+              "Dividend": "4",
+              "Divisor": "4"
+            },
+            "LowerBoundary": {
+              "Quotient": 1.0,
+              "Dividend": "4",
+              "Divisor": "4"
+            }
+          },
+          {
+            "SelectDivisor": {
+              "Quotient": 1.0,
+              "Dividend": "4",
+              "Divisor": "4"
+            },
+            "UpperBoundary": {
+              "Quotient": 1.0,
+              "Dividend": "4",
+              "Divisor": "4"
+            },
+            "LowerBoundary": {
+              "Quotient": 1.0,
+              "Dividend": "4",
+              "Divisor": "4"
+            }
+          },
+          {
+            "SelectDivisor": {
+              "Quotient": 0.5,
+              "Dividend": "2",
+              "Divisor": "4"
+            },
+            "UpperBoundary": {
+              "Quotient": 0.5,
+              "Dividend": "2",
+              "Divisor": "4"
+            },
+            "LowerBoundary": {
+              "Quotient": 0.5,
+              "Dividend": "2",
+              "Divisor": "4"
+            }
+          },
+          {
+            "SelectDivisor": {
+              "Quotient": 0.5,
+              "Dividend": "2",
+              "Divisor": "4"
+            },
+            "UpperBoundary": {
+              "Quotient": 0.5,
+              "Dividend": "2",
+              "Divisor": "4"
+            },
+            "LowerBoundary": {
+              "Quotient": 0.5,
+              "Dividend": "2",
+              "Divisor": "4"
+            }
+          }
+        ]
       }
     ],
     "State": 3

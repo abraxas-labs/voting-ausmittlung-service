@@ -16,7 +16,8 @@ public class ProportionalElectionProfile : Profile
         CreateMap<ProportionalElectionEventData, ProportionalElection>()
             .ForMember(dst => dst.Translations, opts => opts.MapFrom((src, _) => TranslationBuilder.CreateTranslations<ProportionalElectionTranslation>(
                 ((t, x) => t.ShortDescription = x, src.ShortDescription),
-                ((t, x) => t.OfficialDescription = x, src.OfficialDescription))));
+                ((t, x) => t.OfficialDescription = x, src.OfficialDescription))))
+            .ForMember(dst => dst.FederalIdentification, opt => opt.MapFrom(src => src.FederalIdentificationString));
         CreateMap<ProportionalElectionAfterTestingPhaseUpdated, ProportionalElection>(MemberList.Source)
             .ForMember(dst => dst.Translations, opts => opts.MapFrom((src, _) => TranslationBuilder.CreateTranslations<ProportionalElectionTranslation>(
                 ((t, x) => t.ShortDescription = x, src.ShortDescription),

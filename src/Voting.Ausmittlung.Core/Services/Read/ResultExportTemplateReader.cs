@@ -103,6 +103,7 @@ public class ResultExportTemplateReader
     private readonly IDbRepository<DataContext, DomainOfInfluenceCountingCircle> _domainOfInfluenceCountingCircleRepository;
     private readonly IDbRepository<DataContext, ProtocolExport> _protocolExportRepository;
     private readonly IDbRepository<DataContext, Contest> _contestRepository;
+    private readonly IDbRepository<DataContext, SimplePoliticalBusiness> _simplePoliticalBusinessRepository;
     private readonly PermissionService _permissionService;
     private readonly IMapper _mapper;
     private readonly PublisherConfig _config;
@@ -115,6 +116,7 @@ public class ResultExportTemplateReader
         IDbRepository<DataContext, CountingCircle> countingCircleRepository,
         IDbRepository<DataContext, ProtocolExport> protocolExportRepository,
         IDbRepository<DataContext, Contest> contestRepository,
+        IDbRepository<DataContext, SimplePoliticalBusiness> simplePoliticalBusinessRepository,
         IDbRepository<DataContext, DomainOfInfluenceCountingCircle> domainOfInfluenceCountingCircleRepository,
         IMapper mapper,
         PublisherConfig config,
@@ -129,6 +131,7 @@ public class ResultExportTemplateReader
         _protocolExportRepository = protocolExportRepository;
         _domainOfInfluenceCountingCircleRepository = domainOfInfluenceCountingCircleRepository;
         _contestRepository = contestRepository;
+        _simplePoliticalBusinessRepository = simplePoliticalBusinessRepository;
         _auth = auth;
         _proportionalElectionRepo = proportionalElectionRepo;
     }
@@ -248,7 +251,7 @@ public class ResultExportTemplateReader
 
         var data = await (basisCountingCircleId.HasValue
             ? LoadExportDataForErfassung(contest.Id, basisCountingCircleId.Value)
-            : LoadExportDataForMonitoring(contest.Id, accessiblePbs));
+            : LoadExportDataForMonitoring(contest, accessiblePbs));
         var resultTemplates = templates.SelectMany(t => BuildResultExportTemplates(t, data));
 
         return resultTemplates
@@ -337,13 +340,14 @@ public class ResultExportTemplateReader
             politicalBusinessesByType,
             [],
             new Dictionary<Guid, ProportionalElectionMandateAlgorithm>(),
-            true);
+            true,
+            null);
     }
 
-    private async Task<ExportData> LoadExportDataForMonitoring(Guid contestId, bool accessiblePbs)
+    private async Task<ExportData> LoadExportDataForMonitoring(Contest contest, bool accessiblePbs)
     {
         _auth.EnsurePermission(Permissions.Export.ExportMonitoringData);
-        var politicalBusinesses = await (accessiblePbs ? _contestReader.GetAccessiblePoliticalBusinesses(contestId) : _contestReader.GetOwnedPoliticalBusinesses(contestId));
+        var politicalBusinesses = await (accessiblePbs ? _contestReader.GetAccessiblePoliticalBusinesses(contest.Id) : _contestReader.GetOwnedPoliticalBusinesses(contest.Id));
         var politicalBusinessesByType = politicalBusinesses
             .GroupBy(x => x.BusinessType)
             .ToDictionary(x => x.Key, x => (IReadOnlyCollection<SimplePoliticalBusiness>)x.ToList());
@@ -352,15 +356,20 @@ public class ResultExportTemplateReader
             .Select(pb => pb.Id)
             .ToList();
 
-        var politicalBusinessUnions = await _contestReader.ListPoliticalBusinessUnions(contestId);
+        var politicalBusinessUnions = await _contestReader.ListPoliticalBusinessUnions(contest.Id);
         var proportionalElections = _proportionalElectionRepo.Query().Where(pe => peIds.Contains(pe.Id));
+
+        var exportContestManagerData = contest.DomainOfInfluence.SecureConnectId == _auth.Tenant.Id
+            ? await LoadExportContestManagerData(contest.Id)
+            : null;
 
         return new ExportData(
             null,
             politicalBusinessesByType,
             politicalBusinessUnions.ToList(),
             proportionalElections.ToDictionary(pe => pe.Id, pe => pe.MandateAlgorithm),
-            accessiblePbs);
+            accessiblePbs,
+            exportContestManagerData);
     }
 
     private IEnumerable<ResultExportTemplate> BuildResultExportTemplates(
@@ -393,7 +402,9 @@ public class ResultExportTemplateReader
                         data.BasisCountingCircleId);
 
             case ResultType.Contest when !data.BasisCountingCircleId.HasValue:
-                return [new ResultExportTemplate(template, _permissionService.TenantId)];
+                return IncludeContestResultTypeTemplate(template, data.ExportContestManagerData, data.PoliticalBusinessesByType)
+                    ? [new ResultExportTemplate(template, _permissionService.TenantId)]
+                    : [];
 
             case ResultType.PoliticalBusinessUnionResult when !data.BasisCountingCircleId.HasValue:
                 return ExpandPoliticalBusinessUnions(template, data.PoliticalBusinessUnions);
@@ -621,6 +632,30 @@ public class ResultExportTemplateReader
         return politicalBusinesses;
     }
 
+    private bool IncludeContestResultTypeTemplate(
+        TemplateModel template,
+        ExportContestManagerData? exportContestManagerData,
+        IReadOnlyDictionary<PoliticalBusinessType, IReadOnlyCollection<SimplePoliticalBusiness>> politicalBusinessesByType)
+    {
+        if (template.EntityType is EntityType.Contest)
+        {
+            return true;
+        }
+
+        if (exportContestManagerData == null)
+        {
+            var pbs = politicalBusinessesByType.GetValueOrDefault(MapEntityTypeToPoliticalBusinessType(template.EntityType))
+                ?? new List<SimplePoliticalBusiness>();
+
+            return pbs.Count > 0;
+        }
+
+        return
+            (exportContestManagerData.HasVotes && template.EntityType is EntityType.Vote) ||
+            (exportContestManagerData.HasProportionalElections && template.EntityType is EntityType.ProportionalElection) ||
+            (exportContestManagerData.HasMajorityElections && template.EntityType is EntityType.MajorityElection);
+    }
+
     private string MapPoliticalBusinessToDescription(DomainOfInfluenceType doiType, PoliticalBusinessType pbType, TemplateModel template)
     {
         if (template.Format != ExportFileFormat.Pdf)
@@ -688,10 +723,32 @@ public class ResultExportTemplateReader
         return $"{pbTypeDescription} {doiTypeDescription}: {template.Description}";
     }
 
+    private async Task<ExportContestManagerData> LoadExportContestManagerData(Guid contestId)
+    {
+        var simplePbCountByType = await _simplePoliticalBusinessRepository.Query()
+            .Where(x => x.ContestId == contestId)
+            .GroupBy(x => x.PoliticalBusinessType)
+            .ToDictionaryAsync(x => x.Key, x => x.Count(y => y.Active));
+
+        return new ExportContestManagerData(
+            simplePbCountByType.GetValueOrDefault(PoliticalBusinessType.Vote) > 0,
+            simplePbCountByType.GetValueOrDefault(PoliticalBusinessType.ProportionalElection) > 0,
+            simplePbCountByType.GetValueOrDefault(PoliticalBusinessType.MajorityElection) > 0);
+    }
+
     private record ExportData(
         Guid? BasisCountingCircleId,
         IReadOnlyDictionary<PoliticalBusinessType, IReadOnlyCollection<SimplePoliticalBusiness>> PoliticalBusinessesByType,
         IReadOnlyCollection<PoliticalBusinessUnion> PoliticalBusinessUnions,
         IReadOnlyDictionary<Guid, ProportionalElectionMandateAlgorithm> MandateAlgorithmByProportionalElectionId,
-        bool HasAllAccessiblePoliticalBusinesses);
+        bool HasAllAccessiblePoliticalBusinesses,
+        ExportContestManagerData? ExportContestManagerData);
+
+    // Contains additional contest data for the manager (especially for eCH-0252 exports, if the export is generated
+    // in monitoring and the contest manager has no owned political business).
+    // This will contain the political business info even if the contest manager does not own any political business.
+    private record ExportContestManagerData(
+        bool HasVotes,
+        bool HasProportionalElections,
+        bool HasMajorityElections);
 }

@@ -774,6 +774,13 @@ public static class ProportionalElectionUnionEndResultMockedData
                 BlankBallots = 80,
                 AccountedBallots = 220,
             },
+            ECountingSubTotal = new PoliticalBusinessCountOfVotersSubTotal
+            {
+                ReceivedBallots = 100,
+                InvalidBallots = 20,
+                BlankBallots = 20,
+                AccountedBallots = 60,
+            },
             VoterParticipation = .5m,
         };
 

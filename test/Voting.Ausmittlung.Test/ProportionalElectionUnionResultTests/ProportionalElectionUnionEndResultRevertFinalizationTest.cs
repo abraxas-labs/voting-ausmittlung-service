@@ -19,6 +19,7 @@ using Voting.Ausmittlung.Core.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Iam.SecondFactor.Testing.Mocks;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Xunit;
 
@@ -31,19 +32,13 @@ public class ProportionalElectionUnionEndResultRevertFinalizationTest : Proporti
     {
     }
 
-    public override async Task InitializeAsync()
-    {
-        await base.InitializeAsync();
-        await SecondFactorTransactionMockedData.Seed(RunScoped);
-    }
-
     [Fact]
     public async Task ShouldWork()
     {
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(new()
         {
             ProportionalElectionUnionId = ZhMockedData.ProportionalElectionUnionIdKtrat,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
+            SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.VerifiedTransactionIdString },
         });
 
         await MonitoringElectionAdminClient.RevertEndResultFinalizationAsync(NewValidRequest());
@@ -60,7 +55,7 @@ public class ProportionalElectionUnionEndResultRevertFinalizationTest : Proporti
             await MonitoringElectionAdminClient.FinalizeEndResultAsync(new()
             {
                 ProportionalElectionUnionId = ZhMockedData.ProportionalElectionUnionIdKtrat,
-                SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
+                SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.VerifiedTransactionIdString },
             });
 
             await MonitoringElectionAdminClient.RevertEndResultFinalizationAsync(NewValidRequest());
@@ -100,7 +95,7 @@ public class ProportionalElectionUnionEndResultRevertFinalizationTest : Proporti
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(new()
         {
             ProportionalElectionUnionId = ZhMockedData.ProportionalElectionUnionIdKtrat,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
+            SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.VerifiedTransactionIdString },
         });
 
         await RunEvents<ProportionalElectionUnionEndResultFinalized>();
@@ -223,7 +218,7 @@ public class ProportionalElectionUnionEndResultRevertFinalizationTest : Proporti
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(new()
         {
             ProportionalElectionUnionId = ZhMockedData.ProportionalElectionUnionIdKtrat,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
+            SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.VerifiedTransactionIdString },
         });
 
         await new ProportionalElectionUnionResultService.ProportionalElectionUnionResultServiceClient(channel)

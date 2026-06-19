@@ -59,7 +59,7 @@ public class MajorityElectionUpdateTest : BaseDataProcessorTest
                 EnforceReviewProcedureForCountingCircles = false,
                 ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Physically,
                 EnforceCandidateCheckDigitForCountingCircles = false,
-                FederalIdentification = 111,
+                FederalIdentificationString = "111",
             },
         });
 
@@ -419,5 +419,47 @@ public class MajorityElectionUpdateTest : BaseDataProcessorTest
             contestDetailsAfter.CountOfVotersInformationSubTotals,
             x => x.Sex == SexType.Female && x.VoterType == VoterType.Minor && x.DomainOfInfluenceType == DomainOfInfluenceType.Ch,
             -9);
+    }
+
+    [Fact]
+    public async Task TestWithDeprecatedFederalIdentification()
+    {
+        await TestEventPublisher.Publish(new MajorityElectionUpdated
+        {
+            MajorityElection = new MajorityElectionEventData
+            {
+                Id = MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallen,
+                PoliticalBusinessNumber = "8164",
+                OfficialDescription = { LanguageUtil.MockAllLanguages("Update Majorzwahl") },
+                ShortDescription = { LanguageUtil.MockAllLanguages("Update Majorzwahl") },
+                DomainOfInfluenceId = DomainOfInfluenceMockedData.IdStGallen,
+                ContestId = ContestMockedData.IdStGallenEvoting,
+                AutomaticBallotBundleNumberGeneration = true,
+                AutomaticEmptyVoteCounting = false,
+                BallotBundleSize = 25,
+                BallotBundleSampleSize = 8,
+                BallotNumberGeneration = SharedProto.BallotNumberGeneration.RestartForEachBundle,
+                CandidateCheckDigit = false,
+                EnforceEmptyVoteCountingForCountingCircles = true,
+                MandateAlgorithm = SharedProto.MajorityElectionMandateAlgorithm.RelativeMajority,
+                ResultEntry = SharedProto.MajorityElectionResultEntry.FinalResults,
+                EnforceResultEntryForCountingCircles = false,
+                NumberOfMandates = 2,
+                EnforceReviewProcedureForCountingCircles = false,
+                ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Physically,
+                EnforceCandidateCheckDigitForCountingCircles = false,
+#pragma warning disable CS0612
+                FederalIdentification = 111,
+#pragma warning restore CS0612
+            },
+        });
+
+        var election = await RunOnDb(
+            db => db.MajorityElections
+                .Include(x => x.Translations)
+                .FirstAsync(x => x.Id == Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallen)),
+            Languages.German);
+
+        election.FederalIdentification.Should().Be("111");
     }
 }

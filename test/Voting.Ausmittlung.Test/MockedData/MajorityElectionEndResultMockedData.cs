@@ -137,7 +137,7 @@ public static class MajorityElectionEndResultMockedData
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
             EnforceCandidateCheckDigitForCountingCircles = true,
-            FederalIdentification = 333,
+            FederalIdentification = "333",
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
                 {
                     BuildCandidate(CandidateId1, 1, 9),

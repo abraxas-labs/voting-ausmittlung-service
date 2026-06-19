@@ -27,6 +27,13 @@ public class ContestCacheEntryKeyData
     public long SignedEventCount { get; private set; }
 
     /// <summary>
+    /// Gets a value indicating whether the key data is expired.
+    /// </summary>
+    /// <param name="now">The current time.</param>
+    /// <returns>True if the key data is expired, otherwise false.</returns>
+    public bool IsExpired(DateTime now) => now >= ValidTo;
+
+    /// <summary>
     /// Increments the <see cref="SignedEventCount"/> by 1. This count is used to verify how many events a specific <see cref="Key"/> has signed.
     /// </summary>
     public void IncrementSignedEventCount()

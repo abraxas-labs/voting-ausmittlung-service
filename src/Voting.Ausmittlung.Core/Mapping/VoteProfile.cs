@@ -66,9 +66,11 @@ public class VoteProfile : Profile
 
         CreateMap<BallotQuestionEventData, BallotQuestion>()
             .ForMember(dst => dst.Translations, opts => opts.MapFrom((src, _) => TranslationBuilder.CreateTranslations<BallotQuestionTranslation>(
-                ((t, x) => t.Question = x, src.Question))));
+                ((t, x) => t.Question = x, src.Question))))
+            .ForMember(dst => dst.FederalIdentification, opt => opt.MapFrom(src => src.FederalIdentificationString));
         CreateMap<TieBreakQuestionEventData, TieBreakQuestion>()
             .ForMember(dst => dst.Translations, opts => opts.MapFrom((src, _) => TranslationBuilder.CreateTranslations<TieBreakQuestionTranslation>(
-                ((t, x) => t.Question = x, src.Question))));
+                ((t, x) => t.Question = x, src.Question))))
+            .ForMember(dst => dst.FederalIdentification, opt => opt.MapFrom(src => src.FederalIdentificationString));
     }
 }

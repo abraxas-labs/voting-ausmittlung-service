@@ -9,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Services.Validation.Utils;
-using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Report.EventLogs;
 using Voting.Ausmittlung.Report.Services;
 using Voting.Ausmittlung.Test.MockedData.Mapping;
@@ -35,12 +34,12 @@ public class TestStartup : Startup
             .AddMock<IPdfService, PdfServiceMock>()
             .AddMock<IValidationResultsEnsurerUtils, ValidationResultsEnsurerUtilsMock>()
             .AddMock<IEchMessageIdProvider, MockEchMessageIdProvider>()
-            .AddMock<IActionIdComparer, ActionIdComparerMock>()
             .RemoveAll<EventLogBuilder>()
             .AddScoped<EventLogBuilder, StaticEventLogBuilder>()
             .AddMockedClock()
             .AddVotingLibEventingMocks()
             .AddVotingLibIamMocks()
+            .AddVotingLibIamSecondFactorMocks()
             .AddDokConnectorMock()
             .AddVotingLibCryptographyMocks()
             .AddVotingLibCryptoProviderMock()

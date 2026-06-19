@@ -10,16 +10,19 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
-using Voting.Ausmittlung.Core.Models;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Core.Services.Read;
 using Voting.Ausmittlung.Core.Services.Validation;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
+using Voting.Lib.Iam.SecondFactor.Models;
+using Voting.Lib.Iam.SecondFactor.Services;
+using Voting.Lib.Iam.Services.ApiClient.Identity;
 using Voting.Lib.Iam.Store;
 
 namespace Voting.Ausmittlung.Core.Services.Write;
@@ -33,7 +36,7 @@ public class ResultWriter
     private readonly PermissionService _permissionService;
     private readonly ContestService _contestService;
     private readonly ResultReader _resultReader;
-    private readonly SecondFactorTransactionWriter _secondFactorTransactionWriter;
+    private readonly ISecondFactorTransactionService _secondFactorTransactionService;
     private readonly ValidationResultsEnsurer _validationResultsEnsurer;
     private readonly CountingCircleResultsValidationSummariesBuilder _countingCircleResultsValidationSummariesBuilder;
     private readonly IAuth _auth;
@@ -46,7 +49,7 @@ public class ResultWriter
         IDbRepository<DataContext, SimplePoliticalBusiness> simplePoliticalBusinessRepository,
         ContestService contestService,
         ResultReader resultReader,
-        SecondFactorTransactionWriter secondFactorTransactionWriter,
+        ISecondFactorTransactionService secondFactorTransactionService,
         ValidationResultsEnsurer validationResultsEnsurer,
         CountingCircleResultsValidationSummariesBuilder countingCircleResultsValidationSummariesBuilder,
         IAuth auth)
@@ -58,7 +61,7 @@ public class ResultWriter
         _simplePoliticalBusinessRepository = simplePoliticalBusinessRepository;
         _contestService = contestService;
         _resultReader = resultReader;
-        _secondFactorTransactionWriter = secondFactorTransactionWriter;
+        _secondFactorTransactionService = secondFactorTransactionService;
         _validationResultsEnsurer = validationResultsEnsurer;
         _countingCircleResultsValidationSummariesBuilder = countingCircleResultsValidationSummariesBuilder;
         _auth = auth;
@@ -134,7 +137,7 @@ public class ResultWriter
         }
     }
 
-    public async Task<SecondFactorInfo?> PrepareSubmissionFinished(
+    public async Task<SecondFactorTransactionInfo?> PrepareSubmissionFinished(
         Guid contestId,
         Guid countingCircleId,
         IReadOnlyCollection<Guid> resultIds,
@@ -161,8 +164,8 @@ public class ResultWriter
             return null;
         }
 
-        var actionId = new ActionId(nameof(SubmissionFinished), actionAggregates.ToArray());
-        return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
+        var actionId = new EventStoreActionId(nameof(SubmissionFinished), actionAggregates.ToArray());
+        return await _secondFactorTransactionService.Create(actionId, message);
     }
 
     public async Task SubmissionFinished(
@@ -170,7 +173,8 @@ public class ResultWriter
         Guid countingCircleId,
         IReadOnlyCollection<Guid> resultIds,
         Guid? secondFactorTransactionId,
-        CancellationToken ct)
+        string? otpCode = null,
+        CancellationToken ct = default)
     {
         var data = await _resultReader.GetList(contestId, countingCircleId);
         if (data.Details == null)
@@ -206,9 +210,11 @@ public class ResultWriter
                 throw new ValidationException("Second factor transaction id cannot be null.");
             }
 
-            await _secondFactorTransactionWriter.EnsureVerified(
+            await _secondFactorTransactionService.EnsureVerified(
                 secondFactorTransactionId.Value,
-                () => Task.FromResult(new ActionId(nameof(SubmissionFinished), actionAggregates.ToArray())),
+                string.IsNullOrEmpty(otpCode) ? V1SecondFactorProvider.NEVIS : V1SecondFactorProvider.OTP,
+                () => Task.FromResult<IActionId>(new EventStoreActionId(nameof(SubmissionFinished), actionAggregates.ToArray())),
+                otpCode,
                 ct);
         }
 

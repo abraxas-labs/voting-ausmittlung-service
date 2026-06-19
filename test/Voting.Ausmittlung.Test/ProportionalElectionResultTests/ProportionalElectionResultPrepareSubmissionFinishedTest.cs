@@ -31,7 +31,8 @@ public class ProportionalElectionResultPrepareSubmissionFinishedTest : Proportio
         await RunToState(CountingCircleResultState.SubmissionOngoing);
         var response = await ErfassungElectionAdminClient.PrepareSubmissionFinishedAsync(NewValidRequest());
         response.Id.Should().NotBeEmpty();
-        response.Code.Should().NotBeEmpty();
+        response.Nevis.QrCode.Should().NotBeEmpty();
+        response.Nevis.CorrelationCode.Should().NotBeEmpty();
     }
 
     [Fact]
@@ -40,7 +41,7 @@ public class ProportionalElectionResultPrepareSubmissionFinishedTest : Proportio
         await RunToState(CountingCircleResultState.SubmissionOngoing);
         var response = await StGallenErfassungElectionAdminClient.PrepareSubmissionFinishedAsync(NewValidRequest());
         response.Id.Should().BeEmpty();
-        response.Code.Should().BeEmpty();
+        response.Nevis.Should().BeNull();
     }
 
     [Fact]

@@ -29,7 +29,7 @@
     "ReviewProcedure": 2,
     "EnforceReviewProcedureForCountingCircles": false,
     "EnforceCandidateCheckDigitForCountingCircles": false,
-    "FederalIdentification": 111,
+    "FederalIdentification": "111",
     "NumberOfMandates": 2,
     "PoliticalBusinessNumber": "6000",
     "Active": false,

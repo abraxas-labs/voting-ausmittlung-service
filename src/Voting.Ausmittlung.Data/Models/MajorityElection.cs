@@ -71,7 +71,7 @@ public class MajorityElection : MajorityElectionBase, IHasResults, IPoliticalBus
 
     public bool EnforceCandidateCheckDigitForCountingCircles { get; set; }
 
-    public int? FederalIdentification { get; set; }
+    public string FederalIdentification { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the id of the primary election.

@@ -7,7 +7,9 @@ using Rationals;
 using Voting.Ausmittlung.BiproportionalApportionment.Extensions;
 using Voting.Ausmittlung.BiproportionalApportionment.TieAndTransfer;
 using Voting.Ausmittlung.Core.Exceptions;
+using Voting.Ausmittlung.Core.Extensions;
 using Voting.Ausmittlung.Core.Utils.DoubleProportional.Models;
+using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Core.Utils.DoubleProportional;
 
@@ -55,12 +57,14 @@ public class SaintLagueAlgorithm
 
         if (!context.HasLotDecisions)
         {
-            context.ElectionKey = DivisorUtils.CalculateSelectDivisor(
+            context.ElectionKeyCalculation = DivisorUtils.CalculateSelectDivisor(
                 context.Columns.Select(co => new DivisorApportionment(co.VoterNumber, co.NumberOfMandates)).ToArray());
+            context.ElectionKey = context.ElectionKeyCalculation.SelectDivisor.ToRational();
             context.Divisor = context.ElectionKey;
         }
         else
         {
+            context.ElectionKeyCalculation = context.Divisor.ToSelectDivisorCalculation();
             context.ElectionKey = context.Divisor;
         }
 
@@ -71,7 +75,8 @@ public class SaintLagueAlgorithm
             context.Columns.Select(c => c.NumberOfMandates).ToArray(),
             context.TieStates,
             context.CountOfMissingNumberOfMandates,
-            context.ElectionKey);
+            context.ElectionKey,
+            context.ElectionKeyCalculation);
     }
 
     private void IncreaseDistributedNumberOfMandates(SaintLagueAlgorithmContext context)
@@ -191,6 +196,8 @@ public class SaintLagueAlgorithm
         public int DistributionError { get; set; }
 
         public int CountOfMissingNumberOfMandates { get; set; }
+
+        public SelectDivisorCalculation ElectionKeyCalculation { get; set; } = new();
 
         public Rational ElectionKey { get; set; }
 

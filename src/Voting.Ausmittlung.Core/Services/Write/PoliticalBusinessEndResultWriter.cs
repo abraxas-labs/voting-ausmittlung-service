@@ -8,11 +8,14 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.Exceptions;
-using Voting.Ausmittlung.Core.Models;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Data.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
+using Voting.Lib.Iam.SecondFactor.Models;
+using Voting.Lib.Iam.SecondFactor.Services;
+using Voting.Lib.Iam.Services.ApiClient.Identity;
 using DataModels = Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Core.Services.Write;
@@ -22,7 +25,7 @@ public abstract class PoliticalBusinessEndResultWriter<TAggregate, TEndResult>
     where TEndResult : DataModels.PoliticalBusinessEndResultBase
 {
     private readonly PermissionService _permissionService;
-    private readonly SecondFactorTransactionWriter _secondFactorTransactionWriter;
+    private readonly ISecondFactorTransactionService _secondFactorTransactionService;
 
     protected PoliticalBusinessEndResultWriter(
         ILogger logger,
@@ -30,14 +33,14 @@ public abstract class PoliticalBusinessEndResultWriter<TAggregate, TEndResult>
         IAggregateFactory aggregateFactory,
         ContestService contestService,
         PermissionService permissionService,
-        SecondFactorTransactionWriter secondFactorTransactionWriter)
+        ISecondFactorTransactionService secondFactorTransactionService)
     {
         Logger = logger;
         AggregateRepository = aggregateRepository;
         AggregateFactory = aggregateFactory;
         ContestService = contestService;
         _permissionService = permissionService;
-        _secondFactorTransactionWriter = secondFactorTransactionWriter;
+        _secondFactorTransactionService = secondFactorTransactionService;
     }
 
     protected ILogger Logger { get; }
@@ -48,13 +51,15 @@ public abstract class PoliticalBusinessEndResultWriter<TAggregate, TEndResult>
 
     protected ContestService ContestService { get; }
 
-    public async Task Finalize(Guid politicalBusinessId, Guid secondFactorTransactionId, CancellationToken ct)
+    public async Task Finalize(Guid politicalBusinessId, Guid secondFactorTransactionId, string? otpCode = null, CancellationToken ct = default)
     {
         var (contestId, testingPhaseEnded) = await ContestService.EnsureNotLockedByPoliticalBusiness(politicalBusinessId);
 
-        await _secondFactorTransactionWriter.EnsureVerified(
+        await _secondFactorTransactionService.EnsureVerified(
             secondFactorTransactionId,
+            string.IsNullOrEmpty(otpCode) ? V1SecondFactorProvider.NEVIS : V1SecondFactorProvider.OTP,
             () => PrepareFinalizeActionId(politicalBusinessId, testingPhaseEnded),
+            otpCode,
             ct);
 
         var endResult = await GetEndResult(politicalBusinessId, _permissionService.TenantId)
@@ -86,7 +91,7 @@ public abstract class PoliticalBusinessEndResultWriter<TAggregate, TEndResult>
             typeof(TEndResult).Name);
     }
 
-    public async Task<SecondFactorInfo> PrepareFinalize(Guid politicalBusinessId, string message)
+    public async Task<SecondFactorTransactionInfo> PrepareFinalize(Guid politicalBusinessId, string message)
     {
         await ContestService.EnsureNotLockedByPoliticalBusiness(politicalBusinessId);
 
@@ -96,7 +101,7 @@ public abstract class PoliticalBusinessEndResultWriter<TAggregate, TEndResult>
 
         var (_, testingPhaseEnded) = await ContestService.EnsureNotLockedByPoliticalBusiness(politicalBusinessId);
         var actionId = await PrepareFinalizeActionId(politicalBusinessId, testingPhaseEnded);
-        return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
+        return await _secondFactorTransactionService.Create(actionId, message);
     }
 
     protected abstract Task<TEndResult?> GetEndResult(Guid politicalBusinessId, string tenantId);
@@ -116,7 +121,7 @@ public abstract class PoliticalBusinessEndResultWriter<TAggregate, TEndResult>
         await ContestService.EnsureEndResultFinalizeEnabled(contestId);
     }
 
-    private async Task<ActionId> PrepareFinalizeActionId(Guid politicalBusinessId, bool testingPhaseEnded)
+    private async Task<IActionId> PrepareFinalizeActionId(Guid politicalBusinessId, bool testingPhaseEnded)
     {
         var endResultId = AusmittlungUuidV5.BuildPoliticalBusinessEndResult(politicalBusinessId, testingPhaseEnded);
         var aggregate = await AggregateRepository.GetOrCreateById<TAggregate>(endResultId);

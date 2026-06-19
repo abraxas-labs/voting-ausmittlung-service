@@ -2,13 +2,13 @@
 // For license information see LICENSE file
 
 using System;
-using Voting.Lib.Eventing.Domain;
+using Voting.Lib.Common;
 
 namespace Voting.Ausmittlung.Core.Domain.Aggregate;
 
 public interface IPoliticalBusinessEndResultAggregate
 {
-    ActionId PrepareFinalize(Guid politicalBusinessId, bool testingPhaseEnded);
+    IActionId PrepareFinalize(Guid politicalBusinessId, bool testingPhaseEnded);
 
     void Finalize(Guid politicalBusinessId, Guid contestId, bool testingPhaseEnded);
 

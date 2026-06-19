@@ -65,7 +65,7 @@ public class PoliticalBusinessCountOfVoters : IHasSubTotals<PoliticalBusinessCou
 
     public int TotalBlankBallots
     {
-        get => ConventionalSubTotal.BlankBallots + EVotingSubTotal.BlankBallots;
+        get => ConventionalSubTotal.BlankBallots + EVotingSubTotal.BlankBallots + ECountingSubTotal.BlankBallots;
         private set
         {
             // empty setter to store the value in the database...

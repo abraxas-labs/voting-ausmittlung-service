@@ -50,7 +50,7 @@ public class MajorityElectionCreateTest : BaseDataProcessorTest
                     NumberOfMandates = 6,
                     MandateAlgorithm = SharedProto.MajorityElectionMandateAlgorithm.AbsoluteMajority,
                     ResultEntry = SharedProto.MajorityElectionResultEntry.FinalResults,
-                    FederalIdentification = 111,
+                    FederalIdentificationString = "111",
                 },
             },
             new MajorityElectionCreated
@@ -263,5 +263,38 @@ public class MajorityElectionCreateTest : BaseDataProcessorTest
             doiDetailsAfter.Details!.CountOfVotersInformationSubTotals,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct && x.VoterType == VoterType.Swiss && x.Sex == SexType.Male,
             0);
+    }
+
+    [Fact]
+    public async Task TestWithDeprecatedFederalIdentification()
+    {
+        var id = Guid.Parse("4a258e1d-ba12-4564-a8eb-6bf89262dece");
+        await TestEventPublisher.Publish(
+            new MajorityElectionCreated
+            {
+                MajorityElection = new MajorityElectionEventData
+                {
+                    Id = id.ToString(),
+                    PoliticalBusinessNumber = "8000",
+                    OfficialDescription = { LanguageUtil.MockAllLanguages("Neue Majorzwahl 1") },
+                    ShortDescription = { LanguageUtil.MockAllLanguages("Neue Majorzwahl 1") },
+                    DomainOfInfluenceId = DomainOfInfluenceMockedData.IdGossau,
+                    ContestId = ContestMockedData.IdGossau,
+                    NumberOfMandates = 6,
+                    MandateAlgorithm = SharedProto.MajorityElectionMandateAlgorithm.AbsoluteMajority,
+                    ResultEntry = SharedProto.MajorityElectionResultEntry.FinalResults,
+#pragma warning disable CS0612
+                    FederalIdentification = 111,
+#pragma warning restore CS0612
+                },
+            });
+
+        var election = await RunOnDb(
+            db => db.MajorityElections
+                .Include(x => x.Translations)
+                .FirstAsync(x => x.Id == id),
+            Languages.German);
+
+        election.FederalIdentification.Should().Be("111");
     }
 }

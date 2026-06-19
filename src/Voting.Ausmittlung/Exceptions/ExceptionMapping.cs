@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Lib.Eventing.Exceptions;
 using Voting.Lib.Iam.Exceptions;
+using Voting.Lib.Iam.SecondFactor.Exceptions;
 using Voting.Lib.VotingExports.Exceptions;
 
 namespace Voting.Ausmittlung.Exceptions;

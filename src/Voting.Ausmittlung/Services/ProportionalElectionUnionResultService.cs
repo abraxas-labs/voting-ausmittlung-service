@@ -74,7 +74,7 @@ public class ProportionalElectionUnionResultService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessUnionEndResult.Finalize)]
     public override async Task<Empty> FinalizeEndResult(FinalizeProportionalElectionUnionEndResultRequest request, ServerCallContext context)
     {
-        await _endResultWriter.Finalize(GuidParser.Parse(request.ProportionalElectionUnionId), GuidParser.Parse(request.SecondFactorTransactionId), context.CancellationToken);
+        await _endResultWriter.Finalize(GuidParser.Parse(request.ProportionalElectionUnionId), GuidParser.Parse(request.SecondFactorAuthorization?.SecondFactorTransactionId ?? string.Empty), request.SecondFactorAuthorization?.OtpCode, context.CancellationToken);
         return ProtobufEmpty.Instance;
     }
 

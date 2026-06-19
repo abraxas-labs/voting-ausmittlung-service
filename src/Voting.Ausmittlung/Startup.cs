@@ -159,7 +159,12 @@ public class Startup
     private void MapEndpoints(IEndpointRouteBuilder endpoints)
     {
         endpoints.MapControllers();
-        endpoints.MapGrpcReflectionService();
+
+        if (_appConfig.Publisher.EnableGrpcReflection)
+        {
+            endpoints.MapGrpcReflectionService().RequireAuthorization();
+        }
+
         endpoints.MapGrpcService<EventLogService>();
         endpoints.MapGrpcService<ContestService>();
         endpoints.MapGrpcService<ResultService>();
@@ -245,7 +250,11 @@ public class Startup
             services.AddCors(_configuration);
         }
 
-        services.AddGrpcReflection();
+        if (_appConfig.Publisher.EnableGrpcReflection)
+        {
+            services.AddGrpcReflection();
+        }
+
         services.AddProtoValidators();
 
         services.AddReport(_appConfig.Publisher.Documatrix);

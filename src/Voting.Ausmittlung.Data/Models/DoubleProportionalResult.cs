@@ -38,6 +38,11 @@ public class DoubleProportionalResult : BaseEntity
     public decimal VoterNumber { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating the "Wahlschlüssel" divisor calculation details of the super apportionment.
+    /// </summary>
+    public SelectDivisorCalculation ElectionKeyCalculation { get; set; } = new();
+
+    /// <summary>
     /// Gets or sets a value indicating the "Wahlschlüssel" of the super apportionment.
     /// </summary>
     public decimal ElectionKey { get; set; }

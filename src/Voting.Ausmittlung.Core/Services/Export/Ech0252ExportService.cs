@@ -470,7 +470,12 @@ public class Ech0252ExportService
                         .ThenInclude(x => x.DoubleProportionalResult)
                         .ThenInclude(x => x!.Columns)
                         .ThenInclude(x => x.Cells)
-                        .ThenInclude(x => x.List);
+                        .ThenInclude(x => x.List)
+                    .Include(x => x.ProportionalElections)
+                        .ThenInclude(x => x.ProportionalElectionUnionEntries)
+                        .ThenInclude(x => x.ProportionalElectionUnion)
+                        .ThenInclude(x => x.DoubleProportionalResult)
+                        .ThenInclude(x => x!.Rows);
             }
             else
             {

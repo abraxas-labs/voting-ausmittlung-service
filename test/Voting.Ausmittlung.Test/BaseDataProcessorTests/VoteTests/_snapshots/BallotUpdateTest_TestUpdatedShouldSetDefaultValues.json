@@ -27,7 +27,7 @@
               "Question": "Variante 1X de",
               "BallotAnswers": [],
               "Type": 1,
-              "FederalIdentification": null,
+              "FederalIdentification": "",
               "Id": "00000000-0000-0000-0000-000000000000"
             },
             {
@@ -46,7 +46,7 @@
               "Question": "Variante 2X de",
               "BallotAnswers": [],
               "Type": 2,
-              "FederalIdentification": null,
+              "FederalIdentification": "",
               "Id": "00000000-0000-0000-0000-000000000000"
             },
             {
@@ -65,7 +65,7 @@
               "Question": "Variante 3X de",
               "BallotAnswers": [],
               "Type": 2,
-              "FederalIdentification": null,
+              "FederalIdentification": "",
               "Id": "00000000-0000-0000-0000-000000000000"
             }
           ],

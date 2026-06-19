@@ -107,7 +107,8 @@ public class ResultService : ServiceBase
             GuidParser.Parse(request.ContestId),
             GuidParser.Parse(request.CountingCircleId),
             request.CountingCircleResultIds.Select(GuidParser.Parse).ToList(),
-            GuidParser.ParseNullable(request.SecondFactorTransactionId),
+            GuidParser.ParseNullable(request.SecondFactorAuthorization?.SecondFactorTransactionId),
+            request.SecondFactorAuthorization?.OtpCode,
             context.CancellationToken);
         return ProtobufEmpty.Instance;
     }

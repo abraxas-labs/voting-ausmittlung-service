@@ -203,6 +203,7 @@ public static class DoubleProportionalAlgorithmTestUtils
         result.UnionListAnyQuorumReachedList = dpResult.Columns.Select(x => x.AnyRequiredQuorumReached).ToArray();
 
         result.ElectionKey = dpResult.ElectionKey;
+        result.ElectionKeyCalculation = dpResult.ElectionKeyCalculation;
         result.TotalVoterNumber = dpResult.VoterNumber;
         result.ColumnVoterNumbers = dpResult.Columns.Select(x => x.VoterNumber).ToArray();
 
@@ -295,6 +296,8 @@ public static class DoubleProportionalAlgorithmTestUtils
             NumberOfMandates = dpResult.SubApportionmentNumberOfMandates,
             RowDivisors = dpResult.Rows.Select(r => r.Divisor).ToArray(),
             ColumnDivisors = dpResult.Columns.Select(c => c.Divisor).ToArray(),
+            RowDivisorCalculations = dpResult.Rows.Select(r => r.DivisorCalculation).ToArray(),
+            ColumnDivisorCalculations = dpResult.Columns.Select(c => c.DivisorCalculation).ToArray(),
         };
 
         var columnsWithSeats = dpResult.Columns.Where(c => c.SuperApportionmentNumberOfMandates > 0).ToList();

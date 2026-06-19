@@ -23,11 +23,6 @@ public class CountingCircleUpdateTest : CountingCircleProcessorBaseTest
     {
     }
 
-    public override async Task InitializeAsync()
-    {
-        await base.InitializeAsync();
-    }
-
     [Fact]
     public async Task TestUpdated()
     {

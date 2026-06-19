@@ -42,8 +42,8 @@ public class MajorityElectionResultPrepareCorrectionFinishedAndAuditedTentativel
         await RunToState(CountingCircleResultState.SubmissionOngoing);
         var response = await BundErfassungElectionAdminClient.PrepareCorrectionFinishedAndAuditedTentativelyAsync(NewValidRequest());
         response.Id.Should().NotBeEmpty();
-        response.Code.Should().NotBeEmpty();
-        response.QrCode.Should().NotBeEmpty();
+        response.Nevis.QrCode.Should().NotBeEmpty();
+        response.Nevis.CorrelationCode.Should().NotBeEmpty();
     }
 
     [Fact]

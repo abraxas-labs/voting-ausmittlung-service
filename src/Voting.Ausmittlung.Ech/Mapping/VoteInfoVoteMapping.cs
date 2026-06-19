@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Ech0252_2_0;
 using Voting.Ausmittlung.Data.Models;
@@ -229,7 +228,7 @@ public static class VoteInfoVoteMapping
         string? mainQuestionId,
         Ech0252MappingContext ctx,
         Dictionary<Guid, ushort> sequenceBySuperiorAuthorityId,
-        int? federalIdentification)
+        string federalIdentification)
     {
         var superiorAuthority = ctx.GetSuperiorAuthority(ballot.Vote.DomainOfInfluence.Id);
         var superiorAuthorityId = superiorAuthority?.Id ?? Guid.Empty;
@@ -306,15 +305,15 @@ public static class VoteInfoVoteMapping
     private static string BuildQuestionId(Guid ballotId, int questionNumber = 1, bool isTieBreakQuestion = false)
         => $"{ballotId}_{questionNumber}{(isTieBreakQuestion ? "_t" : string.Empty)}";
 
-    private static List<NamedIdType> ToOtherIdentification(int? federalIdentification)
+    private static List<NamedIdType> ToOtherIdentification(string federalIdentification)
     {
-        return federalIdentification.HasValue
+        return !string.IsNullOrEmpty(federalIdentification)
             ? new List<NamedIdType>
             {
                 new NamedIdType
                 {
                     IdName = FederalIdentifier,
-                    Id = federalIdentification.Value.ToString(CultureInfo.InvariantCulture),
+                    Id = federalIdentification,
                 },
             }
             : new List<NamedIdType>();

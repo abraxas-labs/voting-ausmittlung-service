@@ -11,6 +11,7 @@ using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Iam.Exceptions;
+using Voting.Lib.Iam.SecondFactor.Services;
 using Voting.Lib.Iam.Store;
 
 namespace Voting.Ausmittlung.Core.Services.Write;
@@ -26,8 +27,8 @@ public abstract class PoliticalBusinessResultBundleWriter<TResult, TBundleAggreg
         ContestService contestService,
         IAuth auth,
         IAggregateRepository aggregateRepository,
-        SecondFactorTransactionWriter secondFactorTransactionWriter)
-        : base(permissionService, contestService, auth, aggregateRepository, secondFactorTransactionWriter)
+        ISecondFactorTransactionService secondFactorService)
+        : base(permissionService, contestService, auth, aggregateRepository, secondFactorService)
     {
         _permissionService = permissionService;
     }

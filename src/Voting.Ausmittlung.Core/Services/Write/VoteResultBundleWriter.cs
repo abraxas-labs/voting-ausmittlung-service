@@ -16,6 +16,7 @@ using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Iam.Exceptions;
+using Voting.Lib.Iam.SecondFactor.Services;
 using Voting.Lib.Iam.Store;
 using DataModels = Voting.Ausmittlung.Data.Models;
 
@@ -38,8 +39,8 @@ public class VoteResultBundleWriter
         PermissionService permissionService,
         ContestService contestService,
         IAuth auth,
-        SecondFactorTransactionWriter secondFactorTransactionWriter)
-        : base(permissionService, contestService, auth, aggregateRepository, secondFactorTransactionWriter)
+        ISecondFactorTransactionService secondFactorService)
+        : base(permissionService, contestService, auth, aggregateRepository, secondFactorService)
     {
         _aggregateFactory = aggregateFactory;
         _resultRepo = resultRepo;

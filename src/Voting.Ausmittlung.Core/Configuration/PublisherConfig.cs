@@ -24,7 +24,16 @@ public class PublisherConfig
     /// </summary>
     public bool EnableDetailedErrors { get; set; }
 
-    public bool EnableGrpcWeb { get; set; } // this should only be enabled for testing purposes
+    /// <summary>
+    /// Gets or sets a value indicating whether grpc-web should be used or plain grpc.
+    /// Remarks: Only inteded to be used for development and testing purposes.
+    /// </summary>
+    public bool EnableGrpcWeb { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether grpc reflection endpoint should be enabled or not.
+    /// </summary>
+    public bool EnableGrpcReflection { get; set; }
 
     public DmDocConfig Documatrix { get; set; } = new() { DataSerializationFormat = Lib.DmDoc.Configuration.DmDocDataSerializationFormat.Xml };
 

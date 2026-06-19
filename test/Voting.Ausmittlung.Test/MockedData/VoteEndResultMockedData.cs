@@ -97,7 +97,7 @@ public static class VoteEndResultMockedData
                                     (t, o) => t.Question = o,
                                     "Frage 1"),
                                 Type = BallotQuestionType.MainBallot,
-                                FederalIdentification = 555,
+                                FederalIdentification = "555",
                             },
                         },
                     },
@@ -116,7 +116,7 @@ public static class VoteEndResultMockedData
                                     (t, o) => t.Question = o,
                                     "Frage 1"),
                                 Type = BallotQuestionType.MainBallot,
-                                FederalIdentification = 666,
+                                FederalIdentification = "666",
                             },
                             new BallotQuestion
                             {
@@ -126,7 +126,7 @@ public static class VoteEndResultMockedData
                                     (t, o) => t.Question = o,
                                     "Frage 2"),
                                 Type = BallotQuestionType.CounterProposal,
-                                FederalIdentification = 777,
+                                FederalIdentification = "777",
                             },
                         },
                         HasTieBreakQuestions = true,
@@ -141,7 +141,7 @@ public static class VoteEndResultMockedData
                                 Translations = TranslationUtil.CreateTranslations<TieBreakQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Welcher der beiden Vorlagen soll in Kraft treten, falls sowohl der Beschluss als auch der Gegenvorschlag angenommen werden?"),
-                                FederalIdentification = 888,
+                                FederalIdentification = "888",
                             },
                         },
                     },

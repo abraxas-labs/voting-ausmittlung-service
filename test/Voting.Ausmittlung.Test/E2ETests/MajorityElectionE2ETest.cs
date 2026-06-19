@@ -17,8 +17,8 @@ using Google.Protobuf.WellKnownTypes;
 using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Utils;
-using Voting.Ausmittlung.Test.MockedData;
 using Voting.Ausmittlung.Test.Utils;
+using Voting.Lib.Iam.SecondFactor.Testing.Mocks;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing.Mocks;
 using Voting.Lib.Testing.Utils;
@@ -317,7 +317,6 @@ public class MajorityElectionE2ETest : BaseTest<MajorityElectionResultService.Ma
     private async Task<MajorityElectionEndResult> RunMajorityElectionEndToEnd(DomainOfInfluenceCanton canton, int numberOfMandates, ElectionTestData testData)
     {
         await SetupContestAndMajorityElection(canton, numberOfMandates, testData);
-        await SecondFactorTransactionMockedData.Seed(RunScoped);
         await EnterContestDetails(testData);
         await ImportEVotingResults(testData);
         await EnterResults(testData);
@@ -731,7 +730,7 @@ public class MajorityElectionE2ETest : BaseTest<MajorityElectionResultService.Ma
         await electionResultService.SubmissionFinishedAsync(new MajorityElectionResultSubmissionFinishedRequest
         {
             ElectionResultId = ElectionResultId,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
+            SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.VerifiedTransactionIdString },
         });
         EventPublisherMock.AllPublishedEvents.Should().HaveCount(1);
         EventPublisherMock.GetPublishedEvents<MajorityElectionResultSubmissionFinished>().Should().HaveCount(1);

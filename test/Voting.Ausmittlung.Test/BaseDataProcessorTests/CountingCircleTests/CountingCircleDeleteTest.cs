@@ -19,11 +19,6 @@ public class CountingCircleDeleteTest : CountingCircleProcessorBaseTest
     {
     }
 
-    public override async Task InitializeAsync()
-    {
-        await base.InitializeAsync();
-    }
-
     [Fact]
     public async Task TestDelete()
     {

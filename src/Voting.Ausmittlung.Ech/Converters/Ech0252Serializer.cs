@@ -19,10 +19,12 @@ public class Ech0252Serializer
     private const string MessageType = "1198";
     private const int UnparsablePbNumer = int.MaxValue;
     private readonly DeliveryHeaderProvider _deliveryHeaderProvider;
+    private readonly EchSerializer _echSerializer;
 
-    public Ech0252Serializer(DeliveryHeaderProvider deliveryHeaderProvider)
+    public Ech0252Serializer(DeliveryHeaderProvider deliveryHeaderProvider, EchSerializer echSerializer)
     {
         _deliveryHeaderProvider = deliveryHeaderProvider;
+        _echSerializer = echSerializer;
     }
 
     public Delivery ToVoteDelivery(
@@ -98,6 +100,7 @@ public class Ech0252Serializer
             ElectionGroupResult = elections
                 .ToVoteInfoEchProportionalElectionGroupResults(enabledResultStates, includeCandidateListResultsInfo)
                 .ToList(),
+            Extension = elections.ToVoteInfoEchProportionalElectionResultDeliveryExtension(_echSerializer),
         };
 
         electionDelivery.NumberOfEntries = (ushort)electionDelivery.ElectionGroupResult.Count;

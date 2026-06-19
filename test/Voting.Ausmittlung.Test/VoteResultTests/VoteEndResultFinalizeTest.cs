@@ -18,8 +18,8 @@ using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
-using Voting.Ausmittlung.TemporaryData;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Iam.SecondFactor.Testing.Mocks;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Xunit;
 
@@ -156,18 +156,10 @@ public class VoteEndResultFinalizeTest : VoteResultBaseTest
     [Fact]
     public async Task TestShouldThrowDataChanged()
     {
-        await RunScoped<TemporaryDataContext>(async db =>
-        {
-            var item = await db.SecondFactorTransactions
-                .AsTracking()
-                .FirstAsync(x => x.ExternalTokenJwtIds!.Contains(SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction));
-
-            item.ActionId = "updated-action-id";
-            await db.SaveChangesAsync();
-        });
-
+        var req = NewValidRequest();
+        req.SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.ChangedDataTransactionIdString };
         await AssertStatus(
-            async () => await MonitoringElectionAdminClient.FinalizeEndResultAsync(NewValidRequest()),
+            async () => await MonitoringElectionAdminClient.FinalizeEndResultAsync(req),
             StatusCode.FailedPrecondition,
             "Data changed during the second factor transaction");
     }
@@ -175,22 +167,11 @@ public class VoteEndResultFinalizeTest : VoteResultBaseTest
     [Fact]
     public async Task TestShouldThrowNotVerified()
     {
-        const string invalidExternalId = "a11c61aa-af52-431b-9c0e-f86d24d8a72b";
-        await RunScoped<TemporaryDataContext>(async db =>
-        {
-            var item = await db.SecondFactorTransactions
-                .AsTracking()
-                .FirstAsync(x => x.ExternalTokenJwtIds!.Contains(SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction));
-
-            item.ExternalTokenJwtIds = [invalidExternalId];
-            await db.SaveChangesAsync();
-        });
-
         await AssertStatus(
             async () => await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeVoteEndResultRequest
             {
                 VoteId = VoteMockedData.IdGossauVoteInContestStGallen,
-                SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
+                SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.UnverifiedTransactionIdString },
             }),
             StatusCode.FailedPrecondition,
             "Second factor transaction is not verified");
@@ -212,7 +193,7 @@ public class VoteEndResultFinalizeTest : VoteResultBaseTest
         return new FinalizeVoteEndResultRequest
         {
             VoteId = VoteMockedData.IdGossauVoteInContestStGallen,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
+            SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.VerifiedTransactionIdString },
         };
     }
 }

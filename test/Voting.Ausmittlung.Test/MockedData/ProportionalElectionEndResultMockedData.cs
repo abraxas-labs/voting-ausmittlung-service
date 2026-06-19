@@ -106,7 +106,7 @@ public static class ProportionalElectionEndResultMockedData
             ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
             EnforceCandidateCheckDigitForCountingCircles = true,
-            FederalIdentification = 444,
+            FederalIdentification = "444",
             ProportionalElectionLists = new List<ProportionalElectionList>
                 {
                     BuildList(

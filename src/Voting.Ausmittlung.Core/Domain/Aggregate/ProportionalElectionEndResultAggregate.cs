@@ -11,6 +11,7 @@ using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Eventing.Domain;
 
 namespace Voting.Ausmittlung.Core.Domain.Aggregate;
@@ -59,10 +60,10 @@ public class ProportionalElectionEndResultAggregate : BaseEventSignatureAggregat
             new EventSignatureBusinessDomainData(contestId));
     }
 
-    public ActionId PrepareFinalize(Guid politicalBusinessId, bool testingPhaseEnded)
+    public IActionId PrepareFinalize(Guid politicalBusinessId, bool testingPhaseEnded)
     {
         Id = AusmittlungUuidV5.BuildPoliticalBusinessEndResult(politicalBusinessId, testingPhaseEnded);
-        return new ActionId(nameof(Finalize), this);
+        return new EventStoreActionId(nameof(Finalize), this);
     }
 
     public void Finalize(Guid politicalBusinessId, Guid contestId, bool testingPhaseEnded)

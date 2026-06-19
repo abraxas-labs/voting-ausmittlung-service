@@ -47,6 +47,23 @@
     457.6666666666667,
     93.47222222222223
   ],
+  "ElectionKeyCalculation": {
+    "SelectDivisor": {
+      "Quotient": 186.6,
+      "Dividend": "1866",
+      "Divisor": "10"
+    },
+    "UpperBoundary": {
+      "Quotient": 186.94444444444446,
+      "Dividend": "6730",
+      "Divisor": "36"
+    },
+    "LowerBoundary": {
+      "Quotient": 186.27777777777777,
+      "Dividend": "6706",
+      "Divisor": "36"
+    }
+  },
   "SuperApportionment": {
     "NumberOfMandates": 36,
     "NumberOfMandatesForLotDecision": 0,

@@ -22,11 +22,6 @@ public class DomainOfInfluenceUpdateCountingCirclesTest : BaseDataProcessorTest
     {
     }
 
-    public override async Task InitializeAsync()
-    {
-        await base.InitializeAsync();
-    }
-
     [Fact]
     public async Task TestDomainOfInfluenceCountingCirclesUpdated()
     {

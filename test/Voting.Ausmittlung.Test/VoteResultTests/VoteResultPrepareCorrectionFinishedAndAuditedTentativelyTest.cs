@@ -31,8 +31,8 @@ public class VoteResultPrepareCorrectionFinishedAndAuditedTentativelyTest : Vote
         await RunToState(CountingCircleResultState.ReadyForCorrection);
         var response = await ErfassungElectionAdminClient.PrepareCorrectionFinishedAndAuditedTentativelyAsync(NewValidRequest());
         response.Id.Should().NotBeEmpty();
-        response.Code.Should().NotBeEmpty();
-        response.QrCode.Should().NotBeEmpty();
+        response.Nevis.QrCode.Should().NotBeEmpty();
+        response.Nevis.CorrelationCode.Should().NotBeEmpty();
     }
 
     [Fact]

@@ -12,12 +12,13 @@ using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Domain;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.Exceptions;
-using Voting.Ausmittlung.Core.Models;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Core.Services.Validation;
 using Voting.Ausmittlung.Data;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Persistence;
+using Voting.Lib.Iam.SecondFactor.Models;
+using Voting.Lib.Iam.SecondFactor.Services;
 using Voting.Lib.Iam.Store;
 using DataModels = Voting.Ausmittlung.Data.Models;
 
@@ -36,9 +37,9 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         PermissionService permissionService,
         ContestService contestService,
         ValidationResultsEnsurer validationResultsEnsurer,
-        SecondFactorTransactionWriter secondFactorTransactionWriter,
+        ISecondFactorTransactionService secondFactorService,
         IAuth auth)
-        : base(permissionService, contestService, auth, aggregateRepository, secondFactorTransactionWriter)
+        : base(permissionService, contestService, auth, aggregateRepository, secondFactorService)
     {
         _logger = logger;
         _resultRepo = resultRepo;
@@ -131,17 +132,17 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         _logger.LogInformation("Entered ballot group results for majority election result {MajorityElectionResultId}", electionResult.Id);
     }
 
-    public async Task<SecondFactorInfo?> PrepareSubmissionFinished(Guid resultId, string message)
+    public async Task<SecondFactorTransactionInfo?> PrepareSubmissionFinished(Guid resultId, string message)
     {
         return await PrepareSecondFactor<MajorityElectionResultAggregate>(nameof(SubmissionFinished), resultId, message);
     }
 
-    public async Task SubmissionFinished(Guid resultId, Guid? secondFactorTransactionId, CancellationToken ct)
+    public async Task SubmissionFinished(Guid resultId, Guid? secondFactorTransactionId, string? otpCode = null, CancellationToken ct = default)
     {
         var result = await LoadPoliticalBusinessResult(resultId, true);
         var contestId = await EnsurePoliticalBusinessPermissions(result);
 
-        await VerifySecondFactor<MajorityElectionResultAggregate>(result, nameof(SubmissionFinished), secondFactorTransactionId, ct);
+        await VerifySecondFactor<MajorityElectionResultAggregate>(result, nameof(SubmissionFinished), secondFactorTransactionId, otpCode, ct);
         await _validationResultsEnsurer.EnsureMajorityElectionResultIsValid(result);
 
         var aggregate = await AggregateRepository.GetById<MajorityElectionResultAggregate>(result.Id);
@@ -156,17 +157,17 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         _logger.LogInformation("Submission finished for majority election result {MajorityElectionResultId}", result.Id);
     }
 
-    public async Task<SecondFactorInfo?> PrepareCorrectionFinished(Guid resultId, string message)
+    public async Task<SecondFactorTransactionInfo?> PrepareCorrectionFinished(Guid resultId, string message)
     {
         return await PrepareSecondFactor<MajorityElectionResultAggregate>(nameof(CorrectionFinished), resultId, message);
     }
 
-    public async Task CorrectionFinished(Guid resultId, string comment, Guid? secondFactorTransactionId, CancellationToken ct)
+    public async Task CorrectionFinished(Guid resultId, string comment, Guid? secondFactorTransactionId, string? otpCode = null, CancellationToken ct = default)
     {
         var result = await LoadPoliticalBusinessResult(resultId, true);
         var contestId = await EnsurePoliticalBusinessPermissions(result);
 
-        await VerifySecondFactor<MajorityElectionResultAggregate>(result, nameof(CorrectionFinished), secondFactorTransactionId, ct);
+        await VerifySecondFactor<MajorityElectionResultAggregate>(result, nameof(CorrectionFinished), secondFactorTransactionId, otpCode, ct);
         await _validationResultsEnsurer.EnsureMajorityElectionResultIsValid(result);
 
         var aggregate = await AggregateRepository.GetById<MajorityElectionResultAggregate>(result.Id);
@@ -253,13 +254,13 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         });
     }
 
-    public async Task<SecondFactorInfo> PrepareSubmissionFinishedAndAuditedTentatively(Guid resultId, string message)
+    public async Task<SecondFactorTransactionInfo> PrepareSubmissionFinishedAndAuditedTentatively(Guid resultId, string message)
     {
         return await PrepareSecondFactor<MajorityElectionResultAggregate>(nameof(SubmissionFinishedAndAuditedTentatively), resultId, message)
             ?? throw new InvalidOperationException("2FA is required in " + nameof(SubmissionFinishedAndAuditedTentatively));
     }
 
-    public async Task SubmissionFinishedAndAuditedTentatively(Guid resultId, Guid secondFactorTransactionId, CancellationToken ct)
+    public async Task SubmissionFinishedAndAuditedTentatively(Guid resultId, Guid secondFactorTransactionId, string? otpCode = null, CancellationToken ct = default)
     {
         var result = await LoadPoliticalBusinessResult(resultId, true);
         if (!IsSelfOwnedPoliticalBusiness(result.MajorityElection))
@@ -276,6 +277,7 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
             result,
             nameof(SubmissionFinishedAndAuditedTentatively),
             secondFactorTransactionId,
+            otpCode,
             ct);
 
         var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(resultId);
@@ -295,13 +297,13 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         await AggregateRepository.Save(aggregate);
     }
 
-    public async Task<SecondFactorInfo> PrepareCorrectionFinishedAndAuditedTentatively(Guid resultId, string message)
+    public async Task<SecondFactorTransactionInfo> PrepareCorrectionFinishedAndAuditedTentatively(Guid resultId, string message)
     {
         return await PrepareSecondFactor<MajorityElectionResultAggregate>(nameof(CorrectionFinishedAndAuditedTentatively), resultId, message)
             ?? throw new InvalidOperationException("2FA is required in " + nameof(CorrectionFinishedAndAuditedTentatively));
     }
 
-    public async Task CorrectionFinishedAndAuditedTentatively(Guid resultId, Guid secondFactorTransactionId, CancellationToken ct)
+    public async Task CorrectionFinishedAndAuditedTentatively(Guid resultId, Guid secondFactorTransactionId, string? otpCode = null, CancellationToken ct = default)
     {
         var result = await LoadPoliticalBusinessResult(resultId, true);
         if (!IsSelfOwnedPoliticalBusiness(result.MajorityElection))
@@ -318,6 +320,7 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
             result,
             nameof(CorrectionFinishedAndAuditedTentatively),
             secondFactorTransactionId,
+            otpCode,
             ct);
 
         var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(resultId);

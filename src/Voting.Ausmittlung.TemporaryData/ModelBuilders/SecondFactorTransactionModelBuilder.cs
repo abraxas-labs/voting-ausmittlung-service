@@ -23,7 +23,7 @@ public class SecondFactorTransactionModelBuilder : IEntityTypeConfiguration<Seco
             .Property(x => x.ExpiredAt)
             .HasUtcConversion();
 
-        builder.HasIndex(x => x.ActionId)
+        builder.HasIndex(x => x.ActionIdHash)
             .IsUnique();
     }
 }

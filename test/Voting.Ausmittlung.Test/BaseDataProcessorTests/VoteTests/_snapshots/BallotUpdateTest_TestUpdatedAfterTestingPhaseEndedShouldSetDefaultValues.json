@@ -27,7 +27,7 @@
               "Question": "Frage 1 updated de",
               "BallotAnswers": [],
               "Type": 1,
-              "FederalIdentification": null,
+              "FederalIdentification": "",
               "Id": "00000000-0000-0000-0000-000000000000"
             },
             {
@@ -46,7 +46,7 @@
               "Question": "Frage 2 updated de",
               "BallotAnswers": [],
               "Type": 2,
-              "FederalIdentification": null,
+              "FederalIdentification": "",
               "Id": "00000000-0000-0000-0000-000000000000"
             }
           ],
@@ -68,7 +68,7 @@
               "EndResult": null,
               "Question": "Strichfrage updated de",
               "BallotAnswers": [],
-              "FederalIdentification": null,
+              "FederalIdentification": "",
               "Id": "00000000-0000-0000-0000-000000000000"
             }
           ],

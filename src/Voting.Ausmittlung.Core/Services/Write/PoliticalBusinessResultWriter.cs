@@ -8,13 +8,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
-using Voting.Ausmittlung.Core.Models;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Iam.Exceptions;
+using Voting.Lib.Iam.SecondFactor.Models;
+using Voting.Lib.Iam.SecondFactor.Services;
+using Voting.Lib.Iam.Services.ApiClient.Identity;
 using Voting.Lib.Iam.Store;
 
 namespace Voting.Ausmittlung.Core.Services.Write;
@@ -24,18 +27,18 @@ public abstract class PoliticalBusinessResultWriter<T>
 {
     private readonly PermissionService _permissionService;
     private readonly ContestService _contestService;
-    private readonly SecondFactorTransactionWriter _secondFactorTransactionWriter;
+    private readonly ISecondFactorTransactionService _secondFactorService;
 
     protected PoliticalBusinessResultWriter(
         PermissionService permissionService,
         ContestService contestService,
         IAuth auth,
         IAggregateRepository aggregateRepository,
-        SecondFactorTransactionWriter secondFactorTransactionWriter)
+        ISecondFactorTransactionService secondFactorService)
     {
         _permissionService = permissionService;
         _contestService = contestService;
-        _secondFactorTransactionWriter = secondFactorTransactionWriter;
+        _secondFactorService = secondFactorService;
         Auth = auth;
         AggregateRepository = aggregateRepository;
     }
@@ -139,7 +142,7 @@ public abstract class PoliticalBusinessResultWriter<T>
         }
     }
 
-    protected async Task<SecondFactorInfo?> PrepareSecondFactor<TA>(
+    protected async Task<SecondFactorTransactionInfo?> PrepareSecondFactor<TA>(
         string action,
         Guid resultId,
         string message)
@@ -161,10 +164,10 @@ public abstract class PoliticalBusinessResultWriter<T>
             result.CountingCircle.BasisCountingCircleId,
             result.PoliticalBusiness.Contest.TestingPhaseEnded);
 
-        return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
+        return await _secondFactorService.Create(actionId, message);
     }
 
-    protected async Task VerifySecondFactor<TA>(T result, string action, Guid? secondFactorTransactionId, CancellationToken ct)
+    protected async Task VerifySecondFactor<TA>(T result, string action, Guid? secondFactorTransactionId, string? otpCode = null, CancellationToken ct = default)
         where TA : CountingCircleResultAggregate
     {
         var secondFactorRequired = await IsSecondFactorRequired(result.PoliticalBusiness);
@@ -178,14 +181,16 @@ public abstract class PoliticalBusinessResultWriter<T>
             throw new ValidationException("Second factor transaction id cannot be null.");
         }
 
-        await _secondFactorTransactionWriter.EnsureVerified(
+        await _secondFactorService.EnsureVerified(
             secondFactorTransactionId.Value,
+            string.IsNullOrEmpty(otpCode) ? V1SecondFactorProvider.NEVIS : V1SecondFactorProvider.OTP,
             () => PrepareActionId<TA>(
                 action,
                 result.Id,
                 result.PoliticalBusiness.ContestId,
                 result.CountingCircle.BasisCountingCircleId,
                 result.PoliticalBusiness.Contest.TestingPhaseEnded),
+            otpCode,
             ct);
     }
 
@@ -281,7 +286,7 @@ public abstract class PoliticalBusinessResultWriter<T>
     /// <param name="testingPhaseEnded">Whether the contest is in testing phase or not.</param>
     /// <typeparam name="TResultAggregate">The type of the result aggregate.</typeparam>
     /// <returns>The action id.</returns>
-    private async Task<ActionId> PrepareActionId<TResultAggregate>(string action, Guid resultId, Guid contestId, Guid countingCircleId, bool testingPhaseEnded)
+    private async Task<IActionId> PrepareActionId<TResultAggregate>(string action, Guid resultId, Guid contestId, Guid countingCircleId, bool testingPhaseEnded)
         where TResultAggregate : BaseEventSignatureAggregate
     {
         var resultAggregateVersion = await AggregateRepository.GetVersion<TResultAggregate>(resultId);
@@ -290,6 +295,6 @@ public abstract class PoliticalBusinessResultWriter<T>
         var detailsAggregate = await AggregateRepository.TryGetVersion<ContestCountingCircleDetailsAggregate>(id)
             ?? throw new ValidationException("Counting circle details aggregate is not initialized yet");
 
-        return new ActionId(action, resultAggregateVersion, detailsAggregate);
+        return new EventStoreActionId(action, resultAggregateVersion, detailsAggregate);
     }
 }

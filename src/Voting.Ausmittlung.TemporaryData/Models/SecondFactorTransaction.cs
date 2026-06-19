@@ -19,7 +19,7 @@ public class SecondFactorTransaction : BaseEntity
 
     public DateTime ExpiredAt { get; set; }
 
-    public string ActionId { get; set; } = string.Empty;
+    public string ActionIdHash { get; set; } = string.Empty;
 
-    public List<string>? ExternalTokenJwtIds { get; set; } = new();
+    public List<string>? NevisExternalTokenJwtIds { get; set; }
 }

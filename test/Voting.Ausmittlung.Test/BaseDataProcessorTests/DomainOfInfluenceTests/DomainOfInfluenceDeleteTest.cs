@@ -20,11 +20,6 @@ public class DomainOfInfluenceDeleteTest : DomainOfInfluenceProcessorBaseTest
     {
     }
 
-    public override async Task InitializeAsync()
-    {
-        await base.InitializeAsync();
-    }
-
     [Fact]
     public async Task TestDeleted()
     {

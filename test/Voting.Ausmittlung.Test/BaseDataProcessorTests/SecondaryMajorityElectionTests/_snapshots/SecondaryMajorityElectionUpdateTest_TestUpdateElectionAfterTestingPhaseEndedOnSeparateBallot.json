@@ -32,7 +32,7 @@
   "ReviewProcedure": 1,
   "EnforceReviewProcedureForCountingCircles": true,
   "EnforceCandidateCheckDigitForCountingCircles": false,
-  "FederalIdentification": null,
+  "FederalIdentification": "",
   "PrimaryMajorityElectionId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
   "PrimaryMajorityElection": null,
   "SecondaryMajorityElectionsOnSeparateBallots": [],

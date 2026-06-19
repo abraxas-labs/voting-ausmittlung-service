@@ -10,14 +10,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.Exceptions;
-using Voting.Ausmittlung.Core.Models;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
-using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
+using Voting.Lib.Iam.SecondFactor.Models;
+using Voting.Lib.Iam.SecondFactor.Services;
+using Voting.Lib.Iam.Services.ApiClient.Identity;
 using DataModels = Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Core.Services.Write;
@@ -29,7 +31,7 @@ public class ProportionalElectionUnionEndResultWriter
     private readonly IDbRepository<DataContext, DataModels.ProportionalElectionUnionEndResult> _endResultRepo;
     private readonly PermissionService _permissionService;
     private readonly ILogger<ProportionalElectionUnionEndResultWriter> _logger;
-    private readonly SecondFactorTransactionWriter _secondFactorTransactionWriter;
+    private readonly ISecondFactorTransactionService _secondFactorTransactionService;
 
     public ProportionalElectionUnionEndResultWriter(
         IAggregateRepository aggregateRepository,
@@ -37,17 +39,17 @@ public class ProportionalElectionUnionEndResultWriter
         IDbRepository<DataContext, DataModels.ProportionalElectionUnionEndResult> endResultRepo,
         PermissionService permissionService,
         ILogger<ProportionalElectionUnionEndResultWriter> logger,
-        SecondFactorTransactionWriter secondFactorTransactionWriter)
+        ISecondFactorTransactionService secondFactorTransactionService)
     {
         _aggregateRepository = aggregateRepository;
         _contestService = contestService;
         _endResultRepo = endResultRepo;
         _permissionService = permissionService;
         _logger = logger;
-        _secondFactorTransactionWriter = secondFactorTransactionWriter;
+        _secondFactorTransactionService = secondFactorTransactionService;
     }
 
-    public async Task<SecondFactorInfo> PrepareFinalize(Guid unionId, string message)
+    public async Task<SecondFactorTransactionInfo> PrepareFinalize(Guid unionId, string message)
     {
         await _contestService.EnsureNotLockedByProportionalElectionUnion(unionId);
 
@@ -59,14 +61,19 @@ public class ProportionalElectionUnionEndResultWriter
 
         var (_, testingPhaseEnded) = await _contestService.EnsureNotLockedByProportionalElectionUnion(unionId);
         var actionId = await PrepareFinalizeActionId(unionId, testingPhaseEnded);
-        return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
+        return await _secondFactorTransactionService.Create(actionId, message);
     }
 
-    public async Task Finalize(Guid unionId, Guid secondFactorTransactionId, CancellationToken ct)
+    public async Task Finalize(Guid unionId, Guid secondFactorTransactionId, string? otpCode = null, CancellationToken ct = default)
     {
         var (contestId, testingPhaseEnded) = await _contestService.EnsureNotLockedByProportionalElectionUnion(unionId);
 
-        await _secondFactorTransactionWriter.EnsureVerified(secondFactorTransactionId, () => PrepareFinalizeActionId(unionId, testingPhaseEnded), ct);
+        await _secondFactorTransactionService.EnsureVerified(
+            secondFactorTransactionId,
+            string.IsNullOrEmpty(otpCode) ? V1SecondFactorProvider.NEVIS : V1SecondFactorProvider.OTP,
+            () => PrepareFinalizeActionId(unionId, testingPhaseEnded),
+            otpCode,
+            ct);
 
         var endResult = await GetEndResult(unionId, _permissionService.TenantId)
                         ?? throw new EntityNotFoundException(unionId);
@@ -113,7 +120,7 @@ public class ProportionalElectionUnionEndResultWriter
         return Task.CompletedTask;
     }
 
-    private async Task<ActionId> PrepareFinalizeActionId(Guid unionId, bool testingPhaseEnded)
+    private async Task<IActionId> PrepareFinalizeActionId(Guid unionId, bool testingPhaseEnded)
     {
         var endResultId = AusmittlungUuidV5.BuildPoliticalBusinessUnionEndResult(unionId, testingPhaseEnded);
         var aggregate = await _aggregateRepository.GetOrCreateById<ProportionalElectionUnionEndResultAggregate>(endResultId);

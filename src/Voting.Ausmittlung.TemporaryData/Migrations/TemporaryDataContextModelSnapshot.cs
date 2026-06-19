@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using Voting.Ausmittlung.TemporaryData;
 
 #nullable disable
 
@@ -48,7 +51,7 @@ namespace Voting.Ausmittlung.TemporaryData.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("ActionId")
+                    b.Property<string>("ActionIdHash")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -58,11 +61,11 @@ namespace Voting.Ausmittlung.TemporaryData.Migrations
                     b.Property<DateTime>("ExpiredAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<List<string>>("ExternalTokenJwtIds")
-                        .HasColumnType("text[]");
-
                     b.Property<DateTime>("LastUpdatedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<List<string>>("NevisExternalTokenJwtIds")
+                        .HasColumnType("text[]");
 
                     b.Property<int>("PollCount")
                         .HasColumnType("integer");

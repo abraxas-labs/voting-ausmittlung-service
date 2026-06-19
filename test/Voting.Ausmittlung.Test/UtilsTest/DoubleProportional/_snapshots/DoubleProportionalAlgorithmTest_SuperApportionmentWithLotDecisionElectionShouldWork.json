@@ -26,6 +26,23 @@
     100.0,
     4000.0
   ],
+  "ElectionKeyCalculation": {
+    "SelectDivisor": {
+      "Quotient": 900.0,
+      "Dividend": "4500",
+      "Divisor": "5"
+    },
+    "UpperBoundary": {
+      "Quotient": 900.0,
+      "Dividend": "4500",
+      "Divisor": "5"
+    },
+    "LowerBoundary": {
+      "Quotient": 900.0,
+      "Dividend": "4500",
+      "Divisor": "5"
+    }
+  },
   "SuperApportionment": {
     "NumberOfMandates": 4,
     "NumberOfMandatesForLotDecision": 1,

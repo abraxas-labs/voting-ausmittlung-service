@@ -119,7 +119,7 @@ public class ProportionalElectionResultService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
     public override async Task<Empty> SubmissionFinished(ProportionalElectionResultSubmissionFinishedRequest request, ServerCallContext context)
     {
-        await _proportionalElectionResultWriter.SubmissionFinished(GuidParser.Parse(request.ElectionResultId), GuidParser.ParseNullable(request.SecondFactorTransactionId), context.CancellationToken);
+        await _proportionalElectionResultWriter.SubmissionFinished(GuidParser.Parse(request.ElectionResultId), GuidParser.ParseNullable(request.SecondFactorAuthorization?.SecondFactorTransactionId), request.SecondFactorAuthorization?.OtpCode, context.CancellationToken);
         return ProtobufEmpty.Instance;
     }
 
@@ -140,7 +140,7 @@ public class ProportionalElectionResultService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
     public override async Task<Empty> CorrectionFinished(ProportionalElectionResultCorrectionFinishedRequest request, ServerCallContext context)
     {
-        await _proportionalElectionResultWriter.CorrectionFinished(GuidParser.Parse(request.ElectionResultId), request.Comment, GuidParser.ParseNullable(request.SecondFactorTransactionId), context.CancellationToken);
+        await _proportionalElectionResultWriter.CorrectionFinished(GuidParser.Parse(request.ElectionResultId), request.Comment, GuidParser.ParseNullable(request.SecondFactorAuthorization?.SecondFactorTransactionId), request.SecondFactorAuthorization?.OtpCode, context.CancellationToken);
         return ProtobufEmpty.Instance;
     }
 
@@ -240,7 +240,7 @@ public class ProportionalElectionResultService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessEndResult.Finalize)]
     public override async Task<Empty> FinalizeEndResult(FinalizeProportionalElectionEndResultRequest request, ServerCallContext context)
     {
-        await _proportionalElectionEndResultWriter.Finalize(GuidParser.Parse(request.ProportionalElectionId), GuidParser.Parse(request.SecondFactorTransactionId), context.CancellationToken);
+        await _proportionalElectionEndResultWriter.Finalize(GuidParser.Parse(request.ProportionalElectionId), GuidParser.Parse(request.SecondFactorAuthorization?.SecondFactorTransactionId ?? string.Empty), request.SecondFactorAuthorization?.OtpCode, context.CancellationToken);
         return ProtobufEmpty.Instance;
     }
 
@@ -281,8 +281,8 @@ public class ProportionalElectionResultService : ServiceBase
     public override async Task<Empty> SubmissionFinishedAndAuditedTentatively(ProportionalElectionResultSubmissionFinishedAndAuditedTentativelyRequest request, ServerCallContext context)
     {
         var electionResultId = GuidParser.Parse(request.ElectionResultId);
-        var secondFactorTransactionId = GuidParser.Parse(request.SecondFactorTransactionId);
-        await _proportionalElectionResultWriter.SubmissionFinishedAndAuditedTentatively(electionResultId, secondFactorTransactionId, context.CancellationToken);
+        var secondFactorTransactionId = GuidParser.Parse(request.SecondFactorAuthorization?.SecondFactorTransactionId ?? string.Empty);
+        await _proportionalElectionResultWriter.SubmissionFinishedAndAuditedTentatively(electionResultId, secondFactorTransactionId, request.SecondFactorAuthorization?.OtpCode, context.CancellationToken);
         return ProtobufEmpty.Instance;
     }
 
@@ -298,8 +298,8 @@ public class ProportionalElectionResultService : ServiceBase
     public override async Task<Empty> CorrectionFinishedAndAuditedTentatively(ProportionalElectionResultCorrectionFinishedAndAuditedTentativelyRequest request, ServerCallContext context)
     {
         var electionResultId = GuidParser.Parse(request.ElectionResultId);
-        var secondFactorTransactionId = GuidParser.Parse(request.SecondFactorTransactionId);
-        await _proportionalElectionResultWriter.CorrectionFinishedAndAuditedTentatively(electionResultId, secondFactorTransactionId, context.CancellationToken);
+        var secondFactorTransactionId = GuidParser.Parse(request.SecondFactorAuthorization?.SecondFactorTransactionId ?? string.Empty);
+        await _proportionalElectionResultWriter.CorrectionFinishedAndAuditedTentatively(electionResultId, secondFactorTransactionId, request.SecondFactorAuthorization?.OtpCode, context.CancellationToken);
         return ProtobufEmpty.Instance;
     }
 

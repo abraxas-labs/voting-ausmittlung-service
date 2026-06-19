@@ -16,8 +16,8 @@ using Google.Protobuf.WellKnownTypes;
 using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Utils;
-using Voting.Ausmittlung.Test.MockedData;
 using Voting.Ausmittlung.Test.Utils;
+using Voting.Lib.Iam.SecondFactor.Testing.Mocks;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
 using Voting.Lib.Testing.Mocks;
@@ -298,7 +298,6 @@ public class ProportionalElectionE2ETest : BaseTest<ProportionalElectionResultSe
     public async Task ProportionalElectionShouldWorkEndToEnd()
     {
         await SetupContestAndProportionalElection();
-        await SecondFactorTransactionMockedData.Seed(RunScoped);
         await EnterContestDetails();
         await ImportEVotingResults();
         await EnterResults();
@@ -766,7 +765,7 @@ public class ProportionalElectionE2ETest : BaseTest<ProportionalElectionResultSe
         await electionResultService.SubmissionFinishedAsync(new ProportionalElectionResultSubmissionFinishedRequest
         {
             ElectionResultId = ElectionResultId,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
+            SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = SecondFactorTransactionServiceMock.VerifiedTransactionIdString },
         });
         EventPublisherMock.AllPublishedEvents.Should().HaveCount(1);
         EventPublisherMock.GetPublishedEvents<ProportionalElectionResultSubmissionFinished>().Should().HaveCount(1);

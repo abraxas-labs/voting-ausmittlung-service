@@ -29,7 +29,6 @@ public abstract class PoliticalBusinessResultBaseTest<T> : BaseTest<T>
 
         await ContestMockedData.Seed(RunScoped);
         await SeedPoliticalBusinessMockedData();
-        await SecondFactorTransactionMockedData.Seed(RunScoped);
         await RunScoped((DomainOfInfluencePermissionBuilder permissionBuilder) =>
             permissionBuilder.RebuildPermissionTree());
     }

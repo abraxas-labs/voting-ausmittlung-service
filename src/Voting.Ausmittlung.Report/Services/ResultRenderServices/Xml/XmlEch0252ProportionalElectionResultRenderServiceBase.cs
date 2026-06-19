@@ -96,6 +96,11 @@ public abstract class XmlEch0252ProportionalElectionResultRenderServiceBase : IR
                 .ThenInclude(x => x!.Columns.OrderBy(y => y.ListId).ThenBy(y => y.UnionListId))
                 .ThenInclude(x => x.Cells.OrderBy(y => y.ListId))
                 .ThenInclude(x => x.List)
+            .Include(x => x.ProportionalElections)
+                .ThenInclude(x => x.ProportionalElectionUnionEntries)
+                .ThenInclude(x => x.ProportionalElectionUnion)
+                .ThenInclude(x => x.DoubleProportionalResult)
+                .ThenInclude(x => x!.Rows.OrderBy(y => y.ProportionalElectionId))
             .FirstOrDefaultAsync(x => x.Id == ctx.ContestId, ct)
             ?? throw new EntityNotFoundException(nameof(Contest), ctx.ContestId);
         contest.MoveECountingToConventional();

@@ -31,7 +31,7 @@ public class MajorityElectionResultPrepareSubmissionFinishedTest : MajorityElect
         await RunToState(CountingCircleResultState.SubmissionOngoing);
         var response = await ErfassungElectionAdminClient.PrepareSubmissionFinishedAsync(NewValidRequest());
         response.Id.Should().BeEmpty();
-        response.Code.Should().BeEmpty();
+        response.Nevis.Should().BeNull();
     }
 
     [Fact]
@@ -40,7 +40,8 @@ public class MajorityElectionResultPrepareSubmissionFinishedTest : MajorityElect
         await RunToState(CountingCircleResultState.SubmissionOngoing);
         var response = await BundErfassungElectionAdminClient.PrepareSubmissionFinishedAsync(NewValidRequest());
         response.Id.Should().NotBeEmpty();
-        response.Code.Should().NotBeEmpty();
+        response.Nevis.QrCode.Should().NotBeEmpty();
+        response.Nevis.CorrelationCode.Should().NotBeEmpty();
     }
 
     [Fact]

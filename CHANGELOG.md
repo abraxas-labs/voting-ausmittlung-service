@@ -1,4 +1,4 @@
-# ✨ Changelog (`v2.95.4`)
+# ✨ Changelog (`v2.96.0`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,11 +8,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v2.95.4
-Previous version ---- v2.95.3
+This version -------- v2.96.0
+Previous version ---- v2.95.4
 Initial version ----- v1.29.14
-Total commits ------- 2
+Total commits ------- 10
 ```
+
+## [v2.96.0] - 2026-06-16
+
+### 🆕 Added
+
+- add federal identification for ct political businesses
+
+### 🆕 Added
+
+- add eCH extension proportional divisor
+
+### 🔄 Changed
+
+- filter eCH-0252 export templates per political businesses in contest
+
+### 🔄 Changed
+
+- correctly count ecounting blank ballots
+
+### 🆕 Added
+
+- add additional protection layer for grpc reflection service endpoint
+
+### 🆕 Added
+
+- feat(VOTING-6923): support otp as mfa
+
+### 🔄 Changed
+
+- event signature is not created if key data is expired
+
+### 🆕 Added
+
+- add missing test counting circles
 
 ## [v2.95.4] - 2026-06-05
 

@@ -13,7 +13,7 @@ public class CountingCircleResultsSubmissionFinishedRequestTest : ProtoValidator
     protected override IEnumerable<CountingCircleResultsSubmissionFinishedRequest> OkMessages()
     {
         yield return NewValidRequest();
-        yield return NewValidRequest(x => x.SecondFactorTransactionId = string.Empty);
+        yield return NewValidRequest(x => x.SecondFactorAuthorization = null);
     }
 
     protected override IEnumerable<CountingCircleResultsSubmissionFinishedRequest> NotOkMessages()
@@ -21,7 +21,8 @@ public class CountingCircleResultsSubmissionFinishedRequestTest : ProtoValidator
         yield return NewValidRequest(x => x.ContestId = string.Empty);
         yield return NewValidRequest(x => x.CountingCircleId = string.Empty);
         yield return NewValidRequest(x => x.CountingCircleResultIds.Add(string.Empty));
-        yield return NewValidRequest(x => x.SecondFactorTransactionId = "invalid-guid");
+        yield return NewValidRequest(x => x.SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = string.Empty });
+        yield return NewValidRequest(x => x.SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = "invalid-guid" });
     }
 
     private CountingCircleResultsSubmissionFinishedRequest NewValidRequest(Action<CountingCircleResultsSubmissionFinishedRequest>? action = null)
@@ -34,7 +35,7 @@ public class CountingCircleResultsSubmissionFinishedRequestTest : ProtoValidator
             {
                 "bbca70a9-9620-4e1a-8af3-c4b77b8f23c6",
             },
-            SecondFactorTransactionId = "6ea52ca6-73b2-4f35-bb6f-c173293a6196",
+            SecondFactorAuthorization = new SecondFactorAuthorization { SecondFactorTransactionId = "6ea52ca6-73b2-4f35-bb6f-c173293a6196" },
         };
 
         action?.Invoke(request);

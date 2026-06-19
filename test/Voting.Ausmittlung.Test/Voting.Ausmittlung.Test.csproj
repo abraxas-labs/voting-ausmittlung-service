@@ -6,6 +6,7 @@
     <PackageReference Include="Voting.Lib.Cryptography.Testing" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.Cryptography.Mocks" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.DokConnector.Testing" Version="$(VotingLibVersion)" />
+    <PackageReference Include="Voting.Lib.Iam.SecondFactor.Testing" Version="$(VotingLibVersion)" />
   </ItemGroup>
 
   <ItemGroup>

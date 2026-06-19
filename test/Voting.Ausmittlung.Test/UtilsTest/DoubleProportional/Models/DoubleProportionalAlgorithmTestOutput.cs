@@ -28,6 +28,8 @@ public class DoubleProportionalAlgorithmTestOutput
 
     public decimal[]? ColumnVoterNumbers { get; set; }
 
+    public SelectDivisorCalculation? ElectionKeyCalculation { get; set; }
+
     public DoubleProportionalAlgorithmTestOutputSuperApportionment? SuperApportionment { get; set; }
 }
 
@@ -63,4 +65,8 @@ public class DoubleProportionalAlgorithmTestOutputSubApportionment
     public decimal[]? ColumnDivisors { get; set; }
 
     public DoubleProportionalResultApportionmentState State { get; set; }
+
+    public SelectDivisorCalculation[]? RowDivisorCalculations { get; set; }
+
+    public SelectDivisorCalculation[]? ColumnDivisorCalculations { get; set; }
 }

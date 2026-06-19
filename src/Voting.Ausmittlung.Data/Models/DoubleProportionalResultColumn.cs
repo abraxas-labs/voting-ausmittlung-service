@@ -55,6 +55,8 @@ public class DoubleProportionalResultColumn : BaseEntity
 
     public decimal Divisor { get; set; }
 
+    public SelectDivisorCalculation DivisorCalculation { get; set; } = new();
+
     public int SubApportionmentInitialNegativeTies { get; set; }
 
     public bool HasSubApportionmentOpenLotDecision => SubApportionmentNumberOfMandates > 0 &&

@@ -27,7 +27,7 @@
               "Question": "Variante 1X de",
               "BallotAnswers": [],
               "Type": 1,
-              "FederalIdentification": 111,
+              "FederalIdentification": "111",
               "Id": "00000000-0000-0000-0000-000000000000"
             },
             {
@@ -46,7 +46,7 @@
               "Question": "Variante 2X de",
               "BallotAnswers": [],
               "Type": 3,
-              "FederalIdentification": 222,
+              "FederalIdentification": "222",
               "Id": "00000000-0000-0000-0000-000000000000"
             },
             {
@@ -65,7 +65,7 @@
               "Question": "Variante 3X de",
               "BallotAnswers": [],
               "Type": 3,
-              "FederalIdentification": 333,
+              "FederalIdentification": "333",
               "Id": "00000000-0000-0000-0000-000000000000"
             }
           ],
@@ -87,7 +87,7 @@
               "EndResult": null,
               "Question": "TieBreak V1/V2X de",
               "BallotAnswers": [],
-              "FederalIdentification": 444,
+              "FederalIdentification": "444",
               "Id": "00000000-0000-0000-0000-000000000000"
             },
             {
@@ -107,7 +107,7 @@
               "EndResult": null,
               "Question": "TieBreak V1/V3X de",
               "BallotAnswers": [],
-              "FederalIdentification": 555,
+              "FederalIdentification": "555",
               "Id": "00000000-0000-0000-0000-000000000000"
             },
             {
@@ -127,7 +127,7 @@
               "EndResult": null,
               "Question": "TieBreak V2/V3X de",
               "BallotAnswers": [],
-              "FederalIdentification": 666,
+              "FederalIdentification": "666",
               "Id": "00000000-0000-0000-0000-000000000000"
             }
           ],

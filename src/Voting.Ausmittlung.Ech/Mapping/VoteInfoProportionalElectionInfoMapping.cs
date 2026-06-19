@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Ech0155_5_2;
 using Ech0252_2_0;
@@ -232,13 +231,13 @@ internal static class VoteInfoProportionalElectionInfoMapping
 
     private static List<NamedIdType> ToOtherIdentification(this ProportionalElection proportionalElection)
     {
-        return proportionalElection.FederalIdentification.HasValue
+        return !string.IsNullOrEmpty(proportionalElection.FederalIdentification)
             ? new List<NamedIdType>
             {
                 new NamedIdType
                 {
                     IdName = FederalIdentifier,
-                    Id = proportionalElection.FederalIdentification.Value.ToString(CultureInfo.InvariantCulture),
+                    Id = proportionalElection.FederalIdentification,
                 },
             }
             : new List<NamedIdType>();

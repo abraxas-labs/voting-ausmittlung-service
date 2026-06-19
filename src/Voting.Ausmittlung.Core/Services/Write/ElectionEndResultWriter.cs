@@ -11,6 +11,7 @@ using Voting.Ausmittlung.Core.Models;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
+using Voting.Lib.Iam.SecondFactor.Services;
 using DataModels = Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Core.Services.Write;
@@ -28,8 +29,8 @@ public abstract class ElectionEndResultWriter<TElectionEndResultAvailableLotDeci
         IAggregateFactory aggregateFactory,
         ContestService contestService,
         PermissionService permissionService,
-        SecondFactorTransactionWriter secondFactorTransactionWriter)
-        : base(logger, aggregateRepository, aggregateFactory, contestService, permissionService, secondFactorTransactionWriter)
+        ISecondFactorTransactionService secondFactorTransactionService)
+        : base(logger, aggregateRepository, aggregateFactory, contestService, permissionService, secondFactorTransactionService)
     {
     }
 
