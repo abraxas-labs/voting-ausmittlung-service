@@ -95,7 +95,7 @@ public class EVotingResultImportWriter
 
     internal async Task Import(VotingImport importData, ResultImportMeta importMeta)
     {
-        if (importMeta.BasisCountingCircleId.HasValue || importMeta.ImportType != ResultImportType.EVoting)
+        if (importMeta.ImportType != ResultImportType.EVoting)
         {
             throw new ValidationException("Invalid eVoting import.");
         }

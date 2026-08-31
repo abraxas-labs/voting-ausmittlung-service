@@ -11,6 +11,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Report.Configuration;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
@@ -25,17 +26,20 @@ public class PdfProportionalElectionEndResultRenderService : IRendererService
     private readonly IMapper _mapper;
     private readonly TemplateService _templateService;
     private readonly IClock _clock;
+    private readonly TemplateConfiguration _templateConfiguration;
 
     public PdfProportionalElectionEndResultRenderService(
         TemplateService templateService,
         IDbRepository<DataContext, ProportionalElectionEndResult> repo,
         IMapper mapper,
-        IClock clock)
+        IClock clock,
+        TemplateConfiguration templateConfiguration)
     {
         _templateService = templateService;
         _repo = repo;
         _mapper = mapper;
         _clock = clock;
+        _templateConfiguration = templateConfiguration;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -72,6 +76,9 @@ public class PdfProportionalElectionEndResultRenderService : IRendererService
         };
 
         PreparePdfData(templateBag);
+
+        var useLegacyFormat = _templateConfiguration.ShouldUseLegacyNumberFormat(ctx.Template.Key, data.ProportionalElection.DomainOfInfluence.Canton);
+        templateBag.FormatNumbers(useLegacyFormat);
 
         return await _templateService.RenderToPdf(
             ctx,

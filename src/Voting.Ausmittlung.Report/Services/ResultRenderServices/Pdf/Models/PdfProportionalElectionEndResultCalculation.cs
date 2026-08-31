@@ -18,4 +18,19 @@ public class PdfProportionalElectionEndResultCalculation
     [XmlElement("HagenbachBischoffSubListUnionGroup")]
     public List<PdfHagenbachBischoffGroup> HagenbachBischoffSubListUnionGroups { get; set; }
         = new List<PdfHagenbachBischoffGroup>();
+
+    public void FormatNumbers(bool useLegacyFormat)
+    {
+        HagenbachBischoffRootGroup?.FormatNumbers(useLegacyFormat);
+
+        foreach (var unionGroup in HagenbachBischoffListUnionGroups)
+        {
+            unionGroup.FormatNumbers(useLegacyFormat);
+        }
+
+        foreach (var subUnionGroup in HagenbachBischoffSubListUnionGroups)
+        {
+            subUnionGroup.FormatNumbers(useLegacyFormat);
+        }
+    }
 }

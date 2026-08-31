@@ -53,16 +53,16 @@
           <CountOfBlankBallots>0</CountOfBlankBallots>
         </CountOfVoters>
         <BallotQuestionEndResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
             <Type>MainBallot</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
@@ -115,16 +115,16 @@
           <CountOfBlankBallots>0</CountOfBlankBallots>
         </CountOfVoters>
         <BallotQuestionEndResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
             <Type>MainBallot</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
@@ -150,16 +150,16 @@
           </ConventionalSubTotal>
         </BallotQuestionEndResult>
         <BallotQuestionEndResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>CounterProposal</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
             <Type>CounterProposal</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
@@ -185,6 +185,10 @@
           </ConventionalSubTotal>
         </BallotQuestionEndResult>
         <BallotTieBreakQuestionEndResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotTieBreakQuestion>
             <Label>TieBreak</Label>
             <Number>1</Number>
@@ -192,10 +196,6 @@
             <Question1Number>1</Question1Number>
             <Question2Number>2</Question2Number>
           </BallotTieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <Q1Accepted>false</Q1Accepted>
@@ -244,16 +244,16 @@
           <CountOfBlankBallots>0</CountOfBlankBallots>
         </CountOfVoters>
         <BallotQuestionEndResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
             <Type>MainBallot</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
@@ -279,16 +279,16 @@
           </ConventionalSubTotal>
         </BallotQuestionEndResult>
         <BallotQuestionEndResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>CounterProposal1</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
             <Type>CounterProposal</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
@@ -314,16 +314,16 @@
           </ConventionalSubTotal>
         </BallotQuestionEndResult>
         <BallotQuestionEndResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>CounterProposal2</Label>
             <Number>3</Number>
             <Question>Frage 3 de</Question>
             <Type>CounterProposal</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
@@ -349,6 +349,10 @@
           </ConventionalSubTotal>
         </BallotQuestionEndResult>
         <BallotTieBreakQuestionEndResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotTieBreakQuestion>
             <Label>TieBreak1</Label>
             <Number>1</Number>
@@ -356,10 +360,6 @@
             <Question1Number>1</Question1Number>
             <Question2Number>2</Question2Number>
           </BallotTieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <Q1Accepted>false</Q1Accepted>
@@ -381,6 +381,10 @@
           </ConventionalSubTotal>
         </BallotTieBreakQuestionEndResult>
         <BallotTieBreakQuestionEndResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotTieBreakQuestion>
             <Label>TieBreak2</Label>
             <Number>2</Number>
@@ -388,10 +392,6 @@
             <Question1Number>1</Question1Number>
             <Question2Number>3</Question2Number>
           </BallotTieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <Q1Accepted>false</Q1Accepted>
@@ -413,6 +413,10 @@
           </ConventionalSubTotal>
         </BallotTieBreakQuestionEndResult>
         <BallotTieBreakQuestionEndResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotTieBreakQuestion>
             <Label>TieBreak3</Label>
             <Number>3</Number>
@@ -420,10 +424,6 @@
             <Question1Number>2</Question1Number>
             <Question2Number>3</Question2Number>
           </BallotTieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <Q1Accepted>false</Q1Accepted>
@@ -536,16 +536,16 @@
             <CountOfBlankBallots>0</CountOfBlankBallots>
           </CountOfVoters>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>MainBallot</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
               <Type>MainBallot</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -567,16 +567,16 @@
           </BallotQuestionResult>
         </VoteCountingCircleResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
             <Type>MainBallot</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -676,16 +676,16 @@
             <CountOfBlankBallots>0</CountOfBlankBallots>
           </CountOfVoters>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>MainBallot</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
               <Type>MainBallot</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -744,16 +744,16 @@
             <CountOfBlankBallots>0</CountOfBlankBallots>
           </CountOfVoters>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>MainBallot</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
               <Type>MainBallot</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -775,16 +775,16 @@
           </BallotQuestionResult>
         </VoteCountingCircleResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
             <Type>MainBallot</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -884,16 +884,16 @@
             <CountOfBlankBallots>0</CountOfBlankBallots>
           </CountOfVoters>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>MainBallot</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
               <Type>MainBallot</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -915,16 +915,16 @@
           </BallotQuestionResult>
         </VoteCountingCircleResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
             <Type>MainBallot</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -1012,16 +1012,16 @@
             <CountOfBlankBallots>0</CountOfBlankBallots>
           </CountOfVoters>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>MainBallot</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
               <Type>MainBallot</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -1080,16 +1080,16 @@
             <CountOfBlankBallots>0</CountOfBlankBallots>
           </CountOfVoters>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>MainBallot</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
               <Type>MainBallot</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -1111,16 +1111,16 @@
           </BallotQuestionResult>
         </VoteCountingCircleResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
             <Type>MainBallot</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -1171,16 +1171,16 @@
           <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
         </ContestDomainOfInfluenceDetails>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
             <Type>MainBallot</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -1307,16 +1307,16 @@
             <CountOfBlankBallots>0</CountOfBlankBallots>
           </CountOfVoters>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>MainBallot</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
               <Type>MainBallot</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -1337,16 +1337,16 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>CounterProposal</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
               <Type>CounterProposal</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -1367,6 +1367,10 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak</Label>
               <Number>1</Number>
@@ -1374,10 +1378,6 @@
               <Question1Number>1</Question1Number>
               <Question2Number>2</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -1399,16 +1399,16 @@
           </TieBreakQuestionResult>
         </VoteCountingCircleResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
             <Type>MainBallot</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -1432,16 +1432,16 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>CounterProposal</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
             <Type>CounterProposal</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -1465,6 +1465,10 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <TieBreakQuestionResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <TieBreakQuestion>
             <Label>TieBreak</Label>
             <Number>1</Number>
@@ -1472,10 +1476,6 @@
             <Question1Number>1</Question1Number>
             <Question2Number>2</Question2Number>
           </TieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <EVotingSubTotal>
@@ -1572,16 +1572,16 @@
             <CountOfBlankBallots>0</CountOfBlankBallots>
           </CountOfVoters>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>MainBallot</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
               <Type>MainBallot</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -1602,16 +1602,16 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>CounterProposal</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
               <Type>CounterProposal</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -1632,6 +1632,10 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak</Label>
               <Number>1</Number>
@@ -1639,10 +1643,6 @@
               <Question1Number>1</Question1Number>
               <Question2Number>2</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -1701,16 +1701,16 @@
             <CountOfBlankBallots>0</CountOfBlankBallots>
           </CountOfVoters>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>MainBallot</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
               <Type>MainBallot</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -1731,16 +1731,16 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>CounterProposal</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
               <Type>CounterProposal</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -1761,6 +1761,10 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak</Label>
               <Number>1</Number>
@@ -1768,10 +1772,6 @@
               <Question1Number>1</Question1Number>
               <Question2Number>2</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -1793,16 +1793,16 @@
           </TieBreakQuestionResult>
         </VoteCountingCircleResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
             <Type>MainBallot</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -1826,16 +1826,16 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>CounterProposal</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
             <Type>CounterProposal</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -1859,6 +1859,10 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <TieBreakQuestionResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <TieBreakQuestion>
             <Label>TieBreak</Label>
             <Number>1</Number>
@@ -1866,10 +1870,6 @@
             <Question1Number>1</Question1Number>
             <Question2Number>2</Question2Number>
           </TieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <EVotingSubTotal>
@@ -1966,16 +1966,16 @@
             <CountOfBlankBallots>0</CountOfBlankBallots>
           </CountOfVoters>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>MainBallot</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
               <Type>MainBallot</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -1996,16 +1996,16 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>CounterProposal</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
               <Type>CounterProposal</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -2026,6 +2026,10 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak</Label>
               <Number>1</Number>
@@ -2033,10 +2037,6 @@
               <Question1Number>1</Question1Number>
               <Question2Number>2</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -2058,16 +2058,16 @@
           </TieBreakQuestionResult>
         </VoteCountingCircleResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
             <Type>MainBallot</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -2091,16 +2091,16 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>CounterProposal</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
             <Type>CounterProposal</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -2124,6 +2124,10 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <TieBreakQuestionResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <TieBreakQuestion>
             <Label>TieBreak</Label>
             <Number>1</Number>
@@ -2131,10 +2135,6 @@
             <Question1Number>1</Question1Number>
             <Question2Number>2</Question2Number>
           </TieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <EVotingSubTotal>
@@ -2219,16 +2219,16 @@
             <CountOfBlankBallots>0</CountOfBlankBallots>
           </CountOfVoters>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>MainBallot</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
               <Type>MainBallot</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -2249,16 +2249,16 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>CounterProposal</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
               <Type>CounterProposal</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -2279,6 +2279,10 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak</Label>
               <Number>1</Number>
@@ -2286,10 +2290,6 @@
               <Question1Number>1</Question1Number>
               <Question2Number>2</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -2348,16 +2348,16 @@
             <CountOfBlankBallots>0</CountOfBlankBallots>
           </CountOfVoters>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>MainBallot</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
               <Type>MainBallot</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -2378,16 +2378,16 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>CounterProposal</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
               <Type>CounterProposal</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -2408,6 +2408,10 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak</Label>
               <Number>1</Number>
@@ -2415,10 +2419,6 @@
               <Question1Number>1</Question1Number>
               <Question2Number>2</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -2440,16 +2440,16 @@
           </TieBreakQuestionResult>
         </VoteCountingCircleResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
             <Type>MainBallot</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -2473,16 +2473,16 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>CounterProposal</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
             <Type>CounterProposal</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -2506,6 +2506,10 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <TieBreakQuestionResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <TieBreakQuestion>
             <Label>TieBreak</Label>
             <Number>1</Number>
@@ -2513,10 +2517,6 @@
             <Question1Number>1</Question1Number>
             <Question2Number>2</Question2Number>
           </TieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <EVotingSubTotal>
@@ -2564,16 +2564,16 @@
           <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
         </ContestDomainOfInfluenceDetails>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
             <Type>MainBallot</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -2597,16 +2597,16 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>CounterProposal</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
             <Type>CounterProposal</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -2630,6 +2630,10 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <TieBreakQuestionResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <TieBreakQuestion>
             <Label>TieBreak</Label>
             <Number>1</Number>
@@ -2637,10 +2641,6 @@
             <Question1Number>1</Question1Number>
             <Question2Number>2</Question2Number>
           </TieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <EVotingSubTotal>
@@ -2784,16 +2784,16 @@
             <CountOfBlankBallots>0</CountOfBlankBallots>
           </CountOfVoters>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>MainBallot</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
               <Type>MainBallot</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -2814,16 +2814,16 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>CounterProposal1</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
               <Type>CounterProposal</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -2844,16 +2844,16 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>CounterProposal2</Label>
               <Number>3</Number>
               <Question>Frage 3 de</Question>
               <Type>CounterProposal</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -2874,6 +2874,10 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak1</Label>
               <Number>1</Number>
@@ -2881,10 +2885,6 @@
               <Question1Number>1</Question1Number>
               <Question2Number>2</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -2905,6 +2905,10 @@
             </ConventionalSubTotal>
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak2</Label>
               <Number>2</Number>
@@ -2912,10 +2916,6 @@
               <Question1Number>1</Question1Number>
               <Question2Number>3</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -2936,6 +2936,10 @@
             </ConventionalSubTotal>
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak3</Label>
               <Number>3</Number>
@@ -2943,10 +2947,6 @@
               <Question1Number>2</Question1Number>
               <Question2Number>3</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -2968,16 +2968,16 @@
           </TieBreakQuestionResult>
         </VoteCountingCircleResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
             <Type>MainBallot</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -3001,16 +3001,16 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>CounterProposal1</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
             <Type>CounterProposal</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -3034,16 +3034,16 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>CounterProposal2</Label>
             <Number>3</Number>
             <Question>Frage 3 de</Question>
             <Type>CounterProposal</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -3067,6 +3067,10 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <TieBreakQuestionResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <TieBreakQuestion>
             <Label>TieBreak1</Label>
             <Number>1</Number>
@@ -3074,10 +3078,6 @@
             <Question1Number>1</Question1Number>
             <Question2Number>2</Question2Number>
           </TieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <EVotingSubTotal>
@@ -3098,6 +3098,10 @@
           </ConventionalSubTotal>
         </TieBreakQuestionResult>
         <TieBreakQuestionResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <TieBreakQuestion>
             <Label>TieBreak2</Label>
             <Number>2</Number>
@@ -3105,10 +3109,6 @@
             <Question1Number>1</Question1Number>
             <Question2Number>3</Question2Number>
           </TieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <EVotingSubTotal>
@@ -3129,6 +3129,10 @@
           </ConventionalSubTotal>
         </TieBreakQuestionResult>
         <TieBreakQuestionResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <TieBreakQuestion>
             <Label>TieBreak3</Label>
             <Number>3</Number>
@@ -3136,10 +3140,6 @@
             <Question1Number>2</Question1Number>
             <Question2Number>3</Question2Number>
           </TieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <EVotingSubTotal>
@@ -3236,16 +3236,16 @@
             <CountOfBlankBallots>0</CountOfBlankBallots>
           </CountOfVoters>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>MainBallot</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
               <Type>MainBallot</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -3266,16 +3266,16 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>CounterProposal1</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
               <Type>CounterProposal</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -3296,16 +3296,16 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>CounterProposal2</Label>
               <Number>3</Number>
               <Question>Frage 3 de</Question>
               <Type>CounterProposal</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -3326,6 +3326,10 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak1</Label>
               <Number>1</Number>
@@ -3333,10 +3337,6 @@
               <Question1Number>1</Question1Number>
               <Question2Number>2</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -3357,6 +3357,10 @@
             </ConventionalSubTotal>
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak2</Label>
               <Number>2</Number>
@@ -3364,10 +3368,6 @@
               <Question1Number>1</Question1Number>
               <Question2Number>3</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -3388,6 +3388,10 @@
             </ConventionalSubTotal>
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak3</Label>
               <Number>3</Number>
@@ -3395,10 +3399,6 @@
               <Question1Number>2</Question1Number>
               <Question2Number>3</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -3457,16 +3457,16 @@
             <CountOfBlankBallots>0</CountOfBlankBallots>
           </CountOfVoters>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>MainBallot</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
               <Type>MainBallot</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -3487,16 +3487,16 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>CounterProposal1</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
               <Type>CounterProposal</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -3517,16 +3517,16 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>CounterProposal2</Label>
               <Number>3</Number>
               <Question>Frage 3 de</Question>
               <Type>CounterProposal</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -3547,6 +3547,10 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak1</Label>
               <Number>1</Number>
@@ -3554,10 +3558,6 @@
               <Question1Number>1</Question1Number>
               <Question2Number>2</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -3578,6 +3578,10 @@
             </ConventionalSubTotal>
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak2</Label>
               <Number>2</Number>
@@ -3585,10 +3589,6 @@
               <Question1Number>1</Question1Number>
               <Question2Number>3</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -3609,6 +3609,10 @@
             </ConventionalSubTotal>
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak3</Label>
               <Number>3</Number>
@@ -3616,10 +3620,6 @@
               <Question1Number>2</Question1Number>
               <Question2Number>3</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -3641,16 +3641,16 @@
           </TieBreakQuestionResult>
         </VoteCountingCircleResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
             <Type>MainBallot</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -3674,16 +3674,16 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>CounterProposal1</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
             <Type>CounterProposal</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -3707,16 +3707,16 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>CounterProposal2</Label>
             <Number>3</Number>
             <Question>Frage 3 de</Question>
             <Type>CounterProposal</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -3740,6 +3740,10 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <TieBreakQuestionResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <TieBreakQuestion>
             <Label>TieBreak1</Label>
             <Number>1</Number>
@@ -3747,10 +3751,6 @@
             <Question1Number>1</Question1Number>
             <Question2Number>2</Question2Number>
           </TieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <EVotingSubTotal>
@@ -3771,6 +3771,10 @@
           </ConventionalSubTotal>
         </TieBreakQuestionResult>
         <TieBreakQuestionResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <TieBreakQuestion>
             <Label>TieBreak2</Label>
             <Number>2</Number>
@@ -3778,10 +3782,6 @@
             <Question1Number>1</Question1Number>
             <Question2Number>3</Question2Number>
           </TieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <EVotingSubTotal>
@@ -3802,6 +3802,10 @@
           </ConventionalSubTotal>
         </TieBreakQuestionResult>
         <TieBreakQuestionResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <TieBreakQuestion>
             <Label>TieBreak3</Label>
             <Number>3</Number>
@@ -3809,10 +3813,6 @@
             <Question1Number>2</Question1Number>
             <Question2Number>3</Question2Number>
           </TieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <EVotingSubTotal>
@@ -3909,16 +3909,16 @@
             <CountOfBlankBallots>0</CountOfBlankBallots>
           </CountOfVoters>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>MainBallot</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
               <Type>MainBallot</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -3939,16 +3939,16 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>CounterProposal1</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
               <Type>CounterProposal</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -3969,16 +3969,16 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>CounterProposal2</Label>
               <Number>3</Number>
               <Question>Frage 3 de</Question>
               <Type>CounterProposal</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -3999,6 +3999,10 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak1</Label>
               <Number>1</Number>
@@ -4006,10 +4010,6 @@
               <Question1Number>1</Question1Number>
               <Question2Number>2</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -4030,6 +4030,10 @@
             </ConventionalSubTotal>
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak2</Label>
               <Number>2</Number>
@@ -4037,10 +4041,6 @@
               <Question1Number>1</Question1Number>
               <Question2Number>3</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -4061,6 +4061,10 @@
             </ConventionalSubTotal>
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak3</Label>
               <Number>3</Number>
@@ -4068,10 +4072,6 @@
               <Question1Number>2</Question1Number>
               <Question2Number>3</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -4093,16 +4093,16 @@
           </TieBreakQuestionResult>
         </VoteCountingCircleResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
             <Type>MainBallot</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -4126,16 +4126,16 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>CounterProposal1</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
             <Type>CounterProposal</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -4159,16 +4159,16 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>CounterProposal2</Label>
             <Number>3</Number>
             <Question>Frage 3 de</Question>
             <Type>CounterProposal</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -4192,6 +4192,10 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <TieBreakQuestionResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <TieBreakQuestion>
             <Label>TieBreak1</Label>
             <Number>1</Number>
@@ -4199,10 +4203,6 @@
             <Question1Number>1</Question1Number>
             <Question2Number>2</Question2Number>
           </TieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <EVotingSubTotal>
@@ -4223,6 +4223,10 @@
           </ConventionalSubTotal>
         </TieBreakQuestionResult>
         <TieBreakQuestionResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <TieBreakQuestion>
             <Label>TieBreak2</Label>
             <Number>2</Number>
@@ -4230,10 +4234,6 @@
             <Question1Number>1</Question1Number>
             <Question2Number>3</Question2Number>
           </TieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <EVotingSubTotal>
@@ -4254,6 +4254,10 @@
           </ConventionalSubTotal>
         </TieBreakQuestionResult>
         <TieBreakQuestionResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <TieBreakQuestion>
             <Label>TieBreak3</Label>
             <Number>3</Number>
@@ -4261,10 +4265,6 @@
             <Question1Number>2</Question1Number>
             <Question2Number>3</Question2Number>
           </TieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <EVotingSubTotal>
@@ -4349,16 +4349,16 @@
             <CountOfBlankBallots>0</CountOfBlankBallots>
           </CountOfVoters>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>MainBallot</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
               <Type>MainBallot</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -4379,16 +4379,16 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>CounterProposal1</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
               <Type>CounterProposal</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -4409,16 +4409,16 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>CounterProposal2</Label>
               <Number>3</Number>
               <Question>Frage 3 de</Question>
               <Type>CounterProposal</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -4439,6 +4439,10 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak1</Label>
               <Number>1</Number>
@@ -4446,10 +4450,6 @@
               <Question1Number>1</Question1Number>
               <Question2Number>2</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -4470,6 +4470,10 @@
             </ConventionalSubTotal>
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak2</Label>
               <Number>2</Number>
@@ -4477,10 +4481,6 @@
               <Question1Number>1</Question1Number>
               <Question2Number>3</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -4501,6 +4501,10 @@
             </ConventionalSubTotal>
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak3</Label>
               <Number>3</Number>
@@ -4508,10 +4512,6 @@
               <Question1Number>2</Question1Number>
               <Question2Number>3</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -4570,16 +4570,16 @@
             <CountOfBlankBallots>0</CountOfBlankBallots>
           </CountOfVoters>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>MainBallot</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
               <Type>MainBallot</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -4600,16 +4600,16 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>CounterProposal1</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
               <Type>CounterProposal</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -4630,16 +4630,16 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <BallotQuestionResult>
+            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <BallotQuestion>
               <Label>CounterProposal2</Label>
               <Number>3</Number>
               <Question>Frage 3 de</Question>
               <Type>CounterProposal</Type>
             </BallotQuestion>
-            <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
             <PercentageNo>0</PercentageNo>
             <EVotingSubTotal>
@@ -4660,6 +4660,10 @@
             </ConventionalSubTotal>
           </BallotQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak1</Label>
               <Number>1</Number>
@@ -4667,10 +4671,6 @@
               <Question1Number>1</Question1Number>
               <Question2Number>2</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -4691,6 +4691,10 @@
             </ConventionalSubTotal>
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak2</Label>
               <Number>2</Number>
@@ -4698,10 +4702,6 @@
               <Question1Number>1</Question1Number>
               <Question2Number>3</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -4722,6 +4722,10 @@
             </ConventionalSubTotal>
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
+            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <TieBreakQuestion>
               <Label>TieBreak3</Label>
               <Number>3</Number>
@@ -4729,10 +4733,6 @@
               <Question1Number>2</Question1Number>
               <Question2Number>3</Question2Number>
             </TieBreakQuestion>
-            <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
             <PercentageQ2>0</PercentageQ2>
             <EVotingSubTotal>
@@ -4754,16 +4754,16 @@
           </TieBreakQuestionResult>
         </VoteCountingCircleResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
             <Type>MainBallot</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -4787,16 +4787,16 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>CounterProposal1</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
             <Type>CounterProposal</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -4820,16 +4820,16 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>CounterProposal2</Label>
             <Number>3</Number>
             <Question>Frage 3 de</Question>
             <Type>CounterProposal</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -4853,6 +4853,10 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <TieBreakQuestionResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <TieBreakQuestion>
             <Label>TieBreak1</Label>
             <Number>1</Number>
@@ -4860,10 +4864,6 @@
             <Question1Number>1</Question1Number>
             <Question2Number>2</Question2Number>
           </TieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <EVotingSubTotal>
@@ -4884,6 +4884,10 @@
           </ConventionalSubTotal>
         </TieBreakQuestionResult>
         <TieBreakQuestionResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <TieBreakQuestion>
             <Label>TieBreak2</Label>
             <Number>2</Number>
@@ -4891,10 +4895,6 @@
             <Question1Number>1</Question1Number>
             <Question2Number>3</Question2Number>
           </TieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <EVotingSubTotal>
@@ -4915,6 +4915,10 @@
           </ConventionalSubTotal>
         </TieBreakQuestionResult>
         <TieBreakQuestionResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <TieBreakQuestion>
             <Label>TieBreak3</Label>
             <Number>3</Number>
@@ -4922,10 +4926,6 @@
             <Question1Number>2</Question1Number>
             <Question2Number>3</Question2Number>
           </TieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <EVotingSubTotal>
@@ -4973,16 +4973,16 @@
           <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
         </ContestDomainOfInfluenceDetails>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
             <Type>MainBallot</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -5006,16 +5006,16 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>CounterProposal1</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
             <Type>CounterProposal</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -5039,16 +5039,16 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <BallotQuestion>
             <Label>CounterProposal2</Label>
             <Number>3</Number>
             <Question>Frage 3 de</Question>
             <Type>CounterProposal</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
           <PercentageNo>0</PercentageNo>
           <EVotingSubTotal>
@@ -5072,6 +5072,10 @@
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <TieBreakQuestionResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <TieBreakQuestion>
             <Label>TieBreak1</Label>
             <Number>1</Number>
@@ -5079,10 +5083,6 @@
             <Question1Number>1</Question1Number>
             <Question2Number>2</Question2Number>
           </TieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <EVotingSubTotal>
@@ -5103,6 +5103,10 @@
           </ConventionalSubTotal>
         </TieBreakQuestionResult>
         <TieBreakQuestionResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <TieBreakQuestion>
             <Label>TieBreak2</Label>
             <Number>2</Number>
@@ -5110,10 +5114,6 @@
             <Question1Number>1</Question1Number>
             <Question2Number>3</Question2Number>
           </TieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <EVotingSubTotal>
@@ -5134,6 +5134,10 @@
           </ConventionalSubTotal>
         </TieBreakQuestionResult>
         <TieBreakQuestionResult>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <TieBreakQuestion>
             <Label>TieBreak3</Label>
             <Number>3</Number>
@@ -5141,10 +5145,6 @@
             <Question1Number>2</Question1Number>
             <Question2Number>3</Question2Number>
           </TieBreakQuestion>
-          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageQ1>0</PercentageQ1>
           <PercentageQ2>0</PercentageQ2>
           <EVotingSubTotal>

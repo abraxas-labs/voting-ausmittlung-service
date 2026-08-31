@@ -14,10 +14,12 @@ using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Configuration;
 using Voting.Ausmittlung.Core.EventProcessors;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Report.Configuration;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Ausmittlung.Test.Mocks;
-using Voting.Lib.Testing.Utils;
+using Voting.Lib.Common;
 using Xunit;
+using XmlUtil = Voting.Lib.Testing.Utils.XmlUtil;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
@@ -118,5 +120,18 @@ public abstract class PdfExportBaseTest : BaseTest<ExportService.ExportServiceCl
         var startedEvent = EventPublisherMock.GetSinglePublishedEvent<ProtocolExportStarted>();
         startedEvent.FileName.Should().Be(NewRequestExpectedFileName);
         startedEvent.ExportKey.Should().Be(TemplateKey + exportTemplateKeyCantonSuffix);
+    }
+
+    protected IDisposable EnableFormattedTemplateValues(DomainOfInfluenceCanton canton)
+    {
+        var templateConfig = GetService<TemplateConfiguration>();
+        var before = new List<TemplateWithFormattedValuesConfiguration>(templateConfig.TemplatesWithFormattedValues);
+
+        templateConfig.TemplatesWithFormattedValues.Add(new TemplateWithFormattedValuesConfiguration
+        {
+            TemplateKey = TemplateKey,
+            Canton = canton,
+        });
+        return new Disposable(() => templateConfig.TemplatesWithFormattedValues = before);
     }
 }

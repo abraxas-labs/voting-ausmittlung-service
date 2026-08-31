@@ -10,4 +10,14 @@ public class PdfVoteResult : PdfCountingCircleResult
 {
     [XmlElement("BallotResult")]
     public List<PdfBallotResult> Results { get; set; } = new List<PdfBallotResult>();
+
+    public override void FormatNumbers(bool useLegacyFormat)
+    {
+        base.FormatNumbers(useLegacyFormat);
+
+        foreach (var result in Results)
+        {
+            result.FormatNumbers(useLegacyFormat);
+        }
+    }
 }

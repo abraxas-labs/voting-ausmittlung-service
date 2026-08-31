@@ -33,6 +33,13 @@ public class PdfProportionalElectionUnionListVotesEndResultsExportTest : PdfProp
     protected override string TemplateKey => AusmittlungPdfProportionalElectionTemplates.ListVotesPoliticalBusinessUnionEndResults.Key;
 
     [Fact]
+    public virtual async Task TestPdfWithFormattedValues()
+    {
+        using var d = EnableFormattedTemplateValues(DomainOfInfluenceCanton.Sg);
+        await TestPdfReport("_formatted-values");
+    }
+
+    [Fact]
     public async Task SameUnionListShortDescriptionShouldCombineLists()
     {
         var unionList = await RunOnDb(db => db.ProportionalElectionUnionLists

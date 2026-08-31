@@ -16,4 +16,14 @@ public class PdfHagenbachBischoffCalculationRound
     [XmlElement("HagenbachBischoffGroupDetail")]
     public List<PdfHagenbachBischoffCalculationRoundGroupValues> GroupValues { get; set; }
         = new List<PdfHagenbachBischoffCalculationRoundGroupValues>();
+
+    public void FormatNumbers(bool useLegacyFormat)
+    {
+        Winner?.FormatNumbers(useLegacyFormat);
+
+        foreach (var groupValue in GroupValues)
+        {
+            groupValue.FormatNumbers(useLegacyFormat);
+        }
+    }
 }

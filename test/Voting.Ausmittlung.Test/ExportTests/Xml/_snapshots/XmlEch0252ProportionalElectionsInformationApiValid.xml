@@ -123,6 +123,7 @@
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1a.number1</candidateReference>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
           </candidate>
           <list>
             <listIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">66dbbea3-0c99-469f-94c5-4314c32e8eab</listIdentification>
@@ -368,6 +369,7 @@
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1a.number1</candidateReference>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">9efe090f-883b-4e86-89c2-cd132ea84cbd</candidateIdentification>
@@ -432,6 +434,7 @@
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1a.number2</candidateReference>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">4933f558-bb34-4260-862a-fae71c52d619</candidateIdentification>
@@ -496,6 +499,7 @@
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">02.number3</candidateReference>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
           </candidate>
           <list>
             <listIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">9091a3b6-3785-4adc-a486-f486e686503e</listIdentification>

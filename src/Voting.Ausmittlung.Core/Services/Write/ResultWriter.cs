@@ -223,7 +223,7 @@ public class ResultWriter
         {
             ccResultAggregate.SubmissionFinished(contestId);
             var politicalBusiness = politicalBusinessesById[ccResultAggregate.PoliticalBusinessId];
-            if (politicalBusiness.DomainOfInfluence.SecureConnectId == _auth.Tenant.Id)
+            if (politicalBusiness.DomainOfInfluence.SecureConnectId == _auth.Tenant.Id && politicalBusiness.DomainOfInfluence.Type >= DomainOfInfluenceType.Mu)
             {
                 ccResultAggregate.AuditedTentatively(contestId);
             }

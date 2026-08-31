@@ -12,6 +12,7 @@ using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
+using Voting.Ausmittlung.Report.Configuration;
 using Voting.Ausmittlung.Report.Exceptions;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
@@ -27,6 +28,7 @@ public class PdfVoteResultRenderService : IRendererService
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
     private readonly DomainOfInfluenceRepo _doiRepo;
     private readonly IClock _clock;
+    private readonly TemplateConfiguration _templateConfiguration;
     private readonly IDbRepository<DataContext, CountingCircle> _countingCircleRepo;
     private readonly IMapper _mapper;
     private readonly TemplateService _templateService;
@@ -38,7 +40,8 @@ public class PdfVoteResultRenderService : IRendererService
         IDbRepository<DataContext, CountingCircle> countingCircleRepo,
         IDbRepository<DataContext, Contest> contestRepo,
         DomainOfInfluenceRepo doiRepo,
-        IClock clock)
+        IClock clock,
+        TemplateConfiguration templateConfiguration)
     {
         _voteRepo = voteRepo;
         _mapper = mapper;
@@ -47,6 +50,7 @@ public class PdfVoteResultRenderService : IRendererService
         _contestRepo = contestRepo;
         _doiRepo = doiRepo;
         _clock = clock;
+        _templateConfiguration = templateConfiguration;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -77,10 +81,12 @@ public class PdfVoteResultRenderService : IRendererService
             .Include(x => x.Translations)
             .Include(x => x.DomainOfInfluence)
             .Where(x =>
-                x.DomainOfInfluence.Type == ctx.DomainOfInfluenceType
+                x.DomainOfInfluence.BasisDomainOfInfluenceId == ctx.BasisDomainOfInfluenceId
                 && ctx.PoliticalBusinessIds.Contains(x.Id))
             .OrderBy(x => x.PoliticalBusinessNumber)
             .ToListAsync(ct);
+
+        var domainOfInfluence = votes[0].DomainOfInfluence;
 
         var countingCircle = await _countingCircleRepo.Query()
             .AsSplitQuery()
@@ -143,13 +149,16 @@ public class PdfVoteResultRenderService : IRendererService
             Contest = _mapper.Map<PdfContest>(contest),
             CountingCircle = pdfCountingCircle,
             Votes = pdfVotes,
-            DomainOfInfluenceType = ctx.DomainOfInfluenceType,
+            DomainOfInfluenceType = domainOfInfluence.Type,
         };
+
+        var useLegacyFormat = _templateConfiguration.ShouldUseLegacyNumberFormat(ctx.Template.Key, contest.DomainOfInfluence.Canton);
+        templateBag.FormatNumbers(useLegacyFormat);
 
         return await _templateService.RenderToPdf(
             ctx,
             templateBag,
-            PdfDomainOfInfluenceUtil.MapDomainOfInfluenceType(ctx.DomainOfInfluenceType),
+            votes[0].DomainOfInfluence.ShortName,
             PdfDateUtil.BuildDateForFilename(templateBag.Contest.Date));
     }
 

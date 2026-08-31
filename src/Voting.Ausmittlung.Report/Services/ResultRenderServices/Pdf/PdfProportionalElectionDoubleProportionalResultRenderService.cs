@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Voting.Ausmittlung.Data.Repositories;
+using Voting.Ausmittlung.Report.Configuration;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Lib.Common;
@@ -21,17 +22,20 @@ public class PdfProportionalElectionDoubleProportionalResultRenderService : IRen
     private readonly TemplateService _templateService;
     private readonly IMapper _mapper;
     private readonly IClock _clock;
+    private readonly TemplateConfiguration _templateConfiguration;
 
     public PdfProportionalElectionDoubleProportionalResultRenderService(
         DoubleProportionalResultRepo dpResultRepo,
         TemplateService templateService,
         IMapper mapper,
-        IClock clock)
+        IClock clock,
+        TemplateConfiguration templateConfiguration)
     {
         _dpResultRepo = dpResultRepo;
         _templateService = templateService;
         _mapper = mapper;
         _clock = clock;
+        _templateConfiguration = templateConfiguration;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -50,6 +54,10 @@ public class PdfProportionalElectionDoubleProportionalResultRenderService : IRen
             ProportionalElections = new List<PdfProportionalElection> { pdfProportionalElection },
             Contest = _mapper.Map<PdfContest>(dpResult.ProportionalElection!.Contest),
         };
+
+        var useLegacyFormat = _templateConfiguration.ShouldUseLegacyNumberFormat(ctx.Template.Key, pdfProportionalElection.DomainOfInfluence!.Canton);
+        templateBag.FormatNumbers(useLegacyFormat);
+
         return await _templateService.RenderToPdf(ctx, templateBag);
     }
 
@@ -57,7 +65,7 @@ public class PdfProportionalElectionDoubleProportionalResultRenderService : IRen
     {
         var dpResult = election.DoubleProportionalResult!;
         election.DomainOfInfluence = dpResult.Rows.Single().ProportionalElection!.DomainOfInfluence;
-        dpResult.Rows = null!;
+        dpResult.Rows = [];
 
         foreach (var column in dpResult.Columns)
         {

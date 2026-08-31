@@ -6,6 +6,7 @@ using Abraxas.Voting.Basis.Events.V1;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Exceptions;
+using Voting.Ausmittlung.Core.Extensions;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
@@ -16,26 +17,30 @@ namespace Voting.Ausmittlung.Core.EventProcessors;
 
 public class CantonSettingsProcessor :
     IEventProcessor<CantonSettingsCreated>,
-    IEventProcessor<CantonSettingsUpdated>
+    IEventProcessor<CantonSettingsUpdated>,
+    IEventProcessor<SetCantonSettingsECountingCertificateChain>
 {
     private readonly CantonSettingsRepo _repo;
     private readonly IMapper _mapper;
     private readonly DomainOfInfluenceCantonDefaultsBuilder _doiCantonDefaultsBuilder;
     private readonly ContestCantonDefaultsBuilder _contestCantonDefaultsBuilder;
     private readonly DataContext _dbContext;
+    private readonly IClock _clock;
 
     public CantonSettingsProcessor(
         CantonSettingsRepo repo,
         IMapper mapper,
         DomainOfInfluenceCantonDefaultsBuilder doiCantonDefaultsBuilder,
         ContestCantonDefaultsBuilder contestCantonDefaultsBuilder,
-        DataContext dbContext)
+        DataContext dbContext,
+        IClock clock)
     {
         _repo = repo;
         _mapper = mapper;
         _doiCantonDefaultsBuilder = doiCantonDefaultsBuilder;
         _contestCantonDefaultsBuilder = contestCantonDefaultsBuilder;
         _dbContext = dbContext;
+        _clock = clock;
     }
 
     public async Task Process(CantonSettingsCreated eventData)
@@ -62,6 +67,22 @@ public class CantonSettingsProcessor :
         await _dbContext.SaveChangesAsync();
         await _doiCantonDefaultsBuilder.RebuildForCanton(existing);
         await _contestCantonDefaultsBuilder.RebuildForCanton(existing);
+    }
+
+    public async Task Process(SetCantonSettingsECountingCertificateChain eventData)
+    {
+        var id = GuidParser.Parse(eventData.Id);
+        var rawPem = eventData.RawPem;
+
+        var certificateChain = CertificateChainBuilder.Build<CantonSettingsECountingCertificateChain, CantonSettingsECountingCertificateInfo>(
+            rawPem,
+            eventData.EventInfo.User.ToDataUser(),
+            _clock.UtcNow);
+
+        certificateChain.CantonSettingsId = id;
+
+        _dbContext.CantonSettingsECountingCertificateChains.Add(certificateChain);
+        await _dbContext.SaveChangesAsync();
     }
 
     private void Migrate(CantonSettings model)

@@ -17,4 +17,19 @@ public class PdfBallotResult
 
     [XmlElement("BallotTieBreakQuestionResult")]
     public List<PdfTieBreakQuestionResult> TieBreakQuestionResults { get; set; } = new List<PdfTieBreakQuestionResult>();
+
+    public void FormatNumbers(bool useLegacyFormat)
+    {
+        CountOfVoters.FormatNumbers(useLegacyFormat);
+
+        foreach (var questionResult in QuestionResults)
+        {
+            questionResult.FormatNumbers(useLegacyFormat);
+        }
+
+        foreach (var tieBreakResult in TieBreakQuestionResults)
+        {
+            tieBreakResult.FormatNumbers(useLegacyFormat);
+        }
+    }
 }

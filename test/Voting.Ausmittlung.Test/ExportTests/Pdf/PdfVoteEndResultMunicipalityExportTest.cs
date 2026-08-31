@@ -15,6 +15,7 @@ using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
+using Xunit;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
@@ -35,6 +36,13 @@ public class PdfVoteEndResultMunicipalityExportTest : PdfExportBaseTest
     protected override string TemplateKey => AusmittlungPdfVoteTemplates.EndResultProtocol.Key;
 
     protected override string SnapshotName => base.SnapshotName + "_municipality";
+
+    [Fact]
+    public virtual async Task TestPdfWithFormattedValues()
+    {
+        using var d = EnableFormattedTemplateValues(DomainOfInfluenceCanton.Sg);
+        await TestPdfReport("_formatted-values");
+    }
 
     protected override async Task SeedData()
     {

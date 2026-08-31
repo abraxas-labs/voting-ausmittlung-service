@@ -257,7 +257,7 @@ public class ResultExportTest : BaseRestTest
                     AusmittlungPdfVoteTemplates.ResultProtocol.Key,
                     CountingCircleMockedData.Uzwil.ResponsibleAuthority.SecureConnectId,
                     CountingCircleMockedData.GuidUzwil,
-                    domainOfInfluenceType: DomainOfInfluenceType.Ct),
+                    domainOfInfluenceId: DomainOfInfluenceMockedData.GuidStGallen),
             },
         });
     }

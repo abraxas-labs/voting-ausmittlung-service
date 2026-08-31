@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Report.Configuration;
 using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
@@ -19,8 +20,9 @@ public class PdfProportionalElectionCandidatesEndResultRenderService
         TemplateService templateService,
         IDbRepository<DataContext, ProportionalElectionEndResult> repo,
         IMapper mapper,
-        IClock clock)
-        : base(templateService, repo, mapper, clock)
+        IClock clock,
+        TemplateConfiguration templateConfiguration)
+        : base(templateService, repo, mapper, clock, templateConfiguration)
     {
     }
 

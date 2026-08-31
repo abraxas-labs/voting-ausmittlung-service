@@ -16,7 +16,13 @@ public class ResultImportProfile : Profile
     public ResultImportProfile()
     {
         // read
-        CreateMap<DataModels.ResultImport, ProtoModels.ResultImport>();
+        CreateMap<DataModels.ResultImport, ProtoModels.ResultImport>()
+            .ForMember(
+                dst => dst.ECountingClientCaCertificateInfo,
+                opts => opts.MapFrom(src => src.ECountingClientCertificateInfo != null
+                    ? src.ECountingClientCertificateInfo.CaCertificateInfo
+                    : null));
+
         CreateMap<IEnumerable<DataModels.ResultImport>, ProtoModels.ResultImports>()
             .ForMember(dst => dst.Imports, opts => opts.MapFrom(x => x));
         CreateMap<DataModels.IgnoredImportCountingCircle, ProtoModels.ResultImportIgnoredCountingCircle>();

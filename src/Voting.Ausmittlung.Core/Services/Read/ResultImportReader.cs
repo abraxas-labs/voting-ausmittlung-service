@@ -183,6 +183,11 @@ public class ResultImportReader
             query = query.Where(x => x.CountingCircle!.BasisCountingCircleId == basisCountingCircleId.Value);
         }
 
+        if (importType is ResultImportType.ECounting)
+        {
+            query = query.Include(x => x.ECountingClientCertificateInfo!.CaCertificateInfo);
+        }
+
         return await query
             .OrderByDescending(x => x.Started)
             .ToListAsync();

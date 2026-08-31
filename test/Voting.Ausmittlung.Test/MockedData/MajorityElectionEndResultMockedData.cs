@@ -133,7 +133,7 @@ public static class MajorityElectionEndResultMockedData
             CandidateCheckDigit = false,
             MandateAlgorithm = mandateAlgorithm,
             NumberOfMandates = primaryElectionNumberOfMandates,
-            ReportDomainOfInfluenceLevel = 1,
+            ReportDomainOfInfluenceLevel = 0,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
             EnforceCandidateCheckDigitForCountingCircles = true,

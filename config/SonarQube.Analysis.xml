@@ -4,6 +4,6 @@
     .nuget/packages/**,**/Migrations/*.cs
   </Property>
   <Property Name="sonar.cpd.exclusions">
-    src/Voting.Ausmittlung.Core/EventProcessors/*ResultBundleProcessor.cs,src/Voting.Ausmittlung.Core/Services/Read/*ResultBundleReader.cs
+    src/Voting.Ausmittlung.Core/EventProcessors/*ResultBundleProcessor.cs,src/Voting.Ausmittlung.Core/Services/Read/*ResultBundleReader.cs,src/Voting.Ausmittlung.Report/Services/ResultRenderServices/Pdf/Models/*.cs
   </Property>
 </SonarQubeAnalysisProperties>

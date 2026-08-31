@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
+using Voting.Ausmittlung.Report.Configuration;
 using Voting.Ausmittlung.Report.Exceptions;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
@@ -26,6 +27,7 @@ public class PdfVoteEndResultRenderService : IRendererService
     private readonly TemplateService _templateService;
     private readonly IDbRepository<DataContext, Vote> _voteRepo;
     private readonly IClock _clock;
+    private readonly TemplateConfiguration _templateConfiguration;
     private readonly IDbRepository<DataContext, VoteResult> _voteResultRepo;
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
     private readonly IMapper _mapper;
@@ -36,7 +38,8 @@ public class PdfVoteEndResultRenderService : IRendererService
         IDbRepository<DataContext, Contest> contestRepo,
         IDbRepository<DataContext, VoteResult> voteResultRepo,
         IDbRepository<DataContext, Vote> voteRepo,
-        IClock clock)
+        IClock clock,
+        TemplateConfiguration templateConfiguration)
     {
         _templateService = templateService;
         _mapper = mapper;
@@ -44,6 +47,7 @@ public class PdfVoteEndResultRenderService : IRendererService
         _voteResultRepo = voteResultRepo;
         _voteRepo = voteRepo;
         _clock = clock;
+        _templateConfiguration = templateConfiguration;
     }
 
     public async Task<FileModel> Render(
@@ -176,6 +180,9 @@ public class PdfVoteEndResultRenderService : IRendererService
             DomainOfInfluenceType = domainOfInfluence.Type,
             CountingCircle = countingCircle,
         };
+
+        var useLegacyFormat = _templateConfiguration.ShouldUseLegacyNumberFormat(ctx.Template.Key, contest.DomainOfInfluence.Canton);
+        templateBag.FormatNumbers(useLegacyFormat);
 
         return await _templateService.RenderToPdf(
             ctx,

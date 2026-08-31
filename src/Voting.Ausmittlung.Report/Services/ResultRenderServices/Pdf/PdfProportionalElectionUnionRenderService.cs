@@ -11,6 +11,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Report.Configuration;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
@@ -26,19 +27,22 @@ public class PdfProportionalElectionUnionRenderService : IRendererService
     private readonly IMapper _mapper;
     private readonly ProportionalElectionUnionEndResultBuilder _unionEndResultBuilder;
     private readonly IClock _clock;
+    private readonly TemplateConfiguration _templateConfiguration;
 
     public PdfProportionalElectionUnionRenderService(
         TemplateService templateService,
         IDbRepository<DataContext, ProportionalElectionUnion> unionRepo,
         IMapper mapper,
         ProportionalElectionUnionEndResultBuilder unionEndResultBuilder,
-        IClock clock)
+        IClock clock,
+        TemplateConfiguration templateConfiguration)
     {
         _templateService = templateService;
         _unionRepo = unionRepo;
         _mapper = mapper;
         _unionEndResultBuilder = unionEndResultBuilder;
         _clock = clock;
+        _templateConfiguration = templateConfiguration;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -46,6 +50,7 @@ public class PdfProportionalElectionUnionRenderService : IRendererService
         var data = await _unionRepo.Query()
             .AsSplitQuery()
             .Include(x => x.Contest.Translations)
+            .Include(x => x.Contest.DomainOfInfluence)
             .Include(x => x.ProportionalElectionUnionLists)
                 .ThenInclude(x => x.ProportionalElectionUnionListEntries)
                 .ThenInclude(x => x.ProportionalElectionList.EndResult)
@@ -75,6 +80,9 @@ public class PdfProportionalElectionUnionRenderService : IRendererService
                     union,
                 },
         };
+
+        var useLegacyFormat = _templateConfiguration.ShouldUseLegacyNumberFormat(ctx.Template.Key, data.Contest.DomainOfInfluence.Canton);
+        templateBag.FormatNumbers(useLegacyFormat);
 
         return await _templateService.RenderToPdf(ctx, templateBag, union.Description, PdfDateUtil.BuildDateForFilename(templateBag.Contest.Date));
     }

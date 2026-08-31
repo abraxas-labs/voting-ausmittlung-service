@@ -62,7 +62,12 @@ public class Startup
         services.AddCertificatePinning(_appConfig.CertificatePinning);
         ConfigureHealthChecks(services.AddHealthChecks());
 
-        services.AddAutoMapper(typeof(Startup), typeof(ConverterProfile), typeof(PdfContestProfile));
+        services.AddAutoMapper(
+            cfg => cfg.LicenseKey = _appConfig.AutoMapper.LicenseKey,
+            typeof(Startup),
+            typeof(ConverterProfile),
+            typeof(PdfContestProfile));
+
         AddMessaging(services);
 
         services.AddCore(_appConfig);
@@ -257,14 +262,11 @@ public class Startup
 
         services.AddProtoValidators();
 
-        services.AddReport(_appConfig.Publisher.Documatrix);
+        services.AddReport(_appConfig.Publisher.Documatrix, _appConfig.Publisher.TemplateConfig);
         services.AddEch(_appConfig.Publisher.Ech);
         services.AddTemporaryData(_appConfig.Publisher.TemporaryDatabase, ConfigureTemporaryDatabase);
         services.AddSwaggerGenerator(_configuration);
 
-        services.AddSecureConnectServiceAccount(
-            PublisherConfig.SharedSecureConnectServiceAccountName,
-            _appConfig.Publisher.SharedSecureConnect);
         return services;
     }
 }

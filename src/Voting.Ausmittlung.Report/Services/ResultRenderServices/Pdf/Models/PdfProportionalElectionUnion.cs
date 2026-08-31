@@ -15,4 +15,10 @@ public class PdfProportionalElectionUnion : PdfPoliticalBusinessUnion
     public PdfDoubleProportionalResult? DoubleProportionalResult { get; set; }
 
     public ProportionalElectionMandateAlgorithm MandateAlgorithm { get; set; }
+
+    public void FormatNumbers(bool useLegacyFormat)
+    {
+        EndResult?.FormatNumbers(useLegacyFormat);
+        DoubleProportionalResult?.FormatNumbers(useLegacyFormat);
+    }
 }

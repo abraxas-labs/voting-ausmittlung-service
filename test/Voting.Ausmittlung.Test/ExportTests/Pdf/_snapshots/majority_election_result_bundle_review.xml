@@ -1,6 +1,23 @@
 <Voting>
   <TemplateKey>majority_election_result_bundle_review</TemplateKey>
   <GeneratedAt>2020-01-10T14:12:10.2</GeneratedAt>
+  <Contest>
+    <Date>2029-02-12T00:00:00Z</Date>
+    <Description>Nationalratswahlen in der Zukunft de</Description>
+    <DomainOfInfluence>
+      <Name>Bund</Name>
+      <NameForProtocol>Bund</NameForProtocol>
+      <ShortName>Bund</ShortName>
+      <AuthorityName />
+      <Code>0001-BUND</Code>
+      <SortNumber>99999</SortNumber>
+      <Bfs>0001</Bfs>
+      <Type>Ch</Type>
+      <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
+    </DomainOfInfluence>
+    <State>TestingPhase</State>
+  </Contest>
   <CountingCircle>
     <Name>St. Gallen</Name>
     <NameForProtocol>Stadt St. Gallen</NameForProtocol>

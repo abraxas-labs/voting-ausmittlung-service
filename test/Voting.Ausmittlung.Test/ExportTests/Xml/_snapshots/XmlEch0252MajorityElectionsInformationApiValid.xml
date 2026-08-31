@@ -145,6 +145,7 @@
                 <partyAffiliationLong>FDP long party description rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
           </candidate>
           <namedElement>
             <elementName>decisiveMajority</elementName>
@@ -264,6 +265,7 @@
                 <partyAffiliationLong>Test long desc rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
           </candidate>
           <namedElement>
             <elementName>decisiveMajority</elementName>
@@ -406,6 +408,7 @@
                 <partyAffiliationLong>CVP long party description rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">4a44cb35-05a7-41f9-aa1e-034bedd320ec</candidateIdentification>
@@ -492,6 +495,7 @@
                 <partyAffiliationLong>CVP long party description rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sortID>
           </candidate>
           <namedElement>
             <elementName>decisiveMajority</elementName>
@@ -634,6 +638,7 @@
                 <partyAffiliationLong>SVP long party description rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">d849b362-9ae0-4a2e-a10a-033a25ed4075</candidateIdentification>
@@ -720,6 +725,7 @@
                 <partyAffiliationLong>GLP long party description rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
           </candidate>
           <namedElement>
             <elementName>decisiveMajority</elementName>

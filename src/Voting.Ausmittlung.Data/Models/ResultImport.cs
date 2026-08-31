@@ -32,6 +32,8 @@ public class ResultImport : BaseEntity
 
     public ResultImportType ImportType { get; set; }
 
+    public ResultImportECountingClientCertificateInfo? ECountingClientCertificateInfo { get; set; }
+
     public ICollection<ResultImportCountingCircle> ImportedCountingCircles { get; set; } = new HashSet<ResultImportCountingCircle>();
 
     public ICollection<IgnoredImportCountingCircle> IgnoredCountingCircles { get; set; } = new HashSet<IgnoredImportCountingCircle>();

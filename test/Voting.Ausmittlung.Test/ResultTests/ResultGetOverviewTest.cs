@@ -122,6 +122,11 @@ public class ResultGetOverviewTest : BaseTest<ResultService.ResultServiceClient>
                         tieBreakResult.Id = string.Empty;
                     }
                 }
+
+                foreach (var listResult in result.ListResults)
+                {
+                    listResult.Id = string.Empty;
+                }
             }
         }
     }

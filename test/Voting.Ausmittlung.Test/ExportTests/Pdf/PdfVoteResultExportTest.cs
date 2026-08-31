@@ -14,6 +14,7 @@ using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
+using Xunit;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
@@ -28,9 +29,16 @@ public class PdfVoteResultExportTest : PdfExportBaseTest
         tenantId: SecureConnectTestDefaults.MockedTenantUzwil.Id,
         roles: RolesMockedData.ErfassungElectionAdmin);
 
-    protected override string NewRequestExpectedFileName => "Abstimmungsprotokoll_Eidg_20290212.pdf";
+    protected override string NewRequestExpectedFileName => "Abstimmungsprotokoll_Bund_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfVoteTemplates.ResultProtocol.Key;
+
+    [Fact]
+    public virtual async Task TestPdfWithFormattedValues()
+    {
+        using var d = EnableFormattedTemplateValues(DomainOfInfluenceCanton.Sg);
+        await TestPdfReport("_formatted-values");
+    }
 
     protected override async Task SeedData()
     {
@@ -93,8 +101,8 @@ public class PdfVoteResultExportTest : PdfExportBaseTest
                 AusmittlungUuidV5.BuildExportTemplate(
                     TemplateKey,
                     SecureConnectTestDefaults.MockedTenantUzwil.Id,
-                    domainOfInfluenceType: Data.Models.DomainOfInfluenceType.Ch,
-                    countingCircleId: CountingCircleMockedData.GuidUzwil)
+                    countingCircleId: CountingCircleMockedData.GuidUzwil,
+                    domainOfInfluenceId: DomainOfInfluenceMockedData.Bund.Id)
                     .ToString(),
             },
         };

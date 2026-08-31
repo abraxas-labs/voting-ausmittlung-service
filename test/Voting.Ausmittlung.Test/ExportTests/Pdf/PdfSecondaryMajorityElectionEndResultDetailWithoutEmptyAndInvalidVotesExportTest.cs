@@ -25,6 +25,13 @@ public class PdfSecondaryMajorityElectionEndResultDetailWithoutEmptyAndInvalidVo
     protected override string TemplateKey => AusmittlungPdfSecondaryMajorityElectionTemplates.EndResultDetailWithoutEmptyAndInvalidVotesProtocol.Key;
 
     [Fact]
+    public virtual async Task TestPdfWithFormattedValues()
+    {
+        using var d = EnableFormattedTemplateValues(DomainOfInfluenceCanton.Sg);
+        await TestPdfReport("_formatted-values");
+    }
+
+    [Fact]
     public async Task TestPdfWithPartialResults()
     {
         await ModifyDbEntities<DomainOfInfluence>(

@@ -287,6 +287,12 @@ public class DataContext : DbContext
 
     public DbSet<ProtocolExport> ProtocolExports { get; set; } = null!;
 
+    public DbSet<CantonSettingsECountingCertificateChain> CantonSettingsECountingCertificateChains { get; set; } = null!;
+
+    public DbSet<CantonSettingsECountingCertificateInfo> CantonSettingsECountingCertificateInfos { get; set; } = null!;
+
+    public DbSet<ResultImportECountingClientCertificateInfo> ResultImportECountingClientCertificateInfos { get; set; } = null!;
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Workaround to access the DbContext instance in the model builder classes

@@ -13,6 +13,7 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Exceptions;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
+using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
 using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
@@ -21,7 +22,7 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
 public class PdfMajorityElectionResultBundleReviewRenderService : IRendererService
 {
     private readonly IDbRepository<DataContext, MajorityElectionResultBundle> _majorityElectionResultBundleRepo;
-    private readonly IDbRepository<DataContext, CountingCircle> _countingCircleRepo;
+    private readonly PdfBundleReviewUtil _pdfBundleReviewUtil;
     private readonly IClock _clock;
     private readonly IMapper _mapper;
     private readonly TemplateService _templateService;
@@ -30,14 +31,14 @@ public class PdfMajorityElectionResultBundleReviewRenderService : IRendererServi
         IDbRepository<DataContext, MajorityElectionResultBundle> majorityElectionResultBundleRepo,
         IMapper mapper,
         TemplateService templateService,
-        IDbRepository<DataContext, CountingCircle> countingCircleRepo,
-        IClock clock)
+        IClock clock,
+        PdfBundleReviewUtil pdfBundleReviewUtil)
     {
         _majorityElectionResultBundleRepo = majorityElectionResultBundleRepo;
         _mapper = mapper;
         _templateService = templateService;
-        _countingCircleRepo = countingCircleRepo;
         _clock = clock;
+        _pdfBundleReviewUtil = pdfBundleReviewUtil;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -86,20 +87,12 @@ public class PdfMajorityElectionResultBundleReviewRenderService : IRendererServi
             }
         }
 
-        var countingCircle = await _countingCircleRepo.Query()
-            .AsSplitQuery()
-            .Include(x => x.ResponsibleAuthority)
-            .Include(x => x.ContactPersonDuringEvent)
-            .Include(x => x.ContactPersonAfterEvent)
-            .FirstOrDefaultAsync(x => x.SnapshotContestId == ctx.ContestId && x.BasisCountingCircleId == ctx.BasisCountingCircleId, ct)
-            ?? throw new EntityNotFoundException(nameof(CountingCircle), new { ctx.ContestId, ctx.BasisCountingCircleId });
-
-        var pdfCountingCircle = _mapper.Map<PdfCountingCircle>(countingCircle);
         var bundleReview = new PdfPoliticalBusinessResultBundleReview
         {
             TemplateKey = ctx.Template.Key,
             GeneratedAt = _clock.UtcNow.ConvertUtcTimeToSwissTime(),
-            CountingCircle = pdfCountingCircle,
+            Contest = await _pdfBundleReviewUtil.GetContest(ctx.ContestId, ct),
+            CountingCircle = await _pdfBundleReviewUtil.GetCountingCircle(ctx.ContestId, ctx.BasisCountingCircleId, ct),
             MajorityElectionResultBundle = _mapper.Map<PdfMajorityElectionResultBundle>(bundle),
             PoliticalBusiness = _mapper.Map<PdfPoliticalBusiness>(bundle.ElectionResult.MajorityElection),
         };

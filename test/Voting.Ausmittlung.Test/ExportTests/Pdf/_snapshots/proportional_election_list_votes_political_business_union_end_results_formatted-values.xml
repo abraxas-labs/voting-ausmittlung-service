@@ -1,0 +1,95 @@
+<Voting>
+  <TemplateKey>proportional_election_list_votes_political_business_union_end_results</TemplateKey>
+  <GeneratedAt>2020-01-10T14:12:10.2</GeneratedAt>
+  <Contest>
+    <Date>2029-02-12T00:00:00Z</Date>
+    <Description>Nationalratswahlen in der Zukunft de</Description>
+    <DomainOfInfluence>
+      <Name>Bund</Name>
+      <NameForProtocol>Bund</NameForProtocol>
+      <ShortName>Bund</ShortName>
+      <AuthorityName />
+      <Code>0001-BUND</Code>
+      <SortNumber>99999</SortNumber>
+      <Bfs>0001</Bfs>
+      <Type>Ch</Type>
+      <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
+    </DomainOfInfluence>
+    <State>TestingPhase</State>
+  </Contest>
+  <ProportionalElectionUnion>
+    <Description>Kantonratswahl</Description>
+    <ProportionalElectionUnionEndResult>
+      <CountOfVoters>
+        <VoterParticipation>28.24</VoterParticipation>
+        <TotalReceivedBallots>850</TotalReceivedBallots>
+        <TotalUnaccountedBallots>460</TotalUnaccountedBallots>
+        <EVotingReceivedBallots>60</EVotingReceivedBallots>
+        <EVotingInvalidBallots>20</EVotingInvalidBallots>
+        <EVotingBlankBallots>10</EVotingBlankBallots>
+        <EVotingAccountedBallots>30</EVotingAccountedBallots>
+        <EVotingTotalUnaccountedBallots>30</EVotingTotalUnaccountedBallots>
+        <ConventionalReceivedBallots>690</ConventionalReceivedBallots>
+        <ConventionalInvalidBallots>280</ConventionalInvalidBallots>
+        <ConventionalBlankBallots>110</ConventionalBlankBallots>
+        <ConventionalAccountedBallots>300</ConventionalAccountedBallots>
+        <ConventionalTotalUnaccountedBallots>390</ConventionalTotalUnaccountedBallots>
+        <CountOfAccountedBallots>390</CountOfAccountedBallots>
+        <CountOfInvalidBallots>320</CountOfInvalidBallots>
+        <CountOfBlankBallots>140</CountOfBlankBallots>
+      </CountOfVoters>
+      <NumberOfMandates>5</NumberOfMandates>
+      <ListVotesCount>1'787</ListVotesCount>
+      <BlankRowsCount>45</BlankRowsCount>
+      <TotalVoteCount>1'832</TotalVoteCount>
+      <TotalCountOfBlankRowsOnListsWithoutParty>2</TotalCountOfBlankRowsOnListsWithoutParty>
+      <TotalVoteCountInclWithoutParty>1'834</TotalVoteCountInclWithoutParty>
+      <ProportionalElectionUnionListEndResult>
+        <UnionList>
+          <OrderNumber>1a</OrderNumber>
+          <ShortDescription>Liste 1a de</ShortDescription>
+          <Description>Liste 1a SP/JUSO Frauen de</Description>
+        </UnionList>
+        <NumberOfMandates>2</NumberOfMandates>
+        <ListVotesCount>720</ListVotesCount>
+        <BlankRowsCount>27</BlankRowsCount>
+        <TotalVoteCount>747</TotalVoteCount>
+      </ProportionalElectionUnionListEndResult>
+      <ProportionalElectionUnionListEndResult>
+        <UnionList>
+          <OrderNumber>1b</OrderNumber>
+          <ShortDescription>Liste 1b de</ShortDescription>
+          <Description>Liste 1b SP/JUSO Männer de</Description>
+        </UnionList>
+        <NumberOfMandates>2</NumberOfMandates>
+        <ListVotesCount>625</ListVotesCount>
+        <BlankRowsCount>3</BlankRowsCount>
+        <TotalVoteCount>628</TotalVoteCount>
+      </ProportionalElectionUnionListEndResult>
+      <ProportionalElectionUnionListEndResult>
+        <UnionList>
+          <OrderNumber>2</OrderNumber>
+          <ShortDescription>Liste 2 de</ShortDescription>
+          <Description>Liste 2, GLP de</Description>
+        </UnionList>
+        <NumberOfMandates>1</NumberOfMandates>
+        <ListVotesCount>442</ListVotesCount>
+        <BlankRowsCount>15</BlankRowsCount>
+        <TotalVoteCount>457</TotalVoteCount>
+      </ProportionalElectionUnionListEndResult>
+      <ProportionalElectionUnionListEndResult>
+        <UnionList>
+          <OrderNumber>3</OrderNumber>
+          <ShortDescription>Liste 3 de</ShortDescription>
+          <Description>Liste 3 SP/JUSO Männer Studenten de</Description>
+        </UnionList>
+        <NumberOfMandates>0</NumberOfMandates>
+        <ListVotesCount>0</ListVotesCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionUnionListEndResult>
+    </ProportionalElectionUnionEndResult>
+    <MandateAlgorithm>HagenbachBischoff</MandateAlgorithm>
+  </ProportionalElectionUnion>
+</Voting>

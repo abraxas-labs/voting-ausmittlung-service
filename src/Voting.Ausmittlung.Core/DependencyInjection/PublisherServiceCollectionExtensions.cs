@@ -16,6 +16,7 @@ using Voting.Ausmittlung.Core.Services.Validation.Utils;
 using Voting.Ausmittlung.Core.Services.Write;
 using Voting.Ausmittlung.Core.Services.Write.Import;
 using Voting.Ausmittlung.Core.Utils;
+using Voting.Ausmittlung.Core.Utils.ECountingSignature;
 using Voting.Ausmittlung.Core.Validation;
 using Voting.Basis.Core.EventSignature;
 using Voting.Lib.DokConnector.Service;
@@ -45,7 +46,8 @@ internal static class PublisherServiceCollectionExtensions
             .AddSingleton<IPermissionProvider, PermissionProvider>()
             .AddScoped<LanguageService>()
             .AddWriterServices(config.Publisher)
-            .AddReaderServices();
+            .AddReaderServices()
+            .AddScoped<ECountingEchFileDecryptor>();
     }
 
     internal static IEventingServiceCollection AddPublisher(this IEventingServiceCollection services, AppConfig config)
@@ -173,8 +175,10 @@ internal static class PublisherServiceCollectionExtensions
             return services.AddSingleton<IDokConnector, DokConnectorMock>();
         }
 
-        services.AddEaiDokConnector(config.DokConnector)
-            .AddSecureConnectServiceToken(PublisherConfig.SharedSecureConnectServiceAccountName);
+        services
+            .AddDokConnectorApi(config.DokConnectorApi)
+            .AddSecureConnectServiceToken(config.ConnectServiceAccount);
+
         return services;
     }
 }

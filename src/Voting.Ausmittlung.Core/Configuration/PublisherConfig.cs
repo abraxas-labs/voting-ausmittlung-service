@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Report.Configuration;
 using Voting.Ausmittlung.TemporaryData.Configuration;
 using Voting.Lib.DokConnector.Configuration;
 using Voting.Lib.Ech.Configuration;
@@ -14,8 +15,6 @@ namespace Voting.Ausmittlung.Core.Configuration;
 
 public class PublisherConfig
 {
-    public const string SharedSecureConnectServiceAccountName = "SharedSecureConnect";
-
     public TemporaryDataConfig TemporaryDatabase { get; set; } = new();
 
     /// <summary>
@@ -76,9 +75,12 @@ public class PublisherConfig
     /// </summary>
     public bool ExportTemplateKeyCantonSuffixEnabled { get; set; }
 
-    public SecureConnectServiceAccountOptions SharedSecureConnect { get; set; } = new();
+    /// <summary>
+    /// Gets or sets the connect service account.
+    /// </summary>
+    public SecureConnectServiceAccountOptions ConnectServiceAccount { get; set; } = new();
 
-    public DokConnectorConfig DokConnector { get; set; } = new();
+    public DokConnectorConfig DokConnectorApi { get; set; } = new();
 
     public SeantisConfig Seantis { get; set; } = new();
 
@@ -91,4 +93,6 @@ public class PublisherConfig
     /// Gets or sets the "test counting circles" (Testurnen), which are ignored during a result import.
     /// </summary>
     public Dictionary<DomainOfInfluenceCanton, List<TestCountingCircleConfig>> TestCountingCircles { get; set; } = new();
+
+    public TemplateConfiguration TemplateConfig { get; set; } = new();
 }

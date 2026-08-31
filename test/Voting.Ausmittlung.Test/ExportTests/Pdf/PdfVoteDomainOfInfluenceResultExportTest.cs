@@ -46,6 +46,23 @@ public class PdfVoteDomainOfInfluenceResultExportTest : PdfExportBaseTest
     }
 
     [Fact]
+    public async Task TestPdfWithPartialResultsFormattedValues()
+    {
+        using var d = EnableFormattedTemplateValues(DomainOfInfluenceCanton.Sg);
+        await ModifyDbEntities<DomainOfInfluence>(
+            x => x.SnapshotContestId == ContestMockedData.GuidBundesurnengang && x.BasisDomainOfInfluenceId ==
+                DomainOfInfluenceMockedData.StGallenStadt.BasisDomainOfInfluenceId,
+            x => x.ViewCountingCirclePartialResults = true);
+        await ModifyDbEntities<DomainOfInfluence>(
+            x => x.SnapshotContestId == ContestMockedData.GuidBundesurnengang && x.BasisDomainOfInfluenceId ==
+                DomainOfInfluenceMockedData.StGallen.BasisDomainOfInfluenceId,
+            x => x.SecureConnectId = "random_partial_result");
+
+        var request = NewRequest();
+        await TestPdfReport("_with_partial_result_formatted-values", TestClient, request);
+    }
+
+    [Fact]
     public async Task TestPdfWithHideLowerDoisFlag()
     {
         await ModifyDbEntities<DomainOfInfluence>(
@@ -71,6 +88,13 @@ public class PdfVoteDomainOfInfluenceResultExportTest : PdfExportBaseTest
 
         var request = NewRequest();
         await TestPdfReport("_hide_lower_dois_same_tenant", TestClient, request);
+    }
+
+    [Fact]
+    public virtual async Task TestPdfWithFormattedValues()
+    {
+        using var d = EnableFormattedTemplateValues(DomainOfInfluenceCanton.Sg);
+        await TestPdfReport("_formatted-values");
     }
 
     protected override async Task SeedData()

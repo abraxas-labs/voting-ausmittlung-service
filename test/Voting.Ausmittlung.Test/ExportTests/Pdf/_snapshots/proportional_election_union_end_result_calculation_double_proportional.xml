@@ -4,6 +4,18 @@
   <Contest>
     <Date>2029-02-12T00:00:00Z</Date>
     <Description>Urnengang de</Description>
+    <DomainOfInfluence>
+      <Name>Bund</Name>
+      <NameForProtocol>Bund</NameForProtocol>
+      <ShortName>Bund</ShortName>
+      <AuthorityName />
+      <Code />
+      <SortNumber>0</SortNumber>
+      <Bfs>0001</Bfs>
+      <Type>Ch</Type>
+      <Canton>Zh</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
+    </DomainOfInfluence>
     <State>TestingPhase</State>
   </Contest>
   <ProportionalElectionUnion>

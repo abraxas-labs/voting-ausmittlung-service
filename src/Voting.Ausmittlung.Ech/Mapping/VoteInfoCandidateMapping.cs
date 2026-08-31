@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Ech0010_6_0;
 using Ech0155_5_2;
@@ -80,6 +81,7 @@ internal static class VoteInfoCandidateMapping
             IncumbentYesNo = candidate.Incumbent,
             Role = null,
             Swiss = string.IsNullOrEmpty(candidate.Origin) ? null : [candidate.Origin],
+            SortId = candidate.Position.ToString(CultureInfo.InvariantCulture),
         };
     }
 
@@ -142,13 +144,6 @@ internal static class VoteInfoCandidateMapping
             Data.Models.SexType.Female => SexType.Item2,
             _ => SexType.Item3,
         };
-    }
-
-    internal static MrMrsType ToEchMrMrsType(this Data.Models.SexType sex)
-    {
-        return sex == Data.Models.SexType.Male
-            ? MrMrsType.Item2
-            : MrMrsType.Item1;
     }
 
     internal static string GenerateCandidateReference(this ProportionalElectionCandidate candidate)

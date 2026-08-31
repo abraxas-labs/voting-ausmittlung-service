@@ -21,6 +21,7 @@
     "ManualPublishResultsEnabled": false,
     "PublishResultsBeforeAuditedTentatively": false,
     "EndResultFinalizeDisabled": true,
+    "ECountingCertificateChains": [],
     "Id": "2d203a3c-40ba-4b53-a57e-38909d71390c"
   },
   "affectedContests": {

@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using AutoMapper;
@@ -40,7 +41,7 @@ public class ResultImportProcessor :
     private readonly ContestCountingCircleDetailsBuilder _contestCountingCircleDetailsBuilder;
     private readonly IDbRepository<DataContext, SimplePoliticalBusiness> _simplePbRepo;
     private readonly IDbRepository<DataContext, SecondaryMajorityElection> _secondaryElectionRepo;
-    private readonly IDbRepository<DataContext, ResultImportPoliticalBusiness> _resultImportPbRepo;
+    private readonly IDbRepository<DataContext, CantonSettingsECountingCertificateInfo> _cantonSettingsECountingCertificateInfoRepo;
     private readonly IDbRepository<DataContext, SimpleCountingCircleResult> _simpleCountingCircleResultRepo;
     private readonly IMapper _mapper;
     private readonly EventLogger _eventLogger;
@@ -60,7 +61,7 @@ public class ResultImportProcessor :
         IDbRepository<DataContext, ContestCountingCircleDetails> contestCountingCircleDetailsRepo,
         IDbRepository<DataContext, SimplePoliticalBusiness> simplePbRepo,
         IDbRepository<DataContext, SecondaryMajorityElection> secondaryElectionRepo,
-        IDbRepository<DataContext, ResultImportPoliticalBusiness> resultImportPbRepo,
+        IDbRepository<DataContext, CantonSettingsECountingCertificateInfo> cantonSettingsECountingCertificateInfoRepo,
         IDbRepository<DataContext, SimpleCountingCircleResult> simpleCountingCircleResultRepo)
     {
         _importsRepo = importsRepo;
@@ -77,7 +78,7 @@ public class ResultImportProcessor :
         _contestCountingCircleDetailsRepo = contestCountingCircleDetailsRepo;
         _simplePbRepo = simplePbRepo;
         _secondaryElectionRepo = secondaryElectionRepo;
-        _resultImportPbRepo = resultImportPbRepo;
+        _cantonSettingsECountingCertificateInfoRepo = cantonSettingsECountingCertificateInfoRepo;
         _simpleCountingCircleResultRepo = simpleCountingCircleResultRepo;
     }
 
@@ -109,6 +110,21 @@ public class ResultImportProcessor :
         if (import.CountingCircleId.HasValue)
         {
             import.CountingCircleId = AusmittlungUuidV5.BuildCountingCircleSnapshot(import.ContestId, import.CountingCircleId.Value);
+        }
+
+        if (!string.IsNullOrWhiteSpace(eventData.ECountingClientCertificateRawPem))
+        {
+            var eCountingClientCertificateInfo = CertificateInfoBuilder.Build<ResultImportECountingClientCertificateInfo>(
+                X509Certificate2.CreateFromPem(eventData.ECountingClientCertificateRawPem));
+
+            eCountingClientCertificateInfo.CaThumbprint = eventData.ECountingClientCertificateCaThumbprint;
+            eCountingClientCertificateInfo.CaCertificateInfoId = await _cantonSettingsECountingCertificateInfoRepo.Query()
+                .Where(x => x.Thumbprint == eCountingClientCertificateInfo.CaThumbprint)
+                .Select(x => (Guid?)x.Id)
+                .FirstOrDefaultAsync()
+                ?? throw new EntityNotFoundException(nameof(CantonSettingsECountingCertificateInfo), eCountingClientCertificateInfo.CaThumbprint);
+
+            import.ECountingClientCertificateInfo = eCountingClientCertificateInfo;
         }
 
         await _importsRepo.Create(import);

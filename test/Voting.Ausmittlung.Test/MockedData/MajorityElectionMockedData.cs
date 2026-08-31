@@ -875,7 +875,7 @@ public static class MajorityElectionMockedData
                         PoliticalLastName = "pol last name2",
                         DateOfBirth = new DateTime(1960, 1, 13, 0, 0, 0, DateTimeKind.Utc),
                         Incumbent = true,
-                        Position = 1,
+                        Position = 2,
                         Locality = "locality",
                         Number = "number1",
                         Sex = SexType.Female,

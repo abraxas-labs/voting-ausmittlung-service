@@ -35,7 +35,9 @@
       }
     ],
     "ImportType": 1,
-    "IgnoredPoliticalBusinesses": []
+    "IgnoredPoliticalBusinesses": [],
+    "ECountingClientCertificateRawPem": "",
+    "ECountingClientCertificateCaThumbprint": ""
   },
   "db": {
     "Contest": null,
@@ -53,6 +55,7 @@
     },
     "FileName": "test-eCH-0222.xml / test-eCH-0110.xml",
     "ImportType": 1,
+    "ECountingClientCertificateInfo": null,
     "ImportedCountingCircles": [],
     "IgnoredCountingCircles": [
       {

@@ -10,4 +10,11 @@ public abstract class PdfDomainOfInfluenceResult
     public PdfPoliticalBusinessCountOfVoters? CountOfVoters { get; set; }
 
     public PdfContestDomainOfInfluenceDetails? ContestDomainOfInfluenceDetails { get; set; }
+
+    public virtual void FormatNumbers(bool useLegacyFormat)
+    {
+        DomainOfInfluence?.FormatNumbers(useLegacyFormat);
+        CountOfVoters?.FormatNumbers(useLegacyFormat);
+        ContestDomainOfInfluenceDetails?.FormatNumbers(useLegacyFormat);
+    }
 }

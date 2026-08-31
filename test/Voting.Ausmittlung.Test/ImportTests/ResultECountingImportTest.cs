@@ -35,10 +35,15 @@ namespace Voting.Ausmittlung.Test.ImportTests;
 // a lot of validation tests are only present in the e-voting tests as the logic is shared.
 public class ResultECountingImportTest : BaseRestTest
 {
-    private const string TestFileOk = "ImportTests/ExampleFiles/ech0222_e_counting_import_ok.xml";
-    private const string TestFileInvalid = "ImportTests/ExampleFiles/ech0222_e_counting_import_invalid.xml";
-    private const string TestFileOtherContestId = "ImportTests/ExampleFiles/ech0222_e_counting_import_other_contest_id.xml";
-    private const string TestFileMixedVotes = "ImportTests/ExampleFiles/ech0222_e_counting_import_mixed_votes.xml";
+    private const string TestFileOk = "ImportTests/ExampleFiles/ech0222_e_counting_import_ok-1234.xml.ecountsig";
+    private const string TestFileInvalidXml = "ImportTests/ExampleFiles/ech0222_e_counting_import_invalid-xml-1234.xml.ecountsig";
+    private const string TestFileOtherContestId = "ImportTests/ExampleFiles/ech0222_e_counting_import_other_contest_id-1234.xml.ecountsig";
+    private const string TestFileMixedVotes = "ImportTests/ExampleFiles/ech0222_e_counting_import_mixed_votes-1234.xml.ecountsig";
+    private const string TestFileInvalidFileExtension = "ImportTests/ExampleFiles/ech0222_e_counting_import_ok.xml";
+    private const string TestFileOkUnencrypted = "ImportTests/ExampleFiles/ech0222_e_counting_import_ok-unencrypted.xml.ecountsig";
+    private const string TestFileClientCertCnMismatch = "ImportTests/ExampleFiles/ech0222_e_counting_import_client-cert-cn-9000-mismatch.xml.ecountsig";
+    private const string TestFileInvalidSignature = "ImportTests/ExampleFiles/ech0222_e_counting_import_invalid-signature-1234.xml.ecountsig";
+    private const string TestFileInvalidClientCert = "ImportTests/ExampleFiles/ech0222_e_counting_import_invalid-client-cert.ecountsig";
 
     public ResultECountingImportTest(TestApplicationFactory factory)
         : base(factory)
@@ -235,9 +240,91 @@ public class ResultECountingImportTest : BaseRestTest
     public async Task InvalidImportFileShouldThrow()
     {
         await AssertProblemDetails(
-            () => ErfassungElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileInvalid)),
+            () => ErfassungElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileInvalidXml)),
             HttpStatusCode.BadRequest,
             "List of possible elements expected: 'senderId'");
+    }
+
+    [Fact]
+    public async Task WithInvalidFileExtensionShouldThrow()
+    {
+        await AssertProblemDetails(
+            () => ErfassungElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileInvalidFileExtension)),
+            HttpStatusCode.BadRequest,
+            "E-Counting imports must have the ecountsig file extension");
+    }
+
+    [Fact]
+    public async Task WithUnencryptedFileShouldThrow()
+    {
+        await AssertProblemDetails(
+            () => ErfassungElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileOkUnencrypted)),
+            HttpStatusCode.BadRequest,
+            "E-Counting imports require an encrypted eCH-0222 file");
+    }
+
+    [Fact]
+    public async Task WithInvalidClientCertShouldThrow()
+    {
+        await AssertProblemDetails(
+            () => ErfassungElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileInvalidClientCert)),
+            HttpStatusCode.BadRequest,
+            "Cannot convert the sender certificate line to a X509 certificate");
+    }
+
+    [Fact]
+    public async Task ClientCertificateCnMismatchShouldThrow()
+    {
+        await AssertProblemDetails(
+            () => ErfassungElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileClientCertCnMismatch)),
+            HttpStatusCode.BadRequest,
+            "The client certificate CN 9000 does not match the counting circle bfs 1234");
+    }
+
+    [Fact]
+    public async Task CcIdAndImportedResultCcIdMismatchAsElectionAdminShouldThrow()
+    {
+        var ccId = CountingCircleMockedData.GuidStGallen;
+
+        // Bypass the certificate validation error, by setting the Cc Bfs to the TestFile Client Cert CN.
+        await ModifyDbEntities<CountingCircle>(
+            x => x.Id == ccId,
+            x => x.Bfs = "9000");
+
+        await AssertProblemDetails(
+            () => ErfassungElectionAdminClient.PostFiles(BuildUri(countingCircleId: ccId), ("ech0222File", TestFileClientCertCnMismatch)),
+            HttpStatusCode.Forbidden,
+            "This tenant is not the contest manager or the testing phase has ended and the counting circle does not belong to this tenant");
+    }
+
+    [Fact]
+    public async Task CcIdAndImportedResultCcIdMismatchAsContestManagerInTestingPhaseShouldThrow()
+    {
+        var ccId = CountingCircleMockedData.GuidStGallen;
+
+        // Bypass the certificate validation error, by setting the Cc Bfs to the TestFile Client Cert CN.
+        await ModifyDbEntities<CountingCircle>(
+            x => x.Id == ccId,
+            x => x.Bfs = "9000");
+
+        // Make the current tenant the contest manager
+        await ModifyDbEntities<DomainOfInfluence>(
+            x => x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.GuidStGallen,
+            x => x.SecureConnectId = SecureConnectTestDefaults.MockedTenantUzwil.Id);
+
+        await AssertProblemDetails(
+            () => ErfassungElectionAdminClient.PostFiles(BuildUri(countingCircleId: ccId), ("ech0222File", TestFileClientCertCnMismatch)),
+            HttpStatusCode.BadRequest,
+            "Expected to import results for counting circle with id 1e2e062e-288d-4347-9f22-224e69b95bed, but id in import is ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e");
+    }
+
+    [Fact]
+    public async Task InvalidSignatureShouldThrow()
+    {
+        await AssertProblemDetails(
+            () => ErfassungElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileInvalidSignature)),
+            HttpStatusCode.BadRequest,
+            "E-Counting import signature verification failed for counting circle 1234");
     }
 
     [Fact]
@@ -362,8 +449,12 @@ public class ResultECountingImportTest : BaseRestTest
             .Include(x => x.ImportedCountingCircles.OrderBy(cc => cc.CountingCircleId))
             .Include(x => x.ImportedPoliticalBusinesses)
             .Include(x => x.IgnoredPoliticalBusinesses)
+            .Include(x => x.ECountingClientCertificateInfo)
             .FirstAsync(x => x.Id == Guid.Parse(importStarted.ImportId)));
         import.Id = Guid.Empty;
+        import.ECountingClientCertificateInfo!.Id = Guid.Empty;
+        import.ECountingClientCertificateInfo.CaCertificateInfoId = Guid.Empty;
+        import.ECountingClientCertificateInfo.ResultImportId = Guid.Empty;
         import.Completed.Should().BeTrue();
         import.ImportedPoliticalBusinesses.Should().HaveCount(4);
         import.IgnoredPoliticalBusinesses.Should().HaveCount(0);
@@ -526,8 +617,8 @@ public class ResultECountingImportTest : BaseRestTest
             [RolesMockedData.MonitoringElectionAdmin]);
     }
 
-    private Uri BuildUri(Guid? contestId = null)
-        => new($"api/result_import/e-counting/{contestId?.ToString() ?? ContestMockedData.IdStGallenEvoting}/{CountingCircleMockedData.IdUzwil}", UriKind.RelativeOrAbsolute);
+    private Uri BuildUri(Guid? contestId = null, Guid? countingCircleId = null)
+        => new($"api/result_import/e-counting/{contestId?.ToString() ?? ContestMockedData.IdStGallenEvoting}/{countingCircleId?.ToString() ?? CountingCircleMockedData.IdUzwil}", UriKind.RelativeOrAbsolute);
 
     private async Task<ProportionalElection> GetProportionalElectionWithResults()
     {

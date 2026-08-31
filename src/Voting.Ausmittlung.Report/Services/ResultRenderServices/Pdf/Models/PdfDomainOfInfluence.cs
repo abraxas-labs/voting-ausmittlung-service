@@ -36,4 +36,9 @@ public class PdfDomainOfInfluence
     public PdfContestDomainOfInfluenceDetails? Details { get; set; }
 
     public bool ViewCountingCirclePartialResults { get; set; }
+
+    public void FormatNumbers(bool useLegacyFormat)
+    {
+        Details?.FormatNumbers(useLegacyFormat);
+    }
 }

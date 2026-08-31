@@ -32,4 +32,9 @@ public class PdfCountingCircle
     public PdfContestCountingCircleDetails? ContestCountingCircleDetails { get; set; }
 
     public bool ShouldSerializeContactPersonSameDuringEventAsAfter() => ContactPersonSameDuringEventAsAfter.HasValue;
+
+    public void FormatNumbers(bool useLegacyFormat)
+    {
+        ContestCountingCircleDetails?.FormatNumbers(useLegacyFormat);
+    }
 }

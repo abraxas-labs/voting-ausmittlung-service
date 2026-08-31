@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System.Linq;
+using Voting.Ausmittlung.Report.Configuration;
 using Voting.Ausmittlung.Report.EventLogs;
 using Voting.Ausmittlung.Report.EventLogs.Aggregates;
 using Voting.Ausmittlung.Report.EventLogs.EventProcessors;
@@ -22,7 +23,8 @@ public static class ServiceCollectionExtensions
 {
     public static IReportingServiceCollection AddReport(
         this IServiceCollection services,
-        DmDocConfig dmDocConfig)
+        DmDocConfig dmDocConfig,
+        TemplateConfiguration templateConfig)
     {
         services.AddScoped<TemplateService>();
         services.AddScoped<ExportService>();
@@ -34,7 +36,9 @@ public static class ServiceCollectionExtensions
         services.AddScoped<WabstiCContestDetailsAttacher>();
         services.AddScoped<PdfMajorityElectionUtil>();
         services.AddScoped<MultiLanguageTranslationUtil>();
+        services.AddScoped<PdfBundleReviewUtil>();
 
+        services.AddSingleton(templateConfig);
         services.AddDmDoc(dmDocConfig);
         services.AddSingleton<IPdfService, DmDocPdfService>();
 

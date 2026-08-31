@@ -61,6 +61,48 @@ public class ResultSubmissionFinishedTest : MultiResultBaseTest
     }
 
     [Fact]
+    public async Task TestShouldSetAuditedTentativelyForOwnedCommunalResults()
+    {
+        await SetResultState(CountingCircleResultState.SubmissionOngoing);
+        await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest());
+
+        var voteResultEvents = EventPublisherMock.GetPublishedEvents<VoteResultSubmissionFinished>().ToList();
+        var proportionalElectionResultEvents = EventPublisherMock.GetPublishedEvents<ProportionalElectionResultSubmissionFinished>().ToList();
+        var majorityElectionResultEvents = EventPublisherMock.GetPublishedEvents<MajorityElectionResultSubmissionFinished>().ToList();
+
+        voteResultEvents.Should().HaveCount(1);
+        proportionalElectionResultEvents.Should().HaveCount(1);
+        majorityElectionResultEvents.Should().HaveCount(1);
+
+        EventPublisherMock.GetPublishedEvents<VoteResultAuditedTentatively>().ToList().Should().NotBeEmpty();
+        EventPublisherMock.GetPublishedEvents<ProportionalElectionResultAuditedTentatively>().ToList().Should().NotBeEmpty();
+        EventPublisherMock.GetPublishedEvents<MajorityElectionResultAuditedTentatively>().ToList().Should().NotBeEmpty();
+    }
+
+    [Fact]
+    public async Task TestShouldNotSetAuditedTentativelyForOwnedNonCommunalResults()
+    {
+        await ModifyDbEntities<DomainOfInfluence>(
+            x => x.BasisDomainOfInfluenceId == Guid.Parse(DomainOfInfluenceMockedData.IdUzwil),
+            x => x.Type = DomainOfInfluenceType.Ch);
+
+        await SetResultState(CountingCircleResultState.SubmissionOngoing);
+        await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest());
+
+        var voteResultEvents = EventPublisherMock.GetPublishedEvents<VoteResultSubmissionFinished>().ToList();
+        var proportionalElectionResultEvents = EventPublisherMock.GetPublishedEvents<ProportionalElectionResultSubmissionFinished>().ToList();
+        var majorityElectionResultEvents = EventPublisherMock.GetPublishedEvents<MajorityElectionResultSubmissionFinished>().ToList();
+
+        voteResultEvents.Should().HaveCount(1);
+        proportionalElectionResultEvents.Should().HaveCount(1);
+        majorityElectionResultEvents.Should().HaveCount(1);
+
+        EventPublisherMock.GetPublishedEvents<VoteResultAuditedTentatively>().ToList().Should().BeEmpty();
+        EventPublisherMock.GetPublishedEvents<ProportionalElectionResultAuditedTentatively>().ToList().Should().BeEmpty();
+        EventPublisherMock.GetPublishedEvents<MajorityElectionResultAuditedTentatively>().ToList().Should().BeEmpty();
+    }
+
+    [Fact]
     public async Task TestShouldReturnWithEmptySecondFactorId()
     {
         ContestId = ContestMockedData.GuidStGallenEvoting;

@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="Voting.Lib.Ech" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.Ech.Ech0110_4_0" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.Ech.Ech0222_1_0" Version="$(VotingLibVersion)" />

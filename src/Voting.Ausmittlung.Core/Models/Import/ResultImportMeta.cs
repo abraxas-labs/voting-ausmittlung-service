@@ -20,12 +20,14 @@ public class ResultImportMeta
         string eCH0222FileName,
         Stream eCH0222FileContent,
         string? eCH0110FileName,
-        Stream? eCH0110FileContent)
+        Stream? eCH0110FileContent,
+        BaseCertificateInfo? eCountingClientCertificateInfo = null)
     {
         ImportType = importType;
         ImportVersion = importVersion;
         ContestId = contestId;
         BasisCountingCircleId = basisCountingCircleId;
+        ECountingClientCertificateInfo = eCountingClientCertificateInfo;
         Ech0222FileContent = eCH0222FileContent;
         Ech0222FileName = eCH0222FileName;
         Ech0110FileContent = eCH0110FileContent;
@@ -39,6 +41,8 @@ public class ResultImportMeta
     internal Guid ContestId { get; }
 
     internal Guid? BasisCountingCircleId { get; }
+
+    internal BaseCertificateInfo? ECountingClientCertificateInfo { get; }
 
     internal Stream Ech0222FileContent { get; }
 

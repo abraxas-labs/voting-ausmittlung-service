@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
+using Voting.Ausmittlung.Report.Configuration;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
@@ -28,6 +29,7 @@ public class PdfSecondaryMajorityElectionEndResultRenderService : IRendererServi
     private readonly IMapper _mapper;
     private readonly IClock _clock;
     private readonly PdfMajorityElectionUtil _pdfMajorityElectionUtil;
+    private readonly TemplateConfiguration _templateConfiguration;
 
     public PdfSecondaryMajorityElectionEndResultRenderService(
         TemplateService templateService,
@@ -35,7 +37,8 @@ public class PdfSecondaryMajorityElectionEndResultRenderService : IRendererServi
         IDbRepository<DataContext, SecondaryMajorityElectionResult> resultRepo,
         IMapper mapper,
         IClock clock,
-        PdfMajorityElectionUtil pdfMajorityElectionUtil)
+        PdfMajorityElectionUtil pdfMajorityElectionUtil,
+        TemplateConfiguration templateConfiguration)
     {
         _templateService = templateService;
         _repo = repo;
@@ -43,6 +46,7 @@ public class PdfSecondaryMajorityElectionEndResultRenderService : IRendererServi
         _mapper = mapper;
         _clock = clock;
         _pdfMajorityElectionUtil = pdfMajorityElectionUtil;
+        _templateConfiguration = templateConfiguration;
     }
 
     public async Task<FileModel> Render(
@@ -63,6 +67,7 @@ public class PdfSecondaryMajorityElectionEndResultRenderService : IRendererServi
 
         data.MoveECountingToConventional();
         MajorityElectionResultUtils.RemoveCountToIndividualCandidatesAndAdjustTotals(data);
+        data.SecondaryMajorityElection.DomainOfInfluence.Details?.OrderVotingCardsAndSubTotals();
 
         var majorityElection = _mapper.Map<PdfMajorityElection>(data.SecondaryMajorityElection);
         await _pdfMajorityElectionUtil.SetEndResultIsComplete(data.PrimaryMajorityElectionEndResult.MajorityElectionId, majorityElection.EndResult, data.CandidateEndResults);
@@ -73,8 +78,7 @@ public class PdfSecondaryMajorityElectionEndResultRenderService : IRendererServi
         domainOfInfluence!.Details ??= new PdfContestDomainOfInfluenceDetails();
         PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(domainOfInfluence.Details, data.SecondaryMajorityElection.DomainOfInfluence);
 
-        // we don't need this data in the xml
-        domainOfInfluence.Details.VotingCards = new List<PdfVotingCardResultDetail>();
+        // we don't need the count of voters sub totals in the xml
         domainOfInfluence.Details.CountOfVotersInformationSubTotals = new List<PdfCountOfVotersInformationSubTotal>();
         majorityElection.DomainOfInfluence = null;
 
@@ -111,6 +115,9 @@ public class PdfSecondaryMajorityElectionEndResultRenderService : IRendererServi
             },
             CountingCircle = countingCircle,
         };
+
+        var useLegacyFormat = _templateConfiguration.ShouldUseLegacyNumberFormat(ctx.Template.Key, data.SecondaryMajorityElection.PrimaryMajorityElection.DomainOfInfluence.Canton);
+        templateBag.FormatNumbers(useLegacyFormat);
 
         return await _templateService.RenderToPdf(
             ctx,

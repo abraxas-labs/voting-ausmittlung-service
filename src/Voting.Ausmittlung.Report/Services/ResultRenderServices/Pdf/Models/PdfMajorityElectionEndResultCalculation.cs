@@ -2,6 +2,8 @@
 // For license information see LICENSE file
 
 using System;
+using System.Xml.Serialization;
+using Voting.Ausmittlung.Report.Utils;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 
@@ -9,8 +11,13 @@ public class PdfMajorityElectionEndResultCalculation
 {
     private decimal? _absoluteMajorityThreshold;
 
+    [XmlIgnore]
     public int? DecisiveVoteCount { get; set; }
 
+    [XmlElement("DecisiveVoteCount")]
+    public string? DecisiveVoteCountFormatted { get; set; }
+
+    [XmlIgnore]
     public decimal? AbsoluteMajorityThreshold
     {
         get
@@ -26,11 +33,30 @@ public class PdfMajorityElectionEndResultCalculation
         }
     }
 
+    [XmlElement("AbsoluteMajorityThreshold")]
+    public string? AbsoluteMajorityThresholdFormatted { get; set; }
+
+    [XmlIgnore]
     public int? AbsoluteMajority { get; set; }
 
-    public bool ShouldSerializeDecisiveVoteCount() => DecisiveVoteCount.HasValue;
+    [XmlElement("AbsoluteMajority")]
+    public string? AbsoluteMajorityFormatted { get; set; }
 
-    public bool ShouldSerializeAbsoluteMajorityThreshold() => AbsoluteMajorityThreshold.HasValue;
+    public void FormatNumbers(bool useLegacyFormat)
+    {
+        if (DecisiveVoteCount.HasValue)
+        {
+            DecisiveVoteCountFormatted = NumberFormatUtil.FormatInteger(DecisiveVoteCount.Value, useLegacyFormat);
+        }
 
-    public bool ShouldSerializeAbsoluteMajority() => AbsoluteMajority.HasValue;
+        if (AbsoluteMajority.HasValue)
+        {
+            AbsoluteMajorityFormatted = NumberFormatUtil.FormatInteger(AbsoluteMajority.Value, useLegacyFormat);
+        }
+
+        if (AbsoluteMajorityThreshold.HasValue)
+        {
+            AbsoluteMajorityThresholdFormatted = NumberFormatUtil.FormatDecimal(AbsoluteMajorityThreshold.Value, useLegacyFormat, 1);
+        }
+    }
 }

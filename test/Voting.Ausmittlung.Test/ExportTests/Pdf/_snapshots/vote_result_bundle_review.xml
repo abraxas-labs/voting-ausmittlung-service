@@ -1,6 +1,23 @@
 <Voting>
   <TemplateKey>vote_result_bundle_review</TemplateKey>
   <GeneratedAt>2020-01-10T14:12:10.2</GeneratedAt>
+  <Contest>
+    <Date>2020-08-31T00:00:00Z</Date>
+    <Description>Kantonsurnengang de</Description>
+    <DomainOfInfluence>
+      <Name>St. Gallen</Name>
+      <NameForProtocol>Kanton St. Gallen</NameForProtocol>
+      <ShortName>St. Gallen</ShortName>
+      <AuthorityName />
+      <Code>0002-SG</Code>
+      <SortNumber>2</SortNumber>
+      <Bfs>0002</Bfs>
+      <Type>Ct</Type>
+      <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
+    </DomainOfInfluence>
+    <State>TestingPhase</State>
+  </Contest>
   <CountingCircle>
     <Name>Gossau</Name>
     <NameForProtocol>Stadt Gossau</NameForProtocol>

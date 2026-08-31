@@ -14,6 +14,7 @@ using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
+using Xunit;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
@@ -27,6 +28,13 @@ public class PdfMajorityElectionEndResultEVotingExportTest : PdfExportBaseTest
     protected override string NewRequestExpectedFileName => "Majorz_Wahlprotokoll_EVoting_Majorzw de_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfMajorityElectionTemplates.EndResultEVotingProtocol.Key;
+
+    [Fact]
+    public virtual async Task TestPdfWithFormattedValues()
+    {
+        using var d = EnableFormattedTemplateValues(DomainOfInfluenceCanton.Sg);
+        await TestPdfReport("_formatted-values");
+    }
 
     public override async Task InitializeAsync()
     {

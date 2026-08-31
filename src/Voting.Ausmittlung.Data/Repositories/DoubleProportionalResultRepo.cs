@@ -49,6 +49,7 @@ public class DoubleProportionalResultRepo : DbRepository<DataContext, DoubleProp
             .AsSplitQuery()
             .Include(dp => dp.ProportionalElectionUnion!.Contest.Translations)
             .Include(dp => dp.ProportionalElectionUnion!.Contest.CantonDefaults)
+            .Include(dp => dp.ProportionalElectionUnion!.Contest.DomainOfInfluence)
             .Include(dp => dp.Rows.OrderBy(e => e.ProportionalElection.PoliticalBusinessNumber))
             .ThenInclude(r => r.ProportionalElection.Translations)
             .Include(dp => dp.Rows)

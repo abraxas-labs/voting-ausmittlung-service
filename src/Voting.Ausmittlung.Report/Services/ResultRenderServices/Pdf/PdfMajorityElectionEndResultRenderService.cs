@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
+using Voting.Ausmittlung.Report.Configuration;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
@@ -28,6 +29,7 @@ public class PdfMajorityElectionEndResultRenderService : IRendererService
     private readonly IMapper _mapper;
     private readonly IClock _clock;
     private readonly PdfMajorityElectionUtil _pdfMajorityElectionUtil;
+    private readonly TemplateConfiguration _templateConfiguration;
 
     public PdfMajorityElectionEndResultRenderService(
         TemplateService templateService,
@@ -35,7 +37,8 @@ public class PdfMajorityElectionEndResultRenderService : IRendererService
         IDbRepository<DataContext, MajorityElectionResult> resultRepo,
         IMapper mapper,
         IClock clock,
-        PdfMajorityElectionUtil pdfMajorityElectionUtil)
+        PdfMajorityElectionUtil pdfMajorityElectionUtil,
+        TemplateConfiguration templateConfiguration)
     {
         _templateService = templateService;
         _repo = repo;
@@ -43,6 +46,7 @@ public class PdfMajorityElectionEndResultRenderService : IRendererService
         _mapper = mapper;
         _clock = clock;
         _pdfMajorityElectionUtil = pdfMajorityElectionUtil;
+        _templateConfiguration = templateConfiguration;
     }
 
     public async Task<FileModel> Render(
@@ -110,6 +114,9 @@ public class PdfMajorityElectionEndResultRenderService : IRendererService
             },
             CountingCircle = countingCircle,
         };
+
+        var useLegacyFormat = _templateConfiguration.ShouldUseLegacyNumberFormat(ctx.Template.Key, data.MajorityElection.Contest.DomainOfInfluence.Canton);
+        templateBag.FormatNumbers(useLegacyFormat);
 
         return await _templateService.RenderToPdf(
             ctx,

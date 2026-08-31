@@ -88,6 +88,13 @@ public class PdfMajorityElectionEndResultDetailExportTest : PdfMajorityElectionE
         await TestPdfReport("_empty_vote_count_disabled", TestClient, request);
     }
 
+    [Fact]
+    public virtual async Task TestPdfWithFormattedValues()
+    {
+        using var d = EnableFormattedTemplateValues(DomainOfInfluenceCanton.Sg);
+        await TestPdfReport("_formatted-values");
+    }
+
     protected override async Task SeedData()
     {
         await MajorityElectionMockedData.Seed(RunScoped);

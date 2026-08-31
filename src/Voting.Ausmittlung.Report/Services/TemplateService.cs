@@ -122,7 +122,7 @@ public class TemplateService
             // (an async Task) would never get a chance to drain it. Task.Run offloads the
             // blocking serialization to a thread-pool thread so both sides of the Pipe can
             // make progress concurrently.
-            await Task.Run(() => _echSerializer.WriteXml(xmlValidationStream, data, BuildXmlAttributeOverrides(), true), ct);
+            await Task.Run(() => _echSerializer.WriteXml(xmlValidationStream, data, BuildXmlAttributeOverrides(), null, true), ct);
             await xmlValidationStream.WaitForValidation();
             await w.CompleteAsync();
         });

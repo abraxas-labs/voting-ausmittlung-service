@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.StaticFiles;
 
@@ -24,6 +25,10 @@ public static class HttpClientExtensions
             if (provider.TryGetContentType(filePath, out var contentType))
             {
                 fileContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+            }
+            else
+            {
+                fileContent.Headers.ContentType = new MediaTypeHeaderValue(MediaTypeNames.Application.Octet);
             }
 
             content.Add(fileContent, name, Path.GetFileName(filePath));

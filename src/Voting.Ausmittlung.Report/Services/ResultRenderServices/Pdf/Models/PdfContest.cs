@@ -19,4 +19,10 @@ public class PdfContest
     public PdfContestDetails? Details { get; set; }
 
     public ContestState State { get; set; }
+
+    public void FormatNumbers(bool useLegacyFormat)
+    {
+        DomainOfInfluence?.FormatNumbers(useLegacyFormat);
+        Details?.FormatNumbers(useLegacyFormat);
+    }
 }

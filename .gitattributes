@@ -1,3 +1,5 @@
 pkcs11/libcs_pkcs11_R3.so filter=lfs diff=lfs merge=lfs -text
 # Our CSV files always use CRLF as line endings
 *.csv eol=crlf
+test/Voting.Ausmittlung.Test/MockedData/TestFiles/*.pem text eol=lf
+test/Voting.Ausmittlung.Test/ImportTests/ExampleFiles/*.ecountsig eol=lf

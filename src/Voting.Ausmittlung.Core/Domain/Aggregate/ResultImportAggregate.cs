@@ -71,7 +71,9 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
         string echMessageId,
         IEnumerable<Guid> emptyCountingCircles,
         IEnumerable<IgnoredImportCountingCircle> ignoredImportCountingCircles,
-        IEnumerable<Guid> ignoredPoliticalBusinesses)
+        IEnumerable<Guid> ignoredPoliticalBusinesses,
+        string? eCountingClientCertificateRawPem = null,
+        string? eCountingClientCertificateCaThumbprint = null)
     {
         EnsureNotStarted();
         EnsureHasNoSuccessor();
@@ -90,6 +92,8 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
                 EmptyCountingCircleIds = { emptyCountingCircles.Select(x => x.ToString()) },
                 IgnoredPoliticalBusinesses = { ignoredPoliticalBusinesses.Select(x => x.ToString()) },
                 IgnoredCountingCircles = { _mapper.Map<IEnumerable<ImportIgnoredCountingCircleEventData>>(ignoredImportCountingCircles) },
+                ECountingClientCertificateRawPem = eCountingClientCertificateRawPem ?? string.Empty,
+                ECountingClientCertificateCaThumbprint = eCountingClientCertificateCaThumbprint ?? string.Empty,
             },
             new EventSignatureBusinessDomainData(contestId));
     }

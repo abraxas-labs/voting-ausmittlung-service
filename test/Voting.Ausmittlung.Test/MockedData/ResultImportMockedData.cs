@@ -42,7 +42,7 @@ public static class ResultImportMockedData
             $"api/result_import/e-counting/{ContestMockedData.IdStGallenEvoting}/{CountingCircleMockedData.IdUzwil}",
             UriKind.RelativeOrAbsolute);
 
-        var ech0222File = "ImportTests/ExampleFiles/ech0222_e_counting_import_ok.xml";
+        var ech0222File = "ImportTests/ExampleFiles/ech0222_e_counting_import_ok-1234.xml.ecountsig";
         return Seed(eventNrCounter, runScoped, createClient, RolesMockedData.ErfassungElectionAdmin, SecureConnectTestDefaults.MockedTenantUzwil.Id, uri, ech0222File);
     }
 

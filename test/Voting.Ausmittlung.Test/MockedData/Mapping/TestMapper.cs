@@ -5,6 +5,7 @@ using System;
 using AutoMapper;
 using AutoMapper.Internal;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 
 namespace Voting.Ausmittlung.Test.MockedData.Mapping;
@@ -25,7 +26,7 @@ public class TestMapper
         // Configure property maps to execute at runtime to reduce memory consumption.
         // See: https://github.com/AutoMapper/AutoMapper/issues/2001#issuecomment-286924323
         configExpr.Internal().ForAllPropertyMaps(_ => true, (_, m) => m.MapAtRuntime());
-        var config = new MapperConfiguration(configExpr);
+        var config = new MapperConfiguration(configExpr, NullLoggerFactory.Instance);
         _mapper = new Mapper(config, sp.GetService);
     }
 

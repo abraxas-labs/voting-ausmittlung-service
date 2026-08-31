@@ -54,4 +54,6 @@ public class CantonSettings : BaseEntity
     /// If set to true, no user interaction can explicitly change finalized, it will always be implicitly finalized.
     /// </summary>
     public bool EndResultFinalizeDisabled { get; set; }
+
+    public ICollection<CantonSettingsECountingCertificateChain> ECountingCertificateChains { get; set; } = new List<CantonSettingsECountingCertificateChain>();
 }

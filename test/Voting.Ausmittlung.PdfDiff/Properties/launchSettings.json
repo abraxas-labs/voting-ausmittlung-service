@@ -1,0 +1,23 @@
+{
+  "profiles": {
+    "Run PDF Diff": {
+      "commandName": "Project",
+      "workingDirectory": "bin\\Debug\\net8.0",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "HTTP_PROXY": "",
+        "HTTPS_PROXY": ""
+      }
+    },
+    "Update PDF Diff": {
+      "commandName": "Project",
+      "commandLineArgs": "--update",
+      "workingDirectory": "bin\\Debug\\net8.0",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "HTTP_PROXY": "",
+        "HTTPS_PROXY": ""
+      }
+    }
+  }
+}

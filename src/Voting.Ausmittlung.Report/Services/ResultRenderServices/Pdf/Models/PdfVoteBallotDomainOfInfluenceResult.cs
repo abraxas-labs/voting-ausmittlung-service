@@ -18,4 +18,15 @@ public class PdfVoteBallotDomainOfInfluenceResult
 
     [XmlElement("VoteAggregatedResult")]
     public PdfVoteDomainOfInfluenceBallotResult? AggregatedResult { get; set; }
+
+    public void FormatNumbers(bool useLegacyFormat)
+    {
+        foreach (var result in Results)
+        {
+            result.FormatNumbers(useLegacyFormat);
+        }
+
+        NotAssignableResult?.FormatNumbers(useLegacyFormat);
+        AggregatedResult?.FormatNumbers(useLegacyFormat);
+    }
 }

@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Report.Configuration;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
@@ -27,18 +28,21 @@ public class PdfProportionalElectionCountingCircleResultRenderService : IRendere
     private readonly IDbRepository<DataContext, ContestCountingCircleDetails> _ccDetailsRepo;
     private readonly IMapper _mapper;
     private readonly IClock _clock;
+    private readonly TemplateConfiguration _templateConfiguration;
 
     public PdfProportionalElectionCountingCircleResultRenderService(
         TemplateService templateService,
         IDbRepository<DataContext, ProportionalElectionResult> repo,
         IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo,
         IMapper mapper,
-        IClock clock)
+        IClock clock,
+        TemplateConfiguration templateConfiguration)
     {
         _templateService = templateService;
         _repo = repo;
         _mapper = mapper;
         _clock = clock;
+        _templateConfiguration = templateConfiguration;
         _ccDetailsRepo = ccDetailsRepo;
     }
 
@@ -98,6 +102,9 @@ public class PdfProportionalElectionCountingCircleResultRenderService : IRendere
         };
 
         PreparePdfData(templateBag);
+
+        var useLegacyFormat = _templateConfiguration.ShouldUseLegacyNumberFormat(ctx.Template.Key, data.ProportionalElection.DomainOfInfluence.Canton);
+        templateBag.FormatNumbers(useLegacyFormat);
 
         return await _templateService.RenderToPdf(
             ctx,

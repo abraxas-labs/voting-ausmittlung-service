@@ -15,6 +15,7 @@
     },
     "FileName": "ech0222_v3_import_empty_cc.xml",
     "ImportType": 1,
+    "ECountingClientCertificateInfo": null,
     "ImportedCountingCircles": [],
     "IgnoredCountingCircles": [],
     "ImportedPoliticalBusinesses": [],
@@ -1183,6 +1184,7 @@
     },
     "FileName": "ech0222_v3_import_empty_cc.xml",
     "ImportType": 1,
+    "ECountingClientCertificateInfo": null,
     "ImportedCountingCircles": [
       {
         "ResultImportId": "00000000-0000-0000-0000-000000000000",

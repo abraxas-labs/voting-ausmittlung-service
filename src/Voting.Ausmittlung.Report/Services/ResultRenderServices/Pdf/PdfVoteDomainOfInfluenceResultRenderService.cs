@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
+using Voting.Ausmittlung.Report.Configuration;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
@@ -29,6 +30,7 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
     private readonly VoteDomainOfInfluenceResultBuilder _doiResultBuilder;
     private readonly IDbRepository<DataContext, ContestCountingCircleDetails> _ccDetailsRepo;
     private readonly IClock _clock;
+    private readonly TemplateConfiguration _templateConfiguration;
 
     public PdfVoteDomainOfInfluenceResultRenderService(
         TemplateService templateService,
@@ -37,7 +39,8 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
         IMapper mapper,
         VoteDomainOfInfluenceResultBuilder doiResultBuilder,
         IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo,
-        IClock clock)
+        IClock clock,
+        TemplateConfiguration templateConfiguration)
     {
         _templateService = templateService;
         _repo = repo;
@@ -46,6 +49,7 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
         _doiResultBuilder = doiResultBuilder;
         _ccDetailsRepo = ccDetailsRepo;
         _clock = clock;
+        _templateConfiguration = templateConfiguration;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -207,6 +211,9 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
                 pdfVote,
             },
         };
+
+        var useLegacyFormat = _templateConfiguration.ShouldUseLegacyNumberFormat(ctx.Template.Key, vote.Contest.DomainOfInfluence.Canton);
+        templateBag.FormatNumbers(useLegacyFormat);
 
         return await _templateService.RenderToPdf(
             ctx,

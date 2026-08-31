@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
+using Voting.Ausmittlung.Test.MockedData.TestFiles;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 
 namespace Voting.Ausmittlung.Test.MockedData;
@@ -17,10 +18,13 @@ public static class CantonSettingsMockedData
     public const string IdStGallen = "d33e6070-4c4f-4c22-8b35-50d7a87afffe";
     public const string IdZurich = "db9fd497-321c-44b2-9441-75b610c712a1";
 
+    public static readonly Guid GuidStGallen = Guid.Parse(IdStGallen);
+    public static readonly Guid GuidZurich = Guid.Parse(IdZurich);
+
     public static CantonSettings StGallen
         => new CantonSettings
         {
-            Id = Guid.Parse(IdStGallen),
+            Id = GuidStGallen,
             Canton = DomainOfInfluenceCanton.Sg,
             AuthorityName = "St.Gallen",
             SecureConnectId = SecureConnectTestDefaults.MockedTenantStGallen.Id,
@@ -80,7 +84,7 @@ public static class CantonSettingsMockedData
     public static CantonSettings Zurich
         => new CantonSettings
         {
-            Id = Guid.Parse(IdZurich),
+            Id = GuidZurich,
             Canton = DomainOfInfluenceCanton.Zh,
             AuthorityName = "Zürich",
             SecureConnectId = SecureConnectTestDefaults.MockedTenantDefault.Id,
@@ -153,13 +157,36 @@ public static class CantonSettingsMockedData
             var cantonSettingsRepo = sp.GetRequiredService<CantonSettingsRepo>();
             var doiCantonDefaultsBuilder = sp.GetRequiredService<DomainOfInfluenceCantonDefaultsBuilder>();
             var contestCantonDefaultsBuilder = sp.GetRequiredService<ContestCantonDefaultsBuilder>();
+            var certificateChainByCantonSettingsId = GetCertificateChainByCantonSettingsId();
 
             foreach (var cantonSettings in All)
             {
+                if (certificateChainByCantonSettingsId.TryGetValue(cantonSettings.Id, out var certChain))
+                {
+                    cantonSettings.ECountingCertificateChains = new List<CantonSettingsECountingCertificateChain> { certChain };
+                }
+
                 await cantonSettingsRepo.Create(cantonSettings);
                 await doiCantonDefaultsBuilder.RebuildForCanton(cantonSettings);
                 await contestCantonDefaultsBuilder.RebuildForCanton(cantonSettings);
             }
         });
+    }
+
+    private static Dictionary<Guid, CantonSettingsECountingCertificateChain> GetCertificateChainByCantonSettingsId()
+    {
+        var timestamp = new DateTime(2020, 1, 1, 1, 1, 1, DateTimeKind.Utc);
+
+        var sgCertificate = CertificateChainBuilder.Build<CantonSettingsECountingCertificateChain, CantonSettingsECountingCertificateInfo>(
+            CertificateTestFiles.SgSupplierCertRawPem,
+            new() { FirstName = "Max", LastName = "Mustermann", SecureConnectId = "test-secure-connect-id" },
+            timestamp);
+
+        sgCertificate.Id = Guid.Parse("c0e6359c-bb4a-4039-91da-32f15aebcf73");
+
+        return new()
+        {
+            { GuidStGallen, sgCertificate },
+        };
     }
 }

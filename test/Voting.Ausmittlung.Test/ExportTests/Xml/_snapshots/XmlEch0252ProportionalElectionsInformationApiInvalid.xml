@@ -123,6 +123,7 @@
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1a.number1</candidateReference>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
           </candidate>
           <list>
             <listIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">6eedf849-0ecc-4a02-a43b-99ef4b11d795</listIdentification>

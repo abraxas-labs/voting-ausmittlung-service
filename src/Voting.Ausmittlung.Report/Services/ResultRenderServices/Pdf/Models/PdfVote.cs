@@ -27,4 +27,20 @@ public class PdfVote : PdfPoliticalBusiness
     // The name of the domain of influence at the specified reporting level.
     // Only makes sense if the report is specific to a counting circle.
     public string? ReportingLevelName { get; set; }
+
+    public override void FormatNumbers(bool useLegacyFormat)
+    {
+        base.FormatNumbers(useLegacyFormat);
+        EndResult?.FormatNumbers(useLegacyFormat);
+
+        foreach (var result in Results ?? [])
+        {
+            result.FormatNumbers(useLegacyFormat);
+        }
+
+        foreach (var doiResult in DomainOfInfluenceBallotResults ?? [])
+        {
+            doiResult.FormatNumbers(useLegacyFormat);
+        }
+    }
 }

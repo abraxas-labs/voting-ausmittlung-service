@@ -95,6 +95,14 @@ public class ResultReader
                    .Include(x => x.MajorityElectionUnions)
                    .ThenInclude(x => x.MajorityElectionUnionEntries)
                    .ThenInclude(x => x.MajorityElection.DomainOfInfluence)
+                   .Include(x => x.MajorityElections)
+                   .ThenInclude(x => x.Results)
+                   .ThenInclude(x => x.CandidateResults.OrderBy(y => y.Candidate.Position))
+                   .ThenInclude(x => x.Candidate.Translations)
+                   .Include(x => x.ProportionalElections)
+                   .ThenInclude(x => x.Results)
+                   .ThenInclude(x => x.ListResults.OrderBy(y => y.List.Position))
+                   .ThenInclude(x => x.List.Translations)
                    .Include(x => x.Votes)
                    .ThenInclude(x => x.Results)
                    .ThenInclude(x => x.Results)
@@ -107,7 +115,7 @@ public class ResultReader
                    .ThenInclude(x => x.Question.Translations)
                    .Include(x => x.Votes)
                    .ThenInclude(x => x.Results)
-                   .ThenInclude(x => x.Results)
+                   .ThenInclude(x => x.Results.OrderBy(y => y.Ballot.Position))
                    .ThenInclude(x => x.Ballot)
                    .FirstOrDefaultAsync(c => c.Id == contestId)
                ?? throw new EntityNotFoundException(contestId);
@@ -122,12 +130,30 @@ public class ResultReader
             .GroupBy(x => x.VoteId)
             .ToDictionary(x => x.Key, x => x.ToList());
 
+        var majorityElectionResultsByElectionId = contest.MajorityElections
+            .SelectMany(x => x.Results)
+            .GroupBy(x => x.MajorityElectionId)
+            .ToDictionary(x => x.Key, x => x.ToList());
+
+        var proportionalElectionResultsByElectionId = contest.ProportionalElections
+            .SelectMany(x => x.Results)
+            .GroupBy(x => x.ProportionalElectionId)
+            .ToDictionary(x => x.Key, x => x.ToList());
+
         var countingCircles = contest.SimplePoliticalBusinesses
             .SelectMany(pb => pb.SimpleResults)
             .Select(r =>
             {
                 voteResultsByVoteId.TryGetValue(r.PoliticalBusinessId, out var voteResults);
-                return new ResultOverviewCountingCircleResult(r, voteResults == null ? [] : voteResults.Single(x => x.CountingCircleId == r.CountingCircleId).Results.ToList());
+                majorityElectionResultsByElectionId.TryGetValue(r.PoliticalBusinessId, out var majorityElectionResults);
+                proportionalElectionResultsByElectionId.TryGetValue(r.PoliticalBusinessId, out var proportionalElectionResults);
+                var majorityElectionResult = majorityElectionResults?.Single(x => x.CountingCircleId == r.CountingCircleId);
+                return new ResultOverviewCountingCircleResult(
+                    r,
+                    voteResults == null ? [] : voteResults.Single(x => x.CountingCircleId == r.CountingCircleId).Results.ToList(),
+                    majorityElectionResult == null ? [] : majorityElectionResult.CandidateResults.ToList(),
+                    majorityElectionResult?.MajorityElection.IndividualCandidatesDisabled == false ? majorityElectionResult.IndividualVoteCount : null,
+                    proportionalElectionResults == null ? [] : proportionalElectionResults.Single(x => x.CountingCircleId == r.CountingCircleId).ListResults.ToList());
             })
             .GroupBy(cc => cc.CountingCircleResult.CountingCircleId)
             .ToDictionary(

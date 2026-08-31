@@ -13,6 +13,7 @@ using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
+using Voting.Ausmittlung.Report.Configuration;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
@@ -28,18 +29,21 @@ public class PdfSecondaryMajorityElectionCountingCircleResultRenderService : IRe
     private readonly IDbRepository<DataContext, ContestCountingCircleDetails> _ccDetailsRepo;
     private readonly IMapper _mapper;
     private readonly IClock _clock;
+    private readonly TemplateConfiguration _templateConfiguration;
 
     public PdfSecondaryMajorityElectionCountingCircleResultRenderService(
         TemplateService templateService,
         IDbRepository<DataContext, SecondaryMajorityElectionResult> repo,
         IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo,
         IMapper mapper,
-        IClock clock)
+        IClock clock,
+        TemplateConfiguration templateConfiguration)
     {
         _templateService = templateService;
         _repo = repo;
         _mapper = mapper;
         _clock = clock;
+        _templateConfiguration = templateConfiguration;
         _ccDetailsRepo = ccDetailsRepo;
     }
 
@@ -81,13 +85,14 @@ public class PdfSecondaryMajorityElectionCountingCircleResultRenderService : IRe
             data.ResetAllResults();
         }
 
+        ccDetails?.OrderVotingCardsAndSubTotals();
+
         var majorityElection = _mapper.Map<PdfMajorityElection>(data.SecondaryMajorityElection);
         var countingCircle = majorityElection.Results![0].CountingCircle!;
         countingCircle.ContestCountingCircleDetails = _mapper.Map<PdfContestCountingCircleDetails>(ccDetails);
         PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(countingCircle.ContestCountingCircleDetails, data.SecondaryMajorityElection.DomainOfInfluence);
 
-        // we don't need this data in the xml
-        countingCircle.ContestCountingCircleDetails.VotingCards = new List<PdfVotingCardResultDetail>();
+        // we don't need the count of voters sub totals in the xml
         countingCircle.ContestCountingCircleDetails.CountOfVotersInformationSubTotals = new List<PdfCountOfVotersInformationSubTotal>();
 
         // reset the counting circle on the result, since this is a single counting circle report
@@ -104,6 +109,9 @@ public class PdfSecondaryMajorityElectionCountingCircleResultRenderService : IRe
                 majorityElection,
             },
         };
+
+        var useLegacyFormat = _templateConfiguration.ShouldUseLegacyNumberFormat(ctx.Template.Key, data.SecondaryMajorityElection.PrimaryMajorityElection.DomainOfInfluence.Canton);
+        templateBag.FormatNumbers(useLegacyFormat);
 
         return await _templateService.RenderToPdf(
             ctx,

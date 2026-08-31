@@ -18,4 +18,9 @@ public class PdfPoliticalBusiness
     public string ShortDescription { get; set; } = string.Empty;
 
     public PdfDomainOfInfluence? DomainOfInfluence { get; set; }
+
+    public virtual void FormatNumbers(bool useLegacyFormat)
+    {
+        DomainOfInfluence?.FormatNumbers(useLegacyFormat);
+    }
 }

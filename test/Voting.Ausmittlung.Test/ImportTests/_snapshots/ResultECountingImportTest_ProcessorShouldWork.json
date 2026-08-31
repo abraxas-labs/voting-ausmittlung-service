@@ -13,8 +13,9 @@
       "LastName": "default user lastname",
       "FullName": "default user firstname default user lastname"
     },
-    "FileName": "ech0222_e_counting_import_ok.xml",
+    "FileName": "ech0222_e_counting_import_ok-1234.xml.ecountsig",
     "ImportType": 2,
+    "ECountingClientCertificateInfo": null,
     "ImportedCountingCircles": [],
     "IgnoredCountingCircles": [],
     "ImportedPoliticalBusinesses": [],
@@ -527,8 +528,21 @@
       "LastName": "default user lastname",
       "FullName": "default user firstname default user lastname"
     },
-    "FileName": "ech0222_e_counting_import_ok.xml",
+    "FileName": "ech0222_e_counting_import_ok-1234.xml.ecountsig",
     "ImportType": 2,
+    "ECountingClientCertificateInfo": {
+      "ResultImportId": "00000000-0000-0000-0000-000000000000",
+      "RawPem": "-----BEGIN CERTIFICATE-----\nMIICOjCCAZygAwIBAgIDAQIDMAoGCCqGSM49BAMEMF4xDDAKBgNVBAcTA24vYTEL\nMAkGA1UEBhMCQ0gxEzARBgNVBAsTCkUtQ291bnRpbmcxETAPBgNVBAoTCFN1cHBs\naWVyMRkwFwYDVQQDExBTdXBwbGllciBSb290IENBMCAXDTI2MDYzMDE5MTY0NFoY\nDzIxMjYwNjA1MTkxNjQ0WjBQMQwwCgYDVQQHEwNuL2ExCzAJBgNVBAYTAkNIMRMw\nEQYDVQQLEwpFLUNvdW50aW5nMQ8wDQYDVQQKEwZTZW5kZXIxDTALBgNVBAMTBDEy\nMzQwgZswEAYHKoZIzj0CAQYFK4EEACMDgYYABADubFW/KjU2Nl9KK4gCpnjX1ZJW\nbp2MLMZ/cNXThLMo1rwnbay1B3LGcja2qqZnJmw6DvUI5OtMkQ+Cko1pkIl17QEB\nl8ra7wDyIKImab38ENgD9rj6X6gD7anal7uI9YHeM0CiqBI4pmQmUWC/tC2lCXzr\nSUdFz+678UsJ3U5Pj6ta56MSMBAwDgYDVR0PAQH/BAQDAgbAMAoGCCqGSM49BAME\nA4GLADCBhwJCAJO6uVyftHAGX1daWvU1D98bagrFkkqhtINBxypc+BaEfjT8r7mV\nufHqDG+diAKwWE1zu0TuNbWV6H0AeuxC7sI3AkFUoS139ZIy7e1i5PSBYISiyTEt\ngDzKYUD2WiAovTycw6tO2X28kX847UWpQNBkDUwecmAvkA1HpAimM4Z0Y9lKlw==\n-----END CERTIFICATE-----",
+      "NotBefore": "2026-06-30T19:16:44Z",
+      "NotAfter": "2126-06-05T19:16:44Z",
+      "Issuer": "CN=Supplier Root CA, O=Supplier, OU=E-Counting, C=CH, L=n/a",
+      "Subject": "CN=1234, O=Sender, OU=E-Counting, C=CH, L=n/a",
+      "Thumbprint": "96008776C0D178343439881080DACBC731D8F581B1519EEABF3D75A3A2E4A553",
+      "CaThumbprint": "2731EC1ECDDF069A9D207A20C26CDAF98C4009BF2895618C6C5941253F1E91F7",
+      "CaCertificateInfoId": "00000000-0000-0000-0000-000000000000",
+      "CaCertificateInfo": null,
+      "Id": "00000000-0000-0000-0000-000000000000"
+    },
     "ImportedCountingCircles": [],
     "IgnoredCountingCircles": [],
     "ImportedPoliticalBusinesses": null,

@@ -124,6 +124,7 @@
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1a.01</candidateReference>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
           </candidate>
           <list>
             <listIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">6fa5262f-bf27-4eb9-81d4-23bb1a49d031</listIdentification>
@@ -398,6 +399,7 @@
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L1.01</candidateReference>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">7792ecfc-51ee-47e2-bc83-1eef92b6925a</candidateIdentification>
@@ -462,6 +464,7 @@
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L1.02</candidateReference>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">170c718a-4433-4aa7-9583-2b79a5c3a550</candidateIdentification>
@@ -526,6 +529,7 @@
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L1.03</candidateReference>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">e64e110d-2b36-4623-a5c0-b5a55c588c7a</candidateIdentification>
@@ -590,6 +594,7 @@
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L2.01</candidateReference>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">f2dc5df8-fe5f-47fb-9d32-aae3acf64e6f</candidateIdentification>
@@ -654,6 +659,7 @@
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L2.02</candidateReference>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">ef343dc0-b6bd-4dd2-bdd0-cc86f1dd30b9</candidateIdentification>
@@ -718,6 +724,7 @@
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L2.03</candidateReference>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">759a921c-f434-4bf8-b444-2beb01c8166e</candidateIdentification>
@@ -782,6 +789,7 @@
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L3.01</candidateReference>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">4d34f9c2-0627-4659-aca5-e4596e80bd16</candidateIdentification>
@@ -846,6 +854,7 @@
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L3.02</candidateReference>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">88dc769e-f5a5-4909-955d-b432d64c6f99</candidateIdentification>
@@ -910,6 +919,7 @@
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L3.03</candidateReference>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">bbaafd49-a554-4944-b8b9-d664bf1364db</candidateIdentification>
@@ -974,6 +984,7 @@
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L4.01</candidateReference>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">cba76cb4-7b66-49ee-988d-e2e05d426b5a</candidateIdentification>
@@ -1038,6 +1049,7 @@
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L4.02</candidateReference>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sortID>
           </candidate>
           <list>
             <listIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">d961fdd7-7910-4722-ac3e-8ae3d906741d</listIdentification>

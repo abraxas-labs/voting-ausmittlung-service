@@ -13,6 +13,8 @@ public class PdfPoliticalBusinessResultBundleReview
 
     public DateTime GeneratedAt { get; set; }
 
+    public PdfContest? Contest { get; set; }
+
     public PdfCountingCircle? CountingCircle { get; set; }
 
     public PdfPoliticalBusiness? PoliticalBusiness { get; set; }

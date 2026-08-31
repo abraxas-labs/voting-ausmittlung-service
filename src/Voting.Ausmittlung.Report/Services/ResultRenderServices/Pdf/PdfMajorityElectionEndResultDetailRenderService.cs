@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
+using Voting.Ausmittlung.Report.Configuration;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
@@ -30,6 +31,7 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
     private readonly IDbRepository<DataContext, ContestCountingCircleDetails> _ccDetailsRepo;
     private readonly IClock _clock;
     private readonly PdfMajorityElectionUtil _pdfMajorityElectionUtil;
+    private readonly TemplateConfiguration _templateConfiguration;
 
     public PdfMajorityElectionEndResultDetailRenderService(
         TemplateService templateService,
@@ -39,7 +41,8 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
         MajorityElectionDomainOfInfluenceResultBuilder doiResultBuilder,
         IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo,
         IClock clock,
-        PdfMajorityElectionUtil pdfMajorityElectionUtil)
+        PdfMajorityElectionUtil pdfMajorityElectionUtil,
+        TemplateConfiguration templateConfiguration)
     {
         _templateService = templateService;
         _repo = repo;
@@ -49,6 +52,7 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
         _ccDetailsRepo = ccDetailsRepo;
         _clock = clock;
         _pdfMajorityElectionUtil = pdfMajorityElectionUtil;
+        _templateConfiguration = templateConfiguration;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -178,6 +182,9 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
                 majorityElection,
             },
         };
+
+        var useLegacyFormat = _templateConfiguration.ShouldUseLegacyNumberFormat(ctx.Template.Key, data.Contest.DomainOfInfluence.Canton);
+        templateBag.FormatNumbers(useLegacyFormat);
 
         return await _templateService.RenderToPdf(
             ctx,

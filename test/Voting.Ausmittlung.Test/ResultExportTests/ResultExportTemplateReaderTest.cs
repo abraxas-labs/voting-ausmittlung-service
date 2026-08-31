@@ -451,7 +451,7 @@ public class ResultExportTemplateReaderTest : BaseIntegrationTest
                     AusmittlungPdfVoteTemplates.ResultProtocol.Key,
                     SecureConnectTestDefaults.MockedTenantUzwil.Id,
                     countingCircleId: CountingCircleMockedData.GuidUzwil,
-                    domainOfInfluenceType: DomainOfInfluenceMockedData.Uzwil.Type)
+                    domainOfInfluenceId: Guid.Parse(DomainOfInfluenceMockedData.IdUzwil))
                 .ToString(),
             AusmittlungUuidV5.BuildExportTemplate(
                     AusmittlungPdfSecondaryMajorityElectionTemplates.CountingCircleProtocol.Key,

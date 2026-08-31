@@ -9,6 +9,7 @@ using AutoMapper;
 using FluentAssertions;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Exceptions;
+using Voting.Lib.Cryptography.Exceptions;
 using Voting.Lib.Eventing.Exceptions;
 using Voting.Lib.Iam.Exceptions;
 using Voting.Lib.Iam.SecondFactor.Exceptions;
@@ -33,6 +34,11 @@ public class ExceptionMappingTest
             new VerifySecondFactorTimeoutException(),
             new SecondaryMajorityElectionCandidateNotSelectedInPrimaryElectionException(),
             new Ech0110RequiredException(),
+            new CryptoFileException(DefaultError),
+            new X509ChainBuilderException(DefaultError),
+            new ResultImportECountingUnencryptedFileException(),
+            new ResultImportECountingSignatureVerifyException(DefaultError),
+            new ResultImportECountingClientCertificateCnException(DefaultError, DefaultError),
         };
 
         var hiddenExceptions = new HashSet<Exception>()

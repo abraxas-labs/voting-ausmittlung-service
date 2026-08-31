@@ -135,6 +135,7 @@
                           <partyAffiliationLong>Test long party description de</partyAffiliationLong>
                         </partyAffiliationInfo>
                       </partyAffiliation>
+                      <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
                     </writeInCandidate>
                   </candidateOrWriteInCandidate>
                   <countOfVotesTotal>472</countOfVotesTotal>
@@ -281,6 +282,7 @@
                           <partyAffiliationLong>Test long party description de</partyAffiliationLong>
                         </partyAffiliationInfo>
                       </partyAffiliation>
+                      <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
                     </writeInCandidate>
                   </candidateOrWriteInCandidate>
                   <countOfVotesTotal>472</countOfVotesTotal>
@@ -420,6 +422,7 @@
                           <partyAffiliationLong>Test long party description de</partyAffiliationLong>
                         </partyAffiliationInfo>
                       </partyAffiliation>
+                      <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
                     </writeInCandidate>
                   </candidateOrWriteInCandidate>
                   <countOfVotesTotal>472</countOfVotesTotal>
@@ -559,6 +562,7 @@
                           <partyAffiliationLong>Test long party description de</partyAffiliationLong>
                         </partyAffiliationInfo>
                       </partyAffiliation>
+                      <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
                     </writeInCandidate>
                   </candidateOrWriteInCandidate>
                   <countOfVotesTotal>472</countOfVotesTotal>
@@ -724,6 +728,7 @@
                           <partyAffiliationLong>Test long party description de</partyAffiliationLong>
                         </partyAffiliationInfo>
                       </partyAffiliation>
+                      <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
                     </writeInCandidate>
                   </candidateOrWriteInCandidate>
                   <countOfVotesTotal>472</countOfVotesTotal>

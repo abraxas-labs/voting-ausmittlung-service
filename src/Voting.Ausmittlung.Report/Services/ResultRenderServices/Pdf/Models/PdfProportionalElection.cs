@@ -21,4 +21,16 @@ public class PdfProportionalElection : PdfPoliticalBusiness
 
     [XmlElement("ProportionalElectionDoubleProportionalResult")]
     public PdfDoubleProportionalResult? DoubleProportionalResult { get; set; }
+
+    public override void FormatNumbers(bool useLegacyFormat)
+    {
+        base.FormatNumbers(useLegacyFormat);
+        EndResult?.FormatNumbers(useLegacyFormat);
+        DoubleProportionalResult?.FormatNumbers(useLegacyFormat);
+
+        foreach (var result in Results)
+        {
+            result.FormatNumbers(useLegacyFormat);
+        }
+    }
 }

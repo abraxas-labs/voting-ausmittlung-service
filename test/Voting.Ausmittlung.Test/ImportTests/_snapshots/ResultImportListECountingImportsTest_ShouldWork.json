@@ -49,7 +49,35 @@
           "BusinessSubType": 0
         }
       ],
-      "IgnoredPoliticalBusinesses": []
+      "IgnoredPoliticalBusinesses": [],
+      "ECountingClientCertificateInfo": {
+        "Subject": "CN=1234, O=Sender, OU=E-Counting, C=CH, L=n/a",
+        "Issuer": "CN=Supplier Root CA, O=Supplier, OU=E-Counting, C=CH, L=n/a",
+        "Thumbprint": "96008776C0D178343439881080DACBC731D8F581B1519EEABF3D75A3A2E4A553",
+        "NotBefore": {
+          "Seconds": 1782847004,
+          "Nanos": 0
+        },
+        "NotAfter": {
+          "Seconds": 4936360604,
+          "Nanos": 0
+        },
+        "CaThumbprint": "2731EC1ECDDF069A9D207A20C26CDAF98C4009BF2895618C6C5941253F1E91F7"
+      },
+      "ECountingClientCaCertificateInfo": {
+        "Subject": "CN=Supplier Root CA, O=Supplier, OU=E-Counting, C=CH, L=n/a",
+        "Issuer": "CN=Supplier Root CA, O=Supplier, OU=E-Counting, C=CH, L=n/a",
+        "Thumbprint": "2731EC1ECDDF069A9D207A20C26CDAF98C4009BF2895618C6C5941253F1E91F7",
+        "NotBefore": {
+          "Seconds": 1782846906,
+          "Nanos": 0
+        },
+        "NotAfter": {
+          "Seconds": 4936446906,
+          "Nanos": 0
+        },
+        "CaThumbprint": ""
+      }
     },
     {
       "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
@@ -70,7 +98,35 @@
       "EmptyCountingCircles": [],
       "IgnoredCountingCircles": [],
       "ImportedPoliticalBusinesses": [],
-      "IgnoredPoliticalBusinesses": []
+      "IgnoredPoliticalBusinesses": [],
+      "ECountingClientCertificateInfo": {
+        "Subject": "CN=1234, O=Sender, OU=E-Counting, C=CH, L=n/a",
+        "Issuer": "CN=Supplier Root CA, O=Supplier, OU=E-Counting, C=CH, L=n/a",
+        "Thumbprint": "96008776C0D178343439881080DACBC731D8F581B1519EEABF3D75A3A2E4A553",
+        "NotBefore": {
+          "Seconds": 1782847004,
+          "Nanos": 0
+        },
+        "NotAfter": {
+          "Seconds": 4936360604,
+          "Nanos": 0
+        },
+        "CaThumbprint": "2731EC1ECDDF069A9D207A20C26CDAF98C4009BF2895618C6C5941253F1E91F7"
+      },
+      "ECountingClientCaCertificateInfo": {
+        "Subject": "CN=Supplier Root CA, O=Supplier, OU=E-Counting, C=CH, L=n/a",
+        "Issuer": "CN=Supplier Root CA, O=Supplier, OU=E-Counting, C=CH, L=n/a",
+        "Thumbprint": "2731EC1ECDDF069A9D207A20C26CDAF98C4009BF2895618C6C5941253F1E91F7",
+        "NotBefore": {
+          "Seconds": 1782846906,
+          "Nanos": 0
+        },
+        "NotAfter": {
+          "Seconds": 4936446906,
+          "Nanos": 0
+        },
+        "CaThumbprint": ""
+      }
     },
     {
       "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
@@ -91,7 +147,35 @@
       "EmptyCountingCircles": [],
       "IgnoredCountingCircles": [],
       "ImportedPoliticalBusinesses": [],
-      "IgnoredPoliticalBusinesses": []
+      "IgnoredPoliticalBusinesses": [],
+      "ECountingClientCertificateInfo": {
+        "Subject": "CN=1234, O=Sender, OU=E-Counting, C=CH, L=n/a",
+        "Issuer": "CN=Supplier Root CA, O=Supplier, OU=E-Counting, C=CH, L=n/a",
+        "Thumbprint": "96008776C0D178343439881080DACBC731D8F581B1519EEABF3D75A3A2E4A553",
+        "NotBefore": {
+          "Seconds": 1782847004,
+          "Nanos": 0
+        },
+        "NotAfter": {
+          "Seconds": 4936360604,
+          "Nanos": 0
+        },
+        "CaThumbprint": "2731EC1ECDDF069A9D207A20C26CDAF98C4009BF2895618C6C5941253F1E91F7"
+      },
+      "ECountingClientCaCertificateInfo": {
+        "Subject": "CN=Supplier Root CA, O=Supplier, OU=E-Counting, C=CH, L=n/a",
+        "Issuer": "CN=Supplier Root CA, O=Supplier, OU=E-Counting, C=CH, L=n/a",
+        "Thumbprint": "2731EC1ECDDF069A9D207A20C26CDAF98C4009BF2895618C6C5941253F1E91F7",
+        "NotBefore": {
+          "Seconds": 1782846906,
+          "Nanos": 0
+        },
+        "NotAfter": {
+          "Seconds": 4936446906,
+          "Nanos": 0
+        },
+        "CaThumbprint": ""
+      }
     }
   ]
 }

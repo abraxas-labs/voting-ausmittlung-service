@@ -160,7 +160,9 @@ public class ResultImportWriter
             importData.EchMessageId,
             emptyCountingCircles,
             ignoredCountingCircles,
-            ignoredPoliticalBusinesses);
+            ignoredPoliticalBusinesses,
+            importMeta.ECountingClientCertificateInfo?.RawPem,
+            importMeta.ECountingClientCertificateInfo?.CaThumbprint);
 
         if (importData.VotingCards != null)
         {

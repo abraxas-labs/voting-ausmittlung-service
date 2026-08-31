@@ -5,11 +5,14 @@ using System;
 using System.IO;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using System.Xml;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Voting.Ausmittlung.Core.Authorization;
+using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Models.Import;
 using Voting.Ausmittlung.Core.Services.Write.Import;
+using Voting.Ausmittlung.Core.Utils.ECountingSignature;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Ech.Utils;
 using Voting.Lib.Iam.Authorization;
@@ -26,19 +29,23 @@ public class ResultImportController : ControllerBase
     private const string Ech0222FormName = "ech0222File";
     private const string Ech0110FormName = "ech0110File";
     private const int BufferSize = 4096;
+    private const string ECountingImportFileExtension = "ecountsig";
 
     private readonly EVotingResultImportWriter _eVotingResultImportWriter;
     private readonly ECountingResultImportWriter _eCountingResultImportWriter;
     private readonly MultipartRequestHelper _multipartRequestHelper;
+    private readonly ECountingEchFileDecryptor _eCountingEchFileDecryptor;
 
     public ResultImportController(
         EVotingResultImportWriter eVotingResultImportWriter,
         ECountingResultImportWriter eCountingResultImportWriter,
-        MultipartRequestHelper multipartRequestHelper)
+        MultipartRequestHelper multipartRequestHelper,
+        ECountingEchFileDecryptor eCountingEchFileDecryptor)
     {
         _eVotingResultImportWriter = eVotingResultImportWriter;
         _eCountingResultImportWriter = eCountingResultImportWriter;
         _multipartRequestHelper = multipartRequestHelper;
+        _eCountingEchFileDecryptor = eCountingEchFileDecryptor;
     }
 
     /// <summary>
@@ -95,11 +102,34 @@ public class ResultImportController : ControllerBase
                             break;
                     }
                 },
-                [MediaTypeNames.Text.Xml]);
+                [MediaTypeNames.Text.Xml, MediaTypeNames.Application.Octet]);
 
             if (ech0222Stream == null || ech0222FileName == null)
             {
                 throw new ValidationException("Did not receive a eCH-0222 file or its name.");
+            }
+
+            if (importType is ResultImportType.ECounting)
+            {
+                if (!ech0222FileName.EndsWith($".{ECountingImportFileExtension}"))
+                {
+                    throw new ValidationException($"E-Counting imports must have the {ECountingImportFileExtension} file extension");
+                }
+
+                if (IsXmlStream(ech0222Stream))
+                {
+                    throw new ResultImportECountingUnencryptedFileException();
+                }
+            }
+
+            BaseCertificateInfo? eCountingClientCertificate = null;
+
+            if (importType is ResultImportType.ECounting)
+            {
+                var (verifiedEch0222Stream, clientCertificateInfo) = await _eCountingEchFileDecryptor.VerifyAndExtractEch0222AndClientCertificate(ech0222Stream, countingCircleId!.Value);
+                await ech0222Stream.DisposeAsync().ConfigureAwait(false);
+                ech0222Stream = verifiedEch0222Stream;
+                eCountingClientCertificate = clientCertificateInfo;
             }
 
             var importMeta = new ResultImportMeta(
@@ -110,7 +140,8 @@ public class ResultImportController : ControllerBase
                 ech0222FileName,
                 ech0222Stream,
                 ech0110FileName,
-                ech0110Stream);
+                ech0110Stream,
+                eCountingClientCertificate);
             await RunImport(importMeta);
         }
         finally
@@ -158,5 +189,28 @@ public class ResultImportController : ControllerBase
         await stream.CopyToAsync(fs);
         fs.Seek(0, SeekOrigin.Begin);
         return fs;
+    }
+
+    private bool IsXmlStream(Stream stream)
+    {
+        if (stream.Length == 0)
+        {
+            return false;
+        }
+
+        var originalStreamPosition = stream.Position;
+        try
+        {
+            using var reader = XmlReader.Create(stream);
+            return reader.Read();
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+        finally
+        {
+            stream.Position = originalStreamPosition;
+        }
     }
 }

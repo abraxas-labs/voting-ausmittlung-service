@@ -100,7 +100,7 @@ public class ECountingResultImportWriter
 
     public async Task Import(ResultImportMeta importMeta)
     {
-        if (!importMeta.BasisCountingCircleId.HasValue || importMeta.ImportType != ResultImportType.ECounting)
+        if (importMeta.ImportType != ResultImportType.ECounting)
         {
             throw new ValidationException("Invalid eCounting import.");
         }
@@ -109,13 +109,13 @@ public class ECountingResultImportWriter
         var ccDetail = contest.CountingCircleDetails.FirstOrDefault();
         if (ccDetail?.ECounting != true)
         {
-            throw new ECountingImportDisabledException(importMeta.BasisCountingCircleId.Value);
+            throw new ECountingImportDisabledException(importMeta.BasisCountingCircleId!.Value);
         }
 
         _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircle(ccDetail.CountingCircle, contest);
         var importData = _resultImportWriter.Deserialize(importMeta, false);
         var ignoredPoliticalBusinesses = await FilterPoliticalBusinessResults(importData, ccDetail);
-        ValidateCountingCircles(importMeta.BasisCountingCircleId.Value, importData.PoliticalBusinessResults);
+        ValidateCountingCircles(importMeta.BasisCountingCircleId!.Value, importData.PoliticalBusinessResults);
 
         var importAggregate = await _resultImportWriter.Import(importData, importMeta, contest, [], [], ignoredPoliticalBusinesses);
 

@@ -346,8 +346,9 @@ public class SecondaryMajorityElectionProcessor :
             return;
         }
 
+        var secondaryMajorityElectionId = GuidParser.Parse(eventData.MajorityElectionCandidateReference.SecondaryMajorityElectionId);
         var contestState = await _repo.Query()
-            .Where(x => x.PrimaryMajorityElectionId == referencedCandidate.MajorityElectionId)
+            .Where(x => x.Id == secondaryMajorityElectionId)
             .Select(x => x.PrimaryMajorityElection.Contest.State)
             .FirstAsync();
         var candidateReference = _mapper.Map<SecondaryMajorityElectionCandidate>(referencedCandidate);

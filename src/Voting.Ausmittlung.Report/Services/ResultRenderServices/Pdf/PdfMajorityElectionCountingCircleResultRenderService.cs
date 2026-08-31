@@ -14,6 +14,7 @@ using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Ausmittlung.Data.Utils;
+using Voting.Ausmittlung.Report.Configuration;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
@@ -31,6 +32,7 @@ public class PdfMajorityElectionCountingCircleResultRenderService : IRendererSer
     private readonly IMapper _mapper;
     private readonly IClock _clock;
     private readonly PdfMajorityElectionUtil _pdfMajorityElectionUtil;
+    private readonly TemplateConfiguration _templateConfiguration;
 
     public PdfMajorityElectionCountingCircleResultRenderService(
         TemplateService templateService,
@@ -39,13 +41,15 @@ public class PdfMajorityElectionCountingCircleResultRenderService : IRendererSer
         DomainOfInfluenceRepo doiRepo,
         IMapper mapper,
         IClock clock,
-        PdfMajorityElectionUtil pdfMajorityElectionUtil)
+        PdfMajorityElectionUtil pdfMajorityElectionUtil,
+        TemplateConfiguration templateConfiguration)
     {
         _templateService = templateService;
         _repo = repo;
         _mapper = mapper;
         _clock = clock;
         _pdfMajorityElectionUtil = pdfMajorityElectionUtil;
+        _templateConfiguration = templateConfiguration;
         _ccDetailsRepo = ccDetailsRepo;
         _doiRepo = doiRepo;
     }
@@ -124,6 +128,9 @@ public class PdfMajorityElectionCountingCircleResultRenderService : IRendererSer
                 majorityElection,
             },
         };
+
+        var useLegacyFormat = _templateConfiguration.ShouldUseLegacyNumberFormat(ctx.Template.Key, data.MajorityElection.DomainOfInfluence.Canton);
+        templateBag.FormatNumbers(useLegacyFormat);
 
         return await _templateService.RenderToPdf(
             ctx,

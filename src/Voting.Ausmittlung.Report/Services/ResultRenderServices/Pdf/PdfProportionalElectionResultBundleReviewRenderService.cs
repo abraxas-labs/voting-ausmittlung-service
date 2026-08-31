@@ -13,6 +13,7 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Exceptions;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
+using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
 using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
@@ -24,7 +25,7 @@ public class PdfProportionalElectionResultBundleReviewRenderService : IRendererS
     private const string ListWithoutPartyShortDescription = "WoP";
 
     private readonly IDbRepository<DataContext, ProportionalElectionResultBundle> _proportionalElectionResultBundleRepo;
-    private readonly IDbRepository<DataContext, CountingCircle> _countingCircleRepo;
+    private readonly PdfBundleReviewUtil _pdfBundleReviewUtil;
     private readonly IClock _clock;
     private readonly IMapper _mapper;
     private readonly TemplateService _templateService;
@@ -33,14 +34,14 @@ public class PdfProportionalElectionResultBundleReviewRenderService : IRendererS
         IDbRepository<DataContext, ProportionalElectionResultBundle> proportionalElectionResultBundleRepo,
         IMapper mapper,
         TemplateService templateService,
-        IDbRepository<DataContext, CountingCircle> countingCircleRepo,
-        IClock clock)
+        IClock clock,
+        PdfBundleReviewUtil pdfBundleReviewUtil)
     {
         _proportionalElectionResultBundleRepo = proportionalElectionResultBundleRepo;
         _mapper = mapper;
         _templateService = templateService;
-        _countingCircleRepo = countingCircleRepo;
         _clock = clock;
+        _pdfBundleReviewUtil = pdfBundleReviewUtil;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -88,15 +89,6 @@ public class PdfProportionalElectionResultBundleReviewRenderService : IRendererS
             }
         }
 
-        var countingCircle = await _countingCircleRepo.Query()
-            .AsSplitQuery()
-            .Include(x => x.ResponsibleAuthority)
-            .Include(x => x.ContactPersonDuringEvent)
-            .Include(x => x.ContactPersonAfterEvent)
-            .FirstOrDefaultAsync(x => x.SnapshotContestId == ctx.ContestId && x.BasisCountingCircleId == ctx.BasisCountingCircleId, ct)
-            ?? throw new EntityNotFoundException(nameof(CountingCircle), new { ctx.ContestId, ctx.BasisCountingCircleId });
-
-        var pdfCountingCircle = _mapper.Map<PdfCountingCircle>(countingCircle);
         var pdfBundle = _mapper.Map<PdfProportionalElectionResultBundle>(bundle);
         pdfBundle.List ??= new PdfProportionalElectionSimpleList
         {
@@ -108,7 +100,8 @@ public class PdfProportionalElectionResultBundleReviewRenderService : IRendererS
         {
             TemplateKey = ctx.Template.Key,
             GeneratedAt = _clock.UtcNow.ConvertUtcTimeToSwissTime(),
-            CountingCircle = pdfCountingCircle,
+            Contest = await _pdfBundleReviewUtil.GetContest(ctx.ContestId, ct),
+            CountingCircle = await _pdfBundleReviewUtil.GetCountingCircle(ctx.ContestId, ctx.BasisCountingCircleId, ct),
             ProportionalElectionResultBundle = pdfBundle,
             PoliticalBusiness = _mapper.Map<PdfPoliticalBusiness>(bundle.ElectionResult.ProportionalElection),
         };

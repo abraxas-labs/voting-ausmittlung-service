@@ -58,7 +58,17 @@ public class CantonSettingsUpdateTest : BaseDataProcessorTest
                 },
             });
 
-        var result = await RunOnDb(db => db.CantonSettings.FirstOrDefaultAsync(u => u.Id == Guid.Parse(CantonSettingsMockedData.IdStGallen)));
+        var result = await RunOnDb(db => db.CantonSettings
+            .AsSplitQuery()
+            .Include(c => c.ECountingCertificateChains)
+            .ThenInclude(c => c.Infos!.OrderBy(i => i.Subject))
+            .FirstOrDefaultAsync(u => u.Id == Guid.Parse(CantonSettingsMockedData.IdStGallen)));
+
+        foreach (var certificateInfo in result!.ECountingCertificateChains.SelectMany(c => c.Infos!))
+        {
+            certificateInfo.Id = Guid.Empty;
+        }
+
         result.MatchSnapshot("cantonSettings");
 
         var contestPastCantonDefaults = await RunOnDb(db => db.ContestCantonDefaults

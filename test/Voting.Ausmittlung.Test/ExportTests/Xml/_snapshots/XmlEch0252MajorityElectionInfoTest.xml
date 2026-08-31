@@ -95,6 +95,7 @@
                 <partyAffiliationLong>Test long party description de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">10</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">a9df7271-04d8-4bea-b654-499de0a99942</candidateIdentification>
@@ -141,6 +142,7 @@
                 <partyAffiliationLong>Test long party description de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">b5e78bac-1f72-4699-bcb5-e132fe25f94e</candidateIdentification>
@@ -188,6 +190,7 @@
                 <partyAffiliationLong>Test long party description de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">bf683ec2-27c1-44b9-b56b-6e4c82e4dd60</candidateIdentification>
@@ -235,6 +238,7 @@
                 <partyAffiliationLong>Test long party description de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">4</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">5e0e84f0-4164-4201-99a2-521528203ceb</candidateIdentification>
@@ -282,6 +286,7 @@
                 <partyAffiliationLong>Test long party description de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">5</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">48df4e61-6016-40fb-b718-6ce8a3bbac85</candidateIdentification>
@@ -329,6 +334,7 @@
                 <partyAffiliationLong>Test long party description de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">6</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">9457a86d-d004-49f2-95e6-a9f3b8182d8f</candidateIdentification>
@@ -376,6 +382,7 @@
                 <partyAffiliationLong>Test long party description de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">7</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">db3f7951-aefb-4b91-9d4c-1b6fc43b28e4</candidateIdentification>
@@ -423,6 +430,7 @@
                 <partyAffiliationLong>Test long party description de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">9</sortID>
           </candidate>
           <namedElement>
             <elementName>decisiveMajority</elementName>
@@ -488,6 +496,7 @@
                 <partyAffiliationLong>Test party 1 de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">bb79e109-3b25-41d2-af1d-c7e4468c24e8</candidateIdentification>
@@ -535,6 +544,7 @@
                 <partyAffiliationLong>Test party 2 de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">5ee6f477-660a-4832-9bd0-d4f6c5cd91ee</candidateIdentification>
@@ -582,6 +592,7 @@
                 <partyAffiliationLong>Test party 3 de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3</sortID>
           </candidate>
           <namedElement>
             <elementName>decisiveMajority</elementName>
@@ -647,6 +658,7 @@
                 <partyAffiliationLong>Test party 1 de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">c2b6af61-0e09-4f27-85a9-2305f24d48b2</candidateIdentification>
@@ -694,6 +706,7 @@
                 <partyAffiliationLong>Test party 2 de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">5e8da5c9-7bd9-4389-b23a-d9dd67aa1b33</candidateIdentification>
@@ -741,6 +754,7 @@
                 <partyAffiliationLong>Test party 3 de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3</sortID>
           </candidate>
           <namedElement>
             <elementName>decisiveMajority</elementName>
@@ -854,6 +868,7 @@
                 <partyAffiliationLong>Test long desc de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">efdbb5e3-16bf-4a53-95c3-a35ed6371819</candidateIdentification>
@@ -901,6 +916,7 @@
                 <partyAffiliationLong>Test long desc de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sortID>
           </candidate>
           <namedElement>
             <elementName>decisiveMajority</elementName>
@@ -966,6 +982,7 @@
                 <partyAffiliationLong>Test long desc de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">f70ffba1-1cfd-402b-b6ea-f2c9f802886a</candidateIdentification>
@@ -1013,6 +1030,7 @@
                 <partyAffiliationLong>CVP long party description de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">fdb57357-095d-469e-8f40-fd3d0b8817cb</candidateIdentification>
@@ -1060,6 +1078,7 @@
                 <partyAffiliationLong>SVP long party description de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">340c482b-c064-427e-a906-2696fab2ab35</candidateIdentification>
@@ -1107,6 +1126,7 @@
                 <partyAffiliationLong>CVP long party description de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">4</sortID>
           </candidate>
           <namedElement>
             <elementName>decisiveMajority</elementName>
@@ -1172,6 +1192,7 @@
                 <partyAffiliationLong>Test long desc de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">910181c5-c003-4775-976b-1f33a19f2a1b</candidateIdentification>
@@ -1219,6 +1240,7 @@
                 <partyAffiliationLong>CVP long party description de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sortID>
           </candidate>
           <namedElement>
             <elementName>decisiveMajority</elementName>
@@ -1284,6 +1306,7 @@
                 <partyAffiliationLong>Test long desc de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">d7b2bd15-6ce9-4dbe-a56f-72c3fab598b3</candidateIdentification>
@@ -1331,6 +1354,7 @@
                 <partyAffiliationLong>Test long desc de</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sortID>
           </candidate>
           <namedElement>
             <elementName>decisiveMajority</elementName>

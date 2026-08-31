@@ -3,6 +3,7 @@
 
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using Voting.Lib.Iam.Models;
+using BasisEventInfoUser = Abraxas.Voting.Basis.Events.V1.Data.EventInfoUser;
 
 namespace Voting.Ausmittlung.Core.Extensions;
 
@@ -20,6 +21,16 @@ public static class UserExtensions
     }
 
     public static Data.Models.User ToDataUser(this EventInfoUser user)
+    {
+        return new()
+        {
+            SecureConnectId = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+        };
+    }
+
+    public static Data.Models.User ToDataUser(this BasisEventInfoUser user)
     {
         return new()
         {

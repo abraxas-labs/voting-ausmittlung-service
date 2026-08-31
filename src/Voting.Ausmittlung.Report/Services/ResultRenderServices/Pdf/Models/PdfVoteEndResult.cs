@@ -10,4 +10,14 @@ public class PdfVoteEndResult : PdfPoliticalBusinessEndResult
 {
     [XmlElement("VoteBallotEndResult")]
     public List<PdfBallotEndResult>? BallotEndResults { get; set; }
+
+    public override void FormatNumbers(bool useLegacyFormat)
+    {
+        base.FormatNumbers(useLegacyFormat);
+
+        foreach (var ballotEndResult in BallotEndResults ?? [])
+        {
+            ballotEndResult.FormatNumbers(useLegacyFormat);
+        }
+    }
 }

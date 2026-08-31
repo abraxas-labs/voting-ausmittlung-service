@@ -87,4 +87,9 @@ public class AppConfig
     /// Gets or sets the large object heap compaction configuration.
     /// </summary>
     public LargeObjectHeapCompactionConfig LargeObjectHeapCompaction { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets the automapper configuration.
+    /// </summary>
+    public AutoMapperConfig AutoMapper { get; set; } = new();
 }

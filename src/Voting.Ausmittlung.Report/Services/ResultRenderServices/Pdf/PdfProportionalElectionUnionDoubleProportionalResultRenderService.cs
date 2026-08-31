@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
+using Voting.Ausmittlung.Report.Configuration;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Lib.Common;
@@ -23,19 +24,22 @@ public class PdfProportionalElectionUnionDoubleProportionalResultRenderService :
     private readonly IMapper _mapper;
     private readonly IClock _clock;
     private readonly DomainOfInfluenceRepo _doiRepo;
+    private readonly TemplateConfiguration _templateConfiguration;
 
     public PdfProportionalElectionUnionDoubleProportionalResultRenderService(
         DoubleProportionalResultRepo dpResultRepo,
         TemplateService templateService,
         IMapper mapper,
         IClock clock,
-        DomainOfInfluenceRepo doiRepo)
+        DomainOfInfluenceRepo doiRepo,
+        TemplateConfiguration templateConfiguration)
     {
         _dpResultRepo = dpResultRepo;
         _templateService = templateService;
         _mapper = mapper;
         _clock = clock;
         _doiRepo = doiRepo;
+        _templateConfiguration = templateConfiguration;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -60,6 +64,10 @@ public class PdfProportionalElectionUnionDoubleProportionalResultRenderService :
             Contest = _mapper.Map<PdfContest>(dpResult.ProportionalElectionUnion!.Contest),
             DomainOfInfluence = _mapper.Map<PdfDomainOfInfluence>(domainOfInfluence),
         };
+
+        var useLegacyFormat = _templateConfiguration.ShouldUseLegacyNumberFormat(ctx.Template.Key, dpResult.ProportionalElectionUnion.Contest.DomainOfInfluence.Canton);
+        templateBag.FormatNumbers(useLegacyFormat);
+
         return await _templateService.RenderToPdf(ctx, templateBag);
     }
 

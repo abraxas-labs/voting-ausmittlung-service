@@ -145,6 +145,7 @@
                 <partyAffiliationLong>GLP long party description rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
+            <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
           </candidate>
           <namedElement>
             <elementName>decisiveMajority</elementName>

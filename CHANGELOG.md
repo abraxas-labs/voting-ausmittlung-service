@@ -1,4 +1,4 @@
-# ✨ Changelog (`v2.96.0`)
+# ✨ Changelog (`v2.102.0`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,11 +8,137 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v2.96.0
-Previous version ---- v2.95.4
+This version -------- v2.102.0
+Previous version ---- v2.96.0
 Initial version ----- v1.29.14
-Total commits ------- 10
+Total commits ------- 17
 ```
+
+## [v2.102.0] - 2026-08-26
+
+### :arrows_counterclockwise: Changed
+
+- integrated  \<VotingLibVersion\>22.5.0\</VotingLibVersion\> for new handling of TemplateModel change for vote_result
+- VoteResultRenderService: selection of votes and file name according grouping PerDomainOfInfluence
+- TemplateService: added new parameter for eCH-serializer xml writer coming from  \<VotingLibVersion\>22.4.0\</VotingLibVersion\>
+- PdfVoteRelultRenderService: fixed selection of votes, domainofInfluence and changed file name according short name of doi from political busines
+
+## [v2.101.5] - 2026-08-24
+
+### 🔄 Changed
+
+- format more values in PDF exports
+
+## [v2.101.4] - 2026-08-19
+
+### 🔄 Changed
+
+- format more numbers in PDF exports
+
+## [v2.101.3] - 2026-08-14
+
+### 🆕 Added
+
+- add test for ech-0222 v3.1 import file
+
+## [v2.101.2] - 2026-08-11
+
+### 🆕 Added
+
+- add individual vote count to result overview counting circle result
+
+## [v2.101.1] - 2026-08-07
+
+### 🔄 Changed
+
+- migrate from connect uploader to connect api provider
+
+## [v2.101.0] - 2026-08-06
+
+### 🔄 Changed
+
+- format all PDF export values depending on configuration
+
+## [v2.100.0] - 2026-08-06
+
+### :new: Added
+
+- PdfBundleReviewUtil: retrieve Contest and CountingCircle Data for bundle review report
+
+### :arrows_counterclockwise: Changed
+
+- Render services PdfMajorityElectionResultBundleReviewRenderService, PdfProportionalElectionResultBundleReviewRenderService, PdfVoteResultBundleReviewRenderService: Added contest information
+- model PdfPoliticalBusinessResultBundleReview: added Contest
+- DoublePropotionalResultRepo: retrieve DomainOfInfluence in method UnionDoubleProportionalResultQuery
+
+## [v2.99.2] - 2026-07-29
+
+### 🔄 Changed
+
+- `SecondaryMajorityElectionProcessor.Process(SecondaryMajorityElectionCandidateReferenceCreated)` now resolves the contest state via the target secondary election's own id (`SecondaryMajorityElectionId` from the event) instead of via the referenced candidate's owning majority election.
+
+## [v2.99.1] - 2026-07-28
+
+### 🆕 Added
+
+- add update option to pdf diff test so received pdfs are copied as verified pdf baseline
+- add update ci-pipeline for pdf diff test so received pdfs are copied as verified pdf baseline
+- add new pdf diff test case baseline for new formatted values test cases
+- add fallback to docker compose setup when diff-pdf tooling not found
+- add canton suffix resolving for pdf diff test
+- add launch setting profile for pdf-diff test
+- add logging to pdf test
+
+### 🔄 Changed
+
+- update pdf diff verified baseline
+- include received and verified pdfs in pipeline artifacts
+
+## [v2.99.0] - 2026-07-15
+
+### 🔄 Changed
+
+- send formatted values to dmDoc
+
+## [v2.98.1] - 2026-07-08
+
+### 🔄 Changed
+
+- display majority and proportional election results in political business table
+
+## [v2.98.0] - 2026-07-08
+
+### 🆕 Added
+
+- e-counting signature verification
+
+## [v2.97.3] - 2026-07-06
+
+### 🔄 Changed
+
+- unify multi result and single result submission finished behavior
+
+## [v2.97.2] - 2026-06-19
+
+### 🆕 Added
+
+- add AutoMapper license management
+
+### 🔄 Changed
+
+- bump AutoMapper version to v15.1.3
+
+## [v2.97.1] - 2026-06-18
+
+### 🔄 Changed
+
+- fix pdf diff
+
+## [v2.97.0] - 2026-06-17
+
+### 🆕 Added
+
+- add sortId to eCH-0252 export
 
 ## [v2.96.0] - 2026-06-16
 

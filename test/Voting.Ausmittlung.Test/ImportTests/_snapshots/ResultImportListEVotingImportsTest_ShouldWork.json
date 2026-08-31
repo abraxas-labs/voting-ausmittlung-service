@@ -55,7 +55,9 @@
         }
       ],
       "ImportedPoliticalBusinesses": [],
-      "IgnoredPoliticalBusinesses": []
+      "IgnoredPoliticalBusinesses": [],
+      "ECountingClientCertificateInfo": null,
+      "ECountingClientCaCertificateInfo": null
     },
     {
       "ContestId": "cc70fe43-8f4e-4bc6-a461-b808907bc996",
@@ -126,7 +128,9 @@
       ],
       "IgnoredCountingCircles": [],
       "ImportedPoliticalBusinesses": [],
-      "IgnoredPoliticalBusinesses": []
+      "IgnoredPoliticalBusinesses": [],
+      "ECountingClientCertificateInfo": null,
+      "ECountingClientCaCertificateInfo": null
     }
   ]
 }

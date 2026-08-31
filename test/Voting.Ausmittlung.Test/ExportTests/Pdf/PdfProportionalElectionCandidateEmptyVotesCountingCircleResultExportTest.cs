@@ -11,6 +11,7 @@ using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
+using Xunit;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
@@ -26,6 +27,13 @@ public class PdfProportionalElectionCandidateEmptyVotesCountingCircleResultExpor
     protected override string NewRequestExpectedFileName => "Proporz_Formular2_KandParteiStimmen_Kantonratswahl de_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfProportionalElectionTemplates.ListCandidateEmptyVotesCountingCircleProtocol.Key;
+
+    [Fact]
+    public virtual async Task TestPdfWithFormattedValues()
+    {
+        using var d = EnableFormattedTemplateValues(DomainOfInfluenceCanton.Sg);
+        await TestPdfReport("_formatted-values");
+    }
 
     protected override async Task SeedData()
     {

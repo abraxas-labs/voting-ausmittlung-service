@@ -13,6 +13,7 @@ using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
+using Xunit;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
@@ -28,6 +29,13 @@ public class PdfVoteCountingCircleEVotingResultExportTest : PdfExportBaseTest
     protected override string NewRequestExpectedFileName => "Abstimmungsprotokoll_inkl_E-Voting_Details_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfVoteTemplates.EVotingCountingCircleResultProtocol.Key;
+
+    [Fact]
+    public virtual async Task TestPdfWithFormattedValues()
+    {
+        using var d = EnableFormattedTemplateValues(DomainOfInfluenceCanton.Sg);
+        await TestPdfReport("_formatted-values");
+    }
 
     protected override async Task SeedData()
     {

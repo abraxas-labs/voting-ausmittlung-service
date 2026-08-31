@@ -22,4 +22,19 @@ public class PdfBallotEndResult
 
     public bool ShouldSerializeQuestionEndResultLabel()
         => QuestionEndResultLabel != PdfBallotEndResultLabel.None;
+
+    public void FormatNumbers(bool useLegacyFormat)
+    {
+        CountOfVoters.FormatNumbers(useLegacyFormat);
+
+        foreach (var questionEndResult in QuestionEndResults)
+        {
+            questionEndResult.FormatNumbers(useLegacyFormat);
+        }
+
+        foreach (var tieBreakEndResult in TieBreakQuestionEndResults)
+        {
+            tieBreakEndResult.FormatNumbers(useLegacyFormat);
+        }
+    }
 }

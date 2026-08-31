@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
@@ -11,9 +12,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.Models.Import;
+using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
+using Voting.Ausmittlung.Test.MockedData.TestFiles;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Iam.Store;
@@ -176,12 +179,26 @@ public static class ResultImportECountingMockedData
         {
             var items = All.ToList();
 
+            var db = sp.GetRequiredService<DataContext>();
+
+            var sgCaCertInfo = await db.CantonSettingsECountingCertificateInfos
+                .SingleAsync(c => c.CertificateChain!.CantonSettings!.Canton == DomainOfInfluenceCanton.Sg);
+
             foreach (var item in items.Where(x => x.CountingCircleId.HasValue))
             {
+                if (item.CountingCircleId == CountingCircleMockedData.GuidUzwil)
+                {
+                    var eCountingClientCertificateInfo = CertificateInfoBuilder.Build<ResultImportECountingClientCertificateInfo>(
+                        X509Certificate2.CreateFromPem(CertificateTestFiles.ClientCert1234RawPem));
+
+                    eCountingClientCertificateInfo.CaThumbprint = sgCaCertInfo.Thumbprint;
+                    eCountingClientCertificateInfo.CaCertificateInfoId = sgCaCertInfo.Id;
+                    item.ECountingClientCertificateInfo = eCountingClientCertificateInfo;
+                }
+
                 item.CountingCircleId = AusmittlungUuidV5.BuildCountingCircleSnapshot(item.ContestId, item.CountingCircleId!.Value);
             }
 
-            var db = sp.GetRequiredService<DataContext>();
             db.AddRange(items);
             await db.SaveChangesAsync();
 

@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
+using Voting.Ausmittlung.Report.Configuration;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
@@ -30,6 +31,7 @@ public class PdfSecondaryMajorityElectionEndResultDetailRenderService : IRendere
     private readonly IDbRepository<DataContext, ContestCountingCircleDetails> _ccDetailsRepo;
     private readonly IClock _clock;
     private readonly PdfMajorityElectionUtil _majorityElectionUtil;
+    private readonly TemplateConfiguration _templateConfiguration;
 
     public PdfSecondaryMajorityElectionEndResultDetailRenderService(
         TemplateService templateService,
@@ -39,7 +41,8 @@ public class PdfSecondaryMajorityElectionEndResultDetailRenderService : IRendere
         MajorityElectionDomainOfInfluenceResultBuilder doiResultBuilder,
         IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo,
         IClock clock,
-        PdfMajorityElectionUtil majorityElectionUtil)
+        PdfMajorityElectionUtil majorityElectionUtil,
+        TemplateConfiguration templateConfiguration)
     {
         _templateService = templateService;
         _repo = repo;
@@ -49,6 +52,7 @@ public class PdfSecondaryMajorityElectionEndResultDetailRenderService : IRendere
         _ccDetailsRepo = ccDetailsRepo;
         _clock = clock;
         _majorityElectionUtil = majorityElectionUtil;
+        _templateConfiguration = templateConfiguration;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -101,9 +105,15 @@ public class PdfSecondaryMajorityElectionEndResultDetailRenderService : IRendere
             .Where(x => x.ContestId == data.ContestId)
             .ToListAsync(ct);
 
+        foreach (var ccDetail in ccDetailsList)
+        {
+            ccDetail.OrderVotingCardsAndSubTotals();
+        }
+
         data.MoveECountingToConventional();
         MajorityElectionResultUtils.RemoveCountToIndividualCandidatesAndAdjustTotals(data);
         PdfCountingCircleResultUtil.ResetResultsIfNotDone(results, ccDetailsList);
+        data.DomainOfInfluence.Details?.OrderVotingCardsAndSubTotals();
 
         if (isPartialResult)
         {
@@ -134,8 +144,7 @@ public class PdfSecondaryMajorityElectionEndResultDetailRenderService : IRendere
         {
             PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(details, data.DomainOfInfluence);
 
-            // we don't need this data in the xml
-            details.VotingCards = new List<PdfVotingCardResultDetail>();
+            // we don't need the count of voters sub totals in the xml
             details.CountOfVotersInformationSubTotals = new List<PdfCountOfVotersInformationSubTotal>();
         }
 
@@ -166,8 +175,7 @@ public class PdfSecondaryMajorityElectionEndResultDetailRenderService : IRendere
         domainOfInfluence!.Details ??= new PdfContestDomainOfInfluenceDetails();
         PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(domainOfInfluence.Details, data.DomainOfInfluence);
 
-        // we don't need this data in the xml
-        domainOfInfluence.Details.VotingCards = new List<PdfVotingCardResultDetail>();
+        // we don't need the count of voters sub totals in the xml
         domainOfInfluence.Details.CountOfVotersInformationSubTotals = new List<PdfCountOfVotersInformationSubTotal>();
         majorityElection.DomainOfInfluence = null;
 
@@ -184,6 +192,9 @@ public class PdfSecondaryMajorityElectionEndResultDetailRenderService : IRendere
                 majorityElection,
             },
         };
+
+        var useLegacyFormat = _templateConfiguration.ShouldUseLegacyNumberFormat(ctx.Template.Key, secondaryData.PrimaryMajorityElection.DomainOfInfluence.Canton);
+        templateBag.FormatNumbers(useLegacyFormat);
 
         return await _templateService.RenderToPdf(
             ctx,

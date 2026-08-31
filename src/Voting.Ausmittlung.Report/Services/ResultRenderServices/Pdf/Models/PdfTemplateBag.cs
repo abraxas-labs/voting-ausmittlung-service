@@ -42,4 +42,31 @@ public class PdfTemplateBag
 
     public bool ShouldSerializeDomainOfInfluenceType()
         => DomainOfInfluenceType.HasValue;
+
+    public void FormatNumbers(bool useLegacyFormat)
+    {
+        Contest?.FormatNumbers(useLegacyFormat);
+        CountingCircle?.FormatNumbers(useLegacyFormat);
+        DomainOfInfluence?.FormatNumbers(useLegacyFormat);
+
+        foreach (var vote in Votes ?? [])
+        {
+            vote.FormatNumbers(useLegacyFormat);
+        }
+
+        foreach (var majorityElection in MajorityElections ?? [])
+        {
+            majorityElection.FormatNumbers(useLegacyFormat);
+        }
+
+        foreach (var proportionalElection in ProportionalElections ?? [])
+        {
+            proportionalElection.FormatNumbers(useLegacyFormat);
+        }
+
+        foreach (var proportionalElectionUnion in ProportionalElectionUnions ?? [])
+        {
+            proportionalElectionUnion.FormatNumbers(useLegacyFormat);
+        }
+    }
 }

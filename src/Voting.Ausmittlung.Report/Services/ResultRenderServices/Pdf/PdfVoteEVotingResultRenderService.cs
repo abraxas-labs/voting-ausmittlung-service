@@ -10,6 +10,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Report.Configuration;
 using Voting.Ausmittlung.Report.Exceptions;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
@@ -28,6 +29,7 @@ public class PdfVoteEVotingResultRenderService : IRendererService
     private readonly IMapper _mapper;
     private readonly TemplateService _templateService;
     private readonly IClock _clock;
+    private readonly TemplateConfiguration _templateConfiguration;
 
     public PdfVoteEVotingResultRenderService(
         IDbRepository<DataContext, Vote> voteRepo,
@@ -35,7 +37,8 @@ public class PdfVoteEVotingResultRenderService : IRendererService
         TemplateService templateService,
         IDbRepository<DataContext, Contest> contestRepo,
         VoteDomainOfInfluenceResultBuilder voteDoiResultBuilder,
-        IClock clock)
+        IClock clock,
+        TemplateConfiguration templateConfiguration)
     {
         _voteRepo = voteRepo;
         _mapper = mapper;
@@ -43,6 +46,7 @@ public class PdfVoteEVotingResultRenderService : IRendererService
         _contestRepo = contestRepo;
         _voteDoiResultBuilder = voteDoiResultBuilder;
         _clock = clock;
+        _templateConfiguration = templateConfiguration;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -121,6 +125,9 @@ public class PdfVoteEVotingResultRenderService : IRendererService
             Contest = _mapper.Map<PdfContest>(contest),
             Votes = pdfVotes,
         };
+
+        var useLegacyFormat = _templateConfiguration.ShouldUseLegacyNumberFormat(ctx.Template.Key, contest.DomainOfInfluence.Canton);
+        templateBag.FormatNumbers(useLegacyFormat);
 
         return await _templateService.RenderToPdf(
             ctx,

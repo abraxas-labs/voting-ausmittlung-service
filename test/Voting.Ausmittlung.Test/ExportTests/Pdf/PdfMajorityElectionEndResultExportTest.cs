@@ -27,6 +27,13 @@ public class PdfMajorityElectionEndResultExportTest : PdfMajorityElectionEndResu
     protected override string TemplateKey => AusmittlungPdfMajorityElectionTemplates.EndResultProtocol.Key;
 
     [Fact]
+    public virtual async Task TestPdfWithFormattedValues()
+    {
+        using var d = EnableFormattedTemplateValues(DomainOfInfluenceCanton.Sg);
+        await TestPdfReport("_formatted-values");
+    }
+
+    [Fact]
     public async Task TestPdfWithSingleCountingCircle()
     {
         await ModifyDbEntities<MajorityElectionEndResult>(

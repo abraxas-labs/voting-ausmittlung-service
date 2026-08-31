@@ -89,6 +89,7 @@
                       <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
                       <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
                       <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number1</candidateReference>
+                      <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
                     </writeInCandidate>
                   </candidateOrWriteInCandidate>
                   <countOfVotesTotal>0</countOfVotesTotal>
@@ -149,6 +150,7 @@
                       <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
                       <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
                       <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number1</candidateReference>
+                      <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
                     </writeInCandidate>
                   </candidateOrWriteInCandidate>
                   <countOfVotesTotal>0</countOfVotesTotal>
@@ -209,6 +211,7 @@
                       <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
                       <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
                       <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number1</candidateReference>
+                      <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
                     </writeInCandidate>
                   </candidateOrWriteInCandidate>
                   <countOfVotesTotal>0</countOfVotesTotal>
@@ -269,6 +272,7 @@
                       <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
                       <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
                       <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number1</candidateReference>
+                      <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
                     </writeInCandidate>
                   </candidateOrWriteInCandidate>
                   <countOfVotesTotal>0</countOfVotesTotal>
@@ -329,6 +333,7 @@
                       <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
                       <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
                       <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number1</candidateReference>
+                      <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
                     </writeInCandidate>
                   </candidateOrWriteInCandidate>
                   <countOfVotesTotal>0</countOfVotesTotal>
@@ -389,6 +394,7 @@
                       <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
                       <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
                       <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number1</candidateReference>
+                      <sortID xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sortID>
                     </writeInCandidate>
                   </candidateOrWriteInCandidate>
                   <countOfVotesTotal>0</countOfVotesTotal>

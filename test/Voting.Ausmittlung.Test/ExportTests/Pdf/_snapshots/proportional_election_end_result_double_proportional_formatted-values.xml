@@ -1,0 +1,382 @@
+<Voting>
+  <TemplateKey>proportional_election_end_result_double_proportional</TemplateKey>
+  <GeneratedAt>2020-01-10T14:12:10.2</GeneratedAt>
+  <Contest>
+    <Date>2029-02-12T00:00:00Z</Date>
+    <Description>Nationalratswahlen in der Zukunft de</Description>
+    <State>TestingPhase</State>
+  </Contest>
+  <ProportionalElection>
+    <PoliticalBusinessNumber>100</PoliticalBusinessNumber>
+    <OfficialDescription>Nationalratswahl de</OfficialDescription>
+    <ShortDescription>Nationalratswahl de</ShortDescription>
+    <DomainOfInfluence>
+      <Name>St. Gallen</Name>
+      <NameForProtocol>Kanton St. Gallen</NameForProtocol>
+      <ShortName>St. Gallen</ShortName>
+      <AuthorityName />
+      <Code>0002-SG</Code>
+      <SortNumber>2</SortNumber>
+      <Bfs>0002</Bfs>
+      <Type>Ct</Type>
+      <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
+    </DomainOfInfluence>
+    <NumberOfMandates>12</NumberOfMandates>
+    <MandateAlgorithm>DoubleProportional1Doi0DoiQuorum</MandateAlgorithm>
+    <ProportionalElectionDoubleProportionalResult>
+      <NumberOfMandates>12</NumberOfMandates>
+      <VoteCount>1'732'456</VoteCount>
+      <CantonalQuorum>0</CantonalQuorum>
+      <VoterNumber>144'371.333</VoterNumber>
+      <ElectionKey>11600</ElectionKey>
+      <SuperApportionmentNumberOfMandates>12</SuperApportionmentNumberOfMandates>
+      <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+      <Column>
+        <List>
+          <OrderNumber>01</OrderNumber>
+          <ShortDescription>JCVP de</ShortDescription>
+          <Description>Liste 01 (JCVP) de</Description>
+        </List>
+        <VoteCount>26'843</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>2'236.9167</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>0.192838</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>0</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+      <Column>
+        <List>
+          <OrderNumber>02</OrderNumber>
+          <ShortDescription>JFSG de</ShortDescription>
+          <Description>Liste 02 (JFSG) de</Description>
+        </List>
+        <VoteCount>18'024</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>1'502.0000</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>0.129483</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>0</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+      <Column>
+        <List>
+          <OrderNumber>03</OrderNumber>
+          <ShortDescription>CVP de</ShortDescription>
+          <Description>Liste 03 (CVP) de</Description>
+        </List>
+        <VoteCount>259'922</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>21'660.1667</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>1.867256</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>2</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+      <Column>
+        <List>
+          <OrderNumber>04</OrderNumber>
+          <ShortDescription>EVP de</ShortDescription>
+          <Description>Liste 04 (EVP) de</Description>
+        </List>
+        <VoteCount>30'333</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>2'527.7500</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>0.217909</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>0</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+      <Column>
+        <List>
+          <OrderNumber>05</OrderNumber>
+          <ShortDescription>PFSG de</ShortDescription>
+          <Description>Liste 05 (PFSG) de</Description>
+        </List>
+        <VoteCount>8'519</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>709.9167</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>0.061200</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>0</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+      <Column>
+        <List>
+          <OrderNumber>06</OrderNumber>
+          <ShortDescription>BDP SG de</ShortDescription>
+          <Description>Liste 06 (BDP SG) de</Description>
+        </List>
+        <VoteCount>57'133</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>4'761.0833</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>0.410438</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>0</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+      <Column>
+        <List>
+          <OrderNumber>07</OrderNumber>
+          <ShortDescription>FDP de</ShortDescription>
+          <Description>Liste 07 (FDP) de</Description>
+        </List>
+        <VoteCount>214'205</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>17'850.4167</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>1.538829</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>2</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+      <Column>
+        <List>
+          <OrderNumber>08</OrderNumber>
+          <ShortDescription>SVP de</ShortDescription>
+          <Description>Liste 08 (SVP) de</Description>
+        </List>
+        <VoteCount>620'183</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>51'681.9167</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>4.455338</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>4</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+      <Column>
+        <List>
+          <OrderNumber>09</OrderNumber>
+          <ShortDescription>SP de</ShortDescription>
+          <Description>Liste 09 (SP) de</Description>
+        </List>
+        <VoteCount>231'302</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>19'275.1667</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>1.661652</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>2</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+      <Column>
+        <List>
+          <OrderNumber>10</OrderNumber>
+          <ShortDescription>JUSO de</ShortDescription>
+          <Description>Liste 10 (JUSO) de</Description>
+        </List>
+        <VoteCount>14'356</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>1'196.3333</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>0.103132</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>0</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+      <Column>
+        <List>
+          <OrderNumber>11</OrderNumber>
+          <ShortDescription>GRÜNE de</ShortDescription>
+          <Description>Liste 11 (GRÜNE) de</Description>
+        </List>
+        <VoteCount>76'606</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>6'383.8333</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>0.550330</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>1</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+      <Column>
+        <List>
+          <OrderNumber>12</OrderNumber>
+          <ShortDescription>JUGRÜ de</ShortDescription>
+          <Description>Liste 12 (JUGRÜ) de</Description>
+        </List>
+        <VoteCount>22'941</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>1'911.7500</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>0.164806</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>0</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+      <Column>
+        <List>
+          <OrderNumber>13</OrderNumber>
+          <ShortDescription>UFS de</ShortDescription>
+          <Description>Liste 13 (UFS) de</Description>
+        </List>
+        <VoteCount>15'400</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>1'283.3333</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>0.110632</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>0</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+      <Column>
+        <List>
+          <OrderNumber>14</OrderNumber>
+          <ShortDescription>JBDP SG de</ShortDescription>
+          <Description>Liste 14 (JBDP SG) de</Description>
+        </List>
+        <VoteCount>5'836</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>486.3333</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>0.041925</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>0</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+      <Column>
+        <List>
+          <OrderNumber>15</OrderNumber>
+          <ShortDescription>IP de</ShortDescription>
+          <Description>Liste 15 (IP) de</Description>
+        </List>
+        <VoteCount>8'533</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>711.0833</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>0.061300</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>0</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+      <Column>
+        <List>
+          <OrderNumber>16</OrderNumber>
+          <ShortDescription>glp de</ShortDescription>
+          <Description>Liste 16 (glp) de</Description>
+        </List>
+        <VoteCount>70'633</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>5'886.0833</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>0.507421</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>1</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+      <Column>
+        <List>
+          <OrderNumber>17</OrderNumber>
+          <ShortDescription>jglp de</ShortDescription>
+          <Description>Liste 17 (jglp) de</Description>
+        </List>
+        <VoteCount>14'040</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>1'170.0000</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>0.100862</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>0</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+      <Column>
+        <List>
+          <OrderNumber>18</OrderNumber>
+          <ShortDescription>SBösch de</ShortDescription>
+          <Description>Liste 18 (SBösch) de</Description>
+        </List>
+        <VoteCount>4'547</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>378.9167</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>0.032665</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>0</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+      <Column>
+        <List>
+          <OrderNumber>19</OrderNumber>
+          <ShortDescription>EDU de</ShortDescription>
+          <Description>Liste 19 (EDU) de</Description>
+        </List>
+        <VoteCount>16'134</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>1'344.5000</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>0.115905</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>0</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+      <Column>
+        <List>
+          <OrderNumber>20</OrderNumber>
+          <ShortDescription>DPS de</ShortDescription>
+          <Description>Liste 20 (DPS) de</Description>
+        </List>
+        <VoteCount>2'329</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>194.0833</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>0.016731</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>0</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+      <Column>
+        <List>
+          <OrderNumber>21</OrderNumber>
+          <ShortDescription>PP de</ShortDescription>
+          <Description>Liste 21 (PP) de</Description>
+        </List>
+        <VoteCount>6'924</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>577.0000</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>0.049741</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>0</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+      <Column>
+        <List>
+          <OrderNumber>22</OrderNumber>
+          <ShortDescription>SD de</ShortDescription>
+          <Description>Liste 22 (SD) de</Description>
+        </List>
+        <VoteCount>4'808</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>400.6667</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>0.034540</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>0</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+      <Column>
+        <List>
+          <OrderNumber>23</OrderNumber>
+          <ShortDescription>MGiger de</ShortDescription>
+          <Description>Liste 23 (MGiger) de</Description>
+        </List>
+        <VoteCount>2'905</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>242.0833</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>0.020869</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>0</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0.000</Divisor>
+      </Column>
+    </ProportionalElectionDoubleProportionalResult>
+  </ProportionalElection>
+</Voting>

@@ -315,7 +315,34 @@
           },
           "Published": false,
           "ReadyForCorrectionTimestamp": null,
-          "BallotResults": []
+          "BallotResults": [],
+          "CandidateResults": [
+            {
+              "Candidate": {
+                "Id": "3be5ce95-56db-424d-ab11-6fbb18196862",
+                "Number": "number1",
+                "PoliticalFirstName": "pol first name",
+                "PoliticalLastName": "pol last name",
+                "FirstName": "firstName",
+                "LastName": "lastName",
+                "Party": "None de",
+                "Position": 1,
+                "Description": "number1 pol last name pol first name",
+                "CheckDigit": 9,
+                "CountToIndividual": false
+              },
+              "EVotingWriteInsVoteCount": 0,
+              "EVotingExclWriteInsVoteCount": 0,
+              "EVotingInclWriteInsVoteCount": 0,
+              "ECountingWriteInsVoteCount": 0,
+              "ECountingExclWriteInsVoteCount": 0,
+              "ECountingInclWriteInsVoteCount": 0,
+              "ConventionalVoteCount": null,
+              "VoteCount": 0
+            }
+          ],
+          "IndividualVoteCount": 0,
+          "ListResults": []
         },
         {
           "Id": "",
@@ -353,7 +380,155 @@
           },
           "Published": false,
           "ReadyForCorrectionTimestamp": null,
-          "BallotResults": []
+          "BallotResults": [],
+          "CandidateResults": [],
+          "IndividualVoteCount": null,
+          "ListResults": [
+            {
+              "Id": "",
+              "ProportionalElectionResultId": "",
+              "List": {
+                "Id": "3808a9cc-c523-40d8-b341-230d801be63b",
+                "ProportionalElectionId": "76d1c7ed-85ec-4e62-a540-ca0a83149d32",
+                "OrderNumber": "1a",
+                "ShortDescription": "Liste 1 de",
+                "BlankRowCount": 1,
+                "Position": 1,
+                "Description": "Liste 1 de"
+              },
+              "CandidateResults": [],
+              "EVotingSubTotal": {
+                "UnmodifiedListsCount": 0,
+                "UnmodifiedListVotesCount": 0,
+                "UnmodifiedListBlankRowsCount": 0,
+                "ModifiedListsCount": 0,
+                "ModifiedListVotesCount": 0,
+                "ModifiedListBlankRowsCount": 0,
+                "ListVotesCountOnOtherLists": 0,
+                "UnmodifiedListVotesCountInclBlankRows": 0,
+                "ModifiedListVotesCountInclBlankRows": 0,
+                "ListVotesCount": 0,
+                "ListCount": 0,
+                "BlankRowsCount": 0,
+                "TotalVoteCount": 0
+              },
+              "ECountingSubTotal": {
+                "UnmodifiedListsCount": 0,
+                "UnmodifiedListVotesCount": 0,
+                "UnmodifiedListBlankRowsCount": 0,
+                "ModifiedListsCount": 0,
+                "ModifiedListVotesCount": 0,
+                "ModifiedListBlankRowsCount": 0,
+                "ListVotesCountOnOtherLists": 0,
+                "UnmodifiedListVotesCountInclBlankRows": 0,
+                "ModifiedListVotesCountInclBlankRows": 0,
+                "ListVotesCount": 0,
+                "ListCount": 0,
+                "BlankRowsCount": 0,
+                "TotalVoteCount": 0
+              },
+              "ConventionalSubTotal": {
+                "UnmodifiedListsCount": 0,
+                "UnmodifiedListVotesCount": 0,
+                "UnmodifiedListBlankRowsCount": 0,
+                "ModifiedListsCount": 0,
+                "ModifiedListVotesCount": 0,
+                "ModifiedListBlankRowsCount": 0,
+                "ListVotesCountOnOtherLists": 0,
+                "UnmodifiedListVotesCountInclBlankRows": 0,
+                "ModifiedListVotesCountInclBlankRows": 0,
+                "ListVotesCount": 0,
+                "ListCount": 0,
+                "BlankRowsCount": 0,
+                "TotalVoteCount": 0
+              },
+              "UnmodifiedListsCount": 0,
+              "UnmodifiedListVotesCount": 0,
+              "UnmodifiedListBlankRowsCount": 0,
+              "ModifiedListsCount": 0,
+              "ModifiedListVotesCount": 0,
+              "ModifiedListBlankRowsCount": 0,
+              "ListVotesCountOnOtherLists": 0,
+              "UnmodifiedListVotesCountInclBlankRows": 0,
+              "ModifiedListVotesCountInclBlankRows": 0,
+              "ListVotesCount": 0,
+              "ListCount": 0,
+              "BlankRowsCount": 0,
+              "TotalVoteCount": 0
+            },
+            {
+              "Id": "",
+              "ProportionalElectionResultId": "",
+              "List": {
+                "Id": "1f144608-dcf7-40d5-b3fd-895560c4a91d",
+                "ProportionalElectionId": "76d1c7ed-85ec-4e62-a540-ca0a83149d32",
+                "OrderNumber": "2a",
+                "ShortDescription": "Liste 2 de",
+                "BlankRowCount": 1,
+                "Position": 2,
+                "Description": "Liste 2 de"
+              },
+              "CandidateResults": [],
+              "EVotingSubTotal": {
+                "UnmodifiedListsCount": 0,
+                "UnmodifiedListVotesCount": 0,
+                "UnmodifiedListBlankRowsCount": 0,
+                "ModifiedListsCount": 0,
+                "ModifiedListVotesCount": 0,
+                "ModifiedListBlankRowsCount": 0,
+                "ListVotesCountOnOtherLists": 0,
+                "UnmodifiedListVotesCountInclBlankRows": 0,
+                "ModifiedListVotesCountInclBlankRows": 0,
+                "ListVotesCount": 0,
+                "ListCount": 0,
+                "BlankRowsCount": 0,
+                "TotalVoteCount": 0
+              },
+              "ECountingSubTotal": {
+                "UnmodifiedListsCount": 0,
+                "UnmodifiedListVotesCount": 0,
+                "UnmodifiedListBlankRowsCount": 0,
+                "ModifiedListsCount": 0,
+                "ModifiedListVotesCount": 0,
+                "ModifiedListBlankRowsCount": 0,
+                "ListVotesCountOnOtherLists": 0,
+                "UnmodifiedListVotesCountInclBlankRows": 0,
+                "ModifiedListVotesCountInclBlankRows": 0,
+                "ListVotesCount": 0,
+                "ListCount": 0,
+                "BlankRowsCount": 0,
+                "TotalVoteCount": 0
+              },
+              "ConventionalSubTotal": {
+                "UnmodifiedListsCount": 0,
+                "UnmodifiedListVotesCount": 0,
+                "UnmodifiedListBlankRowsCount": 0,
+                "ModifiedListsCount": 0,
+                "ModifiedListVotesCount": 0,
+                "ModifiedListBlankRowsCount": 0,
+                "ListVotesCountOnOtherLists": 0,
+                "UnmodifiedListVotesCountInclBlankRows": 0,
+                "ModifiedListVotesCountInclBlankRows": 0,
+                "ListVotesCount": 0,
+                "ListCount": 0,
+                "BlankRowsCount": 0,
+                "TotalVoteCount": 0
+              },
+              "UnmodifiedListsCount": 0,
+              "UnmodifiedListVotesCount": 0,
+              "UnmodifiedListBlankRowsCount": 0,
+              "ModifiedListsCount": 0,
+              "ModifiedListVotesCount": 0,
+              "ModifiedListBlankRowsCount": 0,
+              "ListVotesCountOnOtherLists": 0,
+              "UnmodifiedListVotesCountInclBlankRows": 0,
+              "ModifiedListVotesCountInclBlankRows": 0,
+              "ListVotesCount": 0,
+              "ListCount": 0,
+              "BlankRowsCount": 0,
+              "TotalVoteCount": 0
+            }
+          ]
         },
         {
           "Id": "",
@@ -461,7 +636,10 @@
               "AllBundlesReviewedOrDeleted": true,
               "ConventionalCountOfDetailedEnteredBallots": 0
             }
-          ]
+          ],
+          "CandidateResults": [],
+          "IndividualVoteCount": null,
+          "ListResults": []
         }
       ]
     }

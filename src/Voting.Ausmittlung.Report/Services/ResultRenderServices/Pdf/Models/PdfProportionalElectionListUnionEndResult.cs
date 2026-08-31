@@ -15,4 +15,17 @@ public class PdfProportionalElectionListUnionEndResult
     [XmlElement("ProportionalElectionListUnionEndResult")]
     public List<PdfProportionalElectionListUnionEndResultEntry> Entries { get; set; }
         = new List<PdfProportionalElectionListUnionEndResultEntry>();
+
+    public void FormatNumbers(bool useLegacyFormat)
+    {
+        foreach (var group in Groups)
+        {
+            group.FormatNumbers(useLegacyFormat);
+        }
+
+        foreach (var entry in Entries)
+        {
+            entry.FormatNumbers(useLegacyFormat);
+        }
+    }
 }

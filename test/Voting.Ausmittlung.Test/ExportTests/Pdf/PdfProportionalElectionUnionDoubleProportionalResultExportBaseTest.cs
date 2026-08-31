@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
+using Xunit;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
@@ -20,6 +22,13 @@ public abstract class PdfProportionalElectionUnionDoubleProportionalResultExport
     }
 
     protected override ExportService.ExportServiceClient TestClient => MonitoringElectionAdminClient;
+
+    [Fact]
+    public virtual async Task TestPdfWithFormattedValues()
+    {
+        using var d = EnableFormattedTemplateValues(DomainOfInfluenceCanton.Zh);
+        await TestPdfReport("_formatted-values");
+    }
 
     protected override async Task SeedData()
     {

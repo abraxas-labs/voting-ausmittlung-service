@@ -15,6 +15,7 @@ using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
+using Xunit;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
@@ -28,6 +29,13 @@ public class PdfVoteEndResultExportTest : PdfExportBaseTest
     protected override string NewRequestExpectedFileName => "Abst_St. Gallen_Gesamtergebnisse_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfVoteTemplates.EndResultProtocol.Key;
+
+    [Fact]
+    public virtual async Task TestPdfWithFormattedValues()
+    {
+        using var d = EnableFormattedTemplateValues(DomainOfInfluenceCanton.Sg);
+        await TestPdfReport("_formatted-values");
+    }
 
     protected override async Task SeedData()
     {
@@ -105,104 +113,5 @@ public class PdfVoteEndResultExportTest : PdfExportBaseTest
         yield return NoRole;
         yield return RolesMockedData.ErfassungCreator;
         yield return RolesMockedData.ErfassungElectionAdmin;
-    }
-
-    private async Task SeedCountingCircleDetails()
-    {
-        await RunOnDb(async db =>
-        {
-            var haggenDetails = await db.ContestCountingCircleDetails
-                .AsTracking()
-                .Include(x => x.CountOfVotersInformationSubTotals)
-                .SingleAsync(x => x.ContestId == ContestMockedData.GuidBundesurnengang
-                    && x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidStGallenHaggen);
-
-            haggenDetails.VotingCards = new List<VotingCardResultDetail>
-            {
-                new VotingCardResultDetail
-                {
-                        Channel = VotingChannel.ByMail,
-                        Valid = true,
-                        CountOfReceivedVotingCards = 2000,
-                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
-                },
-                new VotingCardResultDetail
-                {
-                        Channel = VotingChannel.BallotBox,
-                        Valid = true,
-                        CountOfReceivedVotingCards = 400,
-                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
-                },
-                new VotingCardResultDetail
-                {
-                        Channel = VotingChannel.Paper,
-                        Valid = true,
-                        CountOfReceivedVotingCards = 200,
-                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
-                },
-                new VotingCardResultDetail
-                {
-                        Channel = VotingChannel.EVoting,
-                        Valid = true,
-                        CountOfReceivedVotingCards = 150,
-                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
-                },
-                new VotingCardResultDetail
-                {
-                        Channel = VotingChannel.ByMail,
-                        Valid = false,
-                        CountOfReceivedVotingCards = 150,
-                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
-                },
-                new VotingCardResultDetail
-                {
-                        Channel = VotingChannel.ByMail,
-                        Valid = false,
-                        CountOfReceivedVotingCards = 150,
-                        DomainOfInfluenceType = DomainOfInfluenceType.Mu,
-                },
-            };
-
-            haggenDetails.CountOfVotersInformationSubTotals = new List<CountOfVotersInformationSubTotal>
-            {
-                new CountOfVotersInformationSubTotal
-                {
-                        Sex = SexType.Female,
-                        VoterType = VoterType.Swiss,
-                        CountOfVoters = 1400,
-                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
-                },
-                new CountOfVotersInformationSubTotal
-                {
-                        Sex = SexType.Male,
-                        VoterType = VoterType.Swiss,
-                        CountOfVoters = 1600,
-                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
-                },
-                new CountOfVotersInformationSubTotal
-                {
-                        Sex = SexType.Male,
-                        VoterType = VoterType.SwissAbroad,
-                        CountOfVoters = 100,
-                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
-                },
-                new CountOfVotersInformationSubTotal
-                {
-                        Sex = SexType.Female,
-                        VoterType = VoterType.SwissAbroad,
-                        CountOfVoters = 110,
-                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
-                },
-                new CountOfVotersInformationSubTotal
-                {
-                        Sex = SexType.Female,
-                        VoterType = VoterType.SwissAbroad,
-                        CountOfVoters = 1,
-                        DomainOfInfluenceType = DomainOfInfluenceType.Mu,
-                },
-            };
-
-            await db.SaveChangesAsync();
-        });
     }
 }

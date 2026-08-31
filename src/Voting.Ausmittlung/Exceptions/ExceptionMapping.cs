@@ -8,6 +8,7 @@ using AutoMapper;
 using Grpc.Core;
 using Microsoft.AspNetCore.Http;
 using Voting.Ausmittlung.Core.Exceptions;
+using Voting.Lib.Cryptography.Exceptions;
 using Voting.Lib.Eventing.Exceptions;
 using Voting.Lib.Iam.Exceptions;
 using Voting.Lib.Iam.SecondFactor.Exceptions;
@@ -65,6 +66,11 @@ internal readonly struct ExceptionMapping
             ValidationException _ => new ExceptionMapping(StatusCode.InvalidArgument, StatusCodes.Status400BadRequest),
             Ech0110RequiredException _ => new ExceptionMapping(StatusCode.InvalidArgument, StatusCodes.Status400BadRequest, true),
             XmlSchemaValidationException => new(StatusCode.InvalidArgument, StatusCodes.Status400BadRequest),
+            CryptoFileException => new(StatusCode.InvalidArgument, StatusCodes.Status400BadRequest, true),
+            X509ChainBuilderException => new(StatusCode.InvalidArgument, StatusCodes.Status400BadRequest, true),
+            ResultImportECountingUnencryptedFileException => new(StatusCode.InvalidArgument, StatusCodes.Status400BadRequest, true),
+            ResultImportECountingSignatureVerifyException => new(StatusCode.InvalidArgument, StatusCodes.Status400BadRequest, true),
+            ResultImportECountingClientCertificateCnException => new(StatusCode.InvalidArgument, StatusCodes.Status400BadRequest, true),
             RateLimitReachedException => new(StatusCode.ResourceExhausted, StatusCodes.Status429TooManyRequests),
             _ => new ExceptionMapping(StatusCode.Internal, StatusCodes.Status500InternalServerError),
         };

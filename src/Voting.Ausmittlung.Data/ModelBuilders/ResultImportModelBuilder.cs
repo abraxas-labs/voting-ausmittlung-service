@@ -12,7 +12,8 @@ public class ResultImportModelBuilder :
     IEntityTypeConfiguration<ResultImportCountingCircle>,
     IEntityTypeConfiguration<EmptyImportCountingCircle>,
     IEntityTypeConfiguration<ResultImportPoliticalBusiness>,
-    IEntityTypeConfiguration<IgnoredImportPoliticalBusiness>
+    IEntityTypeConfiguration<IgnoredImportPoliticalBusiness>,
+    IEntityTypeConfiguration<ResultImportECountingClientCertificateInfo>
 {
     public void Configure(EntityTypeBuilder<ResultImport> builder)
     {
@@ -98,5 +99,27 @@ public class ResultImportModelBuilder :
             .WithMany(x => x.ResultImportPoliticalBusinesses)
             .HasForeignKey(x => x.PoliticalBusinessId)
             .IsRequired();
+    }
+
+    public void Configure(EntityTypeBuilder<ResultImportECountingClientCertificateInfo> builder)
+    {
+        builder
+            .HasOne(x => x.ResultImport)
+            .WithOne(x => x.ECountingClientCertificateInfo)
+            .HasForeignKey<ResultImportECountingClientCertificateInfo>(x => x.ResultImportId)
+            .IsRequired();
+
+        builder
+            .HasOne(x => x.CaCertificateInfo)
+            .WithMany(x => x.SignedECountingClientCertificates)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder
+            .Property(d => d.NotBefore)
+            .HasUtcConversion();
+
+        builder
+            .Property(d => d.NotAfter)
+            .HasUtcConversion();
     }
 }
