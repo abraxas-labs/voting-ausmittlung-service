@@ -133,6 +133,12 @@ public class ContestProcessor :
             return;
         }
 
+        // DeleteByKey uses ExecuteDeleteAsync, which bypasses EF's ClientSetNull behavior, so contests
+        // referencing this contest as their previous contest would otherwise violate the FK constraint.
+        await _repo.Query()
+            .Where(c => c.PreviousContestId == id)
+            .ExecuteUpdateAsync(s => s.SetProperty(c => c.PreviousContestId, (Guid?)null));
+
         await _repo.DeleteByKey(id);
     }
 

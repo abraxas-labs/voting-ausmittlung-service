@@ -1,4 +1,4 @@
-# ✨ Changelog (`v2.102.0`)
+# ✨ Changelog (`v2.102.1`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,11 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v2.102.0
-Previous version ---- v2.96.0
+This version -------- v2.102.1
+Previous version ---- v2.102.0
 Initial version ----- v1.29.14
-Total commits ------- 17
+Total commits ------- 1
 ```
+
+## [v2.102.1] - 2026-09-07
+
+### :arrows_counterclockwise: Changed
+
+- `ContestProcessor.Process(ContestDeleted)` now clears any dangling `PreviousContestId` references pointing to the contest being deleted before deleting it, unblocking the previously poisoned event without requiring manual database changes.
 
 ## [v2.102.0] - 2026-08-26
 
