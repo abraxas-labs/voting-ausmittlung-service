@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <PackageReference Include="Voting.Lib.Ech" Version="$(VotingLibVersion)" />
+    <PackageReference Include="Voting.Lib.Ech.Ech0090_1_0" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.Ech.Ech0110_4_0" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.Ech.Ech0222_1_0" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.Ech.Ech0222_3_0" Version="$(VotingLibVersion)" />

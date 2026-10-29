@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using AutoMapper;
@@ -28,6 +27,8 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
 
     public override string AggregateName => "voting-majorityElectionResultBundle";
 
+    public Guid? BallotGroupId { get; private set; }
+
     public MajorityElectionResultEntryParams ResultEntryParams { get; private set; } = new();
 
     protected override int BallotBundleSampleSize => ResultEntryParams.BallotBundleSampleSize;
@@ -38,7 +39,8 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
         int bundleNumber,
         MajorityElectionResultEntry resultEntry,
         MajorityElectionResultEntryParams? resultEntryParams,
-        Guid contestId)
+        Guid contestId,
+        Guid? ballotGroupId = null)
     {
         if (resultEntry != MajorityElectionResultEntry.Detailed || resultEntryParams == null)
         {
@@ -60,6 +62,7 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
                 ElectionResultId = electionResultId.ToString(),
                 ResultEntry = _mapper.Map<Abraxas.Voting.Ausmittlung.Shared.V1.MajorityElectionResultEntry>(resultEntry),
                 ResultEntryParams = _mapper.Map<MajorityElectionResultEntryParamsEventData>(resultEntryParams),
+                BallotGroupId = ballotGroupId?.ToString() ?? string.Empty,
             },
             new EventSignatureBusinessDomainData(contestId));
     }
@@ -69,7 +72,7 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
         int emptyVoteCount,
         int individualVoteCount,
         int invalidVoteCount,
-        IEnumerable<Guid> selectedCandidateIds,
+        IEnumerable<MajorityElectionResultBallotCandidate> candidates,
         IEnumerable<SecondaryMajorityElectionResultBallot> secondaryResultBallots,
         Guid contestId)
     {
@@ -91,11 +94,8 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
             EmptyVoteCount = emptyVoteCount,
             IndividualVoteCount = individualVoteCount,
             InvalidVoteCount = invalidVoteCount,
-            SelectedCandidateIds =
-            {
-                selectedCandidateIds.Select(x => x.ToString()),
-            },
         };
+        _mapper.Map(candidates, ev.Candidates);
         _mapper.Map(secondaryResultBallots, ev.SecondaryMajorityElectionResults);
         RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
     }
@@ -105,7 +105,7 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
         int emptyVoteCount,
         int individualVoteCount,
         int invalidVoteCount,
-        IEnumerable<Guid> selectedCandidateIds,
+        IEnumerable<MajorityElectionResultBallotCandidate> candidates,
         IEnumerable<SecondaryMajorityElectionResultBallot> secondaryResultBallots,
         Guid contestId)
     {
@@ -136,11 +136,8 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
             EmptyVoteCount = emptyVoteCount,
             IndividualVoteCount = individualVoteCount,
             InvalidVoteCount = invalidVoteCount,
-            SelectedCandidateIds =
-            {
-                selectedCandidateIds.Select(x => x.ToString()),
-            },
         };
+        _mapper.Map(candidates, ev.Candidates);
         _mapper.Map(secondaryResultBallots, ev.SecondaryMajorityElectionResults);
         RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
     }
@@ -306,6 +303,7 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
         CurrentBallotNumber = ResultEntryParams.BallotNumberGeneration == BallotNumberGeneration.RestartForEachBundle
             ? 0
             : (BundleNumber - 1) * ResultEntryParams.BallotBundleSize;
+        BallotGroupId = GuidParser.ParseNullable(ev.BallotGroupId);
     }
 
     private void Apply(MajorityElectionResultBallotCreated ev)

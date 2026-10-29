@@ -37,6 +37,8 @@
     "PrimaryMajorityElectionId": null,
     "PrimaryMajorityElection": null,
     "SecondaryMajorityElectionsOnSeparateBallots": [],
+    "BundlesWithBallotGroupEnabled": false,
+    "EnforceBundlesWithBallotGroupEnabledForCountingCircles": false,
     "IndividualCandidatesDisabled": false,
     "NumberOfMandates": 2,
     "PoliticalBusinessNumber": "8164",

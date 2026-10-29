@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1;
 using Abraxas.Voting.Basis.Events.V1.Data;
+using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Common;
@@ -62,5 +63,46 @@ public class MajorityElectionCandidateReorderTest : BaseDataProcessorTest
             Languages.German);
         SetDynamicIdToDefaultValue(candidates.SelectMany(c => c.Translations));
         candidates.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task CandidateNumbersShouldBeUpdated()
+    {
+        await TestEventPublisher.Publish(new MajorityElectionCandidatesReordered
+        {
+            MajorityElectionId = MajorityElectionMockedData.IdGossauMajorityElectionInContestStGallen,
+            CandidateOrders = new EntityOrdersEventData
+            {
+                Orders =
+                {
+                    new EntityOrderEventData
+                    {
+                        Id = MajorityElectionMockedData.CandidateId1GossauMajorityElectionInContestStGallen,
+                        Position = 2,
+                    },
+                    new EntityOrderEventData
+                    {
+                        Id = MajorityElectionMockedData.CandidateId2GossauMajorityElectionInContestStGallen,
+                        Position = 1,
+                    },
+                },
+            },
+            UpdateCandidateNumbers = true,
+        });
+
+        var candidates = await RunOnDb(
+            db => db.MajorityElectionCandidates
+                .Where(c => c.MajorityElectionId ==
+                    Guid.Parse(MajorityElectionMockedData.IdGossauMajorityElectionInContestStGallen))
+                .OrderBy(x => x.Number)
+                .ToListAsync());
+
+        candidates[0].Number.Should().Be("1");
+        candidates[0].Position.Should().Be(1);
+        candidates[0].Id.Should().Be(MajorityElectionMockedData.CandidateId2GossauMajorityElectionInContestStGallen);
+
+        candidates[1].Number.Should().Be("2");
+        candidates[1].Position.Should().Be(2);
+        candidates[1].Id.Should().Be(MajorityElectionMockedData.CandidateId1GossauMajorityElectionInContestStGallen);
     }
 }

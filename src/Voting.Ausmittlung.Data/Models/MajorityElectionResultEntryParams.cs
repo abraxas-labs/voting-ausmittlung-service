@@ -6,4 +6,6 @@ namespace Voting.Ausmittlung.Data.Models;
 public class MajorityElectionResultEntryParams : ElectionResultEntryParams
 {
     public MajorityElectionReviewProcedure ReviewProcedure { get; set; }
+
+    public bool BundlesWithBallotGroupEnabled { get; set; }
 }

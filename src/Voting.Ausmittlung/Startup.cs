@@ -202,7 +202,7 @@ public class Startup
 
     private void ConfigureMessagingConsumerEndpoint(IConsumerEndpointRegistrationConfigurator config)
     {
-        config.InstanceId = Environment.MachineName;
+        config.InstanceId = "ausmittlung-" + Environment.MachineName;
         config.Temporary = true;
     }
 

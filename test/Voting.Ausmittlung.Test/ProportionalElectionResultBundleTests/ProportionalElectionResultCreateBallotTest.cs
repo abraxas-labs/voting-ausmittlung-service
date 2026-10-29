@@ -322,6 +322,28 @@ public class ProportionalElectionResultCreateBallotTest : ProportionalElectionRe
             "unknown candidates provided");
     }
 
+    /// <summary>
+    /// A completely non-existing candidateId must be rejected, not just one that exists but belongs to a
+    /// different election.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Fact]
+    public async Task TestShouldThrowNonExistingCandidate()
+    {
+        await AssertStatus(
+            async () => await ErfassungCreatorClient.CreateBallotAsync(NewValidRequest(x =>
+            {
+                x.Candidates.Clear();
+                x.Candidates.Add(new CreateUpdateProportionalElectionResultBallotCandidateRequest
+                {
+                    Position = 1,
+                    CandidateId = Guid.NewGuid().ToString(),
+                });
+            })),
+            StatusCode.InvalidArgument,
+            "unknown candidates provided");
+    }
+
     [Fact]
     public async Task TestShouldThrowNoEmptyVoteCountWithDisabledAutomaticCount()
     {

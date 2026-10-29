@@ -323,6 +323,31 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
             "Contest is past locked or archived");
     }
 
+    /// <summary>
+    /// A non-existing ballotResultId must be rejected on the write side instead of being accepted into a
+    /// VoteResultBundleCreated event.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Fact]
+    public async Task TestShouldThrowBallotResultNotFound()
+    {
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.CreateBundleAsync(NewValidRequest(x => x.BallotResultId = Guid.NewGuid().ToString())),
+            StatusCode.NotFound);
+    }
+
+    /// <summary>
+    /// The ballotResultId must belong to the given voteResultId, not just exist somewhere in the DB.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Fact]
+    public async Task TestShouldThrowBallotResultOfOtherVoteResult()
+    {
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.CreateBundleAsync(NewValidRequest(x => x.BallotResultId = VoteResultMockedData.IdUzwilVoteInContestStGallenBallotResult)),
+            StatusCode.NotFound);
+    }
+
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
         await new VoteResultBundleService.VoteResultBundleServiceClient(channel)

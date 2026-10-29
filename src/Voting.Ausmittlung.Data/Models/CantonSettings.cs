@@ -56,4 +56,10 @@ public class CantonSettings : BaseEntity
     public bool EndResultFinalizeDisabled { get; set; }
 
     public ICollection<CantonSettingsECountingCertificateChain> ECountingCertificateChains { get; set; } = new List<CantonSettingsECountingCertificateChain>();
+
+    public bool MonitoringAutoShowPoliticalBusinesses { get; set; }
+
+    public bool MonitoringUseImprovedUi { get; set; }
+
+    public bool MajorityElectionBundlesWithBallotGroupEnabled { get; set; }
 }

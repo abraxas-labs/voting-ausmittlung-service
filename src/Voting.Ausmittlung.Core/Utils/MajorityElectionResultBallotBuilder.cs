@@ -37,22 +37,22 @@ public class MajorityElectionResultBallotBuilder
         Guid bundleId,
         MajorityElectionResultBallotCreated data)
     {
-        var ids = await _bundleRepo.Query()
-            .AsSingleQuery()
-            .Where(b => b.Id == bundleId)
-            .Select(x => new
-            {
-                PrimaryCandidateIds = x.ElectionResult.MajorityElection.MajorityElectionCandidates.Select(c => c.Id),
-                SecondaryIds = x.ElectionResult.SecondaryMajorityElectionResults.Select(e => new
-                {
-                    ElectionId = e.SecondaryMajorityElectionId,
-                    ResultId = e.Id,
-                    CandidateIds = e.CandidateResults.Select(c => c.CandidateId),
-                }),
-            })
-            .FirstAsync();
+        var bundle = await _bundleRepo.Query()
+            .AsSplitQuery()
+            .Include(x => x.ElectionResult.MajorityElection.MajorityElectionCandidates)
+            .Include(x => x.BallotGroup!.Entries)
+            .ThenInclude(x => x.Candidates)
+            .ThenInclude(x => x.PrimaryElectionCandidate)
+            .Include(x => x.BallotGroup!.Entries)
+            .ThenInclude(x => x.Candidates)
+            .ThenInclude(x => x.SecondaryElectionCandidate)
+            .Include(x => x.ElectionResult.SecondaryMajorityElectionResults)
+            .ThenInclude(x => x.CandidateResults)
+            .ThenInclude(x => x.Candidate)
+            .FirstAsync(x => x.Id == bundleId);
 
-        var selectedCandidates = data.SelectedCandidateIds.Select(Guid.Parse).ToHashSet();
+        var selectedCandidatesById = data.Candidates.ToDictionary(x => Guid.Parse(x.CandidateId));
+        var ballotCandidates = BuildPrimaryElectionBallotCandidates(bundle, selectedCandidatesById);
         var ballot = new MajorityElectionResultBallot
         {
             Number = data.BallotNumber,
@@ -61,39 +61,28 @@ public class MajorityElectionResultBallotBuilder
             EmptyVoteCount = data.EmptyVoteCount,
             IndividualVoteCount = data.IndividualVoteCount,
             InvalidVoteCount = data.InvalidVoteCount,
-            CandidateVoteCountExclIndividual = selectedCandidates.Count,
-            BallotCandidates = ids.PrimaryCandidateIds
-                .Select(x => new MajorityElectionResultBallotCandidate
-                {
-                    CandidateId = x,
-                    Selected = selectedCandidates.Contains(x),
-                })
-                .ToList(),
+            CandidateVoteCountExclIndividual = data.Candidates.Count,
+            BallotCandidates = ballotCandidates,
         };
 
         var secondaryResultsById = data.SecondaryMajorityElectionResults.ToDictionary(x => Guid.Parse(x.SecondaryMajorityElectionId));
-        foreach (var resultAndCandidate in ids.SecondaryIds)
+        foreach (var secondaryMajorityElectionResult in bundle.ElectionResult.SecondaryMajorityElectionResults)
         {
-            if (!secondaryResultsById.TryGetValue(resultAndCandidate.ElectionId, out var result))
+            if (!secondaryResultsById.TryGetValue(secondaryMajorityElectionResult.SecondaryMajorityElectionId, out var result))
             {
                 result = new SecondaryMajorityElectionResultBallotEventData();
             }
 
-            var selectedCandidateIds = result.SelectedCandidateIds.Select(Guid.Parse).ToHashSet();
+            var secondaryElectionSelectedCandidatesById = result.Candidates.ToDictionary(x => Guid.Parse(x.CandidateId));
+            var secondaryElectionBallotCandidates = BuildSecondaryElectionBallotCandidates(bundle, secondaryElectionSelectedCandidatesById, secondaryMajorityElectionResult);
             ballot.SecondaryMajorityElectionBallots.Add(new SecondaryMajorityElectionResultBallot
             {
-                SecondaryMajorityElectionResultId = resultAndCandidate.ResultId,
+                SecondaryMajorityElectionResultId = secondaryMajorityElectionResult.Id,
                 EmptyVoteCount = result.EmptyVoteCount,
                 IndividualVoteCount = result.IndividualVoteCount,
                 InvalidVoteCount = result.InvalidVoteCount,
-                CandidateVoteCountExclIndividual = selectedCandidateIds.Count,
-                BallotCandidates = resultAndCandidate.CandidateIds
-                    .Select(cId => new SecondaryMajorityElectionResultBallotCandidate
-                    {
-                        CandidateId = cId,
-                        Selected = selectedCandidateIds.Contains(cId),
-                    })
-                    .ToList(),
+                CandidateVoteCountExclIndividual = result.Candidates.Count,
+                BallotCandidates = secondaryElectionBallotCandidates,
             });
         }
 
@@ -111,15 +100,17 @@ public class MajorityElectionResultBallotBuilder
             .Include(x => x.BallotCandidates)
             .Include(x => x.SecondaryMajorityElectionBallots).ThenInclude(x => x.BallotCandidates)
             .Include(x => x.SecondaryMajorityElectionBallots).ThenInclude(x => x.SecondaryMajorityElectionResult)
-            .Include(x => x.Bundle)
+            .Include(x => x.Bundle.ElectionResult)
             .FirstOrDefaultAsync(x => x.Number == data.BallotNumber && x.BundleId == bundleId)
             ?? throw new EntityNotFoundException(new { bundleId, data.BallotNumber });
 
         ballot.EmptyVoteCount = data.EmptyVoteCount;
         ballot.IndividualVoteCount = data.IndividualVoteCount;
         ballot.InvalidVoteCount = data.InvalidVoteCount;
-        ballot.CandidateVoteCountExclIndividual = ReplaceSelectedCandidates(ballot.BallotCandidates, data.SelectedCandidateIds);
-        UpdateSecondaryMajorityElectionResults(ballot, data.SecondaryMajorityElectionResults);
+        ballot.CandidateVoteCountExclIndividual = data.Candidates.Count;
+        var bundlesWithBallotGroupEnabled = ballot.Bundle.ElectionResult.EntryParams?.BundlesWithBallotGroupEnabled == true;
+        ballot.BallotCandidates = ReplacePrimaryElectionCandidates(ballot.BallotCandidates, data.Candidates, bundlesWithBallotGroupEnabled);
+        UpdateSecondaryMajorityElectionResults(ballot, data.SecondaryMajorityElectionResults, bundlesWithBallotGroupEnabled);
 
         if (ballot.Bundle.State > BallotBundleState.InProcess)
         {
@@ -138,9 +129,106 @@ public class MajorityElectionResultBallotBuilder
         await _dbContext.SaveChangesAsync();
     }
 
-    private void UpdateSecondaryMajorityElectionResults(
+    private static List<MajorityElectionResultBallotCandidate> BuildPrimaryElectionBallotCandidates(MajorityElectionResultBundle bundle, Dictionary<Guid, MajorityElectionResultBallotUpdatedCandidateEventData> selectedCandidatesById)
+    {
+        if (bundle.ElectionResult.EntryParams?.BundlesWithBallotGroupEnabled != true)
+        {
+            return
+            [
+                .. bundle.ElectionResult.MajorityElection.MajorityElectionCandidates
+                    .Select(c => new MajorityElectionResultBallotCandidate
+                    {
+                        CandidateId = c.Id,
+                        Selected = selectedCandidatesById.ContainsKey(c.Id),
+                        Position = c.Position,
+                        OnBallotGroup = false,
+                    })
+            ];
+        }
+
+        var ballotCandidates = new List<MajorityElectionResultBallotCandidate>();
+        if (bundle.BallotGroupId.HasValue)
+        {
+            var ballotGroupCandidateIds = bundle.BallotGroup!.Entries
+                .Where(x => x.BallotGroupId == bundle.BallotGroupId.Value
+                            && x.PrimaryMajorityElectionId == bundle.ElectionResult.MajorityElectionId)
+                .SelectMany(x => x.Candidates)
+                .Where(x => x.PrimaryElectionCandidateId.HasValue)
+                .OrderBy(x => x.PrimaryElectionCandidate!.Position)
+                .Select(x => x.PrimaryElectionCandidateId!.Value)
+                .ToList();
+
+            ballotCandidates.AddRange(ballotGroupCandidateIds.Select((id, index) => new MajorityElectionResultBallotCandidate
+            {
+                CandidateId = id,
+                Selected = selectedCandidatesById.TryGetValue(id, out var candidate) && candidate.Position == index + 1 && candidate.OnBallotGroup,
+                OnBallotGroup = true,
+                Position = index + 1,
+            }));
+        }
+
+        ballotCandidates.AddRange(selectedCandidatesById.Values.Where(x => !x.OnBallotGroup).Select(candidate => new MajorityElectionResultBallotCandidate
+        {
+            CandidateId = Guid.Parse(candidate.CandidateId),
+            Selected = true,
+            OnBallotGroup = false,
+            Position = candidate.Position,
+        }));
+
+        return ballotCandidates;
+    }
+
+    private static List<SecondaryMajorityElectionResultBallotCandidate> BuildSecondaryElectionBallotCandidates(MajorityElectionResultBundle bundle, Dictionary<Guid, MajorityElectionResultBallotUpdatedCandidateEventData> selectedCandidatesById, SecondaryMajorityElectionResult secondaryMajorityElectionResult)
+    {
+        if (bundle.ElectionResult.EntryParams?.BundlesWithBallotGroupEnabled != true)
+        {
+            return secondaryMajorityElectionResult.CandidateResults
+                .Select(x => new SecondaryMajorityElectionResultBallotCandidate
+                {
+                    CandidateId = x.CandidateId,
+                    Selected = selectedCandidatesById.ContainsKey(x.CandidateId),
+                    Position = x.CandidatePosition,
+                    OnBallotGroup = false,
+                })
+                .ToList();
+        }
+
+        var ballotCandidates = new List<SecondaryMajorityElectionResultBallotCandidate>();
+        if (bundle.BallotGroupId.HasValue)
+        {
+            var ballotGroupCandidateIds = bundle.BallotGroup!.Entries
+                .Where(x => x.BallotGroupId == bundle.BallotGroupId.Value
+                            && x.SecondaryMajorityElectionId == secondaryMajorityElectionResult.SecondaryMajorityElectionId)
+                .SelectMany(x => x.Candidates)
+                .Where(x => x.SecondaryElectionCandidateId.HasValue)
+                .OrderBy(x => x.SecondaryElectionCandidate!.Position)
+                .Select(x => x.SecondaryElectionCandidateId!.Value)
+                .ToList();
+
+            ballotCandidates.AddRange(ballotGroupCandidateIds.Select((id, index) => new SecondaryMajorityElectionResultBallotCandidate
+            {
+                CandidateId = id,
+                Selected = selectedCandidatesById.TryGetValue(id, out var candidate) && candidate.Position == index + 1 && candidate.OnBallotGroup,
+                OnBallotGroup = true,
+                Position = index + 1,
+            }));
+        }
+
+        ballotCandidates.AddRange(selectedCandidatesById.Values.Where(x => !x.OnBallotGroup).Select(candidate => new SecondaryMajorityElectionResultBallotCandidate
+        {
+            CandidateId = Guid.Parse(candidate.CandidateId),
+            Selected = true,
+            OnBallotGroup = false,
+            Position = candidate.Position,
+        }));
+
+        return ballotCandidates;
+    }
+
+    private static void UpdateSecondaryMajorityElectionResults(
         MajorityElectionResultBallot ballot,
-        IEnumerable<SecondaryMajorityElectionResultBallotEventData>? results)
+        IEnumerable<SecondaryMajorityElectionResultBallotEventData>? results,
+        bool bundlesWithBallotGroupEnabled)
     {
         if (results == null)
         {
@@ -159,21 +247,86 @@ public class MajorityElectionResultBallotBuilder
             secondaryBallot.EmptyVoteCount = result.EmptyVoteCount;
             secondaryBallot.IndividualVoteCount = result.IndividualVoteCount;
             secondaryBallot.InvalidVoteCount = result.InvalidVoteCount;
-            secondaryBallot.CandidateVoteCountExclIndividual = ReplaceSelectedCandidates(secondaryBallot.BallotCandidates, result.SelectedCandidateIds);
+            secondaryBallot.CandidateVoteCountExclIndividual = result.Candidates.Count;
+            secondaryBallot.BallotCandidates = ReplaceSecondaryElectionCandidates(secondaryBallot.BallotCandidates, result.Candidates, bundlesWithBallotGroupEnabled);
         }
     }
 
-    private int ReplaceSelectedCandidates(
-        IEnumerable<MajorityElectionResultBallotCandidateBase> ballotCandidates,
-        IEnumerable<string>? selectedCandidates)
+    private static List<MajorityElectionResultBallotCandidate> ReplacePrimaryElectionCandidates(
+        ICollection<MajorityElectionResultBallotCandidate> ballotCandidates,
+        ICollection<MajorityElectionResultBallotUpdatedCandidateEventData>? selectedCandidates,
+        bool bundlesWithBallotGroupEnabled)
     {
-        var selectedCandidateIds = selectedCandidates?.Select(GuidParser.Parse).ToHashSet()
-            ?? new HashSet<Guid>();
-        foreach (var candidate in ballotCandidates)
+        var selectedCandidateIds = selectedCandidates?.Select(x => GuidParser.Parse(x.CandidateId)).ToHashSet() ?? [];
+        if (!bundlesWithBallotGroupEnabled)
         {
-            candidate.Selected = selectedCandidateIds.Contains(candidate.CandidateId);
+            foreach (var candidate in ballotCandidates)
+            {
+                candidate.Selected = selectedCandidateIds.Contains(candidate.CandidateId);
+            }
+
+            return ballotCandidates.ToList();
         }
 
-        return selectedCandidateIds.Count;
+        // remove candidates not on ballot group (which were added by the user)
+        ballotCandidates = ballotCandidates.Where(x => x.OnBallotGroup).ToList();
+
+        foreach (var candidate in ballotCandidates)
+        {
+            candidate.Selected = selectedCandidates?.Any(x => Guid.Parse(x.CandidateId) == candidate.CandidateId && x.Position == candidate.Position && x.OnBallotGroup) == true;
+        }
+
+        var addedCandidates = selectedCandidates?.Where(x => !x.OnBallotGroup).ToList() ?? [];
+        foreach (var addedCandidate in addedCandidates)
+        {
+            ballotCandidates.Add(new MajorityElectionResultBallotCandidate
+            {
+                CandidateId = Guid.Parse(addedCandidate.CandidateId),
+                Selected = true,
+                Position = addedCandidate.Position,
+                OnBallotGroup = false,
+            });
+        }
+
+        return ballotCandidates.ToList();
+    }
+
+    private static List<SecondaryMajorityElectionResultBallotCandidate> ReplaceSecondaryElectionCandidates(
+        ICollection<SecondaryMajorityElectionResultBallotCandidate> ballotCandidates,
+        ICollection<MajorityElectionResultBallotUpdatedCandidateEventData>? selectedCandidates,
+        bool bundlesWithBallotGroupEnabled)
+    {
+        var selectedCandidateIds = selectedCandidates?.Select(x => GuidParser.Parse(x.CandidateId)).ToHashSet() ?? [];
+        if (!bundlesWithBallotGroupEnabled)
+        {
+            foreach (var candidate in ballotCandidates)
+            {
+                candidate.Selected = selectedCandidateIds.Contains(candidate.CandidateId);
+            }
+
+            return ballotCandidates.ToList();
+        }
+
+        // remove candidates not on ballot group (which were added by the user)
+        ballotCandidates = ballotCandidates.Where(x => x.OnBallotGroup).ToList();
+
+        foreach (var candidate in ballotCandidates)
+        {
+            candidate.Selected = selectedCandidates?.Any(x => Guid.Parse(x.CandidateId) == candidate.CandidateId && x.Position == candidate.Position && x.OnBallotGroup) == true;
+        }
+
+        var addedCandidates = selectedCandidates?.Where(x => !x.OnBallotGroup).ToList() ?? [];
+        foreach (var addedCandidate in addedCandidates)
+        {
+            ballotCandidates.Add(new SecondaryMajorityElectionResultBallotCandidate
+            {
+                CandidateId = Guid.Parse(addedCandidate.CandidateId),
+                Selected = true,
+                Position = addedCandidate.Position,
+                OnBallotGroup = false,
+            });
+        }
+
+        return ballotCandidates.ToList();
     }
 }

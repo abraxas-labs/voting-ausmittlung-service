@@ -116,7 +116,11 @@ public class MajorityElectionProcessor :
                 .SetProperty(y => y.AutomaticEmptyVoteCounting, majorityElection.AutomaticEmptyVoteCounting)
                 .SetProperty(y => y.EnforceEmptyVoteCountingForCountingCircles, majorityElection.EnforceEmptyVoteCountingForCountingCircles)
                 .SetProperty(y => y.ReviewProcedure, majorityElection.ReviewProcedure)
-                .SetProperty(y => y.EnforceReviewProcedureForCountingCircles, majorityElection.EnforceReviewProcedureForCountingCircles));
+                .SetProperty(y => y.EnforceReviewProcedureForCountingCircles, majorityElection.EnforceReviewProcedureForCountingCircles)
+                .SetProperty(y => y.CandidateCheckDigit, majorityElection.CandidateCheckDigit)
+                .SetProperty(y => y.EnforceCandidateCheckDigitForCountingCircles, majorityElection.EnforceCandidateCheckDigitForCountingCircles)
+                .SetProperty(y => y.BundlesWithBallotGroupEnabled, majorityElection.BundlesWithBallotGroupEnabled)
+                .SetProperty(y => y.EnforceBundlesWithBallotGroupEnabledForCountingCircles, majorityElection.EnforceBundlesWithBallotGroupEnabledForCountingCircles));
     }
 
     public Task Process(MajorityElectionAfterTestingPhaseUpdated eventData)
@@ -178,12 +182,12 @@ public class MajorityElectionProcessor :
     }
 
     public Task Process(MajorityElectionCandidatesReordered eventData)
-        => ReorderCandidates(GuidParser.Parse(eventData.MajorityElectionId), eventData.CandidateOrders);
+        => ReorderCandidates(GuidParser.Parse(eventData.MajorityElectionId), eventData.CandidateOrders, eventData.UpdateCandidateNumbers);
 
     public async Task Process(MajorityElectionCandidateDeleted eventData)
     {
         var id = GuidParser.Parse(eventData.MajorityElectionCandidateId);
-        await DeleteCandidate(id);
+        await DeleteCandidate(id, eventData.UpdateCandidateNumbers);
     }
 
     internal async Task CreateElection(MajorityElection majorityElection)
@@ -325,7 +329,7 @@ public class MajorityElectionProcessor :
         _logger.LogInformation("Majority election candidate {MajorityElectionCandidateId} updated after testing phase ended", candidateId);
     }
 
-    internal async Task ReorderCandidates(Guid electionId, EntityOrdersEventData orders)
+    internal async Task ReorderCandidates(Guid electionId, EntityOrdersEventData orders, bool updateCandidateNumbers)
     {
         var candidates = await _candidateRepo.Query()
             .Where(c => c.MajorityElectionId == electionId)
@@ -338,12 +342,17 @@ public class MajorityElectionProcessor :
         foreach (var candidate in candidates)
         {
             candidate.Position = grouped[candidate.Id];
+
+            if (updateCandidateNumbers)
+            {
+                candidate.Number = candidate.Position.ToString();
+            }
         }
 
         await _candidateRepo.UpdateRange(candidates);
     }
 
-    internal async Task DeleteCandidate(Guid id)
+    internal async Task DeleteCandidate(Guid id, bool updateCandidateNumbers)
     {
         var existingCandidate = await _candidateRepo.GetByKey(id);
         if (existingCandidate is null)
@@ -354,9 +363,21 @@ public class MajorityElectionProcessor :
         }
 
         await _candidateRepo.DeleteByKey(id);
-        await _candidateRepo.Query()
+        var candidatesToUpdate = await _candidateRepo.Query()
             .Where(c => c.MajorityElectionId == existingCandidate.MajorityElectionId && c.Position > existingCandidate.Position)
-            .ExecuteUpdateAsync(x => x.SetProperty(c => c.Position, c => c.Position - 1));
+            .ToListAsync();
+
+        foreach (var candidate in candidatesToUpdate)
+        {
+            candidate.Position--;
+
+            if (updateCandidateNumbers)
+            {
+                candidate.Number = candidate.Position.ToString();
+            }
+        }
+
+        await _candidateRepo.UpdateRange(candidatesToUpdate);
     }
 
     internal async Task UpdateReferencedCandidate(MajorityElectionCandidateReferenceEventData eventData)

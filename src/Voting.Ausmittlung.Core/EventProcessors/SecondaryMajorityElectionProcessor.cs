@@ -292,13 +292,13 @@ public class SecondaryMajorityElectionProcessor :
     }
 
     public Task Process(SecondaryMajorityElectionCandidateDeleted eventData)
-        => DeleteCandidate(eventData.IsOnSeparateBallot, eventData.SecondaryMajorityElectionCandidateId);
+        => DeleteCandidate(eventData.IsOnSeparateBallot, eventData.SecondaryMajorityElectionCandidateId, eventData.UpdateCandidateNumbers);
 
     public async Task Process(SecondaryMajorityElectionCandidatesReordered eventData)
     {
         if (eventData.IsOnSeparateBallot)
         {
-            await _primaryMajorityElectionProcessor.ReorderCandidates(GuidParser.Parse(eventData.SecondaryMajorityElectionId), eventData.CandidateOrders);
+            await _primaryMajorityElectionProcessor.ReorderCandidates(GuidParser.Parse(eventData.SecondaryMajorityElectionId), eventData.CandidateOrders, eventData.UpdateCandidateNumbers);
             return;
         }
 
@@ -315,6 +315,11 @@ public class SecondaryMajorityElectionProcessor :
         foreach (var candidate in candidates)
         {
             candidate.Position = grouped[candidate.Id];
+
+            if (eventData.UpdateCandidateNumbers)
+            {
+                candidate.Number = candidate.Position.ToString();
+            }
         }
 
         await _candidateRepo.UpdateRange(candidates);
@@ -380,25 +385,37 @@ public class SecondaryMajorityElectionProcessor :
 
     public async Task Process(SecondaryMajorityElectionCandidateReferenceDeleted eventData)
     {
-        await DeleteCandidate(eventData.IsOnSeparateBallot, eventData.SecondaryMajorityElectionCandidateReferenceId);
+        await DeleteCandidate(eventData.IsOnSeparateBallot, eventData.SecondaryMajorityElectionCandidateReferenceId, eventData.UpdateCandidateNumbers);
     }
 
-    private async Task DeleteCandidate(bool isOnSeparateBallot, string candidateId)
+    private async Task DeleteCandidate(bool isOnSeparateBallot, string candidateId, bool updateCandidateNumbers)
     {
         var id = GuidParser.Parse(candidateId);
         if (isOnSeparateBallot)
         {
-            await _primaryMajorityElectionProcessor.DeleteCandidate(id);
+            await _primaryMajorityElectionProcessor.DeleteCandidate(id, updateCandidateNumbers);
             return;
         }
 
         var existingCandidate = await _candidateRepo.GetByKey(id)
             ?? throw new EntityNotFoundException(id);
         await _candidateRepo.DeleteByKey(id);
-        await _candidateRepo.Query()
+        var candidatesToUpdate = await _candidateRepo.Query()
             .Where(c => c.SecondaryMajorityElectionId == existingCandidate.SecondaryMajorityElectionId
                 && c.Position > existingCandidate.Position)
-            .ExecuteUpdateAsync(x => x.SetProperty(c => c.Position, c => c.Position - 1));
+            .ToListAsync();
+
+        foreach (var candidate in candidatesToUpdate)
+        {
+            candidate.Position--;
+
+            if (updateCandidateNumbers)
+            {
+                candidate.Number = candidate.Position.ToString();
+            }
+        }
+
+        await _candidateRepo.UpdateRange(candidatesToUpdate);
     }
 
     private void TruncateCandidateNumber(SecondaryMajorityElectionCandidate candidate)

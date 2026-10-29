@@ -54,6 +54,7 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
                 AutomaticBallotNumberGeneration = true,
                 BallotNumberGeneration = SharedProto.BallotNumberGeneration.ContinuousForAllBundles,
                 ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
+                BundlesWithBallotGroupEnabled = true,
             },
         });
         await RunEvents<MajorityElectionResultEntryDefined>();
@@ -91,6 +92,7 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
                 AutomaticBallotNumberGeneration = true,
                 BallotNumberGeneration = SharedProto.BallotNumberGeneration.RestartForEachBundle,
                 ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
+                BundlesWithBallotGroupEnabled = true,
             },
         });
         await RunEvents<MajorityElectionResultEntryDefined>();
@@ -107,8 +109,18 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
             x.BundleId = bundleResponse.BundleId;
             x.EmptyVoteCount = null;
             x.SecondaryMajorityElectionResults[0].EmptyVoteCount = null;
-            x.SecondaryMajorityElectionResults[0].SelectedCandidateIds.Clear();
+            x.SecondaryMajorityElectionResults[0].Candidates.Clear();
         }));
+        EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBallotUpdated>().MatchSnapshot(x => x.BundleId);
+    }
+
+    [Fact]
+    public async Task TestShouldReturnAsErfassungElectionAdminWithBallotGroup()
+    {
+        var bundleId = await CreateBundle(10, ballotGroupId: Guid.Parse(MajorityElectionMockedData.BallotGroupIdStGallenMajorityElectionInContestBund));
+        await CreateBallot(bundleId);
+
+        await ErfassungElectionAdminClient.UpdateBallotAsync(NewValidRequest(x => x.BundleId = bundleId.ToString()));
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBallotUpdated>().MatchSnapshot(x => x.BundleId);
     }
 
@@ -168,7 +180,7 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
         {
             x.IndividualVoteCount = 1;
             x.SecondaryMajorityElectionResults[0].IndividualVoteCount = 1;
-            x.SelectedCandidateIds.Clear();
+            x.Candidates.Clear();
         }));
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBallotUpdated>().MatchSnapshot();
     }
@@ -181,7 +193,7 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
             x.InvalidVoteCount = 1;
             x.SecondaryMajorityElectionResults[0].InvalidVoteCount = 1;
             x.SecondaryMajorityElectionResults[0].EmptyVoteCount = 0;
-            x.SelectedCandidateIds.Clear();
+            x.Candidates.Clear();
         }));
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBallotUpdated>().MatchSnapshot();
     }
@@ -193,7 +205,7 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
         var req = NewValidRequest(x =>
         {
             x.EmptyVoteCount = 2;
-            x.SelectedCandidateIds.Clear();
+            x.Candidates.Clear();
         });
         await ErfassungCreatorClient.UpdateBallotAsync(req);
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBallotUpdated>().MatchSnapshot();
@@ -246,8 +258,12 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
         await AssertStatus(
             async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x =>
             {
-                x.SecondaryMajorityElectionResults[0].SelectedCandidateIds.Clear();
-                x.SecondaryMajorityElectionResults[0].SelectedCandidateIds.Add(MajorityElectionMockedData.SecondaryElectionCandidateId1StGallenMajorityElectionInContestBund);
+                x.SecondaryMajorityElectionResults[0].Candidates.Clear();
+                x.SecondaryMajorityElectionResults[0].Candidates.Add(new CreateUpdateMajorityElectionResultBallotCandidateRequest
+                {
+                    CandidateId = MajorityElectionMockedData.SecondaryElectionCandidateId1StGallenMajorityElectionInContestBund,
+                    Position = 1,
+                });
             })),
             StatusCode.InvalidArgument,
             "Cannot select a referenced candidate in a secondary election if the candidate is not selected in the primary election");
@@ -266,7 +282,12 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
     public async Task TestShouldThrowTooManyCandidates()
     {
         await AssertStatus(
-            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x => x.SelectedCandidateIds.Add(MajorityElectionMockedData.CandidateId1StGallenMajorityElectionInContestBund))),
+            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x =>
+                x.Candidates.Add(new CreateUpdateMajorityElectionResultBallotCandidateRequest
+                {
+                    CandidateId = MajorityElectionMockedData.CandidateId1StGallenMajorityElectionInContestBund,
+                    Position = 1,
+                }))),
             StatusCode.InvalidArgument,
             "too many candidates provided");
     }
@@ -275,7 +296,12 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
     public async Task TestShouldThrowDuplicatedCandidate()
     {
         await AssertStatus(
-            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x => x.SelectedCandidateIds.Add(MajorityElectionMockedData.CandidateId2StGallenMajorityElectionInContestBund))),
+            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x => x.Candidates.Add(
+                new CreateUpdateMajorityElectionResultBallotCandidateRequest
+                {
+                    CandidateId = MajorityElectionMockedData.CandidateId2StGallenMajorityElectionInContestBund,
+                    Position = 1,
+                }))),
             StatusCode.InvalidArgument,
             "duplicated candidates provided");
     }
@@ -284,9 +310,24 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
     public async Task TestShouldThrowUnknownCandidate()
     {
         await AssertStatus(
-            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x => x.SelectedCandidateIds[0] = MajorityElectionMockedData.CandidateIdKircheMajorityElectionInContestKirche)),
+            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x => x.Candidates[0].CandidateId = MajorityElectionMockedData.CandidateIdKircheMajorityElectionInContestKirche)),
             StatusCode.InvalidArgument,
             "unknown candidates provided");
+    }
+
+    [Fact]
+    public async Task TestShouldThrowUnknownBallotGroupCandidates()
+    {
+        var bundleId = await CreateBundle(10, ballotGroupId: Guid.Parse(MajorityElectionMockedData.BallotGroupIdStGallenMajorityElectionInContestBund));
+
+        await AssertStatus(
+            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x =>
+            {
+                x.BundleId = bundleId.ToString();
+                x.Candidates[0].OnBallotGroup = true;
+            })),
+            StatusCode.InvalidArgument,
+            "unknown ballot group candidates provided");
     }
 
     [Fact]
@@ -329,7 +370,7 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
             async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x =>
             {
                 x.IndividualVoteCount = 1;
-                x.SelectedCandidateIds.Clear();
+                x.Candidates.Clear();
             })),
             StatusCode.InvalidArgument,
             "Individual vote count is disabled on election");
@@ -381,9 +422,12 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
                 BallotNumber = 1,
                 IndividualVoteCount = 0,
                 EmptyVoteCount = 0,
-                SelectedCandidateIds =
+                Candidates =
                 {
-                        MajorityElectionMockedData.CandidateId2StGallenMajorityElectionInContestBund,
+                    new MajorityElectionResultBallotUpdatedCandidateEventData
+                    {
+                        CandidateId = MajorityElectionMockedData.CandidateId2StGallenMajorityElectionInContestBund,
+                    },
                 },
                 SecondaryMajorityElectionResults =
                 {
@@ -393,10 +437,282 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
                             IndividualVoteCount = 1,
                             InvalidVoteCount = 1,
                             SecondaryMajorityElectionId = MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund,
+                            Candidates =
+                            {
+                                new MajorityElectionResultBallotUpdatedCandidateEventData
+                                {
+                                    CandidateId = MajorityElectionMockedData.SecondaryElectionCandidateId1StGallenMajorityElectionInContestBund,
+                                },
+                            },
+                        },
+                },
+                EventInfo = GetMockedEventInfo(),
+            });
+        var ballot = await ErfassungCreatorClient.GetBallotAsync(
+            new GetMajorityElectionResultBallotRequest
+            {
+                BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle1,
+                BallotNumber = 1,
+            });
+        ballot.MatchSnapshot();
+
+        var bundle = await GetBundle();
+        bundle.CountOfBallots.Should().Be(1);
+        bundle.ElectionResult.ConventionalCountOfDetailedEnteredBallots.Should().Be(0);
+        bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(3);
+    }
+
+    [Fact]
+    public async Task TestProcessorWithBallotGroupUnchanged()
+    {
+        await ModifyDbEntities<MajorityElectionResult>(
+            x => x.Id == Guid.Parse(MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund),
+            x => x.EntryParams!.BundlesWithBallotGroupEnabled = true);
+
+        var bundleId = await CreateBundle(10, ballotGroupId: Guid.Parse(MajorityElectionMockedData.BallotGroupIdStGallenMajorityElectionInContestBund));
+        await ErfassungCreatorClient.CreateBallotAsync(new CreateMajorityElectionResultBallotRequest
+        {
+            BundleId = bundleId.ToString(),
+            IndividualVoteCount = 0,
+            Candidates =
+            {
+                new CreateUpdateMajorityElectionResultBallotCandidateRequest
+                {
+                    CandidateId = MajorityElectionMockedData.CandidateId2StGallenMajorityElectionInContestBund,
+                    Position = 1,
+                    OnBallotGroup = false,
+                },
+            },
+            SecondaryMajorityElectionResults =
+            {
+                new CreateUpdateSecondaryMajorityElectionResultBallotRequest
+                {
+                    EmptyVoteCount = 1,
+                    IndividualVoteCount = 1,
+                    SecondaryMajorityElectionId = MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund,
+                    Candidates =
+                    {
+                        new CreateUpdateMajorityElectionResultBallotCandidateRequest
+                        {
+                            CandidateId =
+                                MajorityElectionMockedData
+                                    .SecondaryElectionCandidateId2StGallenMajorityElectionInContestBund,
+                            Position = 1,
+                            OnBallotGroup = false,
+                        },
+                    },
+                },
+            },
+        });
+        await RunEvents<MajorityElectionResultBallotCreated>();
+
+        await TestEventPublisher.Publish(
+            GetNextEventNumber(),
+            new MajorityElectionResultBallotUpdated
+            {
+                BundleId = bundleId.ToString(),
+                BallotNumber = 1,
+                IndividualVoteCount = 0,
+                EmptyVoteCount = 0,
+                Candidates =
+                {
+                    new MajorityElectionResultBallotUpdatedCandidateEventData
+                    {
+                        CandidateId = MajorityElectionMockedData.CandidateId1StGallenMajorityElectionInContestBund,
+                        Position = 1,
+                        OnBallotGroup = true,
+                    },
+                },
+                SecondaryMajorityElectionResults =
+                {
+                        new SecondaryMajorityElectionResultBallotEventData
+                        {
+                            EmptyVoteCount = 1,
+                            IndividualVoteCount = 1,
+                            InvalidVoteCount = 1,
+                            SecondaryMajorityElectionId = MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund,
+                            Candidates =
+                            {
+                                new MajorityElectionResultBallotUpdatedCandidateEventData
+                                {
+                                    CandidateId = MajorityElectionMockedData.SecondaryElectionCandidateId1StGallenMajorityElectionInContestBund,
+                                    Position = 1,
+                                    OnBallotGroup = true,
+                                },
+                            },
+                        },
+                },
+                EventInfo = GetMockedEventInfo(),
+            });
+        var ballot = await ErfassungCreatorClient.GetBallotAsync(
+            new GetMajorityElectionResultBallotRequest
+            {
+                BundleId = bundleId.ToString(),
+                BallotNumber = 1,
+            });
+        ballot.MatchSnapshot();
+
+        var bundle = await GetBundle(bundleId);
+        bundle.CountOfBallots.Should().Be(1);
+        bundle.ElectionResult.ConventionalCountOfDetailedEnteredBallots.Should().Be(0);
+        bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(4);
+    }
+
+    [Fact]
+    public async Task TestProcessorWithBallotGroupChanged()
+    {
+        await ModifyDbEntities<MajorityElectionResult>(
+            x => x.Id == Guid.Parse(MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund),
+            x => x.EntryParams!.BundlesWithBallotGroupEnabled = true);
+
+        var bundleId = await CreateBundle(10, ballotGroupId: Guid.Parse(MajorityElectionMockedData.BallotGroupIdStGallenMajorityElectionInContestBund));
+        await ErfassungCreatorClient.CreateBallotAsync(new CreateMajorityElectionResultBallotRequest
+        {
+            BundleId = bundleId.ToString(),
+            IndividualVoteCount = 0,
+            Candidates =
+            {
+                new CreateUpdateMajorityElectionResultBallotCandidateRequest
+                {
+                    CandidateId = MajorityElectionMockedData.CandidateId1StGallenMajorityElectionInContestBund,
+                    Position = 1,
+                    OnBallotGroup = true,
+                },
+            },
+            SecondaryMajorityElectionResults =
+            {
+                new CreateUpdateSecondaryMajorityElectionResultBallotRequest
+                {
+                    EmptyVoteCount = 1,
+                    IndividualVoteCount = 1,
+                    SecondaryMajorityElectionId = MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund,
+                    Candidates =
+                    {
+                        new CreateUpdateMajorityElectionResultBallotCandidateRequest
+                        {
+                            CandidateId = MajorityElectionMockedData.SecondaryElectionCandidateId1StGallenMajorityElectionInContestBund,
+                            Position = 1,
+                            OnBallotGroup = true,
+                        },
+                    },
+                },
+            },
+        });
+        await RunEvents<MajorityElectionResultBallotCreated>();
+
+        await TestEventPublisher.Publish(
+            GetNextEventNumber(),
+            new MajorityElectionResultBallotUpdated
+            {
+                BundleId = bundleId.ToString(),
+                BallotNumber = 1,
+                IndividualVoteCount = 0,
+                EmptyVoteCount = 0,
+                Candidates =
+                {
+                    new MajorityElectionResultBallotUpdatedCandidateEventData
+                    {
+                        CandidateId = MajorityElectionMockedData.CandidateId2StGallenMajorityElectionInContestBund,
+                        Position = 1,
+                        OnBallotGroup = false,
+                    },
+                },
+                SecondaryMajorityElectionResults =
+                {
+                        new SecondaryMajorityElectionResultBallotEventData
+                        {
+                            EmptyVoteCount = 1,
+                            IndividualVoteCount = 1,
+                            InvalidVoteCount = 1,
+                            SecondaryMajorityElectionId = MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund,
+                            Candidates =
+                            {
+                                new MajorityElectionResultBallotUpdatedCandidateEventData
+                                {
+                                    CandidateId = MajorityElectionMockedData.SecondaryElectionCandidateId2StGallenMajorityElectionInContestBund,
+                                    Position = 1,
+                                    OnBallotGroup = false,
+                                },
+                            },
+                        },
+                        new SecondaryMajorityElectionResultBallotEventData
+                        {
+                            EmptyVoteCount = 1,
+                            IndividualVoteCount = 1,
+                            SecondaryMajorityElectionId = MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund2,
+                            Candidates =
+                            {
+                                new MajorityElectionResultBallotUpdatedCandidateEventData
+                                {
+                                    CandidateId = MajorityElectionMockedData.SecondaryElectionCandidateId1StGallenMajorityElectionInContestBund2,
+                                    Position = 1,
+                                    OnBallotGroup = false,
+                                },
+                            },
+                        },
+                        new SecondaryMajorityElectionResultBallotEventData
+                        {
+                            EmptyVoteCount = 1,
+                            IndividualVoteCount = 1,
+                            SecondaryMajorityElectionId = MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund3,
+                            Candidates =
+                            {
+                                new MajorityElectionResultBallotUpdatedCandidateEventData
+                                {
+                                    CandidateId = MajorityElectionMockedData.SecondaryElectionCandidateId1StGallenMajorityElectionInContestBund3,
+                                    Position = 1,
+                                    OnBallotGroup = false,
+                                },
+                            },
+                        },
+                },
+                EventInfo = GetMockedEventInfo(),
+            });
+        var ballot = await ErfassungCreatorClient.GetBallotAsync(
+            new GetMajorityElectionResultBallotRequest
+            {
+                BundleId = bundleId.ToString(),
+                BallotNumber = 1,
+            });
+        ballot.MatchSnapshot();
+
+        var bundle = await GetBundle(bundleId);
+        bundle.CountOfBallots.Should().Be(1);
+        bundle.ElectionResult.ConventionalCountOfDetailedEnteredBallots.Should().Be(0);
+        bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(4);
+    }
+
+    [Fact]
+    public async Task TestProcessorWithDeprecatedValues()
+    {
+        await TestEventPublisher.Publish(
+            GetNextEventNumber(),
+            new MajorityElectionResultBallotUpdated
+            {
+                BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle1,
+                BallotNumber = 1,
+                IndividualVoteCount = 0,
+                EmptyVoteCount = 0,
+#pragma warning disable CS0612
+                SelectedCandidateIds =
+                {
+                    MajorityElectionMockedData.CandidateId2StGallenMajorityElectionInContestBund,
+                },
+#pragma warning restore CS0612
+                SecondaryMajorityElectionResults =
+                {
+                        new SecondaryMajorityElectionResultBallotEventData
+                        {
+                            EmptyVoteCount = 1,
+                            IndividualVoteCount = 1,
+                            InvalidVoteCount = 1,
+                            SecondaryMajorityElectionId = MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund,
+#pragma warning disable CS0612
                             SelectedCandidateIds =
                             {
                                 MajorityElectionMockedData.SecondaryElectionCandidateId1StGallenMajorityElectionInContestBund,
                             },
+#pragma warning restore CS0612
                         },
                 },
                 EventInfo = GetMockedEventInfo(),
@@ -468,10 +784,14 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
             BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle1,
             BallotNumber = 1,
             IndividualVoteCount = 0,
-            SelectedCandidateIds =
+            Candidates =
+            {
+                new CreateUpdateMajorityElectionResultBallotCandidateRequest
                 {
-                    MajorityElectionMockedData.CandidateId2StGallenMajorityElectionInContestBund,
+                    CandidateId = MajorityElectionMockedData.CandidateId2StGallenMajorityElectionInContestBund,
+                    Position = 1,
                 },
+            },
             SecondaryMajorityElectionResults =
                 {
                     new CreateUpdateSecondaryMajorityElectionResultBallotRequest
@@ -479,9 +799,13 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
                         EmptyVoteCount = 1,
                         IndividualVoteCount = 1,
                         SecondaryMajorityElectionId = MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund,
-                        SelectedCandidateIds =
+                        Candidates =
                         {
-                            MajorityElectionMockedData.SecondaryElectionCandidateId2StGallenMajorityElectionInContestBund,
+                            new CreateUpdateMajorityElectionResultBallotCandidateRequest
+                            {
+                                CandidateId = MajorityElectionMockedData.SecondaryElectionCandidateId2StGallenMajorityElectionInContestBund,
+                                Position = 1,
+                            },
                         },
                     },
                 },

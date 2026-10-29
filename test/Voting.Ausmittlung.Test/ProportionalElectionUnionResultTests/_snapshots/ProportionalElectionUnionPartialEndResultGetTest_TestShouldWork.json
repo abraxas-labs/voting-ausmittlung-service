@@ -26,7 +26,10 @@
       "ProportionalElectionUseCandidateCheckDigit": false,
       "ManualPublishResultsEnabled": false,
       "EndResultFinalizeDisabled": true,
-      "PublishResultsBeforeAuditedTentatively": false
+      "PublishResultsBeforeAuditedTentatively": false,
+      "MonitoringAutoShowPoliticalBusinesses": false,
+      "MonitoringUseImprovedUi": false,
+      "MajorityElectionBundlesWithBallotGroupEnabled": false
     },
     "ECountingResultsImported": false
   },

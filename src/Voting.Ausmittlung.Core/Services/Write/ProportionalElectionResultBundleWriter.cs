@@ -29,6 +29,7 @@ public class ProportionalElectionResultBundleWriter
     private readonly IDbRepository<DataContext, DataModels.ProportionalElectionResult> _resultRepo;
     private readonly IDbRepository<DataContext, DataModels.ProportionalElectionResultBundle> _bundleRepo;
     private readonly IDbRepository<DataContext, DataModels.ProportionalElectionCandidate> _candidatesRepo;
+    private readonly IDbRepository<DataContext, DataModels.ProportionalElectionList> _listsRepo;
 
     public ProportionalElectionResultBundleWriter(
         IAggregateRepository aggregateRepository,
@@ -36,6 +37,7 @@ public class ProportionalElectionResultBundleWriter
         IDbRepository<DataContext, DataModels.ProportionalElectionResult> resultRepo,
         IDbRepository<DataContext, DataModels.ProportionalElectionResultBundle> bundleRepo,
         IDbRepository<DataContext, DataModels.ProportionalElectionCandidate> candidatesRepo,
+        IDbRepository<DataContext, DataModels.ProportionalElectionList> listsRepo,
         PermissionService permissionService,
         ContestService contestService,
         IAuth auth,
@@ -45,6 +47,7 @@ public class ProportionalElectionResultBundleWriter
         _aggregateFactory = aggregateFactory;
         _resultRepo = resultRepo;
         _candidatesRepo = candidatesRepo;
+        _listsRepo = listsRepo;
         _bundleRepo = bundleRepo;
     }
 
@@ -56,19 +59,8 @@ public class ProportionalElectionResultBundleWriter
         var contestId = await EnsurePoliticalBusinessPermissions(resultId);
 
         var electionResultAggregate = await AggregateRepository.GetById<ProportionalElectionResultAggregate>(resultId);
-        var generateBundleNumber = electionResultAggregate.ResultEntry.AutomaticBallotBundleNumberGeneration;
-        if (generateBundleNumber)
-        {
-            bundleNumber = electionResultAggregate.GenerateBundleNumber(contestId);
-        }
-        else if (bundleNumber.HasValue)
-        {
-            electionResultAggregate.BundleNumberEntered(bundleNumber.Value, contestId);
-        }
-        else
-        {
-            throw new ValidationException("bundle number is not generated automatically and should be provided");
-        }
+        await EnsureListExists(listId, electionResultAggregate.ProportionalElectionId);
+        bundleNumber = EnsureBundleNumber(electionResultAggregate, bundleNumber, contestId);
 
         var aggregate = _aggregateFactory.New<ProportionalElectionResultBundleAggregate>();
         aggregate.Create(
@@ -218,23 +210,32 @@ public class ProportionalElectionResultBundleWriter
             throw new ValidationException("a candidate can be twice on the list at max");
         }
 
-        // validate all candidates are known
-        var candidateIds = candidates.Select(c => c.CandidateId).ToList();
-        var uniqueCandidateIds = candidateIds.ToHashSet();
-        var hasUnknownCandidates = await _candidatesRepo.Query()
-            .AnyAsync(x => uniqueCandidateIds.Contains(x.Id) && x.ProportionalElectionList.ProportionalElectionId != proportionalElectionId);
-        if (hasUnknownCandidates)
+        var uniqueCandidateIds = candidates.Select(c => c.CandidateId).ToHashSet();
+        if (uniqueCandidateIds.Count == 0)
+        {
+            if (!listId.HasValue)
+            {
+                throw new ValidationException("At least one candidate must be added.");
+            }
+
+            return;
+        }
+
+        // Fetch all supplied candidates (scoped to the election) in a single round trip, covering both the
+        // "candidate exists and belongs to the election" and the "candidate belongs to the bundle's list" checks.
+        var matchingCandidates = await _candidatesRepo.Query()
+            .Where(x => uniqueCandidateIds.Contains(x.Id) && x.ProportionalElectionList.ProportionalElectionId == proportionalElectionId)
+            .Select(x => new { x.Id, x.ProportionalElectionListId })
+            .ToListAsync();
+
+        var existingCandidateIds = matchingCandidates.Select(x => x.Id).ToHashSet();
+        if (uniqueCandidateIds.Except(existingCandidateIds).Any())
         {
             throw new ValidationException("unknown candidates provided");
         }
 
         if (!listId.HasValue)
         {
-            if (uniqueCandidateIds.Count == 0)
-            {
-                throw new ValidationException("At least one candidate must be added.");
-            }
-
             return;
         }
 
@@ -243,11 +244,10 @@ public class ProportionalElectionResultBundleWriter
             .Where(c => c.OnList)
             .Select(c => c.CandidateId)
             .ToHashSet();
-        var listCandidates = await _candidatesRepo.Query()
+        var uniqueListCandidateIds = matchingCandidates
             .Where(x => x.ProportionalElectionListId == listId)
-            .Select(x => new { x.Id, x.Accumulated })
-            .ToListAsync();
-        var uniqueListCandidateIds = listCandidates.Select(x => x.Id).ToHashSet();
+            .Select(x => x.Id)
+            .ToHashSet();
         var hasUnknownOnListCandidates = uniqueCandidateOnListIds.Except(uniqueListCandidateIds).Any();
         if (hasUnknownOnListCandidates)
         {
@@ -283,5 +283,48 @@ public class ProportionalElectionResultBundleWriter
         }
 
         return expectedEmptyVoteCount;
+    }
+
+    /// <summary>
+    /// Validates that, if <paramref name="listId"/> is set, a list with that id exists and belongs to
+    /// <paramref name="proportionalElectionId"/>, preventing a bundle from being created with a dangling
+    /// reference that would later fail to be inserted (foreign key violation) during event processing.
+    /// </summary>
+    /// <exception cref="EntityNotFoundException">Thrown if no such list exists.</exception>
+    private async Task EnsureListExists(Guid? listId, Guid proportionalElectionId)
+    {
+        if (!listId.HasValue)
+        {
+            return;
+        }
+
+        var listExists = await _listsRepo.Query()
+            .AnyAsync(x => x.Id == listId.Value && x.ProportionalElectionId == proportionalElectionId);
+        if (!listExists)
+        {
+            throw new EntityNotFoundException(listId.Value);
+        }
+    }
+
+    /// <summary>
+    /// Determines the bundle number for a new bundle: generates it via the aggregate if automatic bundle
+    /// number generation is enabled, otherwise validates that <paramref name="bundleNumber"/> was provided
+    /// and registers it on the aggregate.
+    /// </summary>
+    /// <exception cref="ValidationException">Thrown if automatic generation is disabled and no bundle number was provided.</exception>
+    private int EnsureBundleNumber(ProportionalElectionResultAggregate electionResultAggregate, int? bundleNumber, Guid contestId)
+    {
+        if (electionResultAggregate.ResultEntry.AutomaticBallotBundleNumberGeneration)
+        {
+            return electionResultAggregate.GenerateBundleNumber(contestId);
+        }
+
+        if (bundleNumber.HasValue)
+        {
+            electionResultAggregate.BundleNumberEntered(bundleNumber.Value, contestId);
+            return bundleNumber.Value;
+        }
+
+        throw new ValidationException("bundle number is not generated automatically and should be provided");
     }
 }

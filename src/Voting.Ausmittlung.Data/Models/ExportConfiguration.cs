@@ -24,10 +24,18 @@ public class ExportConfiguration : BaseEntity
     [SuppressMessage(
         "Performance",
         "CA1819:Properties should not return arrays.",
-        Justification = "Simplifies the postgres mapping. Also this value is not really used by Voting.Basis.")]
+        Justification = "Simplifies the postgres mapping. Also this value is not really used by Voting.Ausmittlung.")]
     public string[] ExportKeys { get; set; } = Array.Empty<string>();
 
     public ExportProvider Provider { get; set; }
 
     public ICollection<ResultExportConfiguration> ResultExportConfigurations { get; set; } = new HashSet<ResultExportConfiguration>();
+
+    public string? SedexSenderId { get; set; }
+
+    [SuppressMessage(
+        "Performance",
+        "CA1819:Properties should not return arrays.",
+        Justification = "Simplifies the postgres mapping. Also this value is not really used by Voting.Ausmittlung.")]
+    public string[]? SedexRecipientIds { get; set; }
 }

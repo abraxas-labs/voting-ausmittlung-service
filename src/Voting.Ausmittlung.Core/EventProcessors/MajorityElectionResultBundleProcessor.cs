@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
+using Abraxas.Voting.Ausmittlung.Events.V1.Data;
+using Google.Protobuf.Collections;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Exceptions;
@@ -76,6 +78,7 @@ public class MajorityElectionResultBundleProcessor
             CreatedBy = user,
             State = state,
             Logs = [log],
+            BallotGroupId = GuidParser.ParseNullable(eventData.BallotGroupId),
         };
         await _bundleRepo.Create(bundle);
         await UpdateCountOfBundlesNotReviewedOrDeleted(bundle.ElectionResultId, 1);
@@ -100,12 +103,14 @@ public class MajorityElectionResultBundleProcessor
             return;
         }
 
+        Migrate(eventData);
         await _ballotBuilder.CreateBallot(bundleId, eventData);
         _eventLogger.LogBundleEvent(eventData, bundleId, GuidParser.ParseNullable(eventData.ElectionResultId));
     }
 
     public async Task Process(MajorityElectionResultBallotUpdated eventData)
     {
+        Migrate(eventData);
         var bundleId = GuidParser.Parse(eventData.BundleId);
         await _ballotBuilder.UpdateBallot(bundleId, eventData);
         _eventLogger.LogBundleEvent(eventData, bundleId, GuidParser.ParseNullable(eventData.ElectionResultId));
@@ -200,6 +205,42 @@ public class MajorityElectionResultBundleProcessor
 
         var log = await ProcessBundleToReadyForReview(bundle, eventData.SampleBallotNumbers, user, timestamp);
         _eventLogger.LogBundleEvent(eventData, bundleId, electionResultId, log);
+    }
+
+    private static void Migrate(MajorityElectionResultBallotCreated eventData)
+    {
+        // selected candidate ids are deprecated, it was replaced with candidate event object
+#pragma warning disable CS0612
+        MigrateCandidates(eventData.SelectedCandidateIds, eventData.Candidates);
+        foreach (var secondary in eventData.SecondaryMajorityElectionResults)
+        {
+            MigrateCandidates(secondary.SelectedCandidateIds, secondary.Candidates);
+        }
+#pragma warning restore CS0612
+    }
+
+    private static void Migrate(MajorityElectionResultBallotUpdated eventData)
+    {
+        // selected candidate ids are deprecated, it was replaced with candidate event object
+#pragma warning disable CS0612
+        MigrateCandidates(eventData.SelectedCandidateIds, eventData.Candidates);
+        foreach (var secondary in eventData.SecondaryMajorityElectionResults)
+        {
+            MigrateCandidates(secondary.SelectedCandidateIds, secondary.Candidates);
+        }
+#pragma warning restore CS0612
+    }
+
+    private static void MigrateCandidates(
+        IList<string> selectedCandidateIds,
+        RepeatedField<MajorityElectionResultBallotUpdatedCandidateEventData> candidates)
+    {
+#pragma warning disable CS0612
+        if (selectedCandidateIds.Count > 0)
+        {
+            candidates.AddRange(selectedCandidateIds.Select(id => new MajorityElectionResultBallotUpdatedCandidateEventData { CandidateId = id }));
+        }
+#pragma warning restore CS0612
     }
 
     private async Task<bool> UpdateCountOfBallots(Guid bundleId, int delta)

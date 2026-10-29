@@ -1,0 +1,10 @@
+<envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="1.0" xmlns="http://www.ech.ch/xmlns/eCH-0090/1">
+  <messageId>mock-id</messageId>
+  <messageType>1055</messageType>
+  <messageClass>1</messageClass>
+  <senderId>1-ABX-1</senderId>
+  <recipientId>2-ABX-2</recipientId>
+  <recipientId>3-ABX-3</recipientId>
+  <eventDate>2020-01-10T13:12:10.2Z</eventDate>
+  <messageDate>2020-01-10T13:12:10.2Z</messageDate>
+</envelope>

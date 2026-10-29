@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1;
 using Abraxas.Voting.Basis.Events.V1.Data;
+using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Common;
@@ -107,5 +108,46 @@ public class SecondaryMajorityElectionCandidateReorderTest : BaseDataProcessorTe
             Languages.German);
         SetDynamicIdToDefaultValue(candidates.SelectMany(x => x.Translations));
         candidates.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldUpdateCandidateNumbers()
+    {
+        await TestEventPublisher.Publish(new SecondaryMajorityElectionCandidatesReordered
+        {
+            SecondaryMajorityElectionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot,
+            IsOnSeparateBallot = true,
+            CandidateOrders = new EntityOrdersEventData
+            {
+                Orders =
+                    {
+                        new EntityOrderEventData
+                        {
+                            Id = MajorityElectionMockedData.CandidateIdStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot,
+                            Position = 2,
+                        },
+                        new EntityOrderEventData
+                        {
+                            Id = MajorityElectionMockedData.CandidateIdReferencedStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot,
+                            Position = 1,
+                        },
+                    },
+            },
+            UpdateCandidateNumbers = true,
+        });
+
+        var candidates = await RunOnDb(
+            db => db.MajorityElectionCandidates
+                .Where(x => x.MajorityElectionId == Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot))
+                .OrderBy(x => x.Position)
+                .ToListAsync());
+
+        candidates[0].Number.Should().Be("1");
+        candidates[0].Position.Should().Be(1);
+        candidates[0].Id.Should().Be(MajorityElectionMockedData.CandidateIdReferencedStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot);
+
+        candidates[1].Number.Should().Be("2");
+        candidates[1].Position.Should().Be(2);
+        candidates[1].Id.Should().Be(MajorityElectionMockedData.CandidateIdStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot);
     }
 }

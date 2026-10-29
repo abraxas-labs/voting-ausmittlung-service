@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -19,17 +20,20 @@ public class MajorityElectionReader
     private readonly IDbRepository<DataContext, MajorityElection> _electionRepo;
     private readonly IDbRepository<DataContext, MajorityElectionResult> _resultRepo;
     private readonly IDbRepository<DataContext, SecondaryMajorityElection> _secondaryElectionRepo;
+    private readonly IDbRepository<DataContext, MajorityElectionBallotGroup> _ballotGroupRepo;
     private readonly PermissionService _permissionService;
 
     public MajorityElectionReader(
         IDbRepository<DataContext, MajorityElection> electionRepo,
         IDbRepository<DataContext, MajorityElectionResult> resultRepo,
         IDbRepository<DataContext, SecondaryMajorityElection> secondaryElectionRepo,
+        IDbRepository<DataContext, MajorityElectionBallotGroup> ballotGroupRepo,
         PermissionService permissionService)
     {
         _electionRepo = electionRepo;
         _resultRepo = resultRepo;
         _secondaryElectionRepo = secondaryElectionRepo;
+        _ballotGroupRepo = ballotGroupRepo;
         _permissionService = permissionService;
     }
 
@@ -65,6 +69,15 @@ public class MajorityElectionReader
         return election;
     }
 
+    public async Task<List<MajorityElectionBallotGroup>> GetBallotGroups(Guid electionId)
+    {
+        await EnsureCanReadElection(electionId);
+        return await _ballotGroupRepo.Query()
+            .Where(l => l.MajorityElectionId == electionId)
+            .OrderBy(l => l.Position)
+            .ToListAsync();
+    }
+
     private async Task EnsureCanReadElection(Guid electionId, Guid contestId)
     {
         var countingCircleIds = await _permissionService.GetReadableCountingCircleIds(contestId);
@@ -74,5 +87,15 @@ public class MajorityElectionReader
         {
             throw new ForbiddenException($"no access to election with id {electionId}");
         }
+    }
+
+    private async Task EnsureCanReadElection(Guid electionId)
+    {
+        var contestId = await _electionRepo.Query()
+            .Where(e => e.Id == electionId)
+            .Select(e => e.ContestId)
+            .FirstOrDefaultAsync();
+
+        await EnsureCanReadElection(electionId, contestId);
     }
 }

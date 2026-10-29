@@ -102,6 +102,13 @@ public static class Permissions
         private const string Prefix = "MajorityElectionWriteIn";
     }
 
+    public static class MajorityElectionBallotGroup
+    {
+        public const string Read = Prefix + ReadSuffix;
+
+        private const string Prefix = "MajorityElectionBallotGroup";
+    }
+
     public static class ProportionalElectionCandidate
     {
         public const string Read = Prefix + ReadSuffix;

@@ -32,7 +32,10 @@
       "ProportionalElectionUseCandidateCheckDigit": true,
       "ManualPublishResultsEnabled": false,
       "EndResultFinalizeDisabled": false,
-      "PublishResultsBeforeAuditedTentatively": false
+      "PublishResultsBeforeAuditedTentatively": false,
+      "MonitoringAutoShowPoliticalBusinesses": false,
+      "MonitoringUseImprovedUi": false,
+      "MajorityElectionBundlesWithBallotGroupEnabled": false
     },
     "ECountingResultsImported": false
   },
@@ -109,7 +112,10 @@
         "ProportionalElectionUseCandidateCheckDigit": true,
         "ManualPublishResultsEnabled": false,
         "EndResultFinalizeDisabled": false,
-        "PublishResultsBeforeAuditedTentatively": false
+        "PublishResultsBeforeAuditedTentatively": false,
+        "MonitoringAutoShowPoliticalBusinesses": false,
+        "MonitoringUseImprovedUi": false,
+        "MajorityElectionBundlesWithBallotGroupEnabled": false
       },
       "ECountingResultsImported": false
     },

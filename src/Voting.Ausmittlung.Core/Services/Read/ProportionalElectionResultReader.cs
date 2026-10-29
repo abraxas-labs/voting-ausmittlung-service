@@ -9,19 +9,18 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Services.Permission;
-using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
-using Voting.Lib.Database.Repositories;
+using Voting.Ausmittlung.Data.Repositories;
 
 namespace Voting.Ausmittlung.Core.Services.Read;
 
 public class ProportionalElectionResultReader
 {
-    private readonly IDbRepository<DataContext, ProportionalElectionResult> _repo;
+    private readonly ProportionalElectionResultRepo _repo;
     private readonly PermissionService _permissionService;
 
     public ProportionalElectionResultReader(
-        IDbRepository<DataContext, ProportionalElectionResult> repo,
+        ProportionalElectionResultRepo repo,
         PermissionService permissionService)
     {
         _repo = repo;
@@ -88,13 +87,7 @@ public class ProportionalElectionResultReader
     private async Task<ProportionalElectionResult?> QueryElectionResult(
         Expression<Func<ProportionalElectionResult, bool>> predicate)
     {
-        var result = await _repo.Query()
-            .AsSplitQuery()
-            .Include(x => x.CountingCircle)
-            .Include(x => x.ProportionalElection.Translations)
-            .Include(x => x.ProportionalElection.Contest.Translations)
-            .Include(x => x.ProportionalElection.Contest.CantonDefaults)
-            .Include(x => x.ProportionalElection.DomainOfInfluence)
+        var result = await _repo.QueryProportionalElectionResult()
             .Where(predicate)
             .FirstOrDefaultAsync();
         if (result == null)

@@ -44,4 +44,13 @@ public class MajorityElectionService : ServiceBase
         var election = await _majorityElectionReader.GetSecondaryWithCandidates(GuidParser.Parse(request.SecondaryElectionId));
         return _mapper.Map<ProtoModels.SecondaryMajorityElectionCandidates>(election);
     }
+
+    [AuthorizePermission(Permissions.MajorityElectionBallotGroup.Read)]
+    public override async Task<ProtoModels.MajorityElectionBallotGroups> GetBallotGroups(
+        GetMajorityElectionBallotGroupsRequest request,
+        ServerCallContext context)
+    {
+        var ballotGroups = await _majorityElectionReader.GetBallotGroups(GuidParser.Parse(request.ElectionId));
+        return _mapper.Map<ProtoModels.MajorityElectionBallotGroups>(ballotGroups);
+    }
 }

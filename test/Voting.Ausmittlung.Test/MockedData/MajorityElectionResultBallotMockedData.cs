@@ -139,7 +139,7 @@ public static class MajorityElectionResultBallotMockedData
                             ballot.EmptyVoteCount,
                             ballot.IndividualVoteCount,
                             ballot.InvalidVoteCount,
-                            ballot.BallotCandidates.Select(x => x.Id),
+                            ballot.BallotCandidates.Select(x => mapper.Map<Core.Domain.MajorityElectionResultBallotCandidate>(x)),
                             ballot.SecondaryMajorityElectionBallots.Select(x => mapper.Map<Core.Domain.SecondaryMajorityElectionResultBallot>(x)),
                             contestId);
                     }

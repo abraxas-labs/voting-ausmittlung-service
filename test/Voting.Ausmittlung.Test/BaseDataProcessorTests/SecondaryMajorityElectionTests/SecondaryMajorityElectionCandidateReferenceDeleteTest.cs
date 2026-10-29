@@ -54,4 +54,19 @@ public class SecondaryMajorityElectionCandidateReferenceDeleteTest : BaseDataPro
             db.MajorityElectionCandidates.AnyAsync(c => c.Id == Guid.Parse(id)));
         exists.Should().BeFalse();
     }
+
+    [Fact]
+    public async Task TestDeleteCandidateShouldUpdateCandidateNumbers()
+    {
+        await TestEventPublisher.Publish(new SecondaryMajorityElectionCandidateDeleted
+        {
+            SecondaryMajorityElectionCandidateId = MajorityElectionMockedData.SecondaryElectionCandidateId1StGallenMajorityElectionInContestBund,
+            UpdateCandidateNumbers = true,
+        });
+
+        var updatedCandidate = await RunOnDb(db =>
+            db.SecondaryMajorityElectionCandidates.FirstAsync(c => c.Id == Guid.Parse(MajorityElectionMockedData.SecondaryElectionCandidateId2StGallenMajorityElectionInContestBund)));
+        updatedCandidate.Position.Should().Be(1);
+        updatedCandidate.Number.Should().Be("1");
+    }
 }

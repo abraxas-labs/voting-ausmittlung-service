@@ -37,7 +37,10 @@
       "ProportionalElectionUseCandidateCheckDigit": false,
       "ManualPublishResultsEnabled": true,
       "EndResultFinalizeDisabled": false,
-      "PublishResultsBeforeAuditedTentatively": false
+      "PublishResultsBeforeAuditedTentatively": false,
+      "MonitoringAutoShowPoliticalBusinesses": false,
+      "MonitoringUseImprovedUi": false,
+      "MajorityElectionBundlesWithBallotGroupEnabled": true
     },
     "ECountingResultsImported": false
   },
@@ -159,6 +162,93 @@
       "BusinessSubType": 0
     },
     {
+      "Id": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
+      "BusinessType": 1,
+      "Title": "321: Abst Gossau de",
+      "Active": true,
+      "DomainOfInfluence": {
+        "Id": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
+        "Name": "Gossau",
+        "ShortName": "Gossau",
+        "AuthorityName": "",
+        "SecureConnectId": "300300300300300300",
+        "Type": 2,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        }
+      },
+      "NumberOfMandates": null,
+      "CountOfSecondaryBusinesses": 0,
+      "PoliticalBusinessNumber": "321",
+      "ShortDescription": "Abst Gossau de",
+      "BusinessSubType": 1
+    },
+    {
+      "Id": "fa69e964-0a02-4d16-b417-247e8987021a",
+      "BusinessType": 3,
+      "Title": "321: Pw Gossau de",
+      "Active": true,
+      "DomainOfInfluence": {
+        "Id": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
+        "Name": "Gossau",
+        "ShortName": "Gossau",
+        "AuthorityName": "",
+        "SecureConnectId": "300300300300300300",
+        "Type": 2,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        }
+      },
+      "NumberOfMandates": 3,
+      "CountOfSecondaryBusinesses": 0,
+      "PoliticalBusinessNumber": "321",
+      "ShortDescription": "Pw Gossau de",
+      "BusinessSubType": 0
+    },
+    {
+      "Id": "50415df8-6ee9-4eb4-9e31-68c0d3021e76",
+      "BusinessType": 2,
+      "Title": "322: Mw Gossau de",
+      "Active": true,
+      "DomainOfInfluence": {
+        "Id": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
+        "Name": "Gossau",
+        "ShortName": "Gossau",
+        "AuthorityName": "",
+        "SecureConnectId": "300300300300300300",
+        "Type": 2,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        }
+      },
+      "NumberOfMandates": 3,
+      "CountOfSecondaryBusinesses": 0,
+      "PoliticalBusinessNumber": "322",
+      "ShortDescription": "Mw Gossau de",
+      "BusinessSubType": 0
+    },
+    {
       "Id": "d66ced3e-a2e4-4178-932b-ac91ee6a9d85",
       "BusinessType": 2,
       "Title": "166: Mw Uzwil de",
@@ -243,93 +333,6 @@
       "CountOfSecondaryBusinesses": 0,
       "PoliticalBusinessNumber": "166",
       "ShortDescription": "Abst Uzwil de",
-      "BusinessSubType": 0
-    },
-    {
-      "Id": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
-      "BusinessType": 1,
-      "Title": "321: Abst Gossau de",
-      "Active": true,
-      "DomainOfInfluence": {
-        "Id": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
-        "Name": "Gossau",
-        "ShortName": "Gossau",
-        "AuthorityName": "",
-        "SecureConnectId": "300300300300300300",
-        "Type": 5,
-        "ParentId": "",
-        "Children": [],
-        "Canton": 1,
-        "ContactPerson": {
-          "FirstName": "",
-          "FamilyName": "",
-          "Phone": "",
-          "MobilePhone": "",
-          "Email": ""
-        }
-      },
-      "NumberOfMandates": null,
-      "CountOfSecondaryBusinesses": 0,
-      "PoliticalBusinessNumber": "321",
-      "ShortDescription": "Abst Gossau de",
-      "BusinessSubType": 1
-    },
-    {
-      "Id": "fa69e964-0a02-4d16-b417-247e8987021a",
-      "BusinessType": 3,
-      "Title": "321: Pw Gossau de",
-      "Active": true,
-      "DomainOfInfluence": {
-        "Id": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
-        "Name": "Gossau",
-        "ShortName": "Gossau",
-        "AuthorityName": "",
-        "SecureConnectId": "300300300300300300",
-        "Type": 5,
-        "ParentId": "",
-        "Children": [],
-        "Canton": 1,
-        "ContactPerson": {
-          "FirstName": "",
-          "FamilyName": "",
-          "Phone": "",
-          "MobilePhone": "",
-          "Email": ""
-        }
-      },
-      "NumberOfMandates": 3,
-      "CountOfSecondaryBusinesses": 0,
-      "PoliticalBusinessNumber": "321",
-      "ShortDescription": "Pw Gossau de",
-      "BusinessSubType": 0
-    },
-    {
-      "Id": "50415df8-6ee9-4eb4-9e31-68c0d3021e76",
-      "BusinessType": 2,
-      "Title": "322: Mw Gossau de",
-      "Active": true,
-      "DomainOfInfluence": {
-        "Id": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
-        "Name": "Gossau",
-        "ShortName": "Gossau",
-        "AuthorityName": "",
-        "SecureConnectId": "300300300300300300",
-        "Type": 5,
-        "ParentId": "",
-        "Children": [],
-        "Canton": 1,
-        "ContactPerson": {
-          "FirstName": "",
-          "FamilyName": "",
-          "Phone": "",
-          "MobilePhone": "",
-          "Email": ""
-        }
-      },
-      "NumberOfMandates": 3,
-      "CountOfSecondaryBusinesses": 0,
-      "PoliticalBusinessNumber": "322",
-      "ShortDescription": "Mw Gossau de",
       "BusinessSubType": 0
     }
   ],

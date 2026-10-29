@@ -59,6 +59,18 @@ public class ResultService : ServiceBase
         return _mapper.Map<ProtoModels.ResultList>(data);
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResult.Read)]
+    public override async Task<ProtoModels.PoliticalBusinessResults> GetResults(
+        GetResultsRequest request,
+        ServerCallContext context)
+    {
+        var data = await _resultReader.GetResults(
+            GuidParser.Parse(request.ContestId),
+            GuidParser.Parse(request.CountingCircleId));
+
+        return _mapper.Map<ProtoModels.PoliticalBusinessResults>(data);
+    }
+
     [AuthorizePermission(Permissions.PoliticalBusinessResult.ReadComments)]
     public override async Task<ProtoModels.Comments> GetResultComments(
         GetResultCommentsRequest request,

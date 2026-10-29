@@ -13,6 +13,8 @@
         ],
         "Provider": 1,
         "ResultExportConfigurations": [],
+        "SedexSenderId": null,
+        "SedexRecipientIds": null,
         "Id": "5ee34e03-83db-403e-88b7-1acd3112a49f"
       },
       "Contest": null,
@@ -37,6 +39,8 @@
         ],
         "Provider": 2,
         "ResultExportConfigurations": [],
+        "SedexSenderId": null,
+        "SedexRecipientIds": null,
         "Id": "a14f3366-fdf5-4da1-b863-537ea41f9949"
       },
       "Contest": null,
@@ -61,6 +65,8 @@
         ],
         "Provider": 1,
         "ResultExportConfigurations": [],
+        "SedexSenderId": null,
+        "SedexRecipientIds": null,
         "Id": "506caf2f-1fe2-4266-8323-ad41b215faca"
       },
       "Contest": null,
@@ -71,6 +77,34 @@
       "NextExecution": null,
       "LatestExecution": null,
       "Id": "c3e85e40-7626-53fe-80f7-6623cf1805e5"
+    },
+    {
+      "ExportConfigurationId": "aada18ee-c6bd-4592-901e-b734118a97e0",
+      "ExportConfiguration": {
+        "DomainOfInfluence": null,
+        "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+        "Description": "StGallen Interface 003",
+        "EaiMessageType": "003",
+        "ExportKeys": [
+          "proportional_election_info_ech_0252"
+        ],
+        "Provider": 3,
+        "ResultExportConfigurations": [],
+        "SedexSenderId": "1-ABX-1",
+        "SedexRecipientIds": [
+          "2-ABX-2",
+          " 3-ABX-3"
+        ],
+        "Id": "aada18ee-c6bd-4592-901e-b734118a97e0"
+      },
+      "Contest": null,
+      "ContestId": "9ccf9b68-94b0-4b79-be1a-09f24f467c4a",
+      "PoliticalBusinesses": null,
+      "PoliticalBusinessMetadata": null,
+      "IntervalMinutes": null,
+      "NextExecution": null,
+      "LatestExecution": null,
+      "Id": "47f15058-427f-5082-b30b-fb86c50609da"
     },
     {
       "ExportConfigurationId": "fb8ec863-34af-4429-93fe-6284be8c04c1",
@@ -85,6 +119,8 @@
         ],
         "Provider": 2,
         "ResultExportConfigurations": [],
+        "SedexSenderId": null,
+        "SedexRecipientIds": null,
         "Id": "fb8ec863-34af-4429-93fe-6284be8c04c1"
       },
       "Contest": null,

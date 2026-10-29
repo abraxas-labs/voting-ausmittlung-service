@@ -28,12 +28,16 @@ public class MajorityElectionResultBundleWriter
     private readonly IAggregateFactory _aggregateFactory;
     private readonly IDbRepository<DataContext, DataModels.MajorityElectionResult> _resultRepo;
     private readonly IDbRepository<DataContext, DataModels.MajorityElectionResultBundle> _bundleRepo;
+    private readonly IDbRepository<DataContext, DataModels.MajorityElectionBallotGroupEntryCandidate> _ballotGroupEntryCandidateRepo;
+    private readonly IDbRepository<DataContext, DataModels.MajorityElectionBallotGroup> _ballotGroupRepo;
 
     public MajorityElectionResultBundleWriter(
         IAggregateRepository aggregateRepository,
         IAggregateFactory aggregateFactory,
         IDbRepository<DataContext, DataModels.MajorityElectionResult> resultRepo,
         IDbRepository<DataContext, DataModels.MajorityElectionResultBundle> bundleRepo,
+        IDbRepository<DataContext, DataModels.MajorityElectionBallotGroupEntryCandidate> ballotGroupEntryCandidateRepo,
+        IDbRepository<DataContext, DataModels.MajorityElectionBallotGroup> ballotGroupRepo,
         PermissionService permissionService,
         ContestService contestService,
         IAuth auth,
@@ -43,29 +47,20 @@ public class MajorityElectionResultBundleWriter
         _aggregateFactory = aggregateFactory;
         _resultRepo = resultRepo;
         _bundleRepo = bundleRepo;
+        _ballotGroupEntryCandidateRepo = ballotGroupEntryCandidateRepo;
+        _ballotGroupRepo = ballotGroupRepo;
     }
 
     public async Task<MajorityElectionResultBundleAggregate> CreateBundle(
         Guid resultId,
-        int? bundleNumber)
+        int? bundleNumber,
+        Guid? ballotGroupId)
     {
         var contestId = await EnsurePoliticalBusinessPermissions(resultId);
 
         var electionResultAggregate = await AggregateRepository.GetById<MajorityElectionResultAggregate>(resultId);
-
-        var generateBundleNumber = electionResultAggregate.ResultEntryParams.AutomaticBallotBundleNumberGeneration;
-        if (generateBundleNumber)
-        {
-            bundleNumber = electionResultAggregate.GenerateBundleNumber(contestId);
-        }
-        else if (bundleNumber.HasValue)
-        {
-            electionResultAggregate.BundleNumberEntered(bundleNumber.Value, contestId);
-        }
-        else
-        {
-            throw new ValidationException("bundle number is not generated automatically and should be provided");
-        }
+        await EnsureBallotGroupExists(ballotGroupId, electionResultAggregate.MajorityElectionId);
+        bundleNumber = EnsureBundleNumber(electionResultAggregate, bundleNumber, contestId);
 
         var aggregate = _aggregateFactory.New<MajorityElectionResultBundleAggregate>();
         aggregate.Create(
@@ -74,7 +69,8 @@ public class MajorityElectionResultBundleWriter
             bundleNumber.Value,
             electionResultAggregate.ResultEntry,
             electionResultAggregate.ResultEntryParams,
-            contestId);
+            contestId,
+            ballotGroupId);
 
         await AggregateRepository.Save(electionResultAggregate);
         await AggregateRepository.Save(aggregate);
@@ -99,14 +95,14 @@ public class MajorityElectionResultBundleWriter
         int? emptyVoteCount,
         int individualVoteCount,
         int invalidVoteCount,
-        IReadOnlyCollection<Guid> selectedCandidateIds,
+        IReadOnlyCollection<MajorityElectionResultBallotCandidate> candidates,
         IReadOnlyCollection<SecondaryMajorityElectionResultBallot> secondaryResults)
     {
         var aggregate = await AggregateRepository.GetById<MajorityElectionResultBundleAggregate>(bundleId);
         var electionResult = await LoadElectionResultWithCandidates(aggregate.PoliticalBusinessResultId);
 
         var contestId = await EnsureEditPermissionsForBundle(electionResult, aggregate);
-        EnsureValidCandidates(electionResult, selectedCandidateIds);
+        await EnsureValidCandidates(electionResult, candidates, aggregate.BallotGroupId);
         EnsureNoEmptyVoteCountForSingleMandate(electionResult, emptyVoteCount);
 
         emptyVoteCount = CalculateAndValidateEmptyVoteCount(
@@ -115,12 +111,12 @@ public class MajorityElectionResultBundleWriter
             individualVoteCount,
             invalidVoteCount,
             aggregate.ResultEntryParams.AutomaticEmptyVoteCounting,
-            selectedCandidateIds.Count);
+            candidates.Count);
 
         EnsureNoDisabledVoteCount(individualVoteCount, electionResult.MajorityElection);
-        ValidateSecondaryResults(electionResult, secondaryResults, selectedCandidateIds);
+        await ValidateSecondaryResults(electionResult, secondaryResults, candidates.Select(x => x.CandidateId).ToList(), aggregate.BallotGroupId);
 
-        aggregate.CreateBallot(ballotNumber, emptyVoteCount.Value, individualVoteCount, invalidVoteCount, selectedCandidateIds, secondaryResults, contestId);
+        aggregate.CreateBallot(ballotNumber, emptyVoteCount.Value, individualVoteCount, invalidVoteCount, candidates, secondaryResults, contestId);
         await AggregateRepository.Save(aggregate);
         return aggregate.CurrentBallotNumber;
     }
@@ -131,14 +127,14 @@ public class MajorityElectionResultBundleWriter
         int? emptyVoteCount,
         int individualVoteCount,
         int invalidVoteCount,
-        IReadOnlyCollection<Guid> selectedCandidateIds,
+        IReadOnlyCollection<MajorityElectionResultBallotCandidate> candidates,
         IReadOnlyCollection<SecondaryMajorityElectionResultBallot> secondaryResults)
     {
         var aggregate = await AggregateRepository.GetById<MajorityElectionResultBundleAggregate>(bundleId);
         var electionResult = await LoadElectionResultWithCandidates(aggregate.PoliticalBusinessResultId);
 
         var contestId = await EnsureEditPermissionsForBundle(electionResult, aggregate);
-        EnsureValidCandidates(electionResult, selectedCandidateIds);
+        await EnsureValidCandidates(electionResult, candidates, aggregate.BallotGroupId);
         EnsureNoEmptyVoteCountForSingleMandate(electionResult, emptyVoteCount);
 
         emptyVoteCount = CalculateAndValidateEmptyVoteCount(
@@ -147,12 +143,12 @@ public class MajorityElectionResultBundleWriter
             individualVoteCount,
             invalidVoteCount,
             aggregate.ResultEntryParams.AutomaticEmptyVoteCounting,
-            selectedCandidateIds.Count);
+            candidates.Count);
 
         EnsureNoDisabledVoteCount(individualVoteCount, electionResult.MajorityElection);
-        ValidateSecondaryResults(electionResult, secondaryResults, selectedCandidateIds);
+        await ValidateSecondaryResults(electionResult, secondaryResults, candidates.Select(x => x.CandidateId).ToList(), aggregate.BallotGroupId);
 
-        aggregate.UpdateBallot(ballotNumber, emptyVoteCount.Value, individualVoteCount, invalidVoteCount, selectedCandidateIds, secondaryResults, contestId);
+        aggregate.UpdateBallot(ballotNumber, emptyVoteCount.Value, individualVoteCount, invalidVoteCount, candidates, secondaryResults, contestId);
         await AggregateRepository.Save(aggregate);
     }
 
@@ -237,17 +233,11 @@ public class MajorityElectionResultBundleWriter
                ?? throw new EntityNotFoundException(id);
     }
 
-    private void EnsureValidCandidates(DataModels.MajorityElectionResult result, IReadOnlyCollection<Guid> suppliedCandidateIds)
-    {
-        EnsureValidCandidates(
-            result.CandidateResults.Select(x => x.CandidateId),
-            suppliedCandidateIds);
-    }
-
-    private void ValidateSecondaryResults(
+    private async Task ValidateSecondaryResults(
         DataModels.MajorityElectionResult electionResult,
         IEnumerable<SecondaryMajorityElectionResultBallot> secondaryResults,
-        IReadOnlyCollection<Guid> primaryElectionSelectedCandidateIds)
+        IReadOnlyCollection<Guid> primaryElectionSelectedCandidateIds,
+        Guid? ballotGroupId)
     {
         var secondaryElectionResultsByElectionId = electionResult.SecondaryMajorityElectionResults
             .ToDictionary(x => x.SecondaryMajorityElectionId);
@@ -258,9 +248,10 @@ public class MajorityElectionResultBundleWriter
                 throw new EntityNotFoundException(secondaryResult.SecondaryMajorityElectionId);
             }
 
-            EnsureValidCandidates(
+            await EnsureValidCandidates(
                 secondaryElectionResult.CandidateResults.Select(x => x.CandidateId),
-                secondaryResult.SelectedCandidateIds);
+                secondaryResult.Candidates,
+                ballotGroupId);
 
             EnsureSelectedCandidatesAreSelectedInPrimaryElection(
                 secondaryElectionResult,
@@ -273,7 +264,7 @@ public class MajorityElectionResultBundleWriter
                 secondaryResult.IndividualVoteCount,
                 secondaryResult.InvalidVoteCount,
                 electionResult.EntryParams!.AutomaticEmptyVoteCounting,
-                secondaryResult.SelectedCandidateIds.Count);
+                secondaryResult.Candidates.Count);
 
             EnsureNoDisabledVoteCount(secondaryResult.IndividualVoteCount, secondaryElectionResult.SecondaryMajorityElection);
         }
@@ -287,9 +278,9 @@ public class MajorityElectionResultBundleWriter
         var candidatesById = secondaryElectionResult.CandidateResults
             .Select(x => x.Candidate)
             .ToDictionary(x => x.Id, x => x);
-        foreach (var secondarySelectedCandidateId in secondaryResult.SelectedCandidateIds)
+        foreach (var secondarySelectedCandidate in secondaryResult.Candidates)
         {
-            var refId = candidatesById[secondarySelectedCandidateId].CandidateReferenceId;
+            var refId = candidatesById[secondarySelectedCandidate.CandidateId].CandidateReferenceId;
             if (refId.HasValue && !primaryElectionSelectedCandidateIds.Contains(refId.Value))
             {
                 throw new SecondaryMajorityElectionCandidateNotSelectedInPrimaryElectionException();
@@ -339,10 +330,20 @@ public class MajorityElectionResultBundleWriter
         }
     }
 
-    private void EnsureValidCandidates(
-        IEnumerable<Guid> candidateIds,
-        IReadOnlyCollection<Guid> suppliedCandidateIds)
+    private async Task EnsureValidCandidates(DataModels.MajorityElectionResult result, IReadOnlyCollection<MajorityElectionResultBallotCandidate> suppliedCandidates, Guid? ballotGroupId)
     {
+        await EnsureValidCandidates(
+            result.CandidateResults.Select(x => x.CandidateId),
+            suppliedCandidates,
+            ballotGroupId);
+    }
+
+    private async Task EnsureValidCandidates(
+        IEnumerable<Guid> candidateIds,
+        IReadOnlyCollection<MajorityElectionResultBallotCandidate> suppliedCandidates,
+        Guid? ballotGroupId)
+    {
+        var suppliedCandidateIds = suppliedCandidates.Select(x => x.CandidateId).ToList();
         if (suppliedCandidateIds.ToHashSet().Count != suppliedCandidateIds.Count)
         {
             throw new ValidationException("duplicated candidates provided");
@@ -352,6 +353,21 @@ public class MajorityElectionResultBundleWriter
         {
             throw new ValidationException("unknown candidates provided");
         }
+
+        // validate all on ballot group candidates are part of the ballot group of the bundle
+        var uniqueCandidateOnBallotGroupIds = suppliedCandidates
+            .Where(c => c.OnBallotGroup)
+            .Select(c => c.CandidateId)
+            .ToHashSet();
+        var ballotGroupCandidateIds = await _ballotGroupEntryCandidateRepo.Query()
+            .Where(x => x.BallotGroupEntry.BallotGroupId == ballotGroupId)
+            .Select(x => x.PrimaryElectionCandidateId ?? x.SecondaryElectionCandidateId!.Value)
+            .ToHashSetAsync();
+        var hasUnknownOnBallotGroupCandidates = uniqueCandidateOnBallotGroupIds.Except(ballotGroupCandidateIds).Any();
+        if (hasUnknownOnBallotGroupCandidates)
+        {
+            throw new ValidationException("unknown ballot group candidates provided");
+        }
     }
 
     private void EnsureNoEmptyVoteCountForSingleMandate(DataModels.MajorityElectionResult electionResult, int? emptyVoteCount)
@@ -360,5 +376,48 @@ public class MajorityElectionResultBundleWriter
         {
             throw new ValidationException("empty vote count provided with single mandate and no other elections on the same ballot");
         }
+    }
+
+    /// <summary>
+    /// Validates that, if <paramref name="ballotGroupId"/> is set, a ballot group with that id exists and
+    /// belongs to <paramref name="majorityElectionId"/>, preventing a bundle from being created with a
+    /// dangling reference that would later fail to be inserted (foreign key violation) during event processing.
+    /// </summary>
+    /// <exception cref="EntityNotFoundException">Thrown if no such ballot group exists.</exception>
+    private async Task EnsureBallotGroupExists(Guid? ballotGroupId, Guid majorityElectionId)
+    {
+        if (!ballotGroupId.HasValue)
+        {
+            return;
+        }
+
+        var ballotGroupExists = await _ballotGroupRepo.Query()
+            .AnyAsync(x => x.Id == ballotGroupId.Value && x.MajorityElectionId == majorityElectionId);
+        if (!ballotGroupExists)
+        {
+            throw new EntityNotFoundException(ballotGroupId.Value);
+        }
+    }
+
+    /// <summary>
+    /// Determines the bundle number for a new bundle: generates it via the aggregate if automatic bundle
+    /// number generation is enabled, otherwise validates that <paramref name="bundleNumber"/> was provided
+    /// and registers it on the aggregate.
+    /// </summary>
+    /// <exception cref="ValidationException">Thrown if automatic generation is disabled and no bundle number was provided.</exception>
+    private int EnsureBundleNumber(MajorityElectionResultAggregate electionResultAggregate, int? bundleNumber, Guid contestId)
+    {
+        if (electionResultAggregate.ResultEntryParams.AutomaticBallotBundleNumberGeneration)
+        {
+            return electionResultAggregate.GenerateBundleNumber(contestId);
+        }
+
+        if (bundleNumber.HasValue)
+        {
+            electionResultAggregate.BundleNumberEntered(bundleNumber.Value, contestId);
+            return bundleNumber.Value;
+        }
+
+        throw new ValidationException("bundle number is not generated automatically and should be provided");
     }
 }

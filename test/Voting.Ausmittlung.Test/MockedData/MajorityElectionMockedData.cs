@@ -100,6 +100,8 @@ public static class MajorityElectionMockedData
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
             EnforceCandidateCheckDigitForCountingCircles = true,
+            BundlesWithBallotGroupEnabled = true,
+            EnforceBundlesWithBallotGroupEnabledForCountingCircles = true,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
             {
                     new MajorityElectionCandidate
@@ -162,6 +164,8 @@ public static class MajorityElectionMockedData
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
             EnforceCandidateCheckDigitForCountingCircles = false,
+            BundlesWithBallotGroupEnabled = true,
+            EnforceBundlesWithBallotGroupEnabledForCountingCircles = true,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
             {
                     new MajorityElectionCandidate

@@ -129,6 +129,8 @@
             "FederalIdentification": "",
             "PrimaryMajorityElectionId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
             "SecondaryMajorityElectionsOnSeparateBallots": [],
+            "BundlesWithBallotGroupEnabled": false,
+            "EnforceBundlesWithBallotGroupEnabledForCountingCircles": false,
             "IndividualCandidatesDisabled": false,
             "NumberOfMandates": 4,
             "PoliticalBusinessNumber": "10286",
@@ -191,6 +193,8 @@
             "FederalIdentification": "",
             "PrimaryMajorityElectionId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
             "SecondaryMajorityElectionsOnSeparateBallots": [],
+            "BundlesWithBallotGroupEnabled": false,
+            "EnforceBundlesWithBallotGroupEnabledForCountingCircles": false,
             "IndividualCandidatesDisabled": false,
             "NumberOfMandates": 1,
             "PoliticalBusinessNumber": "155.1",
@@ -217,6 +221,8 @@
             "Id": "e966bec6-f1d4-4c07-8094-6f7df4cc515a"
           }
         ],
+        "BundlesWithBallotGroupEnabled": false,
+        "EnforceBundlesWithBallotGroupEnabledForCountingCircles": false,
         "IndividualCandidatesDisabled": false,
         "NumberOfMandates": 5,
         "PoliticalBusinessNumber": "155",

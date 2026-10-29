@@ -9,19 +9,18 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Services.Permission;
-using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
-using Voting.Lib.Database.Repositories;
+using Voting.Ausmittlung.Data.Repositories;
 
 namespace Voting.Ausmittlung.Core.Services.Read;
 
 public class MajorityElectionResultReader
 {
-    private readonly IDbRepository<DataContext, MajorityElectionResult> _repo;
+    private readonly MajorityElectionResultRepo _repo;
     private readonly PermissionService _permissionService;
 
     public MajorityElectionResultReader(
-        IDbRepository<DataContext, MajorityElectionResult> repo,
+        MajorityElectionResultRepo repo,
         PermissionService permissionService)
     {
         _repo = repo;
@@ -82,17 +81,7 @@ public class MajorityElectionResultReader
     private async Task<MajorityElectionResult?> QueryElectionResult(
         Expression<Func<MajorityElectionResult, bool>> predicate)
     {
-        var result = await _repo.Query()
-            .AsSplitQuery()
-            .Include(x => x.CountingCircle)
-            .Include(x => x.MajorityElection.Translations)
-            .Include(x => x.MajorityElection.Contest.Translations)
-            .Include(x => x.MajorityElection.Contest.CantonDefaults)
-            .Include(x => x.MajorityElection.DomainOfInfluence)
-            .Include(x => x.CandidateResults).ThenInclude(cr => cr.Candidate.Translations)
-            .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.CandidateResults).ThenInclude(cr => cr.Candidate.Translations)
-            .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.SecondaryMajorityElection.Translations)
-            .Include(x => x.BallotGroupResults)
+        var result = await _repo.QueryMajorityElectionResult()
             .Where(predicate)
             .FirstOrDefaultAsync();
         if (result == null)
@@ -100,49 +89,9 @@ public class MajorityElectionResultReader
             return null;
         }
 
-        result.SecondaryMajorityElectionResults = result.SecondaryMajorityElectionResults
-            .OrderBy(x => x.SecondaryMajorityElection.PoliticalBusinessNumber)
-            .ToList();
-
         await _permissionService.EnsureCanReadCountingCircle(result.CountingCircleId, result.MajorityElection.ContestId);
 
-        if (result.Entry == MajorityElectionResultEntry.FinalResults && result.State <= CountingCircleResultState.ReadyForCorrection)
-        {
-            SortCandidateByPosition(result);
-        }
-        else
-        {
-            SortCandidateByCount(result);
-        }
-
+        result.OrderCandidates();
         return result;
-    }
-
-    private void SortCandidateByCount(MajorityElectionResult result)
-    {
-        result.CandidateResults = result.CandidateResults
-            .OrderByDescending(x => x.VoteCount)
-            .ThenBy(x => x.CandidatePosition)
-            .ToList();
-        foreach (var secondaryMajorityElectionResult in result.SecondaryMajorityElectionResults)
-        {
-            secondaryMajorityElectionResult.CandidateResults = secondaryMajorityElectionResult.CandidateResults
-                .OrderByDescending(x => x.VoteCount)
-                .ThenBy(x => x.CandidatePosition)
-                .ToList();
-        }
-    }
-
-    private void SortCandidateByPosition(MajorityElectionResult result)
-    {
-        result.CandidateResults = result.CandidateResults
-            .OrderBy(x => x.CandidatePosition)
-            .ToList();
-        foreach (var secondaryMajorityElectionResult in result.SecondaryMajorityElectionResults)
-        {
-            secondaryMajorityElectionResult.CandidateResults = secondaryMajorityElectionResult.CandidateResults
-                .OrderBy(x => x.CandidatePosition)
-                .ToList();
-        }
     }
 }

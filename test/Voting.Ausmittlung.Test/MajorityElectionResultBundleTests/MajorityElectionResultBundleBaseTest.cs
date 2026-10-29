@@ -20,6 +20,7 @@ using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Iam.Store;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
+using MajorityElectionResultBallotCandidate = Voting.Ausmittlung.Core.Domain.MajorityElectionResultBallotCandidate;
 using MajorityElectionResultEntryParams = Voting.Ausmittlung.Core.Domain.MajorityElectionResultEntryParams;
 using SecondaryMajorityElectionResultBallot = Voting.Ausmittlung.Core.Domain.SecondaryMajorityElectionResultBallot;
 
@@ -93,7 +94,7 @@ public abstract class MajorityElectionResultBundleBaseTest
             userId);
     }
 
-    protected async Task<Guid> CreateBundle(int bundleNumber, string userId = TestDefaults.UserId)
+    protected async Task<Guid> CreateBundle(int bundleNumber, string userId = TestDefaults.UserId, Guid? ballotGroupId = null)
     {
         var bundleId = Guid.NewGuid();
         await RunOnBundle<MajorityElectionResultBundleCreated>(
@@ -116,7 +117,8 @@ public abstract class MajorityElectionResultBundleBaseTest
                         AutomaticEmptyVoteCounting = false,
                         BallotBundleSampleSize = 1,
                     },
-                    ContestMockedData.Bundesurnengang.Id);
+                    ContestMockedData.Bundesurnengang.Id,
+                    ballotGroupId);
             },
             userId);
         return bundleId;
@@ -168,9 +170,12 @@ public abstract class MajorityElectionResultBundleBaseTest
                     0,
                     0,
                     0,
-                    new List<Guid>
+                    new List<MajorityElectionResultBallotCandidate>
                     {
-                        Guid.Parse(MajorityElectionMockedData.CandidateId2StGallenMajorityElectionInContestBund),
+                        new()
+                        {
+                            CandidateId = Guid.Parse(MajorityElectionMockedData.CandidateId2StGallenMajorityElectionInContestBund),
+                        },
                     },
                     new List<SecondaryMajorityElectionResultBallot>
                     {
@@ -178,10 +183,13 @@ public abstract class MajorityElectionResultBundleBaseTest
                         {
                             EmptyVoteCount = 1,
                             IndividualVoteCount = 1,
-                            SelectedCandidateIds = new List<Guid>
-                            {
-                                Guid.Parse(MajorityElectionMockedData.SecondaryElectionCandidateId1StGallenMajorityElectionInContestBund),
-                            },
+                            Candidates =
+                            [
+                                new MajorityElectionResultBallotCandidate
+                                {
+                                    CandidateId = Guid.Parse(MajorityElectionMockedData.SecondaryElectionCandidateId1StGallenMajorityElectionInContestBund),
+                                }
+                            ],
                             SecondaryMajorityElectionId = Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund),
                         },
                     },
@@ -202,9 +210,12 @@ public abstract class MajorityElectionResultBundleBaseTest
                     0,
                     0,
                     0,
-                    new List<Guid>
+                    new List<MajorityElectionResultBallotCandidate>
                     {
-                        Guid.Parse(MajorityElectionMockedData.CandidateId2StGallenMajorityElectionInContestBund),
+                        new()
+                        {
+                            CandidateId = Guid.Parse(MajorityElectionMockedData.CandidateId2StGallenMajorityElectionInContestBund),
+                        },
                     },
                     new List<SecondaryMajorityElectionResultBallot>
                     {
@@ -212,10 +223,13 @@ public abstract class MajorityElectionResultBundleBaseTest
                         {
                             EmptyVoteCount = 1,
                             IndividualVoteCount = 1,
-                            SelectedCandidateIds = new List<Guid>
-                            {
-                                Guid.Parse(MajorityElectionMockedData.SecondaryElectionCandidateId1StGallenMajorityElectionInContestBund),
-                            },
+                            Candidates =
+                            [
+                                new MajorityElectionResultBallotCandidate
+                                {
+                                    CandidateId = Guid.Parse(MajorityElectionMockedData.SecondaryElectionCandidateId1StGallenMajorityElectionInContestBund),
+                                }
+                            ],
                             SecondaryMajorityElectionId = Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund),
                         },
                     },

@@ -55,12 +55,12 @@ public class ResultExportController : ControllerBase
 
     [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Review)]
     [HttpPost("bundle_review")]
-    public async Task<FileResult> DownloadResultBundleReviewExport(FetchProtocolExportsRequest request, CancellationToken ct)
+    public async Task<FileResult> DownloadResultBundleReviewExport(FetchBundleReviewExportRequest request, CancellationToken ct)
     {
         var fileModels = _protocolExportService.GetProtocolExports(
                 request.ContestId,
                 request.CountingCircleId,
-                request.ProtocolExportIds,
+                [request.ProtocolExportId],
                 true,
                 ct: ct)
             .Select(f => new FileModelWrapper(f), ct);

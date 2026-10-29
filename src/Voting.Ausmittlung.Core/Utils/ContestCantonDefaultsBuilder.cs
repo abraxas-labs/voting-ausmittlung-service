@@ -71,6 +71,9 @@ public class ContestCantonDefaultsBuilder
             ManualPublishResultsEnabled = cantonSettings.ManualPublishResultsEnabled,
             EndResultFinalizeDisabled = cantonSettings.EndResultFinalizeDisabled,
             PublishResultsBeforeAuditedTentatively = cantonSettings.PublishResultsBeforeAuditedTentatively,
+            MonitoringAutoShowPoliticalBusinesses = cantonSettings.MonitoringAutoShowPoliticalBusinesses,
+            MonitoringUseImprovedUi = cantonSettings.MonitoringUseImprovedUi,
+            MajorityElectionBundlesWithBallotGroupEnabled = cantonSettings.MajorityElectionBundlesWithBallotGroupEnabled,
         };
     }
 

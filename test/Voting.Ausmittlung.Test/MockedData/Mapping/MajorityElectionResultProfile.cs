@@ -12,5 +12,6 @@ public class MajorityElectionResultProfile : Profile
     public MajorityElectionResultProfile()
     {
         CreateMap<SecondaryMajorityElectionResultBallot, DomainModels.SecondaryMajorityElectionResultBallot>();
+        CreateMap<MajorityElectionResultBallotCandidate, DomainModels.MajorityElectionResultBallotCandidate>();
     }
 }

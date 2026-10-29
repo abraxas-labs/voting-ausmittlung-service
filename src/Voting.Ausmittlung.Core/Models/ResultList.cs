@@ -4,9 +4,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 
-namespace Voting.Ausmittlung.Data.Models;
+namespace Voting.Ausmittlung.Core.Models;
 
 public class ResultList
 {

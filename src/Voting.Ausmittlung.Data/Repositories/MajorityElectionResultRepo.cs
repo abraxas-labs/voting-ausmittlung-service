@@ -41,6 +41,23 @@ public class MajorityElectionResultRepo : PoliticalBusinessResultRepo<MajorityEl
         return query.ToListAsync();
     }
 
+    public IQueryable<MajorityElectionResult> QueryMajorityElectionResult()
+    {
+        return Set
+            .AsSplitQuery()
+            .Include(x => x.CountingCircle)
+            .Include(x => x.MajorityElection.Translations)
+            .Include(x => x.MajorityElection.Contest.Translations)
+            .Include(x => x.MajorityElection.Contest.CantonDefaults)
+            .Include(x => x.MajorityElection.DomainOfInfluence)
+            .Include(x => x.CandidateResults).ThenInclude(cr => cr.Candidate.Translations)
+            .Include(x =>
+                x.SecondaryMajorityElectionResults.OrderBy(y => y.SecondaryMajorityElection.PoliticalBusinessNumber))
+            .ThenInclude(x => x.CandidateResults).ThenInclude(cr => cr.Candidate.Translations)
+            .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.SecondaryMajorityElection.Translations)
+            .Include(x => x.BallotGroupResults);
+    }
+
     protected override Expression<Func<MajorityElectionResult, bool>> FilterByPoliticalBusinessId(Guid id) =>
         x => x.MajorityElectionId == id;
 

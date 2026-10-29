@@ -71,5 +71,6 @@ public class MajorityElectionResultProfile : Profile
         CreateMap<EnterMajorityElectionCandidateResultRequest, DomainModels.MajorityElectionCandidateResult>();
         CreateMap<EnterSecondaryMajorityElectionCandidateResultsRequest, DomainModels.SecondaryMajorityElectionCandidateResults>();
         CreateMap<EnterMajorityElectionBallotGroupResultRequest, DomainModels.MajorityElectionBallotGroupResult>();
+        CreateMap<CreateUpdateMajorityElectionResultBallotCandidateRequest, DomainModels.MajorityElectionResultBallotCandidate>();
     }
 }

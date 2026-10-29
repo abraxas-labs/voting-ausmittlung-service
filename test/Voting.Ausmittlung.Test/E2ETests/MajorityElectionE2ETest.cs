@@ -418,6 +418,7 @@ public class MajorityElectionE2ETest : BaseTest<MajorityElectionResultService.Ma
                     : CantonMajorityElectionAbsoluteMajorityAlgorithm.ValidBallotsDividedByTwo,
                 SwissAbroadVotingRight = SwissAbroadVotingRight.SeparateCountingCircle,
                 MajorityElectionUseCandidateCheckDigit = true,
+                MajorityElectionBundlesWithBallotGroupEnabled = true,
             },
             EventInfo = GetMockedBasisEventInfo(),
         });

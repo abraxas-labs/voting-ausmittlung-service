@@ -87,8 +87,14 @@ public class ProtocolExportService
         bool accessiblePbs = false,
         [EnumeratorCancellation] CancellationToken ct = default)
     {
+        if (protocolExportIds.Count == 0)
+        {
+            throw new ValidationException("Protocol export ids are empty");
+        }
+
         var protocolExports = await _protocolExportRepo
             .Query()
+            .Include(x => x.CountingCircle)
             .Where(x => protocolExportIds.Contains(x.Id) && x.ContestId == contestId)
             .ToListAsync(ct);
 
@@ -100,8 +106,12 @@ public class ProtocolExportService
         var exportTemplateIds = protocolExports.ConvertAll(e => e.ExportTemplateId);
 
         // This ensures that the user has access to the generated protocols.
-        // Bundle review templates cannot be resolved since they aren't listed in the template repository, so we bypass them.
-        if (!isBundleReview)
+        // Bundle review templates cannot be resolved since they aren't listed in the template repository, so we handle them separately.
+        if (isBundleReview)
+        {
+            await ValidateBundleReviewExports(protocolExports, basisCountingCircleId);
+        }
+        else
         {
             await _resultExportService.ResolveTemplates(contestId, basisCountingCircleId, exportTemplateIds, accessiblePbs);
         }
@@ -109,11 +119,11 @@ public class ProtocolExportService
         foreach (var protocolExport in protocolExports)
         {
             var pdfStream = await _pdfService.GetPdf(protocolExport.PrintJobId, ct);
-            yield return new FileModel(null, protocolExport.FileName, ExportFileFormat.Pdf, async (w, ct) =>
+            yield return new FileModel(null, protocolExport.FileName, ExportFileFormat.Pdf, async (w, cancellationToken) =>
             {
                 try
                 {
-                    await pdfStream.CopyToAsync(w.AsStream(), ct);
+                    await pdfStream.CopyToAsync(w.AsStream(), cancellationToken);
                 }
                 finally
                 {
@@ -252,5 +262,22 @@ public class ProtocolExportService
         }
 
         await _aggregateRepository.Save(aggregate);
+    }
+
+    private async Task ValidateBundleReviewExports(List<ProtocolExport> protocolExports, Guid? basisCountingCircleId)
+    {
+        if (basisCountingCircleId == null)
+        {
+            throw new ValidationException("Missing counting circle ID when getting bundle review export");
+        }
+
+        var ccId = basisCountingCircleId.Value;
+        if (protocolExports.Any(pe => pe.CountingCircle == null || pe.CountingCircle.BasisCountingCircleId != ccId))
+        {
+            throw new ValidationException("Bundle protocol exports contain invalid counting circle ids");
+        }
+
+        var first = protocolExports[0];
+        await _resultExportService.EnsureExportBundleReviewPermissions(first.CountingCircleId!.Value, first.ContestId);
     }
 }

@@ -78,14 +78,19 @@
           "ProportionalElectionUseCandidateCheckDigit": false,
           "ManualPublishResultsEnabled": true,
           "EndResultFinalizeDisabled": false,
-          "PublishResultsBeforeAuditedTentatively": false
+          "PublishResultsBeforeAuditedTentatively": false,
+          "MonitoringAutoShowPoliticalBusinesses": false,
+          "MonitoringUseImprovedUi": false,
+          "MajorityElectionBundlesWithBallotGroupEnabled": true
         },
         "ECountingResultsImported": false
       },
       "ReviewProcedure": 1,
       "EnforceReviewProcedureForCountingCircles": true,
       "EnforceCandidateCheckDigitForCountingCircles": false,
-      "IndividualCandidatesDisabled": false
+      "IndividualCandidatesDisabled": false,
+      "BundlesWithBallotGroupEnabled": true,
+      "EnforceBundlesWithBallotGroupEnabledForCountingCircles": true
     },
     "SecondaryMajorityElectionResults": [
       {
@@ -233,7 +238,8 @@
       "BallotNumberGeneration": 2,
       "AutomaticEmptyVoteCounting": false,
       "ReviewProcedure": 1,
-      "CandidateCheckDigit": true
+      "CandidateCheckDigit": true,
+      "BundlesWithBallotGroupEnabled": false
     },
     "State": 1,
     "SubmissionDoneTimestamp": null,
@@ -369,6 +375,7 @@
     "BallotNumbersModifiedDuringReview": [],
     "BallotModificationUserIds": [
       "test-id"
-    ]
+    ],
+    "BallotGroup": null
   }
 }

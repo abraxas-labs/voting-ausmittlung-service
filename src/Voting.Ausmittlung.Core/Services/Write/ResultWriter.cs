@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
+using Voting.Ausmittlung.Core.Models;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Core.Services.Read;
 using Voting.Ausmittlung.Core.Services.Validation;

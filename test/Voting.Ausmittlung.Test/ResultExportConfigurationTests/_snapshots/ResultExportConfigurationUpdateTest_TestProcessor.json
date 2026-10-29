@@ -11,6 +11,8 @@
     ],
     "Provider": 2,
     "ResultExportConfigurations": [],
+    "SedexSenderId": null,
+    "SedexRecipientIds": null,
     "Id": "a14f3366-fdf5-4da1-b863-537ea41f9949"
   },
   "Contest": null,

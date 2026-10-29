@@ -19,5 +19,7 @@ public static class ServiceCollectionExtensions
             .AddKeyedSingleton<IEch0222Deserializer, Ech0222_1_0_Deserializer>(Ech0222Version.V1)
             .AddKeyedSingleton<IEch0222Deserializer, Ech0222_3_0_Deserializer>(Ech0222Version.V3)
             .AddSingleton<Ech0222Deserializer>()
-            .AddSingleton<Ech0252Serializer>();
+            .AddSingleton<Ech0252Serializer>()
+            .AddSingleton<Ech0090Serializer>()
+            .AddSingleton<EchValidationSerializer>();
 }

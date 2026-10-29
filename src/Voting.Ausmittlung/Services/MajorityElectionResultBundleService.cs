@@ -71,7 +71,8 @@ public class MajorityElectionResultBundleService : ServiceBase
     {
         var response = await _majorityElectionResultBundleWriter.CreateBundle(
             GuidParser.Parse(request.ElectionResultId),
-            request.BundleNumber);
+            request.BundleNumber,
+            GuidParser.ParseNullable(request.BallotGroupId));
         return new()
         {
             BundleId = response.Id.ToString(),
@@ -93,6 +94,7 @@ public class MajorityElectionResultBundleService : ServiceBase
         CreateMajorityElectionResultBallotRequest request,
         ServerCallContext context)
     {
+        var candidateBallots = _mapper.Map<List<MajorityElectionResultBallotCandidate>>(request.Candidates);
         var secondaryElectionResultBallots = _mapper.Map<List<SecondaryMajorityElectionResultBallot>>(request.SecondaryMajorityElectionResults);
         var ballotNumber = await _majorityElectionResultBundleWriter.CreateBallot(
             GuidParser.Parse(request.BundleId),
@@ -100,7 +102,7 @@ public class MajorityElectionResultBundleService : ServiceBase
             request.EmptyVoteCount,
             request.IndividualVoteCount,
             request.InvalidVoteCount,
-            request.SelectedCandidateIds.Select(GuidParser.Parse).ToList(),
+            candidateBallots,
             secondaryElectionResultBallots);
         return new CreateMajorityElectionResultBallotResponse
         {
@@ -114,6 +116,7 @@ public class MajorityElectionResultBundleService : ServiceBase
         UpdateMajorityElectionResultBallotRequest request,
         ServerCallContext context)
     {
+        var candidateBallots = _mapper.Map<List<MajorityElectionResultBallotCandidate>>(request.Candidates);
         var secondaryElectionResultBallots = _mapper.Map<List<SecondaryMajorityElectionResultBallot>>(request.SecondaryMajorityElectionResults);
         await _majorityElectionResultBundleWriter.UpdateBallot(
             GuidParser.Parse(request.BundleId),
@@ -121,7 +124,7 @@ public class MajorityElectionResultBundleService : ServiceBase
             request.EmptyVoteCount,
             request.IndividualVoteCount,
             request.InvalidVoteCount,
-            request.SelectedCandidateIds.Select(GuidParser.Parse).ToList(),
+            candidateBallots,
             secondaryElectionResultBallots);
         return ProtobufEmpty.Instance;
     }

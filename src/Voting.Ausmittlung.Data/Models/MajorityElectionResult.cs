@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Voting.Ausmittlung.Data.Models;
 
@@ -195,6 +196,46 @@ public class MajorityElectionResult : ElectionResult, IHasSubTotals<MajorityElec
             case VotingDataSource.ECounting:
                 CountOfElectionsWithUnmappedECountingWriteIns++;
                 break;
+        }
+    }
+
+    public void OrderCandidates()
+    {
+        if (Entry == MajorityElectionResultEntry.FinalResults && State <= CountingCircleResultState.ReadyForCorrection)
+        {
+            SortCandidateByPosition();
+        }
+        else
+        {
+            SortCandidateByCount();
+        }
+    }
+
+    private void SortCandidateByCount()
+    {
+        CandidateResults = CandidateResults
+            .OrderByDescending(x => x.VoteCount)
+            .ThenBy(x => x.CandidatePosition)
+            .ToList();
+        foreach (var secondaryMajorityElectionResult in SecondaryMajorityElectionResults)
+        {
+            secondaryMajorityElectionResult.CandidateResults = secondaryMajorityElectionResult.CandidateResults
+                .OrderByDescending(x => x.VoteCount)
+                .ThenBy(x => x.CandidatePosition)
+                .ToList();
+        }
+    }
+
+    private void SortCandidateByPosition()
+    {
+        CandidateResults = CandidateResults
+            .OrderBy(x => x.CandidatePosition)
+            .ToList();
+        foreach (var secondaryMajorityElectionResult in SecondaryMajorityElectionResults)
+        {
+            secondaryMajorityElectionResult.CandidateResults = secondaryMajorityElectionResult.CandidateResults
+                .OrderBy(x => x.CandidatePosition)
+                .ToList();
         }
     }
 }

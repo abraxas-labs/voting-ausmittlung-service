@@ -18,6 +18,7 @@ public static class ExportConfigurationMockedData
 {
     public const string IdStGallenIntf001 = "a14f3366-fdf5-4da1-b863-537ea41f9949";
     public const string IdStGallenIntf002 = "506caf2f-1fe2-4266-8323-ad41b215faca";
+    public const string IdStGallenIntf003 = "aada18ee-c6bd-4592-901e-b734118a97e0";
     public const string IdGossauIntf100 = "5ee34e03-83db-403e-88b7-1acd3112a49f";
     public const string IdUzwilIntf200 = "fb8ec863-34af-4429-93fe-6284be8c04c1";
 
@@ -47,6 +48,21 @@ public static class ExportConfigurationMockedData
         DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdStGallen),
         EaiMessageType = "002",
         Provider = ExportProvider.Standard,
+    };
+
+    public static ExportConfiguration StGallenIntf003 => new ExportConfiguration
+    {
+        Id = Guid.Parse(IdStGallenIntf003),
+        Description = "StGallen Interface 003",
+        ExportKeys = new[]
+        {
+            AusmittlungXmlContestTemplates.ProportionalElectionInfosEch0252.Key,
+        },
+        DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdStGallen),
+        EaiMessageType = "003",
+        Provider = ExportProvider.Sedex,
+        SedexSenderId = "1-ABX-1",
+        SedexRecipientIds = ["2-ABX-2", " 3-ABX-3"],
     };
 
     public static ExportConfiguration GossauIntf100 => new ExportConfiguration
@@ -83,6 +99,7 @@ public static class ExportConfigurationMockedData
         {
             yield return StGallenIntf001;
             yield return StGallenIntf002;
+            yield return StGallenIntf003;
             yield return GossauIntf100;
             yield return UzwilIntf100;
         }

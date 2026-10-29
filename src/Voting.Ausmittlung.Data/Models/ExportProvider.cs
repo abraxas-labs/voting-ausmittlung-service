@@ -19,4 +19,9 @@ public enum ExportProvider
     /// Seantis.
     /// </summary>
     Seantis,
+
+    /// <summary>
+    /// Sedex.
+    /// </summary>
+    Sedex,
 }

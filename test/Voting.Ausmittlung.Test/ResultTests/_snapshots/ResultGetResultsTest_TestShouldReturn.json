@@ -1,0 +1,1556 @@
+{
+  "VoteResults": [
+    {
+      "Id": "8657c609-9fff-5606-94ef-23826e79ab8c",
+      "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+      "Vote": {
+        "Id": "96d8275f-f1f8-4933-a097-5c0c19f54567",
+        "PoliticalBusinessNumber": "155",
+        "OfficialDescription": "Abstimmung St. Gallen de",
+        "ShortDescription": "Abst SG de",
+        "InternalDescription": "Abstimmung St.Gallen auf Urnengang St.Gallen",
+        "EnabledVoterTypes": [
+          1,
+          2
+        ],
+        "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+        "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+        "Active": true,
+        "Title": "155: Abst SG de",
+        "DomainOfInfluence": {
+          "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+          "Name": "St. Gallen",
+          "ShortName": "St. Gallen",
+          "AuthorityName": "",
+          "SecureConnectId": "200200200200200200",
+          "Type": 2,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 1,
+          "ContactPerson": {
+            "FirstName": "Hans",
+            "FamilyName": "Muster",
+            "Phone": "071 123 12 12",
+            "MobilePhone": "079 123 12 12",
+            "Email": "hans@sg.ch"
+          }
+        },
+        "ResultAlgorithm": 1,
+        "Contest": {
+          "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+          "Date": {
+            "Seconds": 1598832000,
+            "Nanos": 0
+          },
+          "Description": "Kantonsurnengang de",
+          "EndOfTestingPhase": {
+            "Seconds": 1545264000,
+            "Nanos": 0
+          },
+          "TestingPhaseEnded": false,
+          "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+          "EVoting": true,
+          "EVotingFrom": {
+            "Seconds": 1582156800,
+            "Nanos": 0
+          },
+          "EVotingTo": {
+            "Seconds": 1583020800,
+            "Nanos": 0
+          },
+          "State": 1,
+          "EVotingResultsImported": false,
+          "CantonDefaults": {
+            "CountingCircleResultStateDescriptions": [
+              {
+                "State": 4,
+                "Description": "Erfassung beendet"
+              }
+            ],
+            "StatePlausibilisedDisabled": false,
+            "MajorityElectionInvalidVotes": false,
+            "CountingMachineEnabled": false,
+            "MajorityElectionUseCandidateCheckDigit": true,
+            "ProportionalElectionUseCandidateCheckDigit": false,
+            "ManualPublishResultsEnabled": true,
+            "EndResultFinalizeDisabled": false,
+            "PublishResultsBeforeAuditedTentatively": false,
+            "MonitoringAutoShowPoliticalBusinesses": false,
+            "MonitoringUseImprovedUi": false,
+            "MajorityElectionBundlesWithBallotGroupEnabled": true
+          },
+          "ECountingResultsImported": false
+        },
+        "BallotBundleSampleSizePercent": 50,
+        "AutomaticBallotBundleNumberGeneration": false,
+        "AutomaticBallotNumberGeneration": false,
+        "ResultEntry": 2,
+        "EnforceResultEntryForCountingCircles": false,
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": false,
+        "Type": 1
+      },
+      "Entry": 0,
+      "State": 1,
+      "SubmissionDoneTimestamp": null,
+      "TotalCountOfVoters": 0,
+      "Results": [
+        {
+          "Id": "7b7d891d-74f2-5d73-ac2a-c488ddf6ad0d",
+          "Ballot": {
+            "Id": "0ed26aad-e169-4d55-b9a9-90475ba81a02",
+            "Position": 1,
+            "BallotType": 1,
+            "BallotSubType": 0,
+            "VoteId": "96d8275f-f1f8-4933-a097-5c0c19f54567",
+            "BallotQuestions": [],
+            "TieBreakQuestions": []
+          },
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "QuestionResults": [
+            {
+              "Id": "",
+              "Question": {
+                "Number": 1,
+                "Question": "Frage 1 St. Gallen de",
+                "Type": 1
+              },
+              "EVotingSubTotal": {
+                "TotalCountOfAnswerYes": 0,
+                "TotalCountOfAnswerNo": 0,
+                "TotalCountOfAnswerUnspecified": 0
+              },
+              "ECountingSubTotal": {
+                "TotalCountOfAnswerYes": 0,
+                "TotalCountOfAnswerNo": 0,
+                "TotalCountOfAnswerUnspecified": 0
+              },
+              "ConventionalSubTotal": {
+                "TotalCountOfAnswerYes": null,
+                "TotalCountOfAnswerNo": null,
+                "TotalCountOfAnswerUnspecified": null
+              },
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            }
+          ],
+          "TieBreakQuestionResults": [],
+          "AllBundlesReviewedOrDeleted": true,
+          "ConventionalCountOfDetailedEnteredBallots": 0
+        }
+      ],
+      "EntryParams": null,
+      "CountingCircle": {
+        "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+        "Name": "Uzwil",
+        "Bfs": "1234",
+        "ResponsibleAuthority": {
+          "SecureConnectId": "",
+          "Name": "",
+          "Street": "",
+          "Zip": "",
+          "City": "",
+          "Phone": "",
+          "Email": ""
+        },
+        "ContactPersonDuringEvent": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        },
+        "ContactPersonSameDuringEventAsAfter": false,
+        "ContactPersonAfterEvent": null,
+        "ECounting": true
+      },
+      "Published": false,
+      "ReadyForCorrectionTimestamp": null
+    },
+    {
+      "Id": "8a17edee-00c6-5a52-8e34-46d801fef06e",
+      "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+      "Vote": {
+        "Id": "da65e354-f668-4ae4-b3ef-c1a74764e99d",
+        "PoliticalBusinessNumber": "166",
+        "OfficialDescription": "Abstimmung Uzwil de",
+        "ShortDescription": "Abst Uzwil de",
+        "InternalDescription": "Abstimmung Uzwil auf Urnengang St.Gallen",
+        "EnabledVoterTypes": [
+          1,
+          2
+        ],
+        "DomainOfInfluenceId": "d9f5e161-37f8-4c76-921d-c0237c54dc5b",
+        "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+        "Active": true,
+        "Title": "166: Abst Uzwil de",
+        "DomainOfInfluence": {
+          "Id": "d9f5e161-37f8-4c76-921d-c0237c54dc5b",
+          "Name": "Uzwil",
+          "ShortName": "Uzwil",
+          "AuthorityName": "",
+          "SecureConnectId": "100100100100100100",
+          "Type": 5,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 1,
+          "ContactPerson": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          }
+        },
+        "ResultAlgorithm": 1,
+        "Contest": {
+          "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+          "Date": {
+            "Seconds": 1598832000,
+            "Nanos": 0
+          },
+          "Description": "Kantonsurnengang de",
+          "EndOfTestingPhase": {
+            "Seconds": 1545264000,
+            "Nanos": 0
+          },
+          "TestingPhaseEnded": false,
+          "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+          "EVoting": true,
+          "EVotingFrom": {
+            "Seconds": 1582156800,
+            "Nanos": 0
+          },
+          "EVotingTo": {
+            "Seconds": 1583020800,
+            "Nanos": 0
+          },
+          "State": 1,
+          "EVotingResultsImported": false,
+          "CantonDefaults": {
+            "CountingCircleResultStateDescriptions": [
+              {
+                "State": 4,
+                "Description": "Erfassung beendet"
+              }
+            ],
+            "StatePlausibilisedDisabled": false,
+            "MajorityElectionInvalidVotes": false,
+            "CountingMachineEnabled": false,
+            "MajorityElectionUseCandidateCheckDigit": true,
+            "ProportionalElectionUseCandidateCheckDigit": false,
+            "ManualPublishResultsEnabled": true,
+            "EndResultFinalizeDisabled": false,
+            "PublishResultsBeforeAuditedTentatively": false,
+            "MonitoringAutoShowPoliticalBusinesses": false,
+            "MonitoringUseImprovedUi": false,
+            "MajorityElectionBundlesWithBallotGroupEnabled": true
+          },
+          "ECountingResultsImported": false
+        },
+        "BallotBundleSampleSizePercent": 10,
+        "AutomaticBallotBundleNumberGeneration": true,
+        "AutomaticBallotNumberGeneration": false,
+        "ResultEntry": 2,
+        "EnforceResultEntryForCountingCircles": true,
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": false,
+        "Type": 1
+      },
+      "Entry": 2,
+      "State": 1,
+      "SubmissionDoneTimestamp": null,
+      "TotalCountOfVoters": 15000,
+      "Results": [
+        {
+          "Id": "cb5c960d-a481-560d-b166-e2fdde909479",
+          "Ballot": {
+            "Id": "e6ee82f9-70d4-4ffa-a673-34d56fc47204",
+            "Position": 1,
+            "BallotType": 1,
+            "BallotSubType": 0,
+            "VoteId": "da65e354-f668-4ae4-b3ef-c1a74764e99d",
+            "BallotQuestions": [],
+            "TieBreakQuestions": []
+          },
+          "CountOfVoters": {
+            "VoterParticipation": 0.75,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": 20000,
+              "InvalidBallots": 3000,
+              "BlankBallots": 2000,
+              "AccountedBallots": 12000
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "TotalReceivedBallots": 20000,
+            "TotalAccountedBallots": 12000,
+            "TotalUnaccountedBallots": 5000,
+            "TotalInvalidBallots": 3000,
+            "TotalBlankBallots": 2000
+          },
+          "QuestionResults": [
+            {
+              "Id": "",
+              "Question": {
+                "Number": 1,
+                "Question": "Frage 1 Uzwil de",
+                "Type": 1
+              },
+              "EVotingSubTotal": {
+                "TotalCountOfAnswerYes": 0,
+                "TotalCountOfAnswerNo": 0,
+                "TotalCountOfAnswerUnspecified": 0
+              },
+              "ECountingSubTotal": {
+                "TotalCountOfAnswerYes": 0,
+                "TotalCountOfAnswerNo": 0,
+                "TotalCountOfAnswerUnspecified": 0
+              },
+              "ConventionalSubTotal": {
+                "TotalCountOfAnswerYes": 5300,
+                "TotalCountOfAnswerNo": 4500,
+                "TotalCountOfAnswerUnspecified": 200
+              },
+              "TotalCountOfAnswerYes": 5300,
+              "TotalCountOfAnswerNo": 4500,
+              "TotalCountOfAnswerUnspecified": 200
+            }
+          ],
+          "TieBreakQuestionResults": [],
+          "AllBundlesReviewedOrDeleted": true,
+          "ConventionalCountOfDetailedEnteredBallots": 0
+        }
+      ],
+      "EntryParams": {
+        "BallotBundleSampleSizePercent": 50,
+        "AutomaticBallotBundleNumberGeneration": true,
+        "AutomaticBallotNumberGeneration": true,
+        "ReviewProcedure": 1
+      },
+      "CountingCircle": {
+        "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+        "Name": "Uzwil",
+        "Bfs": "1234",
+        "ResponsibleAuthority": {
+          "SecureConnectId": "",
+          "Name": "",
+          "Street": "",
+          "Zip": "",
+          "City": "",
+          "Phone": "",
+          "Email": ""
+        },
+        "ContactPersonDuringEvent": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        },
+        "ContactPersonSameDuringEventAsAfter": false,
+        "ContactPersonAfterEvent": null,
+        "ECounting": true
+      },
+      "Published": false,
+      "ReadyForCorrectionTimestamp": null
+    }
+  ],
+  "ProportionalElectionResults": [
+    {
+      "Id": "1f75260f-7b84-55b1-89a8-2c3d996b9580",
+      "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+      "Election": {
+        "Id": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+        "PoliticalBusinessNumber": "155",
+        "OfficialDescription": "Proporzwahl St. Gallen de",
+        "ShortDescription": "Pw SG de",
+        "NumberOfMandates": 5,
+        "MandateAlgorithm": 1,
+        "CandidateCheckDigit": false,
+        "BallotBundleSize": 50,
+        "AutomaticBallotBundleNumberGeneration": true,
+        "AutomaticBallotNumberGeneration": false,
+        "BallotNumberGeneration": 2,
+        "AutomaticEmptyVoteCounting": false,
+        "EnforceEmptyVoteCountingForCountingCircles": false,
+        "EnabledVoterTypes": [
+          1,
+          2
+        ],
+        "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+        "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+        "Active": true,
+        "BallotBundleSampleSize": 1,
+        "Title": "155: Pw SG de",
+        "DomainOfInfluence": {
+          "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+          "Name": "St. Gallen",
+          "ShortName": "St. Gallen",
+          "AuthorityName": "",
+          "SecureConnectId": "200200200200200200",
+          "Type": 2,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 1,
+          "ContactPerson": {
+            "FirstName": "Hans",
+            "FamilyName": "Muster",
+            "Phone": "071 123 12 12",
+            "MobilePhone": "079 123 12 12",
+            "Email": "hans@sg.ch"
+          }
+        },
+        "Contest": {
+          "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+          "Date": {
+            "Seconds": 1598832000,
+            "Nanos": 0
+          },
+          "Description": "Kantonsurnengang de",
+          "EndOfTestingPhase": {
+            "Seconds": 1545264000,
+            "Nanos": 0
+          },
+          "TestingPhaseEnded": false,
+          "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+          "EVoting": true,
+          "EVotingFrom": {
+            "Seconds": 1582156800,
+            "Nanos": 0
+          },
+          "EVotingTo": {
+            "Seconds": 1583020800,
+            "Nanos": 0
+          },
+          "State": 1,
+          "EVotingResultsImported": false,
+          "CantonDefaults": {
+            "CountingCircleResultStateDescriptions": [
+              {
+                "State": 4,
+                "Description": "Erfassung beendet"
+              }
+            ],
+            "StatePlausibilisedDisabled": false,
+            "MajorityElectionInvalidVotes": false,
+            "CountingMachineEnabled": false,
+            "MajorityElectionUseCandidateCheckDigit": true,
+            "ProportionalElectionUseCandidateCheckDigit": false,
+            "ManualPublishResultsEnabled": true,
+            "EndResultFinalizeDisabled": false,
+            "PublishResultsBeforeAuditedTentatively": false,
+            "MonitoringAutoShowPoliticalBusinesses": false,
+            "MonitoringUseImprovedUi": false,
+            "MajorityElectionBundlesWithBallotGroupEnabled": true
+          },
+          "ECountingResultsImported": false
+        },
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": true,
+        "EnforceCandidateCheckDigitForCountingCircles": false
+      },
+      "EntryParams": {
+        "BallotBundleSize": 0,
+        "BallotBundleSampleSize": 0,
+        "AutomaticBallotBundleNumberGeneration": false,
+        "AutomaticBallotNumberGeneration": false,
+        "BallotNumberGeneration": 0,
+        "AutomaticEmptyVoteCounting": false,
+        "ReviewProcedure": 0,
+        "CandidateCheckDigit": false
+      },
+      "State": 1,
+      "SubmissionDoneTimestamp": null,
+      "TotalCountOfVoters": 0,
+      "CountOfVoters": {
+        "VoterParticipation": 0.0,
+        "ConventionalSubTotal": {
+          "ReceivedBallots": null,
+          "InvalidBallots": null,
+          "BlankBallots": null,
+          "AccountedBallots": null
+        },
+        "EVotingSubTotal": {
+          "ReceivedBallots": 0,
+          "InvalidBallots": 0,
+          "BlankBallots": 0,
+          "AccountedBallots": 0
+        },
+        "ECountingSubTotal": {
+          "ReceivedBallots": 0,
+          "InvalidBallots": 0,
+          "BlankBallots": 0,
+          "AccountedBallots": 0
+        },
+        "TotalReceivedBallots": 0,
+        "TotalAccountedBallots": 0,
+        "TotalUnaccountedBallots": 0,
+        "TotalInvalidBallots": 0,
+        "TotalBlankBallots": 0
+      },
+      "AllBundlesReviewedOrDeleted": true,
+      "CountingCircle": {
+        "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+        "Name": "Uzwil",
+        "Bfs": "1234",
+        "ResponsibleAuthority": {
+          "SecureConnectId": "",
+          "Name": "",
+          "Street": "",
+          "Zip": "",
+          "City": "",
+          "Phone": "",
+          "Email": ""
+        },
+        "ContactPersonDuringEvent": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        },
+        "ContactPersonSameDuringEventAsAfter": false,
+        "ContactPersonAfterEvent": null,
+        "ECounting": true
+      },
+      "EVotingSubTotal": {
+        "TotalCountOfUnmodifiedLists": 0,
+        "TotalCountOfModifiedLists": 0,
+        "TotalCountOfListsWithoutParty": 0,
+        "TotalCountOfBallots": 0,
+        "TotalCountOfBlankRowsOnListsWithoutParty": 0,
+        "TotalCountOfListsWithParty": 0,
+        "TotalCountOfLists": 0
+      },
+      "ECountingSubTotal": {
+        "TotalCountOfUnmodifiedLists": 0,
+        "TotalCountOfModifiedLists": 0,
+        "TotalCountOfListsWithoutParty": 0,
+        "TotalCountOfBallots": 0,
+        "TotalCountOfBlankRowsOnListsWithoutParty": 0,
+        "TotalCountOfListsWithParty": 0,
+        "TotalCountOfLists": 0
+      },
+      "ConventionalSubTotal": {
+        "TotalCountOfUnmodifiedLists": 0,
+        "TotalCountOfModifiedLists": 0,
+        "TotalCountOfListsWithoutParty": 0,
+        "TotalCountOfBallots": 0,
+        "TotalCountOfBlankRowsOnListsWithoutParty": 0,
+        "TotalCountOfListsWithParty": 0,
+        "TotalCountOfLists": 0
+      },
+      "TotalCountOfUnmodifiedLists": 0,
+      "TotalCountOfModifiedLists": 0,
+      "TotalCountOfListsWithoutParty": 0,
+      "TotalCountOfBallots": 0,
+      "TotalCountOfBlankRowsOnListsWithoutParty": 0,
+      "TotalCountOfListsWithParty": 0,
+      "TotalCountOfLists": 0,
+      "Published": false,
+      "ReadyForCorrectionTimestamp": null
+    },
+    {
+      "Id": "5b6b2ee0-3edf-534c-aa2e-5f1d14063be8",
+      "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+      "Election": {
+        "Id": "da091f50-9f11-4deb-9621-948fbfbdc322",
+        "PoliticalBusinessNumber": "166",
+        "OfficialDescription": "Proporzwahl Uzwil de",
+        "ShortDescription": "Pw Uzwil de",
+        "NumberOfMandates": 5,
+        "MandateAlgorithm": 1,
+        "CandidateCheckDigit": true,
+        "BallotBundleSize": 25,
+        "AutomaticBallotBundleNumberGeneration": true,
+        "AutomaticBallotNumberGeneration": false,
+        "BallotNumberGeneration": 2,
+        "AutomaticEmptyVoteCounting": true,
+        "EnforceEmptyVoteCountingForCountingCircles": false,
+        "EnabledVoterTypes": [
+          1,
+          2
+        ],
+        "DomainOfInfluenceId": "d9f5e161-37f8-4c76-921d-c0237c54dc5b",
+        "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+        "Active": true,
+        "BallotBundleSampleSize": 10,
+        "Title": "166: Pw Uzwil de",
+        "DomainOfInfluence": {
+          "Id": "d9f5e161-37f8-4c76-921d-c0237c54dc5b",
+          "Name": "Uzwil",
+          "ShortName": "Uzwil",
+          "AuthorityName": "",
+          "SecureConnectId": "100100100100100100",
+          "Type": 5,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 1,
+          "ContactPerson": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          }
+        },
+        "Contest": {
+          "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+          "Date": {
+            "Seconds": 1598832000,
+            "Nanos": 0
+          },
+          "Description": "Kantonsurnengang de",
+          "EndOfTestingPhase": {
+            "Seconds": 1545264000,
+            "Nanos": 0
+          },
+          "TestingPhaseEnded": false,
+          "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+          "EVoting": true,
+          "EVotingFrom": {
+            "Seconds": 1582156800,
+            "Nanos": 0
+          },
+          "EVotingTo": {
+            "Seconds": 1583020800,
+            "Nanos": 0
+          },
+          "State": 1,
+          "EVotingResultsImported": false,
+          "CantonDefaults": {
+            "CountingCircleResultStateDescriptions": [
+              {
+                "State": 4,
+                "Description": "Erfassung beendet"
+              }
+            ],
+            "StatePlausibilisedDisabled": false,
+            "MajorityElectionInvalidVotes": false,
+            "CountingMachineEnabled": false,
+            "MajorityElectionUseCandidateCheckDigit": true,
+            "ProportionalElectionUseCandidateCheckDigit": false,
+            "ManualPublishResultsEnabled": true,
+            "EndResultFinalizeDisabled": false,
+            "PublishResultsBeforeAuditedTentatively": false,
+            "MonitoringAutoShowPoliticalBusinesses": false,
+            "MonitoringUseImprovedUi": false,
+            "MajorityElectionBundlesWithBallotGroupEnabled": true
+          },
+          "ECountingResultsImported": false
+        },
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": true,
+        "EnforceCandidateCheckDigitForCountingCircles": false
+      },
+      "EntryParams": {
+        "BallotBundleSize": 0,
+        "BallotBundleSampleSize": 0,
+        "AutomaticBallotBundleNumberGeneration": false,
+        "AutomaticBallotNumberGeneration": false,
+        "BallotNumberGeneration": 0,
+        "AutomaticEmptyVoteCounting": false,
+        "ReviewProcedure": 0,
+        "CandidateCheckDigit": false
+      },
+      "State": 1,
+      "SubmissionDoneTimestamp": null,
+      "TotalCountOfVoters": 0,
+      "CountOfVoters": {
+        "VoterParticipation": 0.0,
+        "ConventionalSubTotal": {
+          "ReceivedBallots": null,
+          "InvalidBallots": null,
+          "BlankBallots": null,
+          "AccountedBallots": null
+        },
+        "EVotingSubTotal": {
+          "ReceivedBallots": 0,
+          "InvalidBallots": 0,
+          "BlankBallots": 0,
+          "AccountedBallots": 0
+        },
+        "ECountingSubTotal": {
+          "ReceivedBallots": 0,
+          "InvalidBallots": 0,
+          "BlankBallots": 0,
+          "AccountedBallots": 0
+        },
+        "TotalReceivedBallots": 0,
+        "TotalAccountedBallots": 0,
+        "TotalUnaccountedBallots": 0,
+        "TotalInvalidBallots": 0,
+        "TotalBlankBallots": 0
+      },
+      "AllBundlesReviewedOrDeleted": true,
+      "CountingCircle": {
+        "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+        "Name": "Uzwil",
+        "Bfs": "1234",
+        "ResponsibleAuthority": {
+          "SecureConnectId": "",
+          "Name": "",
+          "Street": "",
+          "Zip": "",
+          "City": "",
+          "Phone": "",
+          "Email": ""
+        },
+        "ContactPersonDuringEvent": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        },
+        "ContactPersonSameDuringEventAsAfter": false,
+        "ContactPersonAfterEvent": null,
+        "ECounting": true
+      },
+      "EVotingSubTotal": {
+        "TotalCountOfUnmodifiedLists": 0,
+        "TotalCountOfModifiedLists": 0,
+        "TotalCountOfListsWithoutParty": 0,
+        "TotalCountOfBallots": 0,
+        "TotalCountOfBlankRowsOnListsWithoutParty": 0,
+        "TotalCountOfListsWithParty": 0,
+        "TotalCountOfLists": 0
+      },
+      "ECountingSubTotal": {
+        "TotalCountOfUnmodifiedLists": 0,
+        "TotalCountOfModifiedLists": 0,
+        "TotalCountOfListsWithoutParty": 0,
+        "TotalCountOfBallots": 0,
+        "TotalCountOfBlankRowsOnListsWithoutParty": 0,
+        "TotalCountOfListsWithParty": 0,
+        "TotalCountOfLists": 0
+      },
+      "ConventionalSubTotal": {
+        "TotalCountOfUnmodifiedLists": 0,
+        "TotalCountOfModifiedLists": 0,
+        "TotalCountOfListsWithoutParty": 0,
+        "TotalCountOfBallots": 0,
+        "TotalCountOfBlankRowsOnListsWithoutParty": 0,
+        "TotalCountOfListsWithParty": 0,
+        "TotalCountOfLists": 0
+      },
+      "TotalCountOfUnmodifiedLists": 0,
+      "TotalCountOfModifiedLists": 0,
+      "TotalCountOfListsWithoutParty": 0,
+      "TotalCountOfBallots": 0,
+      "TotalCountOfBlankRowsOnListsWithoutParty": 0,
+      "TotalCountOfListsWithParty": 0,
+      "TotalCountOfLists": 0,
+      "Published": false,
+      "ReadyForCorrectionTimestamp": null
+    }
+  ],
+  "MajorityElectionResults": [
+    {
+      "Id": "1c0db5aa-321a-5d27-8f94-55fe0d903682",
+      "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+      "Election": {
+        "Id": "d66ced3e-a2e4-4178-932b-ac91ee6a9d85",
+        "PoliticalBusinessNumber": "166",
+        "OfficialDescription": "Majorzwahl Uzwil de",
+        "ShortDescription": "Mw Uzwil de",
+        "NumberOfMandates": 5,
+        "MandateAlgorithm": 2,
+        "CandidateCheckDigit": true,
+        "BallotBundleSize": 25,
+        "BallotBundleSampleSize": 5,
+        "AutomaticBallotBundleNumberGeneration": true,
+        "AutomaticBallotNumberGeneration": false,
+        "BallotNumberGeneration": 2,
+        "AutomaticEmptyVoteCounting": true,
+        "EnforceEmptyVoteCountingForCountingCircles": false,
+        "ResultEntry": 2,
+        "EnforceResultEntryForCountingCircles": true,
+        "EnabledVoterTypes": [
+          1,
+          2
+        ],
+        "DomainOfInfluenceId": "d9f5e161-37f8-4c76-921d-c0237c54dc5b",
+        "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+        "Active": true,
+        "Title": "166: Mw Uzwil de",
+        "CountOfSecondaryElections": 0,
+        "DomainOfInfluence": {
+          "Id": "d9f5e161-37f8-4c76-921d-c0237c54dc5b",
+          "Name": "Uzwil",
+          "ShortName": "Uzwil",
+          "AuthorityName": "",
+          "SecureConnectId": "100100100100100100",
+          "Type": 5,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 1,
+          "ContactPerson": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          }
+        },
+        "Contest": {
+          "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+          "Date": {
+            "Seconds": 1598832000,
+            "Nanos": 0
+          },
+          "Description": "Kantonsurnengang de",
+          "EndOfTestingPhase": {
+            "Seconds": 1545264000,
+            "Nanos": 0
+          },
+          "TestingPhaseEnded": false,
+          "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+          "EVoting": true,
+          "EVotingFrom": {
+            "Seconds": 1582156800,
+            "Nanos": 0
+          },
+          "EVotingTo": {
+            "Seconds": 1583020800,
+            "Nanos": 0
+          },
+          "State": 1,
+          "EVotingResultsImported": false,
+          "CantonDefaults": {
+            "CountingCircleResultStateDescriptions": [
+              {
+                "State": 4,
+                "Description": "Erfassung beendet"
+              }
+            ],
+            "StatePlausibilisedDisabled": false,
+            "MajorityElectionInvalidVotes": false,
+            "CountingMachineEnabled": false,
+            "MajorityElectionUseCandidateCheckDigit": true,
+            "ProportionalElectionUseCandidateCheckDigit": false,
+            "ManualPublishResultsEnabled": true,
+            "EndResultFinalizeDisabled": false,
+            "PublishResultsBeforeAuditedTentatively": false,
+            "MonitoringAutoShowPoliticalBusinesses": false,
+            "MonitoringUseImprovedUi": false,
+            "MajorityElectionBundlesWithBallotGroupEnabled": true
+          },
+          "ECountingResultsImported": false
+        },
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": true,
+        "EnforceCandidateCheckDigitForCountingCircles": false,
+        "IndividualCandidatesDisabled": false,
+        "BundlesWithBallotGroupEnabled": false,
+        "EnforceBundlesWithBallotGroupEnabledForCountingCircles": false
+      },
+      "SecondaryMajorityElectionResults": [
+        {
+          "SecondaryMajorityElection": {
+            "Id": "5ec8cf85-229a-4dc7-a601-1bb6980fee78",
+            "PoliticalBusinessNumber": "n1",
+            "OfficialDescription": "official de",
+            "ShortDescription": "short de",
+            "NumberOfMandates": 2,
+            "Active": true,
+            "Title": "n1: short de",
+            "IndividualCandidatesDisabled": false
+          },
+          "CandidateResults": [
+            {
+              "Candidate": {
+                "Id": "6bf76024-ed15-4b7e-b68e-583b7bb5d2d5",
+                "Number": "number1",
+                "PoliticalFirstName": "pol first name",
+                "PoliticalLastName": "pol last name",
+                "FirstName": "first",
+                "LastName": "last",
+                "Party": "Test de",
+                "Position": 1,
+                "Description": "number1 pol last name pol first name",
+                "CheckDigit": 9,
+                "CountToIndividual": false
+              },
+              "EVotingWriteInsVoteCount": 0,
+              "EVotingExclWriteInsVoteCount": 0,
+              "EVotingInclWriteInsVoteCount": 0,
+              "ECountingWriteInsVoteCount": 0,
+              "ECountingExclWriteInsVoteCount": 0,
+              "ECountingInclWriteInsVoteCount": 0,
+              "ConventionalVoteCount": 0,
+              "VoteCount": 0
+            }
+          ],
+          "EVotingSubTotal": {
+            "IndividualVoteCount": 0,
+            "EmptyVoteCountInclWriteIns": 0,
+            "EmptyVoteCountExclWriteIns": 0,
+            "EmptyVoteCountWriteIns": 0,
+            "InvalidVoteCount": 0,
+            "TotalCandidateVoteCountExclIndividual": 0,
+            "TotalCandidateVoteCountInclIndividual": 0
+          },
+          "ECountingSubTotal": {
+            "IndividualVoteCount": 0,
+            "EmptyVoteCountInclWriteIns": 0,
+            "EmptyVoteCountExclWriteIns": 0,
+            "EmptyVoteCountWriteIns": 0,
+            "InvalidVoteCount": 0,
+            "TotalCandidateVoteCountExclIndividual": 0,
+            "TotalCandidateVoteCountInclIndividual": 0
+          },
+          "ConventionalSubTotal": {
+            "IndividualVoteCount": null,
+            "EmptyVoteCountInclWriteIns": 0,
+            "EmptyVoteCountExclWriteIns": null,
+            "EmptyVoteCountWriteIns": null,
+            "InvalidVoteCount": null,
+            "TotalCandidateVoteCountExclIndividual": 0,
+            "TotalCandidateVoteCountInclIndividual": 0
+          },
+          "IndividualVoteCount": 0,
+          "EmptyVoteCount": 0,
+          "InvalidVoteCount": 0,
+          "TotalCandidateVoteCountExclIndividual": 0,
+          "TotalCandidateVoteCountInclIndividual": 0
+        }
+      ],
+      "Entry": 2,
+      "EntryParams": {
+        "BallotBundleSize": 10,
+        "BallotBundleSampleSize": 3,
+        "AutomaticBallotBundleNumberGeneration": true,
+        "AutomaticBallotNumberGeneration": true,
+        "BallotNumberGeneration": 2,
+        "AutomaticEmptyVoteCounting": true,
+        "ReviewProcedure": 1,
+        "CandidateCheckDigit": true,
+        "BundlesWithBallotGroupEnabled": false
+      },
+      "State": 1,
+      "SubmissionDoneTimestamp": null,
+      "TotalCountOfVoters": 8000,
+      "CountOfVoters": {
+        "VoterParticipation": 0.7,
+        "ConventionalSubTotal": {
+          "ReceivedBallots": 6000,
+          "InvalidBallots": 500,
+          "BlankBallots": 500,
+          "AccountedBallots": 5000
+        },
+        "EVotingSubTotal": {
+          "ReceivedBallots": 0,
+          "InvalidBallots": 0,
+          "BlankBallots": 0,
+          "AccountedBallots": 0
+        },
+        "ECountingSubTotal": {
+          "ReceivedBallots": 0,
+          "InvalidBallots": 0,
+          "BlankBallots": 0,
+          "AccountedBallots": 0
+        },
+        "TotalReceivedBallots": 6000,
+        "TotalAccountedBallots": 5000,
+        "TotalUnaccountedBallots": 1000,
+        "TotalInvalidBallots": 500,
+        "TotalBlankBallots": 500
+      },
+      "AllBundlesReviewedOrDeleted": true,
+      "CandidateResults": [
+        {
+          "Candidate": {
+            "Id": "be81a3f3-5a9e-4a69-8f19-4f0598a32955",
+            "Number": "number1",
+            "PoliticalFirstName": "pol first name",
+            "PoliticalLastName": "pol last name",
+            "FirstName": "firstName",
+            "LastName": "lastName",
+            "Party": "FDP de",
+            "Position": 1,
+            "Description": "number1 pol last name pol first name",
+            "CheckDigit": 9,
+            "CountToIndividual": false
+          },
+          "EVotingWriteInsVoteCount": 0,
+          "EVotingExclWriteInsVoteCount": 0,
+          "EVotingInclWriteInsVoteCount": 0,
+          "ECountingWriteInsVoteCount": 0,
+          "ECountingExclWriteInsVoteCount": 0,
+          "ECountingInclWriteInsVoteCount": 0,
+          "ConventionalVoteCount": 0,
+          "VoteCount": 0
+        }
+      ],
+      "ConventionalCountOfBallotGroupVotes": 0,
+      "ConventionalCountOfDetailedEnteredBallots": 0,
+      "EVotingSubTotal": {
+        "IndividualVoteCount": 0,
+        "EmptyVoteCountInclWriteIns": 0,
+        "EmptyVoteCountExclWriteIns": 0,
+        "EmptyVoteCountWriteIns": 0,
+        "InvalidVoteCount": 0,
+        "TotalCandidateVoteCountExclIndividual": 0,
+        "TotalCandidateVoteCountInclIndividual": 0
+      },
+      "ECountingSubTotal": {
+        "IndividualVoteCount": 0,
+        "EmptyVoteCountInclWriteIns": 0,
+        "EmptyVoteCountExclWriteIns": 0,
+        "EmptyVoteCountWriteIns": 0,
+        "InvalidVoteCount": 0,
+        "TotalCandidateVoteCountExclIndividual": 0,
+        "TotalCandidateVoteCountInclIndividual": 0
+      },
+      "ConventionalSubTotal": {
+        "IndividualVoteCount": 0,
+        "EmptyVoteCountInclWriteIns": 0,
+        "EmptyVoteCountExclWriteIns": 0,
+        "EmptyVoteCountWriteIns": 0,
+        "InvalidVoteCount": 0,
+        "TotalCandidateVoteCountExclIndividual": 0,
+        "TotalCandidateVoteCountInclIndividual": 0
+      },
+      "IndividualVoteCount": 0,
+      "EmptyVoteCount": 0,
+      "InvalidVoteCount": 0,
+      "TotalCandidateVoteCountExclIndividual": 0,
+      "TotalCandidateVoteCountInclIndividual": 0,
+      "CountingCircle": {
+        "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+        "Name": "Uzwil",
+        "Bfs": "1234",
+        "ResponsibleAuthority": {
+          "SecureConnectId": "",
+          "Name": "",
+          "Street": "",
+          "Zip": "",
+          "City": "",
+          "Phone": "",
+          "Email": ""
+        },
+        "ContactPersonDuringEvent": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        },
+        "ContactPersonSameDuringEventAsAfter": false,
+        "ContactPersonAfterEvent": null,
+        "ECounting": true
+      },
+      "HasUnmappedEVotingWriteIns": false,
+      "HasUnmappedECountingWriteIns": false,
+      "HasUnmappedWriteIns": false,
+      "Published": false,
+      "ReadyForCorrectionTimestamp": null,
+      "HasBallotGroups": true
+    },
+    {
+      "Id": "b4922bc4-a743-5fa5-a565-27ae6b3c73fd",
+      "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+      "Election": {
+        "Id": "e966bec6-f1d4-4c07-8094-6f7df4cc515a",
+        "PoliticalBusinessNumber": "155.1",
+        "OfficialDescription": "Nebenwahl St. Gallen de",
+        "ShortDescription": "NW SG de",
+        "NumberOfMandates": 1,
+        "MandateAlgorithm": 2,
+        "CandidateCheckDigit": false,
+        "BallotBundleSize": 50,
+        "BallotBundleSampleSize": 1,
+        "AutomaticBallotBundleNumberGeneration": true,
+        "AutomaticBallotNumberGeneration": false,
+        "BallotNumberGeneration": 2,
+        "AutomaticEmptyVoteCounting": false,
+        "EnforceEmptyVoteCountingForCountingCircles": false,
+        "ResultEntry": 1,
+        "EnforceResultEntryForCountingCircles": true,
+        "EnabledVoterTypes": [
+          1,
+          2
+        ],
+        "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+        "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+        "Active": true,
+        "Title": "155.1: NW SG de",
+        "CountOfSecondaryElections": 0,
+        "DomainOfInfluence": {
+          "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+          "Name": "St. Gallen",
+          "ShortName": "St. Gallen",
+          "AuthorityName": "",
+          "SecureConnectId": "200200200200200200",
+          "Type": 2,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 1,
+          "ContactPerson": {
+            "FirstName": "Hans",
+            "FamilyName": "Muster",
+            "Phone": "071 123 12 12",
+            "MobilePhone": "079 123 12 12",
+            "Email": "hans@sg.ch"
+          }
+        },
+        "Contest": {
+          "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+          "Date": {
+            "Seconds": 1598832000,
+            "Nanos": 0
+          },
+          "Description": "Kantonsurnengang de",
+          "EndOfTestingPhase": {
+            "Seconds": 1545264000,
+            "Nanos": 0
+          },
+          "TestingPhaseEnded": false,
+          "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+          "EVoting": true,
+          "EVotingFrom": {
+            "Seconds": 1582156800,
+            "Nanos": 0
+          },
+          "EVotingTo": {
+            "Seconds": 1583020800,
+            "Nanos": 0
+          },
+          "State": 1,
+          "EVotingResultsImported": false,
+          "CantonDefaults": {
+            "CountingCircleResultStateDescriptions": [
+              {
+                "State": 4,
+                "Description": "Erfassung beendet"
+              }
+            ],
+            "StatePlausibilisedDisabled": false,
+            "MajorityElectionInvalidVotes": false,
+            "CountingMachineEnabled": false,
+            "MajorityElectionUseCandidateCheckDigit": true,
+            "ProportionalElectionUseCandidateCheckDigit": false,
+            "ManualPublishResultsEnabled": true,
+            "EndResultFinalizeDisabled": false,
+            "PublishResultsBeforeAuditedTentatively": false,
+            "MonitoringAutoShowPoliticalBusinesses": false,
+            "MonitoringUseImprovedUi": false,
+            "MajorityElectionBundlesWithBallotGroupEnabled": true
+          },
+          "ECountingResultsImported": false
+        },
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": true,
+        "EnforceCandidateCheckDigitForCountingCircles": false,
+        "IndividualCandidatesDisabled": false,
+        "BundlesWithBallotGroupEnabled": false,
+        "EnforceBundlesWithBallotGroupEnabledForCountingCircles": false
+      },
+      "SecondaryMajorityElectionResults": [],
+      "Entry": 0,
+      "EntryParams": null,
+      "State": 1,
+      "SubmissionDoneTimestamp": null,
+      "TotalCountOfVoters": 0,
+      "CountOfVoters": {
+        "VoterParticipation": 0.0,
+        "ConventionalSubTotal": {
+          "ReceivedBallots": null,
+          "InvalidBallots": null,
+          "BlankBallots": null,
+          "AccountedBallots": null
+        },
+        "EVotingSubTotal": {
+          "ReceivedBallots": 0,
+          "InvalidBallots": 0,
+          "BlankBallots": 0,
+          "AccountedBallots": 0
+        },
+        "ECountingSubTotal": {
+          "ReceivedBallots": 0,
+          "InvalidBallots": 0,
+          "BlankBallots": 0,
+          "AccountedBallots": 0
+        },
+        "TotalReceivedBallots": 0,
+        "TotalAccountedBallots": 0,
+        "TotalUnaccountedBallots": 0,
+        "TotalInvalidBallots": 0,
+        "TotalBlankBallots": 0
+      },
+      "AllBundlesReviewedOrDeleted": true,
+      "CandidateResults": [
+        {
+          "Candidate": {
+            "Id": "d849b362-9ae0-4a2e-a10a-033a25ed4075",
+            "Number": "number1",
+            "PoliticalFirstName": "pol first name",
+            "PoliticalLastName": "pol last name",
+            "FirstName": "firstName",
+            "LastName": "lastName",
+            "Party": "GLP de",
+            "Position": 1,
+            "Description": "number1 pol last name pol first name",
+            "CheckDigit": 9,
+            "CountToIndividual": false
+          },
+          "EVotingWriteInsVoteCount": 0,
+          "EVotingExclWriteInsVoteCount": 0,
+          "EVotingInclWriteInsVoteCount": 0,
+          "ECountingWriteInsVoteCount": 0,
+          "ECountingExclWriteInsVoteCount": 0,
+          "ECountingInclWriteInsVoteCount": 0,
+          "ConventionalVoteCount": null,
+          "VoteCount": 0
+        },
+        {
+          "Candidate": {
+            "Id": "a41d3778-f9e6-4447-ae59-46ea77419efd",
+            "Number": "number1",
+            "PoliticalFirstName": "pol first name2",
+            "PoliticalLastName": "pol last name2",
+            "FirstName": "firstName2",
+            "LastName": "lastName2",
+            "Party": "SVP de",
+            "Position": 2,
+            "Description": "number1 pol last name2 pol first name2",
+            "CheckDigit": 9,
+            "CountToIndividual": false
+          },
+          "EVotingWriteInsVoteCount": 0,
+          "EVotingExclWriteInsVoteCount": 0,
+          "EVotingInclWriteInsVoteCount": 0,
+          "ECountingWriteInsVoteCount": 0,
+          "ECountingExclWriteInsVoteCount": 0,
+          "ECountingInclWriteInsVoteCount": 0,
+          "ConventionalVoteCount": null,
+          "VoteCount": 0
+        }
+      ],
+      "ConventionalCountOfBallotGroupVotes": 0,
+      "ConventionalCountOfDetailedEnteredBallots": 0,
+      "EVotingSubTotal": {
+        "IndividualVoteCount": 0,
+        "EmptyVoteCountInclWriteIns": 0,
+        "EmptyVoteCountExclWriteIns": 0,
+        "EmptyVoteCountWriteIns": 0,
+        "InvalidVoteCount": 0,
+        "TotalCandidateVoteCountExclIndividual": 0,
+        "TotalCandidateVoteCountInclIndividual": 0
+      },
+      "ECountingSubTotal": {
+        "IndividualVoteCount": 0,
+        "EmptyVoteCountInclWriteIns": 0,
+        "EmptyVoteCountExclWriteIns": 0,
+        "EmptyVoteCountWriteIns": 0,
+        "InvalidVoteCount": 0,
+        "TotalCandidateVoteCountExclIndividual": 0,
+        "TotalCandidateVoteCountInclIndividual": 0
+      },
+      "ConventionalSubTotal": {
+        "IndividualVoteCount": null,
+        "EmptyVoteCountInclWriteIns": 0,
+        "EmptyVoteCountExclWriteIns": null,
+        "EmptyVoteCountWriteIns": null,
+        "InvalidVoteCount": null,
+        "TotalCandidateVoteCountExclIndividual": 0,
+        "TotalCandidateVoteCountInclIndividual": 0
+      },
+      "IndividualVoteCount": 0,
+      "EmptyVoteCount": 0,
+      "InvalidVoteCount": 0,
+      "TotalCandidateVoteCountExclIndividual": 0,
+      "TotalCandidateVoteCountInclIndividual": 0,
+      "CountingCircle": {
+        "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+        "Name": "Uzwil",
+        "Bfs": "1234",
+        "ResponsibleAuthority": {
+          "SecureConnectId": "",
+          "Name": "",
+          "Street": "",
+          "Zip": "",
+          "City": "",
+          "Phone": "",
+          "Email": ""
+        },
+        "ContactPersonDuringEvent": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        },
+        "ContactPersonSameDuringEventAsAfter": false,
+        "ContactPersonAfterEvent": null,
+        "ECounting": true
+      },
+      "HasUnmappedEVotingWriteIns": false,
+      "HasUnmappedECountingWriteIns": false,
+      "HasUnmappedWriteIns": false,
+      "Published": false,
+      "ReadyForCorrectionTimestamp": null,
+      "HasBallotGroups": false
+    },
+    {
+      "Id": "d6e4ce31-e90d-5ec3-8105-8243243ec2df",
+      "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+      "Election": {
+        "Id": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+        "PoliticalBusinessNumber": "155",
+        "OfficialDescription": "Majorzwahl St. Gallen de",
+        "ShortDescription": "Mw SG de",
+        "NumberOfMandates": 5,
+        "MandateAlgorithm": 2,
+        "CandidateCheckDigit": false,
+        "BallotBundleSize": 50,
+        "BallotBundleSampleSize": 1,
+        "AutomaticBallotBundleNumberGeneration": true,
+        "AutomaticBallotNumberGeneration": false,
+        "BallotNumberGeneration": 2,
+        "AutomaticEmptyVoteCounting": false,
+        "EnforceEmptyVoteCountingForCountingCircles": false,
+        "ResultEntry": 1,
+        "EnforceResultEntryForCountingCircles": true,
+        "EnabledVoterTypes": [
+          1,
+          2
+        ],
+        "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+        "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+        "Active": true,
+        "Title": "155: Mw SG de",
+        "CountOfSecondaryElections": 0,
+        "DomainOfInfluence": {
+          "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+          "Name": "St. Gallen",
+          "ShortName": "St. Gallen",
+          "AuthorityName": "",
+          "SecureConnectId": "200200200200200200",
+          "Type": 2,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 1,
+          "ContactPerson": {
+            "FirstName": "Hans",
+            "FamilyName": "Muster",
+            "Phone": "071 123 12 12",
+            "MobilePhone": "079 123 12 12",
+            "Email": "hans@sg.ch"
+          }
+        },
+        "Contest": {
+          "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+          "Date": {
+            "Seconds": 1598832000,
+            "Nanos": 0
+          },
+          "Description": "Kantonsurnengang de",
+          "EndOfTestingPhase": {
+            "Seconds": 1545264000,
+            "Nanos": 0
+          },
+          "TestingPhaseEnded": false,
+          "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+          "EVoting": true,
+          "EVotingFrom": {
+            "Seconds": 1582156800,
+            "Nanos": 0
+          },
+          "EVotingTo": {
+            "Seconds": 1583020800,
+            "Nanos": 0
+          },
+          "State": 1,
+          "EVotingResultsImported": false,
+          "CantonDefaults": {
+            "CountingCircleResultStateDescriptions": [
+              {
+                "State": 4,
+                "Description": "Erfassung beendet"
+              }
+            ],
+            "StatePlausibilisedDisabled": false,
+            "MajorityElectionInvalidVotes": false,
+            "CountingMachineEnabled": false,
+            "MajorityElectionUseCandidateCheckDigit": true,
+            "ProportionalElectionUseCandidateCheckDigit": false,
+            "ManualPublishResultsEnabled": true,
+            "EndResultFinalizeDisabled": false,
+            "PublishResultsBeforeAuditedTentatively": false,
+            "MonitoringAutoShowPoliticalBusinesses": false,
+            "MonitoringUseImprovedUi": false,
+            "MajorityElectionBundlesWithBallotGroupEnabled": true
+          },
+          "ECountingResultsImported": false
+        },
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": true,
+        "EnforceCandidateCheckDigitForCountingCircles": false,
+        "IndividualCandidatesDisabled": false,
+        "BundlesWithBallotGroupEnabled": false,
+        "EnforceBundlesWithBallotGroupEnabledForCountingCircles": false
+      },
+      "SecondaryMajorityElectionResults": [],
+      "Entry": 0,
+      "EntryParams": null,
+      "State": 1,
+      "SubmissionDoneTimestamp": null,
+      "TotalCountOfVoters": 0,
+      "CountOfVoters": {
+        "VoterParticipation": 0.0,
+        "ConventionalSubTotal": {
+          "ReceivedBallots": null,
+          "InvalidBallots": null,
+          "BlankBallots": null,
+          "AccountedBallots": null
+        },
+        "EVotingSubTotal": {
+          "ReceivedBallots": 0,
+          "InvalidBallots": 0,
+          "BlankBallots": 0,
+          "AccountedBallots": 0
+        },
+        "ECountingSubTotal": {
+          "ReceivedBallots": 0,
+          "InvalidBallots": 0,
+          "BlankBallots": 0,
+          "AccountedBallots": 0
+        },
+        "TotalReceivedBallots": 0,
+        "TotalAccountedBallots": 0,
+        "TotalUnaccountedBallots": 0,
+        "TotalInvalidBallots": 0,
+        "TotalBlankBallots": 0
+      },
+      "AllBundlesReviewedOrDeleted": true,
+      "CandidateResults": [
+        {
+          "Candidate": {
+            "Id": "1228f95d-8b39-44b1-8cc3-84a93f5e3bbc",
+            "Number": "number1",
+            "PoliticalFirstName": "pol first name",
+            "PoliticalLastName": "pol last name",
+            "FirstName": "firstName",
+            "LastName": "lastName",
+            "Party": "GLP de",
+            "Position": 1,
+            "Description": "number1 pol last name pol first name",
+            "CheckDigit": 9,
+            "CountToIndividual": false
+          },
+          "EVotingWriteInsVoteCount": 0,
+          "EVotingExclWriteInsVoteCount": 0,
+          "EVotingInclWriteInsVoteCount": 0,
+          "ECountingWriteInsVoteCount": 0,
+          "ECountingExclWriteInsVoteCount": 0,
+          "ECountingInclWriteInsVoteCount": 0,
+          "ConventionalVoteCount": null,
+          "VoteCount": 0
+        }
+      ],
+      "ConventionalCountOfBallotGroupVotes": 0,
+      "ConventionalCountOfDetailedEnteredBallots": 0,
+      "EVotingSubTotal": {
+        "IndividualVoteCount": 0,
+        "EmptyVoteCountInclWriteIns": 0,
+        "EmptyVoteCountExclWriteIns": 0,
+        "EmptyVoteCountWriteIns": 0,
+        "InvalidVoteCount": 0,
+        "TotalCandidateVoteCountExclIndividual": 0,
+        "TotalCandidateVoteCountInclIndividual": 0
+      },
+      "ECountingSubTotal": {
+        "IndividualVoteCount": 0,
+        "EmptyVoteCountInclWriteIns": 0,
+        "EmptyVoteCountExclWriteIns": 0,
+        "EmptyVoteCountWriteIns": 0,
+        "InvalidVoteCount": 0,
+        "TotalCandidateVoteCountExclIndividual": 0,
+        "TotalCandidateVoteCountInclIndividual": 0
+      },
+      "ConventionalSubTotal": {
+        "IndividualVoteCount": null,
+        "EmptyVoteCountInclWriteIns": 0,
+        "EmptyVoteCountExclWriteIns": null,
+        "EmptyVoteCountWriteIns": null,
+        "InvalidVoteCount": null,
+        "TotalCandidateVoteCountExclIndividual": 0,
+        "TotalCandidateVoteCountInclIndividual": 0
+      },
+      "IndividualVoteCount": 0,
+      "EmptyVoteCount": 0,
+      "InvalidVoteCount": 0,
+      "TotalCandidateVoteCountExclIndividual": 0,
+      "TotalCandidateVoteCountInclIndividual": 0,
+      "CountingCircle": {
+        "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+        "Name": "Uzwil",
+        "Bfs": "1234",
+        "ResponsibleAuthority": {
+          "SecureConnectId": "",
+          "Name": "",
+          "Street": "",
+          "Zip": "",
+          "City": "",
+          "Phone": "",
+          "Email": ""
+        },
+        "ContactPersonDuringEvent": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        },
+        "ContactPersonSameDuringEventAsAfter": false,
+        "ContactPersonAfterEvent": null,
+        "ECounting": true
+      },
+      "HasUnmappedEVotingWriteIns": false,
+      "HasUnmappedECountingWriteIns": false,
+      "HasUnmappedWriteIns": false,
+      "Published": false,
+      "ReadyForCorrectionTimestamp": null,
+      "HasBallotGroups": false
+    }
+  ]
+}

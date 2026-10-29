@@ -11,6 +11,8 @@
     ],
     "Provider": 2,
     "ResultExportConfigurations": [],
+    "SedexSenderId": null,
+    "SedexRecipientIds": null,
     "Id": "47d726a6-4a3f-4b84-a9d7-abe8383f89b2"
   },
   "resultConfigs": {
@@ -29,6 +31,8 @@
           ],
           "Provider": 2,
           "ResultExportConfigurations": [],
+          "SedexSenderId": null,
+          "SedexRecipientIds": null,
           "Id": "47d726a6-4a3f-4b84-a9d7-abe8383f89b2"
         },
         "Contest": null,
@@ -54,6 +58,8 @@
           ],
           "Provider": 2,
           "ResultExportConfigurations": [],
+          "SedexSenderId": null,
+          "SedexRecipientIds": null,
           "Id": "47d726a6-4a3f-4b84-a9d7-abe8383f89b2"
         },
         "Contest": null,
@@ -79,6 +85,8 @@
           ],
           "Provider": 2,
           "ResultExportConfigurations": [],
+          "SedexSenderId": null,
+          "SedexRecipientIds": null,
           "Id": "47d726a6-4a3f-4b84-a9d7-abe8383f89b2"
         },
         "Contest": null,
@@ -104,6 +112,8 @@
           ],
           "Provider": 2,
           "ResultExportConfigurations": [],
+          "SedexSenderId": null,
+          "SedexRecipientIds": null,
           "Id": "47d726a6-4a3f-4b84-a9d7-abe8383f89b2"
         },
         "Contest": null,
@@ -129,6 +139,8 @@
           ],
           "Provider": 2,
           "ResultExportConfigurations": [],
+          "SedexSenderId": null,
+          "SedexRecipientIds": null,
           "Id": "47d726a6-4a3f-4b84-a9d7-abe8383f89b2"
         },
         "Contest": null,
@@ -154,6 +166,8 @@
           ],
           "Provider": 2,
           "ResultExportConfigurations": [],
+          "SedexSenderId": null,
+          "SedexRecipientIds": null,
           "Id": "47d726a6-4a3f-4b84-a9d7-abe8383f89b2"
         },
         "Contest": null,
@@ -179,6 +193,8 @@
           ],
           "Provider": 2,
           "ResultExportConfigurations": [],
+          "SedexSenderId": null,
+          "SedexRecipientIds": null,
           "Id": "47d726a6-4a3f-4b84-a9d7-abe8383f89b2"
         },
         "Contest": null,
@@ -204,6 +220,8 @@
           ],
           "Provider": 2,
           "ResultExportConfigurations": [],
+          "SedexSenderId": null,
+          "SedexRecipientIds": null,
           "Id": "47d726a6-4a3f-4b84-a9d7-abe8383f89b2"
         },
         "Contest": null,
@@ -229,6 +247,8 @@
           ],
           "Provider": 2,
           "ResultExportConfigurations": [],
+          "SedexSenderId": null,
+          "SedexRecipientIds": null,
           "Id": "47d726a6-4a3f-4b84-a9d7-abe8383f89b2"
         },
         "Contest": null,

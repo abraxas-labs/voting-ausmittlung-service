@@ -36,6 +36,17 @@ public class ProportionalElectionResultRepo : PoliticalBusinessResultRepo<Propor
         return query.ToListAsync();
     }
 
+    public IQueryable<ProportionalElectionResult> QueryProportionalElectionResult()
+    {
+        return Query()
+            .AsSplitQuery()
+            .Include(x => x.CountingCircle)
+            .Include(x => x.ProportionalElection.Translations)
+            .Include(x => x.ProportionalElection.Contest.Translations)
+            .Include(x => x.ProportionalElection.Contest.CantonDefaults)
+            .Include(x => x.ProportionalElection.DomainOfInfluence);
+    }
+
     protected override Expression<Func<ProportionalElectionResult, bool>> FilterByPoliticalBusinessId(Guid id) =>
         x => x.ProportionalElectionId == id;
 

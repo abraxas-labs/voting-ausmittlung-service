@@ -15,10 +15,9 @@ public class CreateUpdateSecondaryMajorityElectionResultBallotRequestTest : Prot
         var request = new CreateUpdateSecondaryMajorityElectionResultBallotRequest
         {
             SecondaryMajorityElectionId = "f67b688a-0566-4e3c-bd73-6063834fedaf",
-            SelectedCandidateIds =
+            Candidates =
             {
-                "2af9848b-4f3a-4d5f-8696-3e059d1a2ba2",
-                "1927cf23-7a87-4c81-a031-807680639746",
+                CreateUpdateMajorityElectionResultBallotCandidateRequestTest.NewValidRequest(),
             },
             EmptyVoteCount = 4,
             IndividualVoteCount = 3,
@@ -39,14 +38,13 @@ public class CreateUpdateSecondaryMajorityElectionResultBallotRequestTest : Prot
         yield return NewValidRequest(x => x.InvalidVoteCount = 1000000);
         yield return NewValidRequest(x => x.IndividualVoteCount = 0);
         yield return NewValidRequest(x => x.IndividualVoteCount = 1000000);
+        yield return NewValidRequest(x => x.Candidates.Clear());
     }
 
     protected override IEnumerable<CreateUpdateSecondaryMajorityElectionResultBallotRequest> NotOkMessages()
     {
         yield return NewValidRequest(x => x.SecondaryMajorityElectionId = "invalid-guid");
         yield return NewValidRequest(x => x.SecondaryMajorityElectionId = string.Empty);
-        yield return NewValidRequest(x => x.SelectedCandidateIds.Add("invalid-guid"));
-        yield return NewValidRequest(x => x.SelectedCandidateIds.Add(string.Empty));
         yield return NewValidRequest(x => x.EmptyVoteCount = -1);
         yield return NewValidRequest(x => x.EmptyVoteCount = 1000001);
         yield return NewValidRequest(x => x.InvalidVoteCount = -1);

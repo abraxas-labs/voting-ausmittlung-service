@@ -1,0 +1,57 @@
+{
+  "Number": 1,
+  "EmptyVoteCount": 0,
+  "IndividualVoteCount": 0,
+  "Candidates": [
+    {
+      "Id": "81a11b8e-51b8-40c5-aa94-b7a854e2c726",
+      "Number": "number1",
+      "PoliticalFirstName": "pol first name",
+      "PoliticalLastName": "pol last name",
+      "Party": "Test de",
+      "Description": "number1 pol last name pol first name",
+      "Position": 1,
+      "Selected": true,
+      "CheckDigit": 9,
+      "OnBallotGroup": true
+    }
+  ],
+  "SecondaryMajorityElectionBallots": [
+    {
+      "ElectionId": "0741da26-add2-4c4c-960d-7e251b82e91b",
+      "EmptyVoteCount": 1,
+      "IndividualVoteCount": 1,
+      "Candidates": [
+        {
+          "Id": "9d1e4ef4-81c0-4905-a2c6-e1b937b80ddf",
+          "Number": "number1",
+          "PoliticalFirstName": "pol first name",
+          "PoliticalLastName": "pol last name",
+          "Party": "Test de",
+          "Description": "number1 pol last name pol first name",
+          "Position": 1,
+          "Selected": true,
+          "CheckDigit": 9,
+          "OnBallotGroup": true
+        }
+      ],
+      "InvalidVoteCount": 0
+    },
+    {
+      "ElectionId": "292a5a89-e030-44db-a204-90e00540ba84",
+      "EmptyVoteCount": 0,
+      "IndividualVoteCount": 0,
+      "Candidates": [],
+      "InvalidVoteCount": 0
+    },
+    {
+      "ElectionId": "f4ae2b39-45b5-427a-96e4-24d645ddb080",
+      "EmptyVoteCount": 0,
+      "IndividualVoteCount": 0,
+      "Candidates": [],
+      "InvalidVoteCount": 0
+    }
+  ],
+  "InvalidVoteCount": 0,
+  "Logs": []
+}

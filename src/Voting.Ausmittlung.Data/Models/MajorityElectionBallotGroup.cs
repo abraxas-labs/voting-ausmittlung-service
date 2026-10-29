@@ -29,4 +29,7 @@ public class MajorityElectionBallotGroup : BaseEntity
 
     public ICollection<MajorityElectionBallotGroupResult> BallotGroupResults { get; set; } =
         new HashSet<MajorityElectionBallotGroupResult>();
+
+    public ICollection<MajorityElectionResultBundle> Bundles { get; set; } =
+        new HashSet<MajorityElectionResultBundle>();
 }

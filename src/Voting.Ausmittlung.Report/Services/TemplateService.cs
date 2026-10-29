@@ -8,10 +8,9 @@ using System.Xml.Schema;
 using System.Xml.Serialization;
 using CsvHelper;
 using Ech0222_1_0;
+using Voting.Ausmittlung.Ech.Converters;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices;
-using Voting.Lib.Common;
-using Voting.Lib.Ech;
 using Voting.Lib.VotingExports.Models;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
@@ -25,12 +24,12 @@ public class TemplateService
 
     private readonly CsvService _csvService;
     private readonly IPdfService _pdfService;
-    private readonly EchSerializer _echSerializer;
+    private readonly EchValidationSerializer _echSerializer;
 
     public TemplateService(
         CsvService csvService,
         IPdfService pdfService,
-        EchSerializer echSerializer)
+        EchValidationSerializer echSerializer)
     {
         _csvService = csvService;
         _pdfService = pdfService;
@@ -114,16 +113,7 @@ public class TemplateService
         var fileName = FileNameBuilder.GenerateFileName(context.Template, filenameArgs);
         return new FileModel(context, fileName, ExportFileFormat.Xml, messageId, async (w, ct) =>
         {
-            await using var xmlValidationStream = new XmlValidationOnWriteStream(w.AsStream(), schemaSet);
-
-            // WriteXml is synchronous and writes into a Pipe. The concurrent ValidateXml task
-            // reads from the other end of that Pipe. If WriteXml ran on the current thread it
-            // could deadlock once the Pipe's internal buffer fills up, because the reader
-            // (an async Task) would never get a chance to drain it. Task.Run offloads the
-            // blocking serialization to a thread-pool thread so both sides of the Pipe can
-            // make progress concurrently.
-            await Task.Run(() => _echSerializer.WriteXml(xmlValidationStream, data, BuildXmlAttributeOverrides(), null, true), ct);
-            await xmlValidationStream.WaitForValidation();
+            await _echSerializer.SerializeEchToXml(w.AsStream(), data, schemaSet, BuildXmlAttributeOverrides(), ct);
             await w.CompleteAsync();
         });
     }

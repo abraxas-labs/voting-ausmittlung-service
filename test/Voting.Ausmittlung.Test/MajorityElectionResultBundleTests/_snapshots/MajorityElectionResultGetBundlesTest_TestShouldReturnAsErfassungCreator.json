@@ -78,14 +78,19 @@
           "ProportionalElectionUseCandidateCheckDigit": false,
           "ManualPublishResultsEnabled": true,
           "EndResultFinalizeDisabled": false,
-          "PublishResultsBeforeAuditedTentatively": false
+          "PublishResultsBeforeAuditedTentatively": false,
+          "MonitoringAutoShowPoliticalBusinesses": false,
+          "MonitoringUseImprovedUi": false,
+          "MajorityElectionBundlesWithBallotGroupEnabled": true
         },
         "ECountingResultsImported": false
       },
       "ReviewProcedure": 1,
       "EnforceReviewProcedureForCountingCircles": true,
       "EnforceCandidateCheckDigitForCountingCircles": false,
-      "IndividualCandidatesDisabled": false
+      "IndividualCandidatesDisabled": false,
+      "BundlesWithBallotGroupEnabled": true,
+      "EnforceBundlesWithBallotGroupEnabledForCountingCircles": true
     },
     "SecondaryMajorityElectionResults": [],
     "Entry": 2,
@@ -97,7 +102,8 @@
       "BallotNumberGeneration": 2,
       "AutomaticEmptyVoteCounting": false,
       "ReviewProcedure": 1,
-      "CandidateCheckDigit": true
+      "CandidateCheckDigit": true,
+      "BundlesWithBallotGroupEnabled": false
     },
     "State": 1,
     "SubmissionDoneTimestamp": null,
@@ -228,7 +234,8 @@
       ],
       "CountOfModifiedBallots": 2,
       "BallotNumbersModifiedDuringReview": [],
-      "BallotModificationUserIds": []
+      "BallotModificationUserIds": [],
+      "BallotGroup": null
     },
     {
       "Id": "",
@@ -262,7 +269,8 @@
       ],
       "CountOfModifiedBallots": 0,
       "BallotNumbersModifiedDuringReview": [],
-      "BallotModificationUserIds": []
+      "BallotModificationUserIds": [],
+      "BallotGroup": null
     },
     {
       "Id": "",
@@ -296,7 +304,8 @@
       ],
       "CountOfModifiedBallots": 0,
       "BallotNumbersModifiedDuringReview": [],
-      "BallotModificationUserIds": []
+      "BallotModificationUserIds": [],
+      "BallotGroup": null
     }
   ]
 }

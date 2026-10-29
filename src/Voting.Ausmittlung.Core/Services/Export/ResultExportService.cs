@@ -192,7 +192,6 @@ public class ResultExportService
         await EnsureValidBundleState(bundleId, politicalBusinessType);
 
         var (contestId, basisCountingCircleId, politicalBusinessId, templateKey) = await LoadBundleProperties(bundleId, politicalBusinessType);
-
         await EnsureExportBundleReviewPermissions(basisCountingCircleId, contestId);
 
         // Make sure the export sees a snapshot of the data at this point in time.
@@ -373,6 +372,59 @@ public class ResultExportService
         return resolvedTemplates;
     }
 
+    internal async Task EnsureExportBundleReviewPermissions(Guid countingCircleId, Guid contestId)
+    {
+        await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircle(countingCircleId, contestId);
+        await _contestService.EnsureNotLocked(contestId);
+    }
+
+    internal async Task<(Guid ContestId, Guid BasisCountingCircleId, Guid PoliticalBusinessId, string TemplateKey)> LoadBundleProperties(
+        Guid bundleId,
+        PoliticalBusinessType politicalBusinessType)
+    {
+        switch (politicalBusinessType)
+        {
+            case PoliticalBusinessType.Vote:
+                {
+                    var bundle = await _voteResultBundleRepo.Query()
+                        .Include(x => x.BallotResult.VoteResult.Vote)
+                        .Include(x => x.BallotResult.VoteResult.CountingCircle)
+                        .SingleAsync(x => x.Id == bundleId);
+                    var contestId = bundle.BallotResult.VoteResult.Vote.ContestId;
+                    var basisCountingCircleId = bundle.BallotResult.VoteResult.CountingCircle.BasisCountingCircleId;
+                    var politicalBusinessId = bundle.BallotResult.VoteResult.PoliticalBusinessId;
+                    return (contestId, basisCountingCircleId, politicalBusinessId, AusmittlungPdfVoteTemplates.ResultBundleReview.Key);
+                }
+
+            case PoliticalBusinessType.MajorityElection:
+                {
+                    var bundle = await _majorityElectionResultBundleRepo.Query()
+                        .Include(x => x.ElectionResult.MajorityElection)
+                        .Include(x => x.ElectionResult.CountingCircle)
+                        .SingleAsync(x => x.Id == bundleId);
+                    var contestId = bundle.ElectionResult.MajorityElection.ContestId;
+                    var basisCountingCircleId = bundle.ElectionResult.CountingCircle.BasisCountingCircleId;
+                    var politicalBusinessId = bundle.ElectionResult.PoliticalBusinessId;
+                    return (contestId, basisCountingCircleId, politicalBusinessId, AusmittlungPdfMajorityElectionTemplates.ResultBundleReview.Key);
+                }
+
+            case PoliticalBusinessType.ProportionalElection:
+                {
+                    var bundle = await _proportionalElectionResultBundleRepo.Query()
+                        .Include(x => x.ElectionResult.ProportionalElection)
+                        .Include(x => x.ElectionResult.CountingCircle)
+                        .SingleAsync(x => x.Id == bundleId);
+                    var contestId = bundle.ElectionResult.ProportionalElection.ContestId;
+                    var basisCountingCircleId = bundle.ElectionResult.CountingCircle.BasisCountingCircleId;
+                    var politicalBusinessId = bundle.ElectionResult.PoliticalBusinessId;
+                    return (contestId, basisCountingCircleId, politicalBusinessId, AusmittlungPdfProportionalElectionTemplates.ResultBundleReview.Key);
+                }
+
+            default:
+                throw new ArgumentException($"political business type {politicalBusinessType} is not valid");
+        }
+    }
+
     private async Task GenerateExportsFromConfigurationInNewScope(
         ResultExportConfiguration export,
         ResultExportTriggerMode triggerMode,
@@ -459,59 +511,6 @@ public class ResultExportService
         aggregate.AutomatedExportCompleted(export.ContestId, export.ExportConfigurationId, jobId, triggerMode);
         await _aggregateRepository.Save(aggregate, true);
         _logger.LogInformation("completed result export {ExportId} ({JobId})", export.ExportConfigurationId, jobId);
-    }
-
-    private async Task EnsureExportBundleReviewPermissions(Guid countingCircleId, Guid contestId)
-    {
-        await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircle(countingCircleId, contestId);
-        await _contestService.EnsureNotLocked(contestId);
-    }
-
-    private async Task<(Guid ContestId, Guid BasisCountingCircleId, Guid PoliticalBusinessId, string TemplateKey)> LoadBundleProperties(
-        Guid bundleId,
-        PoliticalBusinessType politicalBusinessType)
-    {
-        switch (politicalBusinessType)
-        {
-            case PoliticalBusinessType.Vote:
-                {
-                    var bundle = await _voteResultBundleRepo.Query()
-                        .Include(x => x.BallotResult.VoteResult.Vote)
-                        .Include(x => x.BallotResult.VoteResult.CountingCircle)
-                        .SingleAsync(x => x.Id == bundleId);
-                    var contestId = bundle.BallotResult.VoteResult.Vote.ContestId;
-                    var basisCountingCircleId = bundle.BallotResult.VoteResult.CountingCircle.BasisCountingCircleId;
-                    var politicalBusinessId = bundle.BallotResult.VoteResult.PoliticalBusinessId;
-                    return (contestId, basisCountingCircleId, politicalBusinessId, AusmittlungPdfVoteTemplates.ResultBundleReview.Key);
-                }
-
-            case PoliticalBusinessType.MajorityElection:
-                {
-                    var bundle = await _majorityElectionResultBundleRepo.Query()
-                        .Include(x => x.ElectionResult.MajorityElection)
-                        .Include(x => x.ElectionResult.CountingCircle)
-                        .SingleAsync(x => x.Id == bundleId);
-                    var contestId = bundle.ElectionResult.MajorityElection.ContestId;
-                    var basisCountingCircleId = bundle.ElectionResult.CountingCircle.BasisCountingCircleId;
-                    var politicalBusinessId = bundle.ElectionResult.PoliticalBusinessId;
-                    return (contestId, basisCountingCircleId, politicalBusinessId, AusmittlungPdfMajorityElectionTemplates.ResultBundleReview.Key);
-                }
-
-            case PoliticalBusinessType.ProportionalElection:
-                {
-                    var bundle = await _proportionalElectionResultBundleRepo.Query()
-                        .Include(x => x.ElectionResult.ProportionalElection)
-                        .Include(x => x.ElectionResult.CountingCircle)
-                        .SingleAsync(x => x.Id == bundleId);
-                    var contestId = bundle.ElectionResult.ProportionalElection.ContestId;
-                    var basisCountingCircleId = bundle.ElectionResult.CountingCircle.BasisCountingCircleId;
-                    var politicalBusinessId = bundle.ElectionResult.PoliticalBusinessId;
-                    return (contestId, basisCountingCircleId, politicalBusinessId, AusmittlungPdfProportionalElectionTemplates.ResultBundleReview.Key);
-                }
-
-            default:
-                throw new ArgumentException($"political business type {politicalBusinessType} is not valid");
-        }
     }
 
     private async Task EnsureValidBundleState(Guid bundleId, PoliticalBusinessType politicalBusinessType)

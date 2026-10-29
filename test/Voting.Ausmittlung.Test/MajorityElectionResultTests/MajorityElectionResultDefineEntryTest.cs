@@ -306,6 +306,25 @@ public class MajorityElectionResultDefineEntryTest : MajorityElectionResultBaseT
             "enforced CandidateCheckDigit setting not respected");
     }
 
+    [Fact]
+    public async Task TestNoRespectForEnforcedBundlesWithBallotGroupEnabledSettingShouldThrow()
+    {
+        await RunOnDb(async db =>
+        {
+            var election = await db.MajorityElections
+                .AsTracking()
+                .FirstAsync(x =>
+                    x.Id == Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund));
+            election.EnforceBundlesWithBallotGroupEnabledForCountingCircles = true;
+            election.BundlesWithBallotGroupEnabled = false;
+            await db.SaveChangesAsync();
+        });
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.DefineEntryAsync(NewValidRequest()),
+            StatusCode.InvalidArgument,
+            "enforced BundlesWithBallotGroupEnabled setting not respected");
+    }
+
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
         await new MajorityElectionResultService.MajorityElectionResultServiceClient(channel)
@@ -331,6 +350,7 @@ public class MajorityElectionResultDefineEntryTest : MajorityElectionResultBaseT
                 AutomaticBallotBundleNumberGeneration = true,
                 ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
                 CandidateCheckDigit = true,
+                BundlesWithBallotGroupEnabled = true,
             },
             ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
         };

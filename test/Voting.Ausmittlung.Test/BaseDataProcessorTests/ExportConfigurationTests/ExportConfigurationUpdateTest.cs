@@ -53,4 +53,35 @@ public class ExportConfigurationUpdateTest : BaseDataProcessorTest
         var config = await RunOnDb(db => db.ExportConfigurations.FirstAsync(x => x.Id == id));
         config.MatchSnapshot();
     }
+
+    [Fact]
+    public async Task ShouldUpdateSedex()
+    {
+        var id = Guid.Parse(ExportConfigurationMockedData.IdStGallenIntf001);
+        await TestEventPublisher.Publish(new ExportConfigurationUpdated
+        {
+            Configuration = new ExportConfigurationEventData
+            {
+                Id = id.ToString(),
+                Description = "Intf001-updated",
+                ExportKeys =
+                {
+                    AusmittlungWabstiCTemplates.SGGemeinden.Key,
+                    AusmittlungWabstiCTemplates.WMWahl.Key,
+                    AusmittlungWabstiCTemplates.WPKandidaten.Key,
+                },
+                EaiMessageType = "1234-updated",
+                DomainOfInfluenceId = DomainOfInfluenceMockedData.IdStGallen,
+                Provider = ExportProvider.Sedex,
+                SedexConfiguration = new SedexConfigurationEventData
+                {
+                    SenderId = "sender-id",
+                    RecipientIds = { "recipient-1", "recipient-2" },
+                },
+            },
+        });
+
+        var config = await RunOnDb(db => db.ExportConfigurations.FirstAsync(x => x.Id == id));
+        config.MatchSnapshot();
+    }
 }

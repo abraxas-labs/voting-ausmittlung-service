@@ -25,6 +25,7 @@
     "BallotNumberGeneration": 2,
     "AutomaticEmptyVoteCounting": false,
     "ReviewProcedure": 1,
-    "CandidateCheckDigit": true
+    "CandidateCheckDigit": true,
+    "BundlesWithBallotGroupEnabled": true
   }
 }

@@ -74,6 +74,10 @@ public class ResultGetOverviewTest : BaseTest<ResultService.ResultServiceClient>
     public async Task TestShouldReturnWithPartialResults()
     {
         await ModifyDbEntities<DomainOfInfluence>(x => x.SnapshotContestId == ContestMockedData.StGallenEvotingUrnengang.Id && x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.StGallenStadt.BasisDomainOfInfluenceId, x => x.ViewCountingCirclePartialResults = true);
+
+        // tests sorting first domain of influence type then by political business number
+        await ModifyDbEntities<DomainOfInfluence>(x => x.SnapshotContestId == ContestMockedData.StGallenEvotingUrnengang.Id && x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.Gossau.BasisDomainOfInfluenceId, x => x.Type = DomainOfInfluenceType.Ct);
+
         var response = await StGallenMonitoringElectionAdminClient.GetOverviewAsync(new GetResultOverviewRequest
         {
             ContestId = ContestMockedData.IdStGallenEvoting,

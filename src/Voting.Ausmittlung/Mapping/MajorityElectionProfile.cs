@@ -1,6 +1,7 @@
 // (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System.Collections.Generic;
 using AutoMapper;
 using DataModels = Voting.Ausmittlung.Data.Models;
 using ProtoModels = Abraxas.Voting.Ausmittlung.Services.V1.Models;
@@ -25,6 +26,8 @@ public class MajorityElectionProfile : Profile
         CreateMap<DataModels.MajorityElectionCandidateBase, ProtoModels.MajorityElectionCandidate>()
             .ForMember(dst => dst.Party, opts => opts.MapFrom(src => src.PartyShortDescription));
         CreateMap<DataModels.MajorityElectionBallotGroup, ProtoModels.MajorityElectionBallotGroup>();
+        CreateMap<IEnumerable<DataModels.MajorityElectionBallotGroup>, ProtoModels.MajorityElectionBallotGroups>()
+            .ForMember(dst => dst.BallotGroups, opts => opts.MapFrom(src => src));
         CreateMap<DataModels.MajorityElectionBallotGroupEntry, ProtoModels.MajorityElectionBallotGroupEntry>()
             .ForMember(dst => dst.Election, opts =>
             {
@@ -38,6 +41,7 @@ public class MajorityElectionProfile : Profile
             });
         CreateMap<DataModels.MajorityElectionBallotGroupEntryCandidate, ProtoModels.MajorityElectionCandidate>()
             .ForMember(dst => dst.Party, opts => opts.MapFrom(src => src.Candidate.PartyShortDescription))
+            .ForMember(dst => dst.Id, opts => opts.MapFrom(src => src.PrimaryElectionCandidateId ?? src.SecondaryElectionCandidateId!.Value))
             .IncludeMembers(src => src.Candidate);
     }
 }

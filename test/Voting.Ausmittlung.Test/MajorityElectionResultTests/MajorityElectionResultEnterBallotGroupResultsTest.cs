@@ -49,6 +49,7 @@ public class MajorityElectionResultEnterBallotGroupResultsTest : MajorityElectio
                 BallotBundleSampleSize = 2,
                 AutomaticBallotBundleNumberGeneration = true,
                 ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
+                BundlesWithBallotGroupEnabled = true,
             },
         });
         await RunEvents<MajorityElectionResultEntryDefined>();

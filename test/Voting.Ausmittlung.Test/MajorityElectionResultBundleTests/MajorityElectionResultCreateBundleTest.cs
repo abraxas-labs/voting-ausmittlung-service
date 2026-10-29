@@ -50,6 +50,7 @@ public class MajorityElectionResultCreateBundleTest : MajorityElectionResultBund
                 AutomaticBallotBundleNumberGeneration = true,
                 AutomaticEmptyVoteCounting = true,
                 ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
+                BundlesWithBallotGroupEnabled = true,
             },
         });
     }
@@ -57,7 +58,6 @@ public class MajorityElectionResultCreateBundleTest : MajorityElectionResultBund
     [Fact]
     public async Task TestProcessor()
     {
-        var resultId = MajorityElectionResultMockedData.GuidStGallenElectionResultInContestBund;
         var bundle3Id = Guid.Parse("0e6ce300-8106-49e2-824d-1311de811994");
         var bundle4Id = Guid.Parse("b1e326d7-2f47-43d7-8430-cf150401337c");
 
@@ -92,6 +92,7 @@ public class MajorityElectionResultCreateBundleTest : MajorityElectionResultBund
                     Tenant = SecureConnectTestDefaults.MockedTenantGossau.ToEventInfoTenant(),
                     User = new() { Id = TestDefaults.UserId },
                 },
+                BallotGroupId = MajorityElectionMockedData.BallotGroupIdStGallenMajorityElectionInContestBund,
             });
 
         var bundles = await ErfassungElectionAdminClient.GetBundlesAsync(
@@ -199,6 +200,7 @@ public class MajorityElectionResultCreateBundleTest : MajorityElectionResultBund
                 BallotBundleSampleSize = 10,
                 AutomaticBallotBundleNumberGeneration = false,
                 ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
+                BundlesWithBallotGroupEnabled = true,
             },
         });
 
@@ -230,6 +232,7 @@ public class MajorityElectionResultCreateBundleTest : MajorityElectionResultBund
                 BallotBundleSampleSize = 10,
                 AutomaticBallotBundleNumberGeneration = false,
                 ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
+                BundlesWithBallotGroupEnabled = true,
             },
         });
 
@@ -254,6 +257,7 @@ public class MajorityElectionResultCreateBundleTest : MajorityElectionResultBund
                 BallotBundleSampleSize = 10,
                 AutomaticBallotBundleNumberGeneration = false,
                 ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
+                BundlesWithBallotGroupEnabled = true,
             },
         });
 
@@ -285,6 +289,7 @@ public class MajorityElectionResultCreateBundleTest : MajorityElectionResultBund
                 BallotBundleSampleSize = 1,
                 AutomaticBallotBundleNumberGeneration = true,
                 ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
+                BundlesWithBallotGroupEnabled = true,
             },
             ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
         });
@@ -334,6 +339,31 @@ public class MajorityElectionResultCreateBundleTest : MajorityElectionResultBund
             "Contest is past locked or archived");
     }
 
+    /// <summary>
+    /// A non-existing ballotGroupId must be rejected on the write side instead of being accepted into a
+    /// MajorityElectionResultBundleCreated event.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Fact]
+    public async Task TestShouldThrowBallotGroupNotFound()
+    {
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.CreateBundleAsync(NewValidRequest(x => x.BallotGroupId = Guid.NewGuid().ToString())),
+            StatusCode.NotFound);
+    }
+
+    /// <summary>
+    /// The ballotGroupId must belong to the given electionResultId's election, not just exist somewhere in the DB.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Fact]
+    public async Task TestShouldThrowBallotGroupOfOtherElection()
+    {
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.CreateBundleAsync(NewValidRequest(x => x.BallotGroupId = MajorityElectionMockedData.BallotGroupIdUzwilMajorityElectionInContestStGallen)),
+            StatusCode.NotFound);
+    }
+
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
         await new MajorityElectionResultBundleService.MajorityElectionResultBundleServiceClient(channel)
@@ -354,6 +384,7 @@ public class MajorityElectionResultCreateBundleTest : MajorityElectionResultBund
         var r = new CreateMajorityElectionResultBundleRequest
         {
             ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
+            BallotGroupId = MajorityElectionMockedData.BallotGroupIdStGallenMajorityElectionInContestBund,
         };
         customizer?.Invoke(r);
         return r;

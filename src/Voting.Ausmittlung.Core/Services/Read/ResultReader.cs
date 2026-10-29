@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Exceptions;
+using Voting.Ausmittlung.Core.Models;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Core.Services.Validation;
 using Voting.Ausmittlung.Core.Services.Validation.Models;
@@ -28,6 +29,9 @@ public class ResultReader
     private readonly IDbRepository<DataContext, SimpleCountingCircleResult> _simpleResultRepo;
     private readonly PermissionService _permissionService;
     private readonly CountingCircleResultsValidationSummariesBuilder _countingCircleResultsValidationResultsBuilder;
+    private readonly VoteResultRepo _voteResultRepo;
+    private readonly ProportionalElectionResultRepo _proportionalElectionResultRepo;
+    private readonly MajorityElectionResultRepo _majorityElectionResultRepo;
 
     public ResultReader(
         IDbRepository<DataContext, Contest> contestRepo,
@@ -35,7 +39,10 @@ public class ResultReader
         ContestCountingCircleDetailsRepo contestCountingCircleDetailsRepo,
         IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo,
         PermissionService permissionService,
-        CountingCircleResultsValidationSummariesBuilder countingCircleResultsValidationResultsBuilder)
+        CountingCircleResultsValidationSummariesBuilder countingCircleResultsValidationResultsBuilder,
+        VoteResultRepo voteResultRepo,
+        ProportionalElectionResultRepo proportionalElectionResultRepo,
+        MajorityElectionResultRepo majorityElectionResultRepo)
     {
         _contestRepo = contestRepo;
         _countingCircleRepo = countingCircleRepo;
@@ -43,6 +50,9 @@ public class ResultReader
         _permissionService = permissionService;
         _simpleResultRepo = simpleResultRepo;
         _countingCircleResultsValidationResultsBuilder = countingCircleResultsValidationResultsBuilder;
+        _voteResultRepo = voteResultRepo;
+        _proportionalElectionResultRepo = proportionalElectionResultRepo;
+        _majorityElectionResultRepo = majorityElectionResultRepo;
     }
 
     public async Task<ResultOverview> GetResultOverview(Guid contestId)
@@ -64,7 +74,8 @@ public class ResultReader
                            && (pb.Contest.DomainOfInfluence.SecureConnectId == tenantId
                                 || pb.DomainOfInfluence.SecureConnectId == tenantId
                                 || pb.SimpleResults.Any(r => viewablePartialResultsCcIds.Contains(r.CountingCircleId))))
-                       .OrderBy(pb => pb.PoliticalBusinessNumber))
+                       .OrderBy(pb => pb.DomainOfInfluence.Type)
+                       .ThenBy(pb => pb.PoliticalBusinessNumber))
                    .ThenInclude(pb => pb.Translations)
                    .Include(x => x.SimplePoliticalBusinesses)
                    .ThenInclude(pb => pb.SimpleResults
@@ -239,6 +250,71 @@ public class ResultReader
             currentTenantIsResponsible,
             countingCircle.ContestCountingCircleContactPersonId,
             countingCircle.MustUpdateContactPersons);
+    }
+
+    public async Task<PoliticalBusinessResults> GetResults(Guid contestId, Guid basisCountingCircleId)
+    {
+        await _permissionService.EnsureCanReadBasisCountingCircle(basisCountingCircleId, contestId);
+
+        var contest = await _contestRepo.Query()
+            .Include(c => c.DomainOfInfluence)
+            .FirstOrDefaultAsync(c => c.Id == contestId)
+            ?? throw new EntityNotFoundException(contestId);
+
+        var countingCircle = await _countingCircleRepo.Query()
+            .AsSplitQuery()
+            .Include(x => x.ResponsibleAuthority)
+            .FirstOrDefaultAsync(x => x.BasisCountingCircleId == basisCountingCircleId && x.SnapshotContestId == contestId)
+            ?? throw new EntityNotFoundException(basisCountingCircleId);
+
+        var viewablePartialResultsCountingCircleIds = await _permissionService.GetViewablePartialResultsCountingCircleIds(contestId);
+        var tenantId = _permissionService.TenantId;
+
+        var results = await _simpleResultRepo.Query()
+            .Where(x =>
+                x.CountingCircleId == countingCircle.Id
+                && x.PoliticalBusiness!.ContestId == contestId
+                && x.PoliticalBusiness.PoliticalBusinessType != PoliticalBusinessType.SecondaryMajorityElection
+                && x.PoliticalBusiness.Active
+                && (countingCircle.ResponsibleAuthority.SecureConnectId == tenantId
+                    || contest.DomainOfInfluence.SecureConnectId == tenantId
+                    || x.PoliticalBusiness.DomainOfInfluence.SecureConnectId == tenantId
+                    || viewablePartialResultsCountingCircleIds.Contains(x.CountingCircleId)))
+            .Select(r => new
+            {
+                r.Id,
+                r.PoliticalBusiness!.PoliticalBusinessType,
+            })
+            .ToListAsync();
+
+        var resultIdsByType = results
+            .GroupBy(x => x.PoliticalBusinessType)
+            .ToDictionary(x => x.Key, x => x.Select(y => y.Id).ToList());
+
+        var voteResultIds = resultIdsByType.GetValueOrDefault(PoliticalBusinessType.Vote, []);
+        var voteResults = await _voteResultRepo.QueryVoteResult()
+            .Where(x => voteResultIds.Contains(x.Id))
+            .ToListAsync();
+
+        var proportionalElectionResultIds = resultIdsByType.GetValueOrDefault(PoliticalBusinessType.ProportionalElection, []);
+        var proportionalElectionResults = await _proportionalElectionResultRepo.QueryProportionalElectionResult()
+            .Where(x => proportionalElectionResultIds.Contains(x.Id))
+            .ToListAsync();
+
+        var majorityElectionResultIds = resultIdsByType.GetValueOrDefault(PoliticalBusinessType.MajorityElection, []);
+        var majorityElectionResults = await _majorityElectionResultRepo.QueryMajorityElectionResult()
+            .Where(x => majorityElectionResultIds.Contains(x.Id))
+            .ToListAsync();
+
+        foreach (var majorityElectionResult in majorityElectionResults)
+        {
+            majorityElectionResult.OrderCandidates();
+        }
+
+        return new PoliticalBusinessResults(
+            voteResults,
+            proportionalElectionResults,
+            majorityElectionResults);
     }
 
     public async Task<IEnumerable<CountingCircleResultComment>> GetComments(Guid resultId)

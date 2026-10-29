@@ -22,6 +22,9 @@
     "PublishResultsBeforeAuditedTentatively": false,
     "EndResultFinalizeDisabled": true,
     "ECountingCertificateChains": [],
+    "MonitoringAutoShowPoliticalBusinesses": false,
+    "MonitoringUseImprovedUi": false,
+    "MajorityElectionBundlesWithBallotGroupEnabled": false,
     "Id": "2d203a3c-40ba-4b53-a57e-38909d71390c"
   },
   "affectedContests": {
@@ -122,6 +125,9 @@
           "ManualPublishResultsEnabled": false,
           "PublishResultsBeforeAuditedTentatively": false,
           "EndResultFinalizeDisabled": true,
+          "MonitoringAutoShowPoliticalBusinesses": false,
+          "MonitoringUseImprovedUi": false,
+          "MajorityElectionBundlesWithBallotGroupEnabled": false,
           "Id": "00000000-0000-0000-0000-000000000000"
         },
         "PoliticalBusinesses": [],

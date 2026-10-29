@@ -83,6 +83,9 @@
         "ManualPublishResultsEnabled": true,
         "PublishResultsBeforeAuditedTentatively": false,
         "EndResultFinalizeDisabled": false,
+        "MonitoringAutoShowPoliticalBusinesses": false,
+        "MonitoringUseImprovedUi": false,
+        "MajorityElectionBundlesWithBallotGroupEnabled": true,
         "Id": "00000000-0000-0000-0000-000000000000"
       },
       "PoliticalBusinesses": [],
@@ -174,6 +177,9 @@
         "ManualPublishResultsEnabled": true,
         "PublishResultsBeforeAuditedTentatively": false,
         "EndResultFinalizeDisabled": false,
+        "MonitoringAutoShowPoliticalBusinesses": false,
+        "MonitoringUseImprovedUi": false,
+        "MajorityElectionBundlesWithBallotGroupEnabled": true,
         "Id": "00000000-0000-0000-0000-000000000000"
       },
       "PoliticalBusinesses": [],

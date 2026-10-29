@@ -346,6 +346,31 @@ public class ProportionalElectionResultCreateBundleTest : ProportionalElectionRe
             "Contest is past locked or archived");
     }
 
+    /// <summary>
+    /// A non-existing listId must be rejected on the write side instead of being accepted into a
+    /// ProportionalElectionResultBundleCreated event.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Fact]
+    public async Task TestShouldThrowListNotFound()
+    {
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.CreateBundleAsync(NewValidRequest(x => x.ListId = Guid.NewGuid().ToString())),
+            StatusCode.NotFound);
+    }
+
+    /// <summary>
+    /// The listId must belong to the given electionResultId's election, not just exist somewhere in the DB.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Fact]
+    public async Task TestShouldThrowListOfOtherElection()
+    {
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.CreateBundleAsync(NewValidRequest(x => x.ListId = ProportionalElectionMockedData.ListIdUzwilProportionalElectionInContestStGallen)),
+            StatusCode.NotFound);
+    }
+
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
         await new ProportionalElectionResultBundleService.ProportionalElectionResultBundleServiceClient(channel)

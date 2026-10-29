@@ -47,7 +47,9 @@
     "ReviewProcedure": 1,
     "EnforceReviewProcedureForCountingCircles": true,
     "EnforceCandidateCheckDigitForCountingCircles": true,
-    "IndividualCandidatesDisabled": false
+    "IndividualCandidatesDisabled": false,
+    "BundlesWithBallotGroupEnabled": false,
+    "EnforceBundlesWithBallotGroupEnabledForCountingCircles": false
   },
   "LotDecisions": [
     {

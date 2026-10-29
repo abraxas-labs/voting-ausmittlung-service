@@ -445,6 +445,13 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         {
             throw new ValidationException($"enforced {nameof(election.CandidateCheckDigit)} setting not respected");
         }
+
+        if (resultEntryParams != null
+            && election.EnforceBundlesWithBallotGroupEnabledForCountingCircles
+            && election.BundlesWithBallotGroupEnabled != resultEntryParams.BundlesWithBallotGroupEnabled)
+        {
+            throw new ValidationException($"enforced {nameof(election.BundlesWithBallotGroupEnabled)} setting not respected");
+        }
     }
 
     private void EnsureBallotGroupsExistsAndNoDuplicates(

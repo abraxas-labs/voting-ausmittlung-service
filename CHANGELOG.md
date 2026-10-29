@@ -1,4 +1,4 @@
-# ✨ Changelog (`v2.102.1`)
+# ✨ Changelog (`v2.104.3`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,11 +8,116 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v2.102.1
-Previous version ---- v2.102.0
+This version -------- v2.104.3
+Previous version ---- v2.102.1
 Initial version ----- v1.29.14
-Total commits ------- 1
+Total commits ------- 16
 ```
+
+## [v2.104.3] - 2026-10-21
+
+### 🔄 Changed
+
+- correct fictive party voters in CSV export
+
+## [v2.104.2] - 2026-10-21
+
+### 🔄 Changed
+
+- improve sedex envelope generation
+
+## [v2.104.1] - 2026-10-20
+
+### 🔄 Changed
+
+- correct check permissions when downloading bundle review
+
+## [v2.104.0] - 2026-10-16
+
+### 🆕 Added
+
+- add sedex export provider
+
+## [v2.103.3] - 2026-10-07
+
+### 🆕 Added
+
+- Regression test `TestShouldThrowNonExistingCandidate` covering a `CreateBallot` request with a
+  completely non-existing `candidateId`.
+
+### 🔄 Changed
+
+- `ProportionalElectionResultBundleWriter.EnsureValidCandidates` now rejects a `candidateId` that does not
+  exist or does not belong to the given election (`InvalidArgument`), instead of only rejecting candidates
+  that exist but belong to a different election.
+
+### 🔒 Security
+
+- Closes a gap where an authenticated client could persist an event referencing an arbitrary, non-existing
+  candidate, which could be used to disrupt event processing.
+
+## [v2.103.2] - 2026-10-07
+
+### 🔄 Changed
+
+- update majority election candidate numbers when needed
+
+## [v2.103.1] - 2026-10-06
+
+### 🆕 Added
+
+- Regression tests `TestShouldThrowBallotResultNotFound` / `TestShouldThrowBallotResultOfOtherVoteResult`
+  covering the new write-side guard in `VoteResultBundleWriter.CreateBundle`.
+- Regression tests `TestShouldThrowListNotFound` / `TestShouldThrowListOfOtherElection` covering the new
+  write-side guard in `ProportionalElectionResultBundleWriter.CreateBundle`.
+- Regression tests `TestShouldThrowBallotGroupNotFound` / `TestShouldThrowBallotGroupOfOtherElection` covering
+  the new write-side guard in `MajorityElectionResultBundleWriter.CreateBundle`.
+
+### 🔄 Changed
+
+- `VoteResultBundleWriter.CreateBundle` now rejects requests with a `BallotResultId` that does not exist or
+  does not belong to the given `VoteResultId` (`NotFound`), before raising the `VoteResultBundleCreated` event.
+- `ProportionalElectionResultBundleWriter.CreateBundle` now rejects requests with a `ListId` that does not
+  exist or does not belong to the election (`NotFound`), before raising the `ProportionalElectionResultBundleCreated`
+  event.
+- `MajorityElectionResultBundleWriter.CreateBundle` now rejects requests with a `BallotGroupId` that does not
+  exist or does not belong to the election (`NotFound`), before raising the `MajorityElectionResultBundleCreated`
+  event.
+
+### 🔒 Security
+
+- Closes a gap where an authenticated client could persist an event referencing an arbitrary, non-existing
+  entity (`BallotResultId`, `ListId`, or `BallotGroupId`)
+
+## [v2.103.0] - 2026-10-02
+
+### 🆕 Added
+
+- add ballot group to majority election result bundle
+
+### 🔄 Changed
+
+- monitoring overview political business sorting
+
+### 🆕 Added
+
+- add protocol export cleanup job
+
+### 🆕 Added
+
+- add bundles with ballot group enabled option
+
+### 🆕 Added
+
+- add prefix for message consumer
+
+### 🆕 Added
+
+- add endpoint to return multiple results
+
+### 🔄 Changed
+
+- correctly calculate values in party votes CSV export
 
 ## [v2.102.1] - 2026-09-07
 

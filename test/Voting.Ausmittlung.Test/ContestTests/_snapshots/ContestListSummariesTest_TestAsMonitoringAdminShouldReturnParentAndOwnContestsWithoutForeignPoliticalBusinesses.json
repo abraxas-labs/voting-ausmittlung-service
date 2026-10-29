@@ -44,7 +44,10 @@
         "ProportionalElectionUseCandidateCheckDigit": false,
         "ManualPublishResultsEnabled": true,
         "EndResultFinalizeDisabled": false,
-        "PublishResultsBeforeAuditedTentatively": false
+        "PublishResultsBeforeAuditedTentatively": false,
+        "MonitoringAutoShowPoliticalBusinesses": false,
+        "MonitoringUseImprovedUi": false,
+        "MajorityElectionBundlesWithBallotGroupEnabled": true
       },
       "DomainOfInfluence": {
         "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
@@ -104,7 +107,10 @@
         "ProportionalElectionUseCandidateCheckDigit": false,
         "ManualPublishResultsEnabled": true,
         "EndResultFinalizeDisabled": false,
-        "PublishResultsBeforeAuditedTentatively": false
+        "PublishResultsBeforeAuditedTentatively": false,
+        "MonitoringAutoShowPoliticalBusinesses": false,
+        "MonitoringUseImprovedUi": false,
+        "MajorityElectionBundlesWithBallotGroupEnabled": true
       },
       "DomainOfInfluence": {
         "Id": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",

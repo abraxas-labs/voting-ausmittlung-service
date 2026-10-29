@@ -11,4 +11,8 @@ public abstract class MajorityElectionResultBallotCandidateBase : BaseEntity
     public Guid CandidateId { get; set; }
 
     public bool Selected { get; set; }
+
+    public int Position { get; set; }
+
+    public bool OnBallotGroup { get; set; }
 }

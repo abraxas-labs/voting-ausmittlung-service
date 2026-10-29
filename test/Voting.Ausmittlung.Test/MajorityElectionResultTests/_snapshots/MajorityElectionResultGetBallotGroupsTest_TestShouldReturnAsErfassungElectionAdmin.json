@@ -78,14 +78,19 @@
           "ProportionalElectionUseCandidateCheckDigit": false,
           "ManualPublishResultsEnabled": true,
           "EndResultFinalizeDisabled": false,
-          "PublishResultsBeforeAuditedTentatively": false
+          "PublishResultsBeforeAuditedTentatively": false,
+          "MonitoringAutoShowPoliticalBusinesses": false,
+          "MonitoringUseImprovedUi": false,
+          "MajorityElectionBundlesWithBallotGroupEnabled": true
         },
         "ECountingResultsImported": false
       },
       "ReviewProcedure": 1,
       "EnforceReviewProcedureForCountingCircles": true,
       "EnforceCandidateCheckDigitForCountingCircles": false,
-      "IndividualCandidatesDisabled": false
+      "IndividualCandidatesDisabled": false,
+      "BundlesWithBallotGroupEnabled": true,
+      "EnforceBundlesWithBallotGroupEnabledForCountingCircles": true
     },
     "SecondaryMajorityElectionResults": [],
     "Entry": 2,
@@ -97,7 +102,8 @@
       "BallotNumberGeneration": 2,
       "AutomaticEmptyVoteCounting": false,
       "ReviewProcedure": 1,
-      "CandidateCheckDigit": false
+      "CandidateCheckDigit": false,
+      "BundlesWithBallotGroupEnabled": true
     },
     "State": 2,
     "SubmissionDoneTimestamp": null,
@@ -207,7 +213,7 @@
           {
             "Candidates": [
               {
-                "Id": "5ce4ebba-554e-4e8d-b603-b36155d11af5",
+                "Id": "81a11b8e-51b8-40c5-aa94-b7a854e2c726",
                 "Number": "number1",
                 "PoliticalFirstName": "pol first name",
                 "PoliticalLastName": "pol last name",
@@ -248,7 +254,9 @@
               "ReviewProcedure": 1,
               "EnforceReviewProcedureForCountingCircles": true,
               "EnforceCandidateCheckDigitForCountingCircles": false,
-              "IndividualCandidatesDisabled": false
+              "IndividualCandidatesDisabled": false,
+              "BundlesWithBallotGroupEnabled": true,
+              "EnforceBundlesWithBallotGroupEnabledForCountingCircles": true
             },
             "SecondaryElection": null,
             "IndividualCandidatesVoteCount": 0,
@@ -257,7 +265,7 @@
           {
             "Candidates": [
               {
-                "Id": "283164ab-eb50-4035-8602-9d49d1ff1a51",
+                "Id": "9d1e4ef4-81c0-4905-a2c6-e1b937b80ddf",
                 "Number": "number1",
                 "PoliticalFirstName": "pol first name",
                 "PoliticalLastName": "pol last name",

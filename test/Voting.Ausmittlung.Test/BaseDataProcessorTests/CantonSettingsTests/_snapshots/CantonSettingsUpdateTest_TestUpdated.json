@@ -49,6 +49,9 @@
         "Id": "c0e6359c-bb4a-4039-91da-32f15aebcf73"
       }
     ],
+    "MonitoringAutoShowPoliticalBusinesses": false,
+    "MonitoringUseImprovedUi": false,
+    "MajorityElectionBundlesWithBallotGroupEnabled": false,
     "Id": "d33e6070-4c4f-4c22-8b35-50d7a87afffe"
   }
 }

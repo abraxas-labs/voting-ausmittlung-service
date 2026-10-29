@@ -36,6 +36,6 @@ public class CleanExportLogEntriesJob : IScheduledJob
         await _repo
             .Query()
             .Where(x => x.Timestamp < deleteBeforeTimestamp)
-            .ExecuteDeleteAsync();
+            .ExecuteDeleteAsync(ct);
     }
 }

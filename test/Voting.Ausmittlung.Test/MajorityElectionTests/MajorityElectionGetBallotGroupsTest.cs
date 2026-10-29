@@ -1,0 +1,100 @@
+// (c) Copyright by Abraxas Informatik AG
+// For license information see LICENSE file
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Abraxas.Voting.Ausmittlung.Services.V1;
+using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
+using Grpc.Core;
+using Grpc.Net.Client;
+using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Core.EventProcessors;
+using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Iam.Testing.AuthenticationScheme;
+using Voting.Lib.Testing;
+using Voting.Lib.Testing.Utils;
+using Xunit;
+
+namespace Voting.Ausmittlung.Test.MajorityElectionTests;
+
+public class MajorityElectionGetBallotGroupsTest : BaseTest<MajorityElectionService.MajorityElectionServiceClient>
+{
+    public MajorityElectionGetBallotGroupsTest(TestApplicationFactory factory)
+        : base(factory)
+    {
+    }
+
+    public override async Task InitializeAsync()
+    {
+        await base.InitializeAsync();
+        await ContestMockedData.Seed(RunScoped);
+        await MajorityElectionMockedData.Seed(RunScoped);
+        await RunScoped((DomainOfInfluencePermissionBuilder permissionBuilder) =>
+            permissionBuilder.RebuildPermissionTree());
+    }
+
+    [Fact]
+    public async Task TestAsElectionAdminShouldReturnOk()
+    {
+        var response = await ErfassungElectionAdminClient.GetBallotGroupsAsync(new GetMajorityElectionBallotGroupsRequest
+        {
+            ElectionId = MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen,
+        });
+        response.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestAsCreatorShouldReturnOk()
+    {
+        var response = await ErfassungCreatorClient.GetBallotGroupsAsync(new GetMajorityElectionBallotGroupsRequest
+        {
+            ElectionId = MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen,
+        });
+        response.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestAsMonitoringElectionAdminShouldReturnOk()
+    {
+        var response = await MonitoringElectionAdminClient.GetBallotGroupsAsync(new GetMajorityElectionBallotGroupsRequest
+        {
+            ElectionId = MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen,
+        });
+        response.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestOtherTenantShouldThrow()
+    {
+        await AssertStatus(
+            async () => await ErfassungCreatorClient.GetBallotGroupsAsync(new GetMajorityElectionBallotGroupsRequest
+            {
+                ElectionId = MajorityElectionMockedData.IdKircheMajorityElectionInContestKirche,
+            }),
+            StatusCode.PermissionDenied);
+    }
+
+    protected override GrpcChannel CreateGrpcChannel(params string[] roles)
+        => CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantUzwil.Id, TestDefaults.UserId, roles);
+
+    protected override async Task AuthorizationTestCall(GrpcChannel channel)
+    {
+        await new MajorityElectionService.MajorityElectionServiceClient(channel)
+            .GetBallotGroupsAsync(new GetMajorityElectionBallotGroupsRequest
+            {
+                ElectionId = MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen,
+            });
+    }
+
+    protected override IEnumerable<string> AuthorizedRoles()
+    {
+        yield return RolesMockedData.ErfassungCreator;
+        yield return RolesMockedData.ErfassungCreatorWithoutBundleControl;
+        yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungRestrictedBundleController;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionSupporter;
+    }
+}

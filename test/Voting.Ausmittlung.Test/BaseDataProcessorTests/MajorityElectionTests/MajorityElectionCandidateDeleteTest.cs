@@ -29,11 +29,27 @@ public class MajorityElectionCandidateDeleteTest : BaseDataProcessorTest
     public async Task TestDeleteCandidate()
     {
         var id = MajorityElectionMockedData.CandidateIdStGallenMajorityElectionInContestStGallen;
-        await TestEventPublisher.Publish(new MajorityElectionCandidateDeleted
-        { MajorityElectionCandidateId = id });
+        await TestEventPublisher.Publish(new MajorityElectionCandidateDeleted { MajorityElectionCandidateId = id });
 
         var idGuid = Guid.Parse(id);
         var candidate = await RunOnDb(db => db.MajorityElectionCandidates.FirstOrDefaultAsync(c => c.Id == idGuid));
         candidate.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task CandidateNumbersShouldBeUpdated()
+    {
+        await TestEventPublisher.Publish(new MajorityElectionCandidateDeleted
+        {
+            MajorityElectionCandidateId = MajorityElectionMockedData.CandidateId1StGallenMajorityElectionInContestBund,
+            UpdateCandidateNumbers = true,
+        });
+
+        var updatedCandidate = await RunOnDb(db => db.MajorityElectionCandidates
+            .FirstAsync(c =>
+                c.Id == Guid.Parse(MajorityElectionMockedData.CandidateId2StGallenMajorityElectionInContestBund)));
+
+        updatedCandidate.Position.Should().Be(1);
+        updatedCandidate.Number.Should().Be("1");
     }
 }

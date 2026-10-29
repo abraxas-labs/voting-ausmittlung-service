@@ -5,6 +5,7 @@
     "Entry": 2,
     "EntryParams": {
       "ReviewProcedure": 1,
+      "BundlesWithBallotGroupEnabled": false,
       "BallotBundleSize": 10,
       "BallotBundleSampleSize": 3,
       "AutomaticBallotBundleNumberGeneration": true,
@@ -174,6 +175,7 @@
     "Entry": 2,
     "EntryParams": {
       "ReviewProcedure": 1,
+      "BundlesWithBallotGroupEnabled": false,
       "BallotBundleSize": 10,
       "BallotBundleSampleSize": 3,
       "AutomaticBallotBundleNumberGeneration": true,

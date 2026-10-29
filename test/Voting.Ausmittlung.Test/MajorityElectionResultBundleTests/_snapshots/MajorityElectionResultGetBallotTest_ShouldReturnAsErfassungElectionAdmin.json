@@ -12,7 +12,8 @@
       "Description": "number1 pol last name pol first name",
       "Position": 1,
       "Selected": false,
-      "CheckDigit": 9
+      "CheckDigit": 9,
+      "OnBallotGroup": false
     },
     {
       "Id": "efdbb5e3-16bf-4a53-95c3-a35ed6371819",
@@ -23,7 +24,8 @@
       "Description": "number5 pol last name pol first name",
       "Position": 2,
       "Selected": true,
-      "CheckDigit": 1
+      "CheckDigit": 1,
+      "OnBallotGroup": false
     }
   ],
   "SecondaryMajorityElectionBallots": [
@@ -41,7 +43,8 @@
           "Description": "number1 pol last name pol first name",
           "Position": 1,
           "Selected": true,
-          "CheckDigit": 9
+          "CheckDigit": 9,
+          "OnBallotGroup": false
         },
         {
           "Id": "f70ffba1-1cfd-402b-b6ea-f2c9f802886a",
@@ -52,7 +55,8 @@
           "Description": "number2 L Pete",
           "Position": 2,
           "Selected": false,
-          "CheckDigit": 7
+          "CheckDigit": 7,
+          "OnBallotGroup": false
         },
         {
           "Id": "fdb57357-095d-469e-8f40-fd3d0b8817cb",
@@ -63,7 +67,8 @@
           "Description": "number3 Proll Hansi",
           "Position": 3,
           "Selected": false,
-          "CheckDigit": 5
+          "CheckDigit": 5,
+          "OnBallotGroup": false
         },
         {
           "Id": "340c482b-c064-427e-a906-2696fab2ab35",
@@ -74,7 +79,8 @@
           "Description": "number4 Meierhans Susi",
           "Position": 4,
           "Selected": false,
-          "CheckDigit": 3
+          "CheckDigit": 3,
+          "OnBallotGroup": false
         }
       ],
       "InvalidVoteCount": 0
@@ -93,7 +99,8 @@
           "Description": "number1 pol last name pol first name",
           "Position": 1,
           "Selected": false,
-          "CheckDigit": 9
+          "CheckDigit": 9,
+          "OnBallotGroup": false
         },
         {
           "Id": "910181c5-c003-4775-976b-1f33a19f2a1b",
@@ -104,7 +111,8 @@
           "Description": "number2 L Pete2",
           "Position": 2,
           "Selected": false,
-          "CheckDigit": 7
+          "CheckDigit": 7,
+          "OnBallotGroup": false
         }
       ],
       "InvalidVoteCount": 0
@@ -123,7 +131,8 @@
           "Description": "number1 pol last name pol first name",
           "Position": 1,
           "Selected": false,
-          "CheckDigit": 9
+          "CheckDigit": 9,
+          "OnBallotGroup": false
         },
         {
           "Id": "d7b2bd15-6ce9-4dbe-a56f-72c3fab598b3",
@@ -134,7 +143,8 @@
           "Description": "number2 L Pete2",
           "Position": 2,
           "Selected": false,
-          "CheckDigit": 7
+          "CheckDigit": 7,
+          "OnBallotGroup": false
         }
       ],
       "InvalidVoteCount": 0

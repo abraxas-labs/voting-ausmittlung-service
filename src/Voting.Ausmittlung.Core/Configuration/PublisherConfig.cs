@@ -46,6 +46,14 @@ public class PublisherConfig
 
     public JobConfig CleanExportLogEntriesJob { get; set; } = new() { Interval = TimeSpan.FromHours(1) };
 
+    public JobConfig CleanExpiredProtocolExportsJob { get; set; } = new() { Interval = TimeSpan.FromHours(12) };
+
+    /// <summary>
+    /// Gets or sets the protocol export expiry days.
+    /// The content of protocol exports is removed after a set amount of days in DmDoc.
+    /// </summary>
+    public int ProtocolExportExpiryInDays { get; set; } = 20;
+
     public int SecondFactorTransactionExpiredAtMinutes { get; set; } = 10;
 
     public HashSet<string> LanguageHeaderIgnoredPaths { get; set; } = new()
@@ -83,6 +91,8 @@ public class PublisherConfig
     public DokConnectorConfig DokConnectorApi { get; set; } = new();
 
     public SeantisConfig Seantis { get; set; } = new();
+
+    public SedexConfig Sedex { get; set; } = new();
 
     /// <summary>
     /// Gets or sets a value indicating whether the DOK connector is mocked (mainly useful for local development).

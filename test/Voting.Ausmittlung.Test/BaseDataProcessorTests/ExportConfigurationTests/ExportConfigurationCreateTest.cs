@@ -69,4 +69,35 @@ public class ExportConfigurationCreateTest : BaseDataProcessorTest
 
         resultConfigs.MatchSnapshot("resultConfigs");
     }
+
+    [Fact]
+    public async Task ShouldCreateSedex()
+    {
+        var id = Guid.Parse("47d726a6-4a3f-4b84-a9d7-abe8383f89b3");
+        await TestEventPublisher.Publish(new ExportConfigurationCreated
+        {
+            Configuration = new ExportConfigurationEventData
+            {
+                Id = id.ToString(),
+                Description = "Intf003",
+                ExportKeys =
+                {
+                    AusmittlungWabstiCTemplates.SGGemeinden.Key,
+                    AusmittlungWabstiCTemplates.WMWahl.Key,
+                    AusmittlungWabstiCTemplates.WPKandidaten.Key,
+                },
+                EaiMessageType = "23456",
+                DomainOfInfluenceId = DomainOfInfluenceMockedData.IdStGallen,
+                Provider = ExportProvider.Sedex,
+                SedexConfiguration = new SedexConfigurationEventData
+                {
+                    SenderId = "1-ABX-1",
+                    RecipientIds = { "2-ABX-2", "3-ABX-3" },
+                },
+            },
+        });
+
+        var config = await RunOnDb(db => db.ExportConfigurations.FirstAsync(x => x.Id == id));
+        config.MatchSnapshot();
+    }
 }

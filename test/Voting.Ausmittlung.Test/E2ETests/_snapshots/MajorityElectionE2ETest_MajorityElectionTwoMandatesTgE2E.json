@@ -32,7 +32,10 @@
       "ProportionalElectionUseCandidateCheckDigit": false,
       "ManualPublishResultsEnabled": false,
       "EndResultFinalizeDisabled": false,
-      "PublishResultsBeforeAuditedTentatively": false
+      "PublishResultsBeforeAuditedTentatively": false,
+      "MonitoringAutoShowPoliticalBusinesses": false,
+      "MonitoringUseImprovedUi": false,
+      "MajorityElectionBundlesWithBallotGroupEnabled": true
     },
     "ECountingResultsImported": false
   },
@@ -112,14 +115,19 @@
         "ProportionalElectionUseCandidateCheckDigit": false,
         "ManualPublishResultsEnabled": false,
         "EndResultFinalizeDisabled": false,
-        "PublishResultsBeforeAuditedTentatively": false
+        "PublishResultsBeforeAuditedTentatively": false,
+        "MonitoringAutoShowPoliticalBusinesses": false,
+        "MonitoringUseImprovedUi": false,
+        "MajorityElectionBundlesWithBallotGroupEnabled": true
       },
       "ECountingResultsImported": false
     },
     "ReviewProcedure": 2,
     "EnforceReviewProcedureForCountingCircles": false,
     "EnforceCandidateCheckDigitForCountingCircles": false,
-    "IndividualCandidatesDisabled": false
+    "IndividualCandidatesDisabled": false,
+    "BundlesWithBallotGroupEnabled": false,
+    "EnforceBundlesWithBallotGroupEnabledForCountingCircles": false
   },
   "CountOfVotersInformation": {
     "TotalCountOfVoters": 12351,

@@ -17,6 +17,7 @@
     "ProportionalElectionList:read",
     "ProportionalElectionListResult:read",
     "MajorityElectionCandidate:read",
+    "MajorityElectionBallotGroup:read",
     "MajorityElectionBallotGroupResult:read",
     "Import:read-ecounting",
     "Import:read-evoting",

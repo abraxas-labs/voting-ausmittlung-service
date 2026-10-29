@@ -84,6 +84,10 @@ public class MajorityElection : MajorityElectionBase, IHasResults, IPoliticalBus
     public ICollection<MajorityElection> SecondaryMajorityElectionsOnSeparateBallots { get; set; } =
         new HashSet<MajorityElection>();
 
+    public bool BundlesWithBallotGroupEnabled { get; set; }
+
+    public bool EnforceBundlesWithBallotGroupEnabledForCountingCircles { get; set; }
+
     public override void MoveECountingToConventional()
     {
         EndResult?.MoveECountingToConventional();

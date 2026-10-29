@@ -51,4 +51,10 @@ public class ContestCantonDefaults : BaseEntity
     /// If set to true, no user interaction can explicitly change finalized, it will always be implicitly finalized.
     /// </summary>
     public bool EndResultFinalizeDisabled { get; set; }
+
+    public bool MonitoringAutoShowPoliticalBusinesses { get; set; }
+
+    public bool MonitoringUseImprovedUi { get; set; }
+
+    public bool MajorityElectionBundlesWithBallotGroupEnabled { get; set; }
 }

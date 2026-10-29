@@ -1,0 +1,19 @@
+{
+  "DomainOfInfluence": null,
+  "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+  "Description": "Intf001-updated",
+  "EaiMessageType": "1234-updated",
+  "ExportKeys": [
+    "SG_Gemeinden",
+    "WM_Wahl",
+    "WP_Kandidaten"
+  ],
+  "Provider": 3,
+  "ResultExportConfigurations": [],
+  "SedexSenderId": "sender-id",
+  "SedexRecipientIds": [
+    "recipient-1",
+    "recipient-2"
+  ],
+  "Id": "a14f3366-fdf5-4da1-b863-537ea41f9949"
+}

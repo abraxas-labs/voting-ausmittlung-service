@@ -137,6 +137,7 @@ internal static class PublisherServiceCollectionExtensions
             .AddScoped<ExportRateLimitService>()
             .AddScoped<IExportProviderUploader, StandardProviderUploader>()
             .AddScoped<IExportProviderUploader, SeantisProviderUploader>()
+            .AddScoped<IExportProviderUploader, SedexProviderUploader>()
             .AddScoped<PoliticalBusinessResultBundleBuilder>();
     }
 
@@ -144,7 +145,8 @@ internal static class PublisherServiceCollectionExtensions
     {
         return services
             .AddScheduledJob<ResultExportsJob>(config.AutomaticExports)
-            .AddScheduledJob<CleanExportLogEntriesJob>(config.CleanExportLogEntriesJob);
+            .AddScheduledJob<CleanExportLogEntriesJob>(config.CleanExportLogEntriesJob)
+            .AddScheduledJob<CleanExpiredProtocolExportsJob>(config.CleanExpiredProtocolExportsJob);
     }
 
     private static IServiceCollection AddValidation(this IServiceCollection services)

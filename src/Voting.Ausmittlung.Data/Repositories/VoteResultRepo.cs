@@ -65,6 +65,20 @@ public class VoteResultRepo : PoliticalBusinessResultRepo<VoteResult>
         return query.ToListAsync();
     }
 
+    public IQueryable<VoteResult> QueryVoteResult()
+    {
+        return Set
+            .AsSplitQuery()
+            .Include(x => x.Vote.Translations)
+            .Include(x => x.Vote.Contest.Translations)
+            .Include(x => x.Vote.Contest.CantonDefaults)
+            .Include(x => x.Vote.DomainOfInfluence)
+            .Include(x => x.CountingCircle)
+            .Include(v => v.Results.OrderBy(r => r.Ballot.Position)).ThenInclude(r => r.Ballot)
+            .Include(v => v.Results).ThenInclude(r => r.QuestionResults.OrderBy(qr => qr.Question.Number)).ThenInclude(qr => qr.Question.Translations)
+            .Include(v => v.Results).ThenInclude(r => r.TieBreakQuestionResults.OrderBy(qr => qr.Question.Number)).ThenInclude(qr => qr.Question.Translations);
+    }
+
     protected override Expression<Func<VoteResult, bool>> FilterByPoliticalBusinessId(Guid id) =>
         vr => vr.VoteId == id;
 

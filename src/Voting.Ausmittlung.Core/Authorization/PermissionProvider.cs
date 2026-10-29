@@ -50,6 +50,7 @@ public class PermissionProvider : IPermissionProvider
             Permissions.VoteBallotResult.Read,
 
             Permissions.MajorityElectionCandidate.Read,
+            Permissions.MajorityElectionBallotGroup.Read,
 
             Permissions.ProportionalElectionCandidate.Read,
             Permissions.ProportionalElectionList.Read,
@@ -80,6 +81,7 @@ public class PermissionProvider : IPermissionProvider
             Permissions.VoteBallotResult.Read,
 
             Permissions.MajorityElectionCandidate.Read,
+            Permissions.MajorityElectionBallotGroup.Read,
 
             Permissions.ProportionalElectionCandidate.Read,
             Permissions.ProportionalElectionList.Read,
@@ -106,6 +108,7 @@ public class PermissionProvider : IPermissionProvider
             Permissions.VoteBallotResult.Read,
 
             Permissions.MajorityElectionCandidate.Read,
+            Permissions.MajorityElectionBallotGroup.Read,
 
             Permissions.ProportionalElectionCandidate.Read,
             Permissions.ProportionalElectionList.Read,
@@ -132,6 +135,7 @@ public class PermissionProvider : IPermissionProvider
             Permissions.VoteBallotResult.Read,
 
             Permissions.MajorityElectionCandidate.Read,
+            Permissions.MajorityElectionBallotGroup.Read,
 
             Permissions.ProportionalElectionCandidate.Read,
             Permissions.ProportionalElectionList.Read,
@@ -172,6 +176,7 @@ public class PermissionProvider : IPermissionProvider
             Permissions.VoteBallotResult.Read,
 
             Permissions.MajorityElectionCandidate.Read,
+            Permissions.MajorityElectionBallotGroup.Read,
             Permissions.MajorityElectionBallotGroupResult.Read,
 
             Permissions.MajorityElectionWriteIn.Read,
@@ -223,6 +228,7 @@ public class PermissionProvider : IPermissionProvider
             Permissions.VoteBallotResult.Read,
 
             Permissions.MajorityElectionCandidate.Read,
+            Permissions.MajorityElectionBallotGroup.Read,
             Permissions.MajorityElectionBallotGroupResult.Read,
 
             Permissions.MajorityElectionWriteIn.Read,
@@ -281,6 +287,7 @@ public class PermissionProvider : IPermissionProvider
             Permissions.ProportionalElectionEndResult.TriggerMandateDistribution,
 
             Permissions.MajorityElectionCandidate.Read,
+            Permissions.MajorityElectionBallotGroup.Read,
             Permissions.MajorityElectionBallotGroupResult.Read,
 
             Permissions.Import.ImportEVoting,
@@ -330,6 +337,7 @@ public class PermissionProvider : IPermissionProvider
             Permissions.ProportionalElectionListResult.Read,
 
             Permissions.MajorityElectionCandidate.Read,
+            Permissions.MajorityElectionBallotGroup.Read,
             Permissions.MajorityElectionBallotGroupResult.Read,
 
             Permissions.Import.ReadECounting,

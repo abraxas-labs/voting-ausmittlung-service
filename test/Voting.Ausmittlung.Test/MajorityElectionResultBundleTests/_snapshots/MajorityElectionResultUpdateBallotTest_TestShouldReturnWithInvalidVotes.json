@@ -26,11 +26,17 @@
       "SecondaryMajorityElectionId": "0741da26-add2-4c4c-960d-7e251b82e91b",
       "EmptyVoteCount": 0,
       "IndividualVoteCount": 1,
-      "SelectedCandidateIds": [
-        "f70ffba1-1cfd-402b-b6ea-f2c9f802886a"
-      ],
-      "InvalidVoteCount": 1
+      "SelectedCandidateIds": [],
+      "InvalidVoteCount": 1,
+      "Candidates": [
+        {
+          "CandidateId": "f70ffba1-1cfd-402b-b6ea-f2c9f802886a",
+          "Position": 1,
+          "OnBallotGroup": false
+        }
+      ]
     }
   ],
-  "InvalidVoteCount": 1
+  "InvalidVoteCount": 1,
+  "Candidates": []
 }

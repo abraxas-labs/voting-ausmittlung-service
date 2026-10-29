@@ -54,6 +54,14 @@
         <AttributeName>candidate_check_digit</AttributeName>
         <AttributeValue>False</AttributeValue>
       </EventAttribute>
+      <EventAttribute>
+        <AttributeName>bundles_with_ballot_group_enabled</AttributeName>
+        <AttributeValue>False</AttributeValue>
+      </EventAttribute>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>ballot_group_id</AttributeName>
+      <AttributeValue />
     </EventAttribute>
     <EventName>abraxas.voting.ausmittlung.events.v1.MajorityElectionResultBundleCreated</EventName>
     <Tenant>
@@ -98,14 +106,6 @@
       <AttributeValue>13</AttributeValue>
     </EventAttribute>
     <EventAttribute>
-      <AttributeName>selected_candidate_ids</AttributeName>
-      <AttributeValue>d6f1ced5-229a-4c4e-bb48-846e593a3d3b</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>selected_candidate_ids</AttributeName>
-      <AttributeValue>7b3beea0-bba7-4d21-84a6-faac4557d366</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
       <AttributeName>secondary_majority_election_results</AttributeName>
       <EventAttribute>
         <AttributeName>secondary_majority_election_id</AttributeName>
@@ -120,16 +120,38 @@
         <AttributeValue>3</AttributeValue>
       </EventAttribute>
       <EventAttribute>
-        <AttributeName>selected_candidate_ids</AttributeName>
-        <AttributeValue>abec9b43-e7d4-4fad-ab3b-098dd79badbf</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>selected_candidate_ids</AttributeName>
-        <AttributeValue>4f7ddbcd-64b5-4b22-a606-9f91882fd2df</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
         <AttributeName>invalid_vote_count</AttributeName>
         <AttributeValue>2</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>candidates</AttributeName>
+        <EventAttribute>
+          <AttributeName>candidate_id</AttributeName>
+          <AttributeValue>abec9b43-e7d4-4fad-ab3b-098dd79badbf</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>position</AttributeName>
+          <AttributeValue>0</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>on_ballot_group</AttributeName>
+          <AttributeValue>False</AttributeValue>
+        </EventAttribute>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>candidates</AttributeName>
+        <EventAttribute>
+          <AttributeName>candidate_id</AttributeName>
+          <AttributeValue>4f7ddbcd-64b5-4b22-a606-9f91882fd2df</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>position</AttributeName>
+          <AttributeValue>0</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>on_ballot_group</AttributeName>
+          <AttributeValue>False</AttributeValue>
+        </EventAttribute>
       </EventAttribute>
     </EventAttribute>
     <EventAttribute>
@@ -147,21 +169,73 @@
         <AttributeValue>1</AttributeValue>
       </EventAttribute>
       <EventAttribute>
-        <AttributeName>selected_candidate_ids</AttributeName>
-        <AttributeValue>078ef959-d904-4a71-b48f-a157f7541d5a</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>selected_candidate_ids</AttributeName>
-        <AttributeValue>7b3beea0-bba7-4d21-84a6-faac4557d366</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
         <AttributeName>invalid_vote_count</AttributeName>
         <AttributeValue>3</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>candidates</AttributeName>
+        <EventAttribute>
+          <AttributeName>candidate_id</AttributeName>
+          <AttributeValue>078ef959-d904-4a71-b48f-a157f7541d5a</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>position</AttributeName>
+          <AttributeValue>0</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>on_ballot_group</AttributeName>
+          <AttributeValue>False</AttributeValue>
+        </EventAttribute>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>candidates</AttributeName>
+        <EventAttribute>
+          <AttributeName>candidate_id</AttributeName>
+          <AttributeValue>7b3beea0-bba7-4d21-84a6-faac4557d366</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>position</AttributeName>
+          <AttributeValue>0</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>on_ballot_group</AttributeName>
+          <AttributeValue>False</AttributeValue>
+        </EventAttribute>
       </EventAttribute>
     </EventAttribute>
     <EventAttribute>
       <AttributeName>invalid_vote_count</AttributeName>
       <AttributeValue>2</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>candidates</AttributeName>
+      <EventAttribute>
+        <AttributeName>candidate_id</AttributeName>
+        <AttributeValue>d6f1ced5-229a-4c4e-bb48-846e593a3d3b</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>position</AttributeName>
+        <AttributeValue>0</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>on_ballot_group</AttributeName>
+        <AttributeValue>False</AttributeValue>
+      </EventAttribute>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>candidates</AttributeName>
+      <EventAttribute>
+        <AttributeName>candidate_id</AttributeName>
+        <AttributeValue>7b3beea0-bba7-4d21-84a6-faac4557d366</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>position</AttributeName>
+        <AttributeValue>0</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>on_ballot_group</AttributeName>
+        <AttributeValue>False</AttributeValue>
+      </EventAttribute>
     </EventAttribute>
     <EventName>abraxas.voting.ausmittlung.events.v1.MajorityElectionResultBallotCreated</EventName>
     <Tenant>
@@ -207,14 +281,6 @@
       <AttributeValue>13</AttributeValue>
     </EventAttribute>
     <EventAttribute>
-      <AttributeName>selected_candidate_ids</AttributeName>
-      <AttributeValue>d6f1ced5-229a-4c4e-bb48-846e593a3d3b</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>selected_candidate_ids</AttributeName>
-      <AttributeValue>7b3beea0-bba7-4d21-84a6-faac4557d366</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
       <AttributeName>secondary_majority_election_results</AttributeName>
       <EventAttribute>
         <AttributeName>secondary_majority_election_id</AttributeName>
@@ -229,16 +295,38 @@
         <AttributeValue>3</AttributeValue>
       </EventAttribute>
       <EventAttribute>
-        <AttributeName>selected_candidate_ids</AttributeName>
-        <AttributeValue>abec9b43-e7d4-4fad-ab3b-098dd79badbf</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>selected_candidate_ids</AttributeName>
-        <AttributeValue>4f7ddbcd-64b5-4b22-a606-9f91882fd2df</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
         <AttributeName>invalid_vote_count</AttributeName>
         <AttributeValue>2</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>candidates</AttributeName>
+        <EventAttribute>
+          <AttributeName>candidate_id</AttributeName>
+          <AttributeValue>abec9b43-e7d4-4fad-ab3b-098dd79badbf</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>position</AttributeName>
+          <AttributeValue>0</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>on_ballot_group</AttributeName>
+          <AttributeValue>False</AttributeValue>
+        </EventAttribute>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>candidates</AttributeName>
+        <EventAttribute>
+          <AttributeName>candidate_id</AttributeName>
+          <AttributeValue>4f7ddbcd-64b5-4b22-a606-9f91882fd2df</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>position</AttributeName>
+          <AttributeValue>0</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>on_ballot_group</AttributeName>
+          <AttributeValue>False</AttributeValue>
+        </EventAttribute>
       </EventAttribute>
     </EventAttribute>
     <EventAttribute>
@@ -256,21 +344,73 @@
         <AttributeValue>1</AttributeValue>
       </EventAttribute>
       <EventAttribute>
-        <AttributeName>selected_candidate_ids</AttributeName>
-        <AttributeValue>078ef959-d904-4a71-b48f-a157f7541d5a</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>selected_candidate_ids</AttributeName>
-        <AttributeValue>7b3beea0-bba7-4d21-84a6-faac4557d366</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
         <AttributeName>invalid_vote_count</AttributeName>
         <AttributeValue>3</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>candidates</AttributeName>
+        <EventAttribute>
+          <AttributeName>candidate_id</AttributeName>
+          <AttributeValue>078ef959-d904-4a71-b48f-a157f7541d5a</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>position</AttributeName>
+          <AttributeValue>0</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>on_ballot_group</AttributeName>
+          <AttributeValue>False</AttributeValue>
+        </EventAttribute>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>candidates</AttributeName>
+        <EventAttribute>
+          <AttributeName>candidate_id</AttributeName>
+          <AttributeValue>7b3beea0-bba7-4d21-84a6-faac4557d366</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>position</AttributeName>
+          <AttributeValue>0</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>on_ballot_group</AttributeName>
+          <AttributeValue>False</AttributeValue>
+        </EventAttribute>
       </EventAttribute>
     </EventAttribute>
     <EventAttribute>
       <AttributeName>invalid_vote_count</AttributeName>
       <AttributeValue>2</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>candidates</AttributeName>
+      <EventAttribute>
+        <AttributeName>candidate_id</AttributeName>
+        <AttributeValue>d6f1ced5-229a-4c4e-bb48-846e593a3d3b</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>position</AttributeName>
+        <AttributeValue>0</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>on_ballot_group</AttributeName>
+        <AttributeValue>False</AttributeValue>
+      </EventAttribute>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>candidates</AttributeName>
+      <EventAttribute>
+        <AttributeName>candidate_id</AttributeName>
+        <AttributeValue>7b3beea0-bba7-4d21-84a6-faac4557d366</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>position</AttributeName>
+        <AttributeValue>0</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>on_ballot_group</AttributeName>
+        <AttributeValue>False</AttributeValue>
+      </EventAttribute>
     </EventAttribute>
     <EventName>abraxas.voting.ausmittlung.events.v1.MajorityElectionResultBallotUpdated</EventName>
     <Tenant>

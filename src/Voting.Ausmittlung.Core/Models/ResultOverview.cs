@@ -2,8 +2,9 @@
 // For license information see LICENSE file
 
 using System.Collections.Generic;
+using Voting.Ausmittlung.Data.Models;
 
-namespace Voting.Ausmittlung.Data.Models;
+namespace Voting.Ausmittlung.Core.Models;
 
 public class ResultOverview
 {

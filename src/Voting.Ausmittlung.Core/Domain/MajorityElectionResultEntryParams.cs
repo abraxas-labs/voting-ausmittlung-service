@@ -8,4 +8,6 @@ namespace Voting.Ausmittlung.Core.Domain;
 public class MajorityElectionResultEntryParams : ElectionResultEntryParams
 {
     public MajorityElectionReviewProcedure ReviewProcedure { get; set; }
+
+    public bool BundlesWithBallotGroupEnabled { get; set; }
 }

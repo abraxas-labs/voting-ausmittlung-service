@@ -21,7 +21,7 @@ public class CreateMajorityElectionResultBallotRequestTest : ProtoValidatorBaseT
         yield return NewValidRequest(x => x.IndividualVoteCount = 0);
         yield return NewValidRequest(x => x.IndividualVoteCount = 1000000);
         yield return NewValidRequest(x => x.SecondaryMajorityElectionResults.Clear());
-        yield return NewValidRequest(x => x.SelectedCandidateIds.Clear());
+        yield return NewValidRequest(x => x.Candidates.Clear());
     }
 
     protected override IEnumerable<CreateMajorityElectionResultBallotRequest> NotOkMessages()
@@ -32,8 +32,6 @@ public class CreateMajorityElectionResultBallotRequestTest : ProtoValidatorBaseT
         yield return NewValidRequest(x => x.EmptyVoteCount = 1000001);
         yield return NewValidRequest(x => x.InvalidVoteCount = 1000001);
         yield return NewValidRequest(x => x.IndividualVoteCount = 1000001);
-        yield return NewValidRequest(x => x.SelectedCandidateIds.Add("invalid-guid"));
-        yield return NewValidRequest(x => x.SelectedCandidateIds.Add(string.Empty));
     }
 
     private CreateMajorityElectionResultBallotRequest NewValidRequest(Action<CreateMajorityElectionResultBallotRequest>? action = null)
@@ -48,10 +46,9 @@ public class CreateMajorityElectionResultBallotRequestTest : ProtoValidatorBaseT
             {
                 CreateUpdateSecondaryMajorityElectionResultBallotRequestTest.NewValidRequest(),
             },
-            SelectedCandidateIds =
+            Candidates =
             {
-                "2717e185-1572-4012-b07a-362256f93483",
-                "6fcc8de0-a169-4add-99f8-56d7261b3036",
+                CreateUpdateMajorityElectionResultBallotCandidateRequestTest.NewValidRequest(),
             },
         };
 

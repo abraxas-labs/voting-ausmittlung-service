@@ -25,6 +25,7 @@
     "PoliticalBusinessResultBallot:delete",
     "VoteBallotResult:read",
     "MajorityElectionCandidate:read",
+    "MajorityElectionBallotGroup:read",
     "MajorityElectionBallotGroupResult:read",
     "MajorityElectionWriteIn:read",
     "MajorityElectionWriteIn:update",

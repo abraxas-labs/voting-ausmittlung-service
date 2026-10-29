@@ -20,7 +20,7 @@ public class SecondaryMajorityElectionResultBallot
     /// </summary>
     public int IndividualVoteCount { get; set; }
 
-    public List<Guid> SelectedCandidateIds { get; set; } = new();
+    public List<MajorityElectionResultBallotCandidate> Candidates { get; set; } = new();
 
     /// <summary>
     /// Gets or sets the amount of invalid votes.

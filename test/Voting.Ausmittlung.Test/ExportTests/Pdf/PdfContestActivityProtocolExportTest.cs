@@ -770,7 +770,11 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             EmptyVoteCount = 1,
             IndividualVoteCount = 13,
             InvalidVoteCount = 2,
-            SelectedCandidateIds = { "d6f1ced5-229a-4c4e-bb48-846e593a3d3b", "7b3beea0-bba7-4d21-84a6-faac4557d366" },
+            Candidates =
+            {
+                new MajorityElectionResultBallotUpdatedCandidateEventData { CandidateId = "d6f1ced5-229a-4c4e-bb48-846e593a3d3b" },
+                new MajorityElectionResultBallotUpdatedCandidateEventData { CandidateId = "7b3beea0-bba7-4d21-84a6-faac4557d366" },
+            },
             SecondaryMajorityElectionResults =
                 {
                     new SecondaryMajorityElectionResultBallotEventData
@@ -779,7 +783,11 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
                         IndividualVoteCount = 3,
                         InvalidVoteCount = 2,
                         SecondaryMajorityElectionId = "f54a632c-c1eb-4a51-a729-d37d2dc26cb6",
-                        SelectedCandidateIds = { "abec9b43-e7d4-4fad-ab3b-098dd79badbf", "4f7ddbcd-64b5-4b22-a606-9f91882fd2df" },
+                        Candidates =
+                        {
+                            new MajorityElectionResultBallotUpdatedCandidateEventData { CandidateId = "abec9b43-e7d4-4fad-ab3b-098dd79badbf" },
+                            new MajorityElectionResultBallotUpdatedCandidateEventData { CandidateId = "4f7ddbcd-64b5-4b22-a606-9f91882fd2df" },
+                        },
                     },
                     new SecondaryMajorityElectionResultBallotEventData
                     {
@@ -787,7 +795,11 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
                         IndividualVoteCount = 1,
                         InvalidVoteCount = 3,
                         SecondaryMajorityElectionId = "2eed5a2c-fe25-4804-88fb-ab620287862d",
-                        SelectedCandidateIds = { "078ef959-d904-4a71-b48f-a157f7541d5a", "7b3beea0-bba7-4d21-84a6-faac4557d366" },
+                        Candidates =
+                        {
+                            new MajorityElectionResultBallotUpdatedCandidateEventData { CandidateId = "078ef959-d904-4a71-b48f-a157f7541d5a" },
+                            new MajorityElectionResultBallotUpdatedCandidateEventData { CandidateId = "7b3beea0-bba7-4d21-84a6-faac4557d366" },
+                        },
                     },
                 },
         };
@@ -802,7 +814,11 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             EmptyVoteCount = 1,
             IndividualVoteCount = 13,
             InvalidVoteCount = 2,
-            SelectedCandidateIds = { "d6f1ced5-229a-4c4e-bb48-846e593a3d3b", "7b3beea0-bba7-4d21-84a6-faac4557d366" },
+            Candidates =
+            {
+                new MajorityElectionResultBallotUpdatedCandidateEventData { CandidateId = "d6f1ced5-229a-4c4e-bb48-846e593a3d3b" },
+                new MajorityElectionResultBallotUpdatedCandidateEventData { CandidateId = "7b3beea0-bba7-4d21-84a6-faac4557d366" },
+            },
             SecondaryMajorityElectionResults =
                 {
                     new SecondaryMajorityElectionResultBallotEventData
@@ -811,7 +827,11 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
                         IndividualVoteCount = 3,
                         InvalidVoteCount = 2,
                         SecondaryMajorityElectionId = "f54a632c-c1eb-4a51-a729-d37d2dc26cb6",
-                        SelectedCandidateIds = { "abec9b43-e7d4-4fad-ab3b-098dd79badbf", "4f7ddbcd-64b5-4b22-a606-9f91882fd2df" },
+                        Candidates =
+                        {
+                            new MajorityElectionResultBallotUpdatedCandidateEventData { CandidateId = "abec9b43-e7d4-4fad-ab3b-098dd79badbf" },
+                            new MajorityElectionResultBallotUpdatedCandidateEventData { CandidateId = "4f7ddbcd-64b5-4b22-a606-9f91882fd2df" },
+                        },
                     },
                     new SecondaryMajorityElectionResultBallotEventData
                     {
@@ -819,7 +839,11 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
                         IndividualVoteCount = 1,
                         InvalidVoteCount = 3,
                         SecondaryMajorityElectionId = "2eed5a2c-fe25-4804-88fb-ab620287862d",
-                        SelectedCandidateIds = { "078ef959-d904-4a71-b48f-a157f7541d5a", "7b3beea0-bba7-4d21-84a6-faac4557d366" },
+                        Candidates =
+                        {
+                            new MajorityElectionResultBallotUpdatedCandidateEventData { CandidateId = "078ef959-d904-4a71-b48f-a157f7541d5a" },
+                            new MajorityElectionResultBallotUpdatedCandidateEventData { CandidateId = "7b3beea0-bba7-4d21-84a6-faac4557d366" },
+                        },
                     },
                 },
         };

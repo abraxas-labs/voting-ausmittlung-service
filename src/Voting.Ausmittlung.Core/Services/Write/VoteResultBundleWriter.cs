@@ -55,20 +55,10 @@ public class VoteResultBundleWriter
     {
         var contestId = await EnsurePoliticalBusinessPermissions(voteResultId);
 
-        var voteResultAggregate = await AggregateRepository.GetById<VoteResultAggregate>(voteResultId);
+        await EnsureBallotResultExists(ballotResultId, voteResultId);
 
-        if (voteResultAggregate.ResultEntryParams.AutomaticBallotBundleNumberGeneration)
-        {
-            bundleNumber = voteResultAggregate.GenerateBundleNumber(ballotResultId, contestId);
-        }
-        else if (bundleNumber.HasValue)
-        {
-            voteResultAggregate.BundleNumberEntered(bundleNumber.Value, ballotResultId, contestId);
-        }
-        else
-        {
-            throw new ValidationException("bundle number is not generated automatically and should be provided");
-        }
+        var voteResultAggregate = await AggregateRepository.GetById<VoteResultAggregate>(voteResultId);
+        bundleNumber = EnsureBundleNumber(voteResultAggregate, ballotResultId, bundleNumber, contestId);
 
         var aggregate = _aggregateFactory.New<VoteResultBundleAggregate>();
         aggregate.Create(
@@ -230,5 +220,43 @@ public class VoteResultBundleWriter
         {
             throw new ValidationException("unknown questions provided");
         }
+    }
+
+    /// <summary>
+    /// Validates that a ballot result with <paramref name="ballotResultId"/> exists and belongs to
+    /// <paramref name="voteResultId"/>, preventing a bundle from being created with a dangling reference
+    /// that would later fail to be inserted (foreign key violation) during event processing.
+    /// </summary>
+    /// <exception cref="EntityNotFoundException">Thrown if no such ballot result exists.</exception>
+    private async Task EnsureBallotResultExists(Guid ballotResultId, Guid voteResultId)
+    {
+        var ballotResultExists = await _ballotResultRepo.Query()
+            .AnyAsync(x => x.Id == ballotResultId && x.VoteResultId == voteResultId);
+        if (!ballotResultExists)
+        {
+            throw new EntityNotFoundException(ballotResultId);
+        }
+    }
+
+    /// <summary>
+    /// Determines the bundle number for a new bundle: generates it via the aggregate if automatic bundle
+    /// number generation is enabled, otherwise validates that <paramref name="bundleNumber"/> was provided
+    /// and registers it on the aggregate.
+    /// </summary>
+    /// <exception cref="ValidationException">Thrown if automatic generation is disabled and no bundle number was provided.</exception>
+    private int EnsureBundleNumber(VoteResultAggregate voteResultAggregate, Guid ballotResultId, int? bundleNumber, Guid contestId)
+    {
+        if (voteResultAggregate.ResultEntryParams.AutomaticBallotBundleNumberGeneration)
+        {
+            return voteResultAggregate.GenerateBundleNumber(ballotResultId, contestId);
+        }
+
+        if (bundleNumber.HasValue)
+        {
+            voteResultAggregate.BundleNumberEntered(bundleNumber.Value, ballotResultId, contestId);
+            return bundleNumber.Value;
+        }
+
+        throw new ValidationException("bundle number is not generated automatically and should be provided");
     }
 }

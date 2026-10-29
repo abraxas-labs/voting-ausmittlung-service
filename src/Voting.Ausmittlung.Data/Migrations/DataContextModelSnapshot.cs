@@ -314,6 +314,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<int>("MajorityElectionAbsoluteMajorityAlgorithm")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("MajorityElectionBundlesWithBallotGroupEnabled")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("MajorityElectionInvalidVotes")
                         .HasColumnType("boolean");
 
@@ -321,6 +324,12 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<bool>("ManualPublishResultsEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("MonitoringAutoShowPoliticalBusinesses")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("MonitoringUseImprovedUi")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("ProportionalElectionUseCandidateCheckDigit")
@@ -599,6 +608,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<int>("MajorityElectionAbsoluteMajorityAlgorithm")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("MajorityElectionBundlesWithBallotGroupEnabled")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("MajorityElectionInvalidVotes")
                         .HasColumnType("boolean");
 
@@ -606,6 +618,12 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<bool>("ManualPublishResultsEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("MonitoringAutoShowPoliticalBusinesses")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("MonitoringUseImprovedUi")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("ProportionalElectionUseCandidateCheckDigit")
@@ -1735,6 +1753,12 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<int>("Provider")
                         .HasColumnType("integer");
 
+                    b.Property<string[]>("SedexRecipientIds")
+                        .HasColumnType("text[]");
+
+                    b.Property<string>("SedexSenderId")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DomainOfInfluenceId");
@@ -1934,6 +1958,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<int>("BallotNumberGeneration")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("BundlesWithBallotGroupEnabled")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("CandidateCheckDigit")
                         .HasColumnType("boolean");
 
@@ -1942,6 +1969,9 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.Property<Guid>("DomainOfInfluenceId")
                         .HasColumnType("uuid");
+
+                    b.Property<bool>("EnforceBundlesWithBallotGroupEnabledForCountingCircles")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("EnforceCandidateCheckDigitForCountingCircles")
                         .HasColumnType("boolean");
@@ -2528,6 +2558,12 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<Guid>("CandidateId")
                         .HasColumnType("uuid");
 
+                    b.Property<bool>("OnBallotGroup")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Position")
+                        .HasColumnType("integer");
+
                     b.Property<bool>("Selected")
                         .HasColumnType("boolean");
 
@@ -2535,7 +2571,7 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.HasIndex("CandidateId");
 
-                    b.HasIndex("BallotId", "CandidateId")
+                    b.HasIndex("BallotId", "CandidateId", "Selected")
                         .IsUnique();
 
                     b.ToTable("MajorityElectionResultBallotCandidates");
@@ -2566,6 +2602,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("BallotGroupId")
+                        .HasColumnType("uuid");
+
                     b.Property<int>("CountOfBallots")
                         .HasColumnType("integer");
 
@@ -2579,6 +2618,8 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BallotGroupId");
 
                     b.HasIndex("ElectionResultId");
 
@@ -4423,6 +4464,12 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<Guid>("CandidateId")
                         .HasColumnType("uuid");
 
+                    b.Property<bool>("OnBallotGroup")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Position")
+                        .HasColumnType("integer");
+
                     b.Property<bool>("Selected")
                         .HasColumnType("boolean");
 
@@ -4430,7 +4477,7 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.HasIndex("CandidateId");
 
-                    b.HasIndex("BallotId", "CandidateId")
+                    b.HasIndex("BallotId", "CandidateId", "Selected")
                         .IsUnique();
 
                     b.ToTable("SecondaryMajorityElectionResultBallotCandidates");
@@ -7155,6 +7202,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                             b1.Property<int>("BallotNumberGeneration")
                                 .HasColumnType("integer");
 
+                            b1.Property<bool>("BundlesWithBallotGroupEnabled")
+                                .HasColumnType("boolean");
+
                             b1.Property<bool>("CandidateCheckDigit")
                                 .HasColumnType("boolean");
 
@@ -7259,6 +7309,11 @@ namespace Voting.Ausmittlung.Data.Migrations
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.MajorityElectionResultBundle", b =>
                 {
+                    b.HasOne("Voting.Ausmittlung.Data.Models.MajorityElectionBallotGroup", "BallotGroup")
+                        .WithMany("Bundles")
+                        .HasForeignKey("BallotGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Voting.Ausmittlung.Data.Models.MajorityElectionResult", "ElectionResult")
                         .WithMany("Bundles")
                         .HasForeignKey("ElectionResultId")
@@ -7314,6 +7369,8 @@ namespace Voting.Ausmittlung.Data.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("MajorityElectionResultBundleId");
                         });
+
+                    b.Navigation("BallotGroup");
 
                     b.Navigation("CreatedBy")
                         .IsRequired();
@@ -10545,6 +10602,8 @@ namespace Voting.Ausmittlung.Data.Migrations
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.MajorityElectionBallotGroup", b =>
                 {
                     b.Navigation("BallotGroupResults");
+
+                    b.Navigation("Bundles");
 
                     b.Navigation("Entries");
                 });

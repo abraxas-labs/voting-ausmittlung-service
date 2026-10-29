@@ -17,6 +17,7 @@
     "PoliticalBusinessResultBallot:delete",
     "VoteBallotResult:read",
     "MajorityElectionCandidate:read",
+    "MajorityElectionBallotGroup:read",
     "ProportionalElectionCandidate:read",
     "ProportionalElectionList:read",
     "EventLog:watch"

@@ -1,0 +1,12 @@
+{
+  "BallotGroups": [
+    {
+      "Id": "0034f358-1baa-47b4-a669-e648b5493f1e",
+      "MajorityElectionId": "d66ced3e-a2e4-4178-932b-ac91ee6a9d85",
+      "ShortDescription": "BG1",
+      "Description": "BG1 long description",
+      "Position": 1,
+      "Entries": []
+    }
+  ]
+}

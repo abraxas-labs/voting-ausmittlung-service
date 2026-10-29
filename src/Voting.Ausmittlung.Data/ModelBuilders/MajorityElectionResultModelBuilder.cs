@@ -140,7 +140,7 @@ public class MajorityElectionResultModelBuilder :
             .IsRequired();
 
         builder
-            .HasIndex(x => new { x.BallotId, x.CandidateId })
+            .HasIndex(x => new { x.BallotId, x.CandidateId, x.Selected })
             .IsUnique();
     }
 
@@ -178,7 +178,7 @@ public class MajorityElectionResultModelBuilder :
             .IsRequired();
 
         builder
-            .HasIndex(x => new { x.BallotId, x.CandidateId })
+            .HasIndex(x => new { x.BallotId, x.CandidateId, x.Selected })
             .IsUnique();
     }
 
@@ -193,6 +193,12 @@ public class MajorityElectionResultModelBuilder :
 
     public void Configure(EntityTypeBuilder<MajorityElectionResultBundle> builder)
     {
+        builder
+            .HasOne(x => x.BallotGroup)
+            .WithMany(x => x!.Bundles)
+            .HasForeignKey(x => x.BallotGroupId)
+            .OnDelete(DeleteBehavior.Cascade);
+
         builder
             .HasOne(x => x.ElectionResult)
             .WithMany(x => x.Bundles)

@@ -79,6 +79,7 @@ public static class CantonSettingsMockedData
                 },
             },
             ManualPublishResultsEnabled = true,
+            MajorityElectionBundlesWithBallotGroupEnabled = true,
         };
 
     public static CantonSettings Zurich
@@ -139,6 +140,7 @@ public static class CantonSettingsMockedData
             },
             StatePlausibilisedDisabled = true,
             EndResultFinalizeDisabled = true,
+            MajorityElectionBundlesWithBallotGroupEnabled = true,
         };
 
     public static IEnumerable<CantonSettings> All

@@ -54,6 +54,8 @@ public class MajorityElectionResultBundleReader
             .Include(x => x.MajorityElection.Contest.CantonDefaults)
             .Include(x => x.Bundles.OrderBy(b => b.Number))
             .ThenInclude(x => x.Logs.OrderBy(y => y.Timestamp))
+            .Include(x => x.Bundles)
+            .ThenInclude(x => x.BallotGroup)
             .FirstOrDefaultAsync(x => x.Id == electionResultId)
             ?? throw new EntityNotFoundException(electionResultId);
 
@@ -97,6 +99,16 @@ public class MajorityElectionResultBundleReader
             .Include(x => x.ElectionResult.MajorityElection.DomainOfInfluence)
             .Include(x => x.ElectionResult.SecondaryMajorityElectionResults).ThenInclude(r => r.SecondaryMajorityElection.Translations)
             .Include(x => x.Logs.OrderBy(y => y.Timestamp))
+            .Include(x => x.BallotGroup!.Entries)
+            .ThenInclude(x => x.Candidates.OrderBy(y => y.PrimaryElectionCandidate != null ? y.PrimaryElectionCandidate!.Position : y.SecondaryElectionCandidate!.Position))
+            .ThenInclude(x => x.PrimaryElectionCandidate!.Translations)
+            .Include(x => x.BallotGroup!.Entries)
+            .ThenInclude(x => x.Candidates)
+            .ThenInclude(x => x.SecondaryElectionCandidate!.Translations)
+            .Include(x => x.BallotGroup!.Entries)
+            .ThenInclude(x => x.PrimaryMajorityElection!.Translations)
+            .Include(x => x.BallotGroup!.Entries)
+            .ThenInclude(x => x.SecondaryMajorityElection!.Translations)
             .FirstOrDefaultAsync(x => x.Id == bundleId)
             ?? throw new EntityNotFoundException(bundleId);
 
