@@ -79,9 +79,9 @@ public class ResultReader
                    .ThenInclude(pb => pb.Translations)
                    .Include(x => x.SimplePoliticalBusinesses)
                    .ThenInclude(pb => pb.SimpleResults
-                       .Where(x => viewablePartialResultsCcIds.Count == 0
-                            || viewablePartialResultsCcIds.Contains(x.CountingCircleId)
-                            || x.PoliticalBusiness!.DomainOfInfluence.SecureConnectId == tenantId)
+                       .Where(x => viewablePartialResultsCcIds.Contains(x.CountingCircleId)
+                            || x.PoliticalBusiness!.DomainOfInfluence.SecureConnectId == tenantId
+                            || x.PoliticalBusiness.Contest.DomainOfInfluence.SecureConnectId == tenantId)
                        .OrderBy(x => x.CountingCircle!.Name))
                    .ThenInclude(r => r.CountingCircle!.ContestDetails)
                    .ThenInclude(x => x.VotingCards)

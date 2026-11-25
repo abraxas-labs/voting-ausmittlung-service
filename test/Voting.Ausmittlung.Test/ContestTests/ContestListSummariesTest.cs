@@ -11,6 +11,7 @@ using FluentAssertions;
 using Grpc.Net.Client;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
@@ -64,6 +65,33 @@ public class ContestListSummariesTest : BaseTest<ContestService.ContestServiceCl
     [Fact]
     public async Task TestAsMonitoringAdminShouldReturnParentAndOwnContestsWithoutForeignPoliticalBusinesses()
     {
+        var response = await MonitoringElectionAdminClient.ListSummariesAsync(new ListContestSummariesRequest());
+        response.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestAsMonitoringAdminShouldReturnPartialCountingCircleResults()
+    {
+        // St. Gallen should now be able to view those results
+        await ModifyDbEntities<DomainOfInfluence>(
+            x => x.SnapshotContestId == ContestMockedData.ArchivedBundesurnengang.Id && x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.StGallenStadt.BasisDomainOfInfluenceId,
+            x => x.ViewCountingCirclePartialResults = true);
+
+        using var channel = CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantStGallen.Id, TestDefaults.UserId, RolesMockedData.MonitoringElectionAdmin);
+        var client = new ContestService.ContestServiceClient(channel);
+        var response = await client.ListSummariesAsync(new ListContestSummariesRequest());
+        response.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestAsMonitoringAdminWithParentPartialCountingCircleResultsShouldNotBeIncluded()
+    {
+        // Set ViewCountingCirclePartialResults on St. Gallen.
+        // This should not work on child domain on influences, e.g. Gossau like tested here.
+        await ModifyDbEntities<DomainOfInfluence>(
+            x => x.SnapshotContestId == ContestMockedData.ArchivedBundesurnengang.Id && x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.StGallen.BasisDomainOfInfluenceId,
+            x => x.ViewCountingCirclePartialResults = true);
+
         var response = await MonitoringElectionAdminClient.ListSummariesAsync(new ListContestSummariesRequest());
         response.MatchSnapshot();
     }

@@ -1,4 +1,4 @@
-# ✨ Changelog (`v2.104.3`)
+# ✨ Changelog (`v2.104.5`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,11 +8,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v2.104.3
-Previous version ---- v2.102.1
+This version -------- v2.104.5
+Previous version ---- v2.104.3
 Initial version ----- v1.29.14
-Total commits ------- 16
+Total commits ------- 2
 ```
+
+## [v2.104.5] - 2026-11-19
+
+### 🔄 Changed
+
+- only list contest summaries for accessible political businesses
+
+## [v2.104.4] - 2026-11-19
+
+### 🔄 Changed
+
+- view all results as contest owner
 
 ## [v2.104.3] - 2026-10-21
 

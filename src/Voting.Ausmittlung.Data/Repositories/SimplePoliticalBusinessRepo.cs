@@ -39,6 +39,7 @@ public class SimplePoliticalBusinessRepo : DbRepository<DataContext, SimplePolit
         var permissionCcIdsColumn = _permissionRepo.GetColumnName(x => x.CountingCircleIds);
         var permissionBasisDoiIdColumn = _permissionRepo.GetColumnName(x => x.BasisDomainOfInfluenceId);
         var permissionTenantIdColumn = _permissionRepo.GetColumnName(x => x.TenantId);
+        var permissionIsParentColumn = _permissionRepo.GetColumnName(x => x.IsParent);
         var ccResultPbIdColumn = _simpleCcResultRepo.GetColumnName(x => x.PoliticalBusinessId);
         var ccResultCcIdColumn = _simpleCcResultRepo.GetColumnName(x => x.CountingCircleId);
         var doiIdColumn = _doiRepo.GetColumnName(x => x.Id);
@@ -72,6 +73,7 @@ public class SimplePoliticalBusinessRepo : DbRepository<DataContext, SimplePolit
                      ON doi.{{doiBasisIdColumn}} = doip.{{permissionBasisDoiIdColumn}} AND doi.{{doiSnapshotContestIdColumn}} = pb.{{pbContestIdColumn}}
                    WHERE {{ccResultPbIdColumn}} = pb.{{pbIdColumn}}
                      AND doip.{{permissionTenantIdColumn}} = {0}
+                     AND doip.{{permissionIsParentColumn}} = FALSE
                      AND doi.{{doiPartialCcResultsColumn}} = TRUE)
               """,
             tenantId);
